@@ -1,0 +1,24 @@
+# Dependências
+node_modules/
+venv/
+.venv/
+__pycache__/
+
+# Builds
+dist/
+build/
+
+# Ambiente e segredos
+.env
+.env.*
+*.pem
+*.key
+
+# Editor / SO
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
