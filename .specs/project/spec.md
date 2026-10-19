@@ -56,9 +56,9 @@ Ver BOUNDARIES do `AGENTS.md` (fonte única).
 - [ ] Cobertura do `Domain` ≥ 90%.
 - [ ] Nenhum valor numérico na ficha sem breakdown (teste de contrato).
 
-## Open Questions
-1. **Conteúdo fora do SRD 5.1** (sub-raças/arquétipos extras): incluir? (ADR-0004)
-2. **Métodos de atributo**: conjunto padrão + compra de pontos + manual — os três no MVP?
-3. **Antecedentes**: catálogo completo agora ou só "marque 2 perícias" (assumption 5)?
-4. **Deploy**: onde vai rodar (Azure App Service, container, só local)?
-5. **Exportar ficha** (PDF/print no layout oficial) é desejado no MVP?
+## Resolved Questions (2026-10-19)
+1. **Conteúdo fora do SRD 5.1**: incluir, só nome + mecânica resumida (ADR-0004 aceito).
+2. **Métodos de atributo**: os três no MVP — conjunto padrão, compra de pontos (27), manual.
+3. **Antecedentes**: só marcar 2 perícias (assumption 5 confirmada).
+4. **Deploy**: só local por enquanto (assumption 7).
+5. **Exportar ficha**: pós-MVP.

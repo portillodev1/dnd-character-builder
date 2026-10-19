@@ -15,7 +15,7 @@
 - Comece rodando `scripts/bootstrap.sh` (handoff do `STATE.md`); atualize `## Handoff` ao terminar uma unidade.
 
 **PERGUNTE QUANDO**
-- For commitar (padrão: **NÃO** commitar sem aprovação).
+- For dar **push** ou abrir PR (commit local é livre — ver Política de commit).
 - For apagar/renomear spec, design ou doc; ou mudar contrato público da API (`docs/architecture/api-contract.md`).
 - Precisar de dependência nova ou decisão de arquitetura → registre ADR em `docs/adr/`.
 - For incluir conteúdo de regras **fora do SRD 5.1** no catálogo (ver ADR-0004).
@@ -23,7 +23,7 @@
 **NUNCA FAÇA**
 - **LER TUDO de uma vez** (docs/rules/specs ou o repo inteiro).
 - Gerar doc/rule/spec com mais de 100 linhas.
-- Commitar sem aprovação explícita.
+- Commitar com `scripts/verify.sh` falhando, ou dar push sem aprovação explícita.
 - Versionar o PDF do Livro do Jogador ou colar trechos longos dele no repo (ADR-0004).
 - Colocar regra de cálculo de D&D no front-end — cálculo mora no `Domain` do back-end (ADR-0002).
 - Editar código gerado ou segredos (`.env`, chaves).
@@ -68,7 +68,8 @@
 - Specs: `.specs/` (skill `spec-driven-development`).
 
 ## Política de commit e limpeza
-- **Commit sob aprovação** (padrão: não commitar).
+- **Commit livre** ao fim de cada tarefa, só com `scripts/verify.sh` saindo 0; mensagem cita a spec.
+- **Push sob aprovação**: pergunte antes de cada `git push` (antes, `git pull` se o remoto mudou).
 - **Limpeza após aprovação**: remova efêmeros (`tasks.md`, logs, contratos de iteração).
   Preserve `spec.md`, `design.md`, `AGENTS.md`, `rules/`, `docs/`, `HARNESS.md`, `STATE.md`, `ROADMAP.md`.
 - **Loop**: não limpe a cada tarefa; só quando o loop inteiro terminar e for aprovado.

@@ -1,20 +1,14 @@
-# scripts/ — comandos repetíveis executáveis
+# docs/adr/ — Architecture Decision Records (para HUMANOS)
 
-Todo comando que o agente repetiria vira script aqui. O agente **roda o script**,
-não monta o comando: economiza tokens, padroniza flags e dá saída 0/1 para os gates.
-No Windows rode via **Git Bash** (`bash scripts/verify.sh`).
+Uma decisão por arquivo (`ADR-0001-...md`). São imutáveis: para reverter, crie um novo
+ADR com status "substitui ADR-XXXX". O AGENTS.md apenas **aponta** para cá.
 
-| Script | Faz | Flags |
+Gatilho: dependência nova ou decisão de arquitetura (BOUNDARIES do AGENTS.md).
+Modelo: [ADR.template.md](ADR.template.md).
+
+| ADR | Decisão | Status |
 |---|---|---|
-| `test.sh` | Testes do back (`dotnet test`) e front (`ng test`, Vitest) | `--back`, `--front`, `--filter <p>`, `--watch` |
-| `lint.sh` | `dotnet format --verify-no-changes` + `ng lint` + Prettier | `--fix` |
-| `build.sh` | `dotnet build -c Release` + `ng build` | — |
-| `check-docs.sh` | Sensor: nenhum `.md` acima de 100 linhas | — |
-| `verify.sh` | **Gate**: check-docs + build + lint + test | `--strict` |
-| `_lib.sh` | Helpers (detecção de back/front, `skip`) — não executar | — |
-
-## Fase atual: só estrutura
-Enquanto `backend/DndBuilder.slnx` e `frontend/package.json` não existem, os scripts
-imprimem `SKIP: ... ainda não scaffoldado` e seguem (saída 0). Use `--strict`
-(ou `STRICT=1`) para que SKIP conte como falha — **obrigatório a partir da Fase 1
-do `ROADMAP.md`**.
+| [0001](ADR-0001-monorepo-angular-dotnet.md) | Monorepo com Angular 22 + .NET 10 LTS | aceito |
+| [0002](ADR-0002-stateless-api-rules-in-domain.md) | API stateless, sem banco; cálculo só no Domain | aceito |
+| [0003](ADR-0003-ruleset-as-versioned-json.md) | Catálogo de regras como JSON versionado com schema | aceito |
+| [0004](ADR-0004-content-licensing.md) | Conteúdo: SRD 5.1 + resumos próprios; PDF não versionado | aceito |
