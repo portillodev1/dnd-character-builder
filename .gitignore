@@ -22,3 +22,14 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Livro do Jogador / material de referência (ADR-0004)
+*.pdf
+
+# .NET
+bin/
+obj/
+*.user
+
+# Angular
+.angular/

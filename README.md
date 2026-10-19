@@ -1,17 +1,27 @@
 # D&D Character Builder
 
-Ferramenta para ajudar jogadores iniciantes a criar seu personagem de D&D 5e, guiando a escolha de raça e classe e explicando bônus, habilidades e demais detalhes de cada decisão.
-
-## Objetivo
-
-- Guiar o usuário passo a passo na criação do personagem
-- Sugerir opções com base na classe e raça escolhidas
-- Explicar bônus raciais, proficiências, habilidades e características de classe em linguagem simples
+Ferramenta para ajudar jogadores iniciantes de D&D 5e a criar a ficha de personagem,
+explicando **de onde vem cada número**: traços da raça, características da classe por
+nível, perícias, salvaguardas e o tipo de cada bônus.
 
 ## Status
+**Fase 0 — Fundação**: arquitetura, harness e specs prontos; ainda sem código.
+Próximos passos em [ROADMAP.md](ROADMAP.md).
 
-Projeto em fase inicial. Ainda sem código.
+## Stack
+Angular 22 (Node 24 LTS) · .NET 10 LTS (ASP.NET Core Minimal APIs) · catálogo de regras em JSON.
 
-## Referência
+## Onde começar
+| Você é… | Leia |
+|---|---|
+| Pessoa desenvolvedora | [docs/README.md](docs/README.md) → arquitetura e domínio |
+| Agente de código | [AGENTS.md](AGENTS.md) |
+| Quer ver o escopo | [.specs/project/spec.md](.specs/project/spec.md) e [ROADMAP.md](ROADMAP.md) |
 
-Regras baseadas no Livro do Jogador de D&D 5e.
+## Pré-requisitos (a partir da Fase 1)
+.NET SDK 10 · Node 24 LTS · Git Bash (Windows). Gate: `bash scripts/verify.sh --strict`.
+
+## Referência e licença do conteúdo
+Regras baseadas no Livro do Jogador de D&D 5e (páginas citadas para consulta) e no
+System Reference Document 5.1 da Wizards of the Coast, licenciado sob CC-BY-4.0.
+Ver [ADR-0004](docs/adr/ADR-0004-content-licensing.md).
