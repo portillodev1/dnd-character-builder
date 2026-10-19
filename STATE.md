@@ -20,21 +20,24 @@ Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia 
 | AD-012 | 2026-10-19 | Antecedente no MVP = marcar 2 perícias; deploy só local; PDF pós-MVP | spec projeto |
 
 ## Eval gates disponíveis (de `HARNESS.md` §4)
-`check-docs.sh` ✅ · `build.sh` / `lint.sh` / `test.sh` ⏳ (SKIP até a Fase 1) · `verify.sh --strict` ⏳
+`check-docs.sh` ✅ · `build.sh` ✅ · `lint.sh` ✅ · `test.sh --back` ✅ (6) · `test.sh --front` ✅ (1) · `verify.sh --strict` ✅ · CI `verify.yml` ⏳ (roda no próximo push)
 
 ## Specs
 | Feature | Fase spec-driven | Artefatos |
 |---|---|---|
-| projeto | Specify ✅ · Plan ✅ · Tasks ☐ | `.specs/project/spec.md`, `plan.md` |
+| projeto | Specify ✅ · Plan ✅ · Tasks Fase 1 ✅ | `.specs/project/spec.md`, `plan.md` |
 | F1 race-traits | Specify ✅ | `.specs/features/race-traits/spec.md` |
 | F2 class-features | Specify ✅ | `.specs/features/class-features/spec.md` |
 | F3 skills-saves | Specify ✅ | `.specs/features/skills-saves/spec.md` |
 | F4 bonus-breakdown | Specify ✅ | `.specs/features/bonus-breakdown/spec.md` |
 
 ## Handoff
-- **Última unidade**: Fase 0 — Fundação (bootstrap, harness, arquitetura, specs). Nada commitado.
-- **Bloqueios**: .NET SDK 10 não instalado na máquina; ADR-0004 item 4 aguarda decisão;
-  perguntas abertas em `.specs/project/spec.md`.
-- **Próxima unidade**: revisão humana das specs → Tasks da Fase 1 (Scaffold).
-- **Gates**: `verify.sh` verde (com SKIP). `--strict` falha até o scaffold existir (esperado).
-- **Budget/loop**: n/a.
+- **Última unidade**: Fase 1 — Scaffold (T1–T7 de `.specs/project/tasks-fase-1.md`). Commitado; **push pendente de aprovação**.
+- **Feito**: `backend/DndBuilder.slnx` (.NET 10, 4 src + 3 testes xUnit v3/MTP, `/health`, OpenAPI,
+  ArchitectureTests); `frontend/` Angular 22.2 (zoneless, Vitest, angular-eslint + regras de fronteira,
+  shell do wizard com 5 rotas lazy); CI `.github/workflows/verify.yml`.
+- **Bloqueios**: nenhum. CI só será validado de verdade após o push.
+- **Próxima unidade**: Fase 2 — motor de regras no `Domain` (`.specs/project/plan.md` item 2),
+  guiado por `docs/domain/calculations.md` §1–6. Gerar `tasks-fase-2.md` antes de codar.
+- **Limpeza**: apagar `.specs/project/tasks-fase-1.md` quando a Fase 1 for aprovada.
+- **Gates**: `verify.sh --strict` verde.

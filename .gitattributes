@@ -1,2 +1,5 @@
-* text=auto
+# LF em tudo: Prettier/dotnet format checam fim de linha e o CI roda em Linux.
+* text=auto eol=lf
 *.sh text eol=lf
+*.ico binary
+*.png binary

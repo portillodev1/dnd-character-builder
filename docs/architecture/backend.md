@@ -8,6 +8,7 @@ backend/
   DndBuilder.slnx
   Directory.Build.props        # Nullable, TreatWarningsAsErrors, LangVersion
   Directory.Packages.props     # versões centralizadas (CPM)
+  (../global.json)             # SDK 10 + runner Microsoft Testing Platform, na raiz do repo
   src/
     DndBuilder.Domain/         # motor de regras puro
     DndBuilder.Application/    # casos de uso + portas

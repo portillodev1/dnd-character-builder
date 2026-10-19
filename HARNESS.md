@@ -8,7 +8,7 @@
 - **Fronteiras**: claras por projeto .NET (`Domain` puro) e por feature Angular; testáveis por reflexão/ESLint.
 - **Frameworks fortes**: ASP.NET Core Minimal APIs, Angular 22 (standalone, signals). Pouca superfície livre.
 - **Situação**: greenfield, **sem código**. Harness assado desde o dia 1; sensores de código
-  ficam "planejados" e viram obrigatórios com `verify.sh --strict` na Fase 1 do `ROADMAP.md`.
+  ficam "planejados" até existirem; desde a Fase 1 o gate é `verify.sh --strict`.
 - **Risco maior**: regra de D&D errada (comportamento) e número sem explicação (critério 4).
 
 ## 2. Controles por categoria (resumo)
@@ -18,15 +18,15 @@
 |---|---|---|---|---|
 | `AGENTS.md` + `rules/*.md` (progressive loading) | guia | inferencial | antes da geração | ✅ |
 | `scripts/check-docs.sh` (md ≤ 100 linhas) | sensor | computacional | verify | ✅ |
-| `dotnet format --verify-no-changes` / `ng lint` + Prettier | sensor | computacional | verify | planejado |
-| Compilador C# (warnings-as-errors) / `tsc` strict | sensor | computacional | build | planejado |
+| `dotnet format --verify-no-changes` / `ng lint` + Prettier | sensor | computacional | verify | ✅ |
+| Compilador C# (warnings-as-errors + analyzers) / `tsc` strict | sensor | computacional | build | ✅ |
 
 ### Fitness de arquitetura
 | Controle | Direção | Execução | Onde roda | Status |
 |---|---|---|---|---|
 | `rules/backend-dotnet.md`, `rules/frontend-angular.md`, ADRs | guia | inferencial | antes da geração | ✅ |
-| Teste de dependência: `Domain` sem referências | sensor | computacional | test | planejado |
-| ESLint: proibir import entre `features/*` e fórmula no front | sensor | computacional | lint | planejado |
+| Teste de dependência: `Domain` e `Application` (`ArchitectureTests`) | sensor | computacional | test | ✅ |
+| ESLint: import entre `features/*`, OnPush, control flow | sensor | computacional | lint | ✅ |
 | Startup falha se `content/` inválido | sensor | computacional | runtime/test | planejado |
 
 ### Comportamento
@@ -43,7 +43,7 @@
 ## 3. Posicionamento no ciclo ("keep quality left")
 - **Pré-geração**: AGENTS.md → rule da tarefa → spec da feature.
 - **Pré-commit / fim de tarefa**: `scripts/verify.sh` (check-docs, build, lint, test). Obrigatório.
-- **Pipeline (fase 1)**: GitHub Actions rodando `scripts/verify.sh --strict` em PR.
+- **Pipeline**: `.github/workflows/verify.yml` roda `scripts/verify.sh --strict` em PR e push na `main`.
 - **Contínuo**: `check-docs.sh` contra inchaço de docs; revisão de `content/` contra LdJ por humano.
 
 ## 4. Loop de autocorreção
@@ -69,3 +69,5 @@
 | Data | Problema recorrente | Controle criado/ajustado |
 |---|---|---|
 | 2026-10-19 | (setup) docs gerados sem teto de tamanho tendem a inchar | `check-docs.sh` no gate |
+| 2026-10-19 | Sensor de fronteira "passava" com violação: `const` é inlinada e não gera referência | Validar sensores quebrando de propósito com um **tipo**, não constante |
+| 2026-10-19 | `dotnet test` (VSTest) incompatível com xUnit v3 no .NET 10 | `global.json` na raiz com `test.runner = Microsoft.Testing.Platform` |

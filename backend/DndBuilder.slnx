@@ -1,0 +1,13 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/DndBuilder.Api/DndBuilder.Api.csproj" />
+    <Project Path="src/DndBuilder.Application/DndBuilder.Application.csproj" />
+    <Project Path="src/DndBuilder.Domain/DndBuilder.Domain.csproj" />
+    <Project Path="src/DndBuilder.Infrastructure/DndBuilder.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/DndBuilder.Api.Tests/DndBuilder.Api.Tests.csproj" />
+    <Project Path="tests/DndBuilder.Domain.Tests/DndBuilder.Domain.Tests.csproj" />
+    <Project Path="tests/DndBuilder.Ruleset.Tests/DndBuilder.Ruleset.Tests.csproj" />
+  </Folder>
+</Solution>

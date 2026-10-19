@@ -13,7 +13,7 @@ esac; shift; done
 if [ "$PART" != "front" ]; then
   if has_back; then
     if [ $WATCH = 1 ]; then dotnet watch test --project "$ROOT/backend/tests/DndBuilder.Domain.Tests"
-    else dotnet test "$BACK_SLN" ${FILTER:+--filter "$FILTER"}; fi
+    else dotnet test --solution "$BACK_SLN" ${FILTER:+--filter-method "*$FILTER*"}; fi
   else skip "backend"; fi
 fi
 if [ "$PART" != "back" ]; then

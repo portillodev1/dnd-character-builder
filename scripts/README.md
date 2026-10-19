@@ -14,8 +14,11 @@ No Windows rode via **Git Bash** (`bash scripts/verify.sh`).
 | `bootstrap.sh` | Reconstrói contexto: handoff, git, toolchain, scaffold | — |
 | `_lib.sh` | Helpers (detecção de back/front, `skip`) — não executar | — |
 
-## Fase atual: só estrutura
-Enquanto `backend/DndBuilder.slnx` e `frontend/package.json` não existem, os scripts
-imprimem `SKIP: ... ainda não scaffoldado` e seguem (saída 0). Use `--strict`
-(ou `STRICT=1`) para que SKIP conte como falha — **obrigatório a partir da Fase 1
-do `ROADMAP.md`**.
+## Modo estrito (padrão desde a Fase 1)
+Back-end e front-end existem, então use sempre `scripts/verify.sh --strict` (também é o que o CI
+roda): se `backend/DndBuilder.slnx` ou `frontend/package.json` sumirem, o `SKIP` vira falha.
+
+## Notas da stack
+- Testes .NET usam **Microsoft Testing Platform** (`global.json` na raiz). `--filter <p>` vira
+  `--filter-method "*<p>*"` no back e `--filter <p>` no Vitest.
+- Front: `npm ci` em `frontend/` antes do primeiro build em máquina nova.

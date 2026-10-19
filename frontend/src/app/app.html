@@ -1,0 +1,19 @@
+<header>
+  <h1>Criador de Fichas D&amp;D 5e</h1>
+</header>
+
+<nav aria-label="Passos da criação do personagem">
+  <ol>
+    @for (step of steps; track step.path) {
+      <li>
+        <a [routerLink]="step.path" routerLinkActive="active" ariaCurrentWhenActive="step">
+          {{ step.label }}
+        </a>
+      </li>
+    }
+  </ol>
+</nav>
+
+<main>
+  <router-outlet />
+</main>

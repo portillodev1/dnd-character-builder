@@ -10,7 +10,7 @@
 - **PROGRESSIVE LOADING — NÃO LEIA TUDO.** Abra só o que a Quick reference indica para o pedido atual.
 - Mantenha cada doc/rule/spec **30–70 linhas (ideal), ≤100 (teto)**. Passou → quebre em `.md` menores + índice.
 - Rode tarefas repetíveis via `scripts/` (ex.: `scripts/test.sh`), nunca montando `dotnet`/`ng`/`npx` na mão.
-- Antes de dizer "pronto", rode `scripts/verify.sh` e só conclua se sair 0.
+- Antes de dizer "pronto", rode `scripts/verify.sh --strict` e só conclua se sair 0.
 - Toda regra de D&D implementada cita a página do Livro do Jogador (ver `docs/domain/README.md`).
 - Comece rodando `scripts/bootstrap.sh` (handoff do `STATE.md`); atualize `## Handoff` ao terminar uma unidade.
 
@@ -40,7 +40,7 @@
 | Testar | `scripts/test.sh [--front\|--back] [--filter <p>]` | `dotnet test` / `ng test` na mão |
 | Lint/format | `scripts/lint.sh [--fix]` | lembrar flags do linter |
 | Build | `scripts/build.sh` | — |
-| Gate final | `scripts/verify.sh [--strict]` | concluir sem validar |
+| Gate final | `scripts/verify.sh --strict` (mesmo do CI) | concluir sem validar |
 
 ## Quick reference — o que carregar por tipo de tarefa
 > **Carregue SÓ a linha que casa com o pedido atual.**

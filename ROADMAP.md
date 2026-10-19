@@ -13,8 +13,8 @@ Objetivo: iniciante monta a ficha de D&D 5e entendendo de onde vem cada número.
 ## Fases
 | Fase | Entrega | Gate de saída | Status |
 |---|---|---|---|
-| 0 — Fundação | AGENTS.md, rules, scripts, harness, arquitetura, specs | `verify.sh` verde (SKIP permitido) | ✅ aguardando revisão |
-| 1 — Scaffold | .NET 10 SDK; `DndBuilder.slnx` + 4 projetos + 3 de teste; `ng new` Angular 22; ESLint/Prettier; CI | `verify.sh --strict` verde com 1 teste trivial por projeto | ☐ |
+| 0 — Fundação | AGENTS.md, rules, scripts, harness, arquitetura, specs | `verify.sh` verde (SKIP permitido) | ✅ |
+| 1 — Scaffold | .NET 10 SDK; `DndBuilder.slnx` + 4 projetos + 3 de teste; `ng new` Angular 22; ESLint/Prettier; CI | `verify.sh --strict` verde com 1 teste trivial por projeto | ✅ aguardando revisão |
 | 2 — Motor de regras | `Domain`: atributos, modificador, proficiência, perícias, salvaguardas, `DerivedValue` | `Domain.Tests` cobre `docs/domain/calculations.md` §1–6 | ☐ |
 | 3 — Catálogo | schemas + 9 raças (+ sub-raças) + 12 classes (níveis 1–20, classe base) | `Ruleset.Tests` verde; revisão humana vs. LdJ | ☐ |
 | 4 — API | endpoints de `docs/architecture/api-contract.md` + OpenAPI | `Api.Tests` verde | ☐ |
