@@ -30,16 +30,31 @@ import { optionLabel } from '../../shared/labels';
     fieldset {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.25rem 1rem;
+      gap: 0.5rem;
+      border-color: var(--accent);
     }
-    legend {
-      font-weight: 700;
+    label {
+      display: inline-flex;
+      gap: 0.4rem;
+      align-items: center;
+      padding: 0.3rem 0.7rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    label:has(:checked) {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+    label:has(:disabled) {
+      opacity: 0.6;
+      cursor: not-allowed;
     }
     .counter,
     .page {
       font-weight: 400;
       font-size: 0.9em;
-      color: #444;
+      color: var(--muted);
       width: 100%;
       margin: 0;
     }

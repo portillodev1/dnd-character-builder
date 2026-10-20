@@ -185,29 +185,51 @@ interface BonusGroup {
     <app-step-nav step="ficha" />
   `,
   styles: `
+    app-bonus-legend {
+      display: block;
+      margin-bottom: 1rem;
+    }
     .sheet {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
       gap: 1rem;
+      align-items: start;
+    }
+    .sheet > section {
+      padding: 0 1rem 1rem;
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--accent);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+    .sheet h3 {
+      margin-top: 1rem;
     }
     .ability {
       display: flex;
       gap: 0.5rem;
       align-items: center;
-      padding: 0.25rem 0;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .ability:last-child {
+      border-bottom: 0;
     }
     .ability .name {
       min-width: 7rem;
+      font-weight: 600;
     }
     dl {
       display: grid;
       grid-template-columns: 1fr auto;
-      gap: 0.25rem 0.5rem;
+      gap: 0.5rem;
+      align-items: center;
     }
     dd {
       margin: 0;
     }
     .plain {
+      margin: 0;
       padding: 0;
       list-style: none;
     }
@@ -215,25 +237,36 @@ interface BonusGroup {
       display: flex;
       gap: 0.5rem;
       align-items: center;
-      padding: 0.1rem 0;
+      padding: 0.15rem 0;
     }
     .dot {
+      flex: none;
       display: inline-block;
       width: 0.8rem;
       height: 0.8rem;
-      border: 2px solid #333;
+      border: 2px solid var(--ink);
       border-radius: 50%;
     }
     .dot.on {
-      background: #333;
+      background: var(--accent);
+      border-color: var(--accent);
     }
     .cards {
       display: grid;
-      gap: 0.5rem;
+      gap: 0.75rem;
+    }
+    .cards h3 {
+      margin-bottom: 0;
     }
     .pending {
-      border-left: 4px solid #9c6500;
-      padding-left: 0.75rem;
+      padding: 0.25rem 1rem;
+      border-left: 4px solid var(--warning);
+      border-radius: var(--radius-sm);
+      background: var(--warning-soft);
+    }
+    .pending h3 {
+      margin-top: 0.5rem;
+      color: var(--warning);
     }
   `,
 })
@@ -241,10 +274,7 @@ export class SheetStepComponent {
   protected readonly store = inject(CharacterDraftStore);
 
   protected readonly abilities = computed(() =>
-    Object.entries(this.store.sheet()?.abilities ?? {}).map(([id, a]) => ({
-      id,
-      ...a,
-    })),
+    Object.entries(this.store.sheet()?.abilities ?? {}).map(([id, a]) => ({ id, ...a })),
   );
   protected readonly saves = computed(() =>
     Object.entries(this.store.sheet()?.savingThrows ?? {}).map(([id, t]) => ({
@@ -254,10 +284,7 @@ export class SheetStepComponent {
     })),
   );
   protected readonly skills = computed(() =>
-    Object.entries(this.store.sheet()?.skills ?? {}).map(([id, k]) => ({
-      id,
-      ...k,
-    })),
+    Object.entries(this.store.sheet()?.skills ?? {}).map(([id, k]) => ({ id, ...k })),
   );
 
   /** "Meus bônus" agrupado por origem: Raça, Sub-raça, Classe (nível N), Escolhas (F4 AC4–AC5). */
@@ -279,10 +306,7 @@ export class SheetStepComponent {
       sheet.traits.find((t) => t.origin === 'subrace')?.originName;
     const groups: BonusGroup[] = [
       { title: `Raça${race ? ` — ${race}` : ''}`, items: byOrigin('race') },
-      {
-        title: `Sub-raça${subrace ? ` — ${subrace}` : ''}`,
-        items: byOrigin('subrace'),
-      },
+      { title: `Sub-raça${subrace ? ` — ${subrace}` : ''}`, items: byOrigin('subrace') },
       {
         title: `Classe (nível ${draft.level ?? 1})`,
         items: sheet.features.map(

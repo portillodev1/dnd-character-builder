@@ -143,21 +143,41 @@ const ABILITIES = Object.keys(ABILITY_NAMES);
     />
   `,
   styles: `
+    fieldset {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    fieldset label {
+      display: inline-flex;
+      gap: 0.4rem;
+      align-items: center;
+      padding: 0.35rem 0.8rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    fieldset label:has(:checked) {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      font-weight: 600;
+    }
+    fieldset p {
+      width: 100%;
+      margin: 0.25rem 0 0;
+      color: var(--muted);
+    }
     table {
-      border-collapse: collapse;
       margin-top: 1rem;
     }
-    th,
-    td {
-      padding: 0.25rem 0.75rem;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
+    tbody th {
+      font-weight: 600;
+    }
+    td input {
+      width: 5rem;
     }
     .error {
-      color: #a51d2d;
-    }
-    .help {
-      color: #444;
+      color: var(--danger);
     }
   `,
 })

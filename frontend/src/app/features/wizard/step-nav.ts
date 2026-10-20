@@ -17,7 +17,7 @@ import { neighbor } from './wizard-steps';
           <button type="button" disabled aria-describedby="blocked-reason">Próximo</button>
           <span id="blocked-reason" class="reason">{{ reason }}</span>
         } @else {
-          <a [routerLink]="['..', n]" class="next">Próximo</a>
+          <a [routerLink]="['..', n]" class="next button-primary">Próximo</a>
         }
       }
     </div>
@@ -28,10 +28,12 @@ import { neighbor } from './wizard-steps';
       flex-wrap: wrap;
       gap: 1rem;
       align-items: center;
-      margin-top: 1.5rem;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
     }
     .reason {
-      color: #a51d2d;
+      color: var(--danger);
     }
   `,
 })

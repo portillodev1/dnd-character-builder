@@ -113,29 +113,67 @@ import { StepNavComponent } from '../wizard/step-nav';
     .races,
     fieldset {
       display: grid;
-      gap: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 0.25rem;
+      grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+      gap: 0.75rem;
+    }
+    legend {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
     }
     .race {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.25rem 0.5rem;
-      align-items: baseline;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      align-content: start;
+      gap: 0.2rem 0.6rem;
+      padding: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--bg);
+      cursor: pointer;
+    }
+    .race:hover {
+      border-color: var(--control-border);
+    }
+    .race:has(:checked) {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      box-shadow: inset 0 0 0 1px var(--accent);
+    }
+    .race input {
+      align-self: center;
+    }
+    .race strong {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+    }
+    .race span {
+      grid-column: 2;
+      font-size: 0.92em;
     }
     .bonuses {
-      color: #444;
-      font-size: 0.9em;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    section ul {
+      margin: 0;
+      padding: 0.75rem 1rem 0.75rem 2rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
     }
     .traits {
       display: grid;
-      gap: 0.5rem;
+      gap: 0.75rem;
+    }
+    .traits h3 {
+      margin-bottom: 0;
     }
     .notice {
-      color: #9c6500;
-    }
-    .help {
-      color: #444;
+      padding: 0.5rem 0.75rem;
+      border-left: 4px solid var(--warning);
+      border-radius: var(--radius-sm);
+      background: var(--warning-soft);
+      color: var(--warning);
     }
   `,
 })

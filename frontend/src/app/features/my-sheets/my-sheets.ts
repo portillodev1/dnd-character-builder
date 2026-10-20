@@ -55,30 +55,52 @@ import { SheetService } from '../../core/api/sheet.service';
     .new {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.5rem 0.75rem;
       align-items: center;
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+    .new label {
+      font-weight: 600;
+    }
+    .new input {
+      flex: 1 1 14rem;
     }
     .list {
+      display: grid;
+      gap: 0.5rem;
       padding: 0;
       list-style: none;
     }
     .list li {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem 1rem;
-      align-items: baseline;
-      padding: 0.5rem 0;
-      border-bottom: 1px solid #ddd;
+      gap: 0.25rem 1rem;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+    .list a {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+    .list button {
+      margin-left: auto;
     }
     .meta {
-      color: #444;
+      color: var(--muted);
       font-size: 0.9em;
     }
-    .confirm {
-      padding: 1rem;
-      border: 2px solid #a51d2d;
-      border-radius: 0.25rem;
-      background: #fff;
+    .confirm button:first-of-type {
+      border-color: var(--danger);
+      background: var(--danger);
+      color: var(--surface);
     }
   `,
 })

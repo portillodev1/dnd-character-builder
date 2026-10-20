@@ -27,6 +27,7 @@ import { BONUS_TYPES, KINDS } from '../labels';
     }
     dd {
       margin: 0;
+      color: var(--muted);
     }
   `,
 })

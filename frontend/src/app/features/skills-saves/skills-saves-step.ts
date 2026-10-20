@@ -48,90 +48,91 @@ const PROFICIENCY_TEXT: Readonly<Record<string, string>> = {
           Perícias do {{ d.name }}: {{ classPicks().length }} de {{ d.skillChoices.count }} ·
           Antecedente: {{ backgroundPicks().length }} de {{ backgroundCount }}
           @if (d.expertiseCount > 0) {
-            · Especialização: {{ expertisePicks().length }} de
-            {{ d.expertiseCount }}
+            · Especialização: {{ expertisePicks().length }} de {{ d.expertiseCount }}
           }
         </p>
       } @else {
         <p>Escolha a classe no passo anterior para marcar as perícias da classe.</p>
       }
 
-      <table class="skills">
-        <caption>
-          Perícias
-        </caption>
-        <thead>
-          <tr>
-            <th scope="col">Perícia</th>
-            <th scope="col">Classe</th>
-            <th scope="col">Antecedente</th>
-            <th scope="col">Especialização</th>
-            <th scope="col">Proficiência</th>
-            <th scope="col">Valor</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for (row of rows(); track row.id) {
+      <div class="table-scroll" role="region" aria-label="Tabela de perícias" tabindex="0">
+        <table class="skills">
+          <caption>
+            Perícias
+          </caption>
+          <thead>
             <tr>
-              <th scope="row">{{ row.sheetLabel }}</th>
-              <td>
-                <input
-                  type="checkbox"
-                  [attr.aria-label]="'Perícia de classe: ' + row.name"
-                  [checked]="row.classPicked"
-                  [disabled]="!!row.classBlocked"
-                  [title]="row.classBlocked ?? ''"
-                  (change)="toggleClass(row.id)"
-                />
-                @if (row.classBlocked && !row.classPicked) {
-                  <span class="reason">{{ row.classBlocked }}</span>
-                }
-              </td>
-              <td>
-                <input
-                  type="checkbox"
-                  [attr.aria-label]="'Perícia do antecedente: ' + row.name"
-                  [checked]="row.backgroundPicked"
-                  [disabled]="!!row.backgroundBlocked"
-                  [title]="row.backgroundBlocked ?? ''"
-                  (change)="toggleBackground(row.id)"
-                />
-              </td>
-              <td>
-                @if (row.proficient) {
+              <th scope="col">Perícia</th>
+              <th scope="col">Classe</th>
+              <th scope="col">Antecedente</th>
+              <th scope="col">Especialização</th>
+              <th scope="col">Proficiência</th>
+              <th scope="col">Valor</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (row of rows(); track row.id) {
+              <tr>
+                <th scope="row">{{ row.sheetLabel }}</th>
+                <td>
                   <input
                     type="checkbox"
-                    [attr.aria-label]="'Especialização: ' + row.name"
-                    [checked]="row.expertise"
-                    [disabled]="!!row.expertiseBlocked"
-                    [title]="row.expertiseBlocked ?? ''"
-                    (change)="toggleExpertise(row.id)"
+                    [attr.aria-label]="'Perícia de classe: ' + row.name"
+                    [checked]="row.classPicked"
+                    [disabled]="!!row.classBlocked"
+                    [title]="row.classBlocked ?? ''"
+                    (change)="toggleClass(row.id)"
                   />
-                }
-              </td>
-              <td>
-                <span class="dot" [class.on]="row.proficient" aria-hidden="true"></span>
-                {{ row.proficiencyText }}
-                @if (row.sources.length > 0) {
-                  <small>({{ row.sources.join(', ') }})</small>
-                }
-              </td>
-              <td>
-                @if (row.total !== null && row.parts) {
-                  <app-bonus-breakdown
-                    [label]="row.name"
-                    [total]="row.total"
-                    [parts]="row.parts"
-                    [withSign]="true"
+                  @if (row.classBlocked && !row.classPicked) {
+                    <span class="reason">{{ row.classBlocked }}</span>
+                  }
+                </td>
+                <td>
+                  <input
+                    type="checkbox"
+                    [attr.aria-label]="'Perícia do antecedente: ' + row.name"
+                    [checked]="row.backgroundPicked"
+                    [disabled]="!!row.backgroundBlocked"
+                    [title]="row.backgroundBlocked ?? ''"
+                    (change)="toggleBackground(row.id)"
                   />
-                } @else {
-                  —
-                }
-              </td>
-            </tr>
-          }
-        </tbody>
-      </table>
+                </td>
+                <td>
+                  @if (row.proficient) {
+                    <input
+                      type="checkbox"
+                      [attr.aria-label]="'Especialização: ' + row.name"
+                      [checked]="row.expertise"
+                      [disabled]="!!row.expertiseBlocked"
+                      [title]="row.expertiseBlocked ?? ''"
+                      (change)="toggleExpertise(row.id)"
+                    />
+                  }
+                </td>
+                <td>
+                  <span class="dot" [class.on]="row.proficient" aria-hidden="true"></span>
+                  {{ row.proficiencyText }}
+                  @if (row.sources.length > 0) {
+                    <small>({{ row.sources.join(', ') }})</small>
+                  }
+                </td>
+                <td>
+                  @if (row.total !== null && row.parts) {
+                    <app-bonus-breakdown
+                      [label]="row.name"
+                      [total]="row.total"
+                      [parts]="row.parts"
+                      [withSign]="true"
+                    />
+                  } @else {
+                    —
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
 
       <table class="saves">
         <caption>
@@ -183,41 +184,59 @@ const PROFICIENCY_TEXT: Readonly<Record<string, string>> = {
   `,
   styles: `
     table {
-      border-collapse: collapse;
-      margin: 1rem 0;
-    }
-    caption {
-      text-align: left;
-      font-weight: 700;
+      margin: 1.5rem 0;
     }
     th,
     td {
-      padding: 0.2rem 0.5rem;
-      text-align: left;
-      border-bottom: 1px solid #ddd;
+      padding: 0.3rem 0.6rem;
+    }
+    tbody th {
+      font-weight: 600;
+    }
+    tbody tr:hover > * {
+      background: var(--surface-2);
     }
     .dot {
       display: inline-block;
       width: 0.8rem;
       height: 0.8rem;
       margin-right: 0.25rem;
-      border: 2px solid #333;
+      border: 2px solid var(--ink);
       border-radius: 50%;
       vertical-align: middle;
     }
     .dot.on {
-      background: #333;
+      background: var(--accent);
+      border-color: var(--accent);
     }
     .reason {
+      display: block;
       font-size: 0.8em;
-      color: #555;
+      color: var(--muted);
+    }
+    .table-scroll {
+      margin: 1.5rem 0;
+      overflow-x: auto;
+    }
+    .table-scroll table {
+      margin: 0;
+      min-width: 36rem;
     }
     .error {
-      color: #a51d2d;
+      color: var(--danger);
     }
-    .help,
     .counter {
-      color: #444;
+      display: inline-block;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      font-weight: 600;
+    }
+    section ul {
+      padding: 0.75rem 1rem 0.75rem 2rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
     }
   `,
 })

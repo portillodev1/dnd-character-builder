@@ -27,17 +27,23 @@ import { kind } from '../labels';
   `,
   styles: `
     article {
-      border: 1px solid #ccc;
-      border-radius: 0.25rem;
-      padding: 0.5rem 0.75rem;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius);
+      background: var(--surface);
     }
     h4 {
       margin: 0;
     }
+    small {
+      font-family: var(--font-body);
+      font-weight: 400;
+    }
     .meta {
       margin: 0.25rem 0;
       font-size: 0.85em;
-      color: #444;
+      color: var(--muted);
     }
     p {
       margin: 0.25rem 0 0;

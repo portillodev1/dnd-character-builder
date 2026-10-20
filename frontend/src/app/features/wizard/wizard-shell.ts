@@ -80,26 +80,73 @@ import { wizardSteps } from './wizard-steps';
       flex-wrap: wrap;
       gap: 0.5rem 1rem;
       align-items: center;
+      margin-top: 1.25rem;
+    }
+    .bar label {
+      font-weight: 600;
+    }
+    .bar input {
+      flex: 0 1 16rem;
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
     }
     .status {
-      color: #26a269;
+      color: var(--success);
       font-size: 0.9em;
     }
-    .conflict {
-      margin: 1rem 0;
-      padding: 1rem;
-      border: 2px solid #a51d2d;
-      border-radius: 0.25rem;
+    .bar a {
+      margin-left: auto;
+    }
+    nav {
+      margin: 1.25rem 0 0.5rem;
     }
     nav ol {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem 1.5rem;
+      gap: 0.5rem;
+      margin: 0;
       padding: 0;
       list-style: none;
+      counter-reset: step;
     }
-    a.active {
+    nav li {
+      counter-increment: step;
+    }
+    nav a {
+      display: inline-flex;
+      gap: 0.5rem;
+      align-items: center;
+      padding: 0.35rem 0.85rem 0.35rem 0.4rem;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--ink);
+      text-decoration: none;
+    }
+    nav a::before {
+      content: counter(step);
+      display: inline-grid;
+      place-items: center;
+      width: 1.6rem;
+      height: 1.6rem;
+      border-radius: 50%;
+      background: var(--surface-2);
+      font-size: 0.85rem;
       font-weight: 700;
+    }
+    nav a:hover {
+      border-color: var(--accent);
+      color: var(--ink);
+    }
+    nav a.active {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      font-weight: 700;
+    }
+    nav a.active::before {
+      background: var(--accent);
+      color: var(--accent-ink);
     }
   `,
 })
