@@ -2,7 +2,10 @@
 
 Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia o
 `## Handoff
-- **Última unidade**: Fase 6 — E2E + a11y (ADR-0009). Commit local; **push pendente**.
+- **Última unidade**: QA do MVP (`docs/qa/2026-10-20-teste-e2e/`) + correção de FE-1 (erros do
+  400 com prefixo `draft.` não apareciam nos passos) e BE-1 (arquivo sem `name`/`draft` derrubava
+  a lista). Commit local; **push pendente**. Restam FE-2…14 e BE-2…8 do relatório.
+- **Fase 6 (anterior)**: E2E + a11y (ADR-0009).
   - `frontend/e2e/`: 22 testes Playwright cobrindo F1–F5 + axe (WCAG 2.2 AA) em todos os passos,
     claro e escuro, e navegação por teclado. `scripts/e2e.sh` sobe API (5180, fichas em
     `frontend/e2e/.data/`) e front (4300) isolados; entra no `verify.sh` e no CI.

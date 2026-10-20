@@ -61,15 +61,14 @@ describe('CharacterDraftStore', () => {
     http.expectNone(url);
   });
 
-  it('save quando a API responde 400 deve guardar os erros por campo', async () => {
+  it('save quando a API responde 400 deve guardar os erros por campo sem o prefixo draft.', async () => {
     store.update({ level: 30 });
     vi.advanceTimersByTime(SAVE_DEBOUNCE_MS);
-    http
-      .expectOne(url)
-      .flush(
-        { errors: { level: ['O nível deve estar entre 1 e 20.'] } },
-        { status: 400, statusText: 'Bad Request' },
-      );
+    http.expectOne(url).flush(
+      // chave como a API devolve no PUT (SheetInput.Validate → "draft.<campo>")
+      { errors: { 'draft.level': ['O nível deve estar entre 1 e 20.'] } },
+      { status: 400, statusText: 'Bad Request' },
+    );
     await store.flush();
 
     expect([store.status(), store.errors()]).toEqual([

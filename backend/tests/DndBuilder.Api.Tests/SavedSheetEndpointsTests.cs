@@ -87,4 +87,19 @@ public class SavedSheetEndpointsTests(ApiFactory factory) : IClassFixture<ApiFac
         var list = (await (await client.Get(Sheets)).Json()).AsArray();
         Assert.NotNull(list.Single(s => (string)s!["id"]! == id.ToString())!["error"]);
     }
+
+    [Theory] // JSON válido sem name/draft (editado à mão) também é arquivo com problema, não 500
+    [InlineData(""","name":"Sem rascunho" """)]
+    [InlineData(""","name":"Rascunho nulo","draft":null""")]
+    [InlineData(""","draft":{}""")]
+    public async Task List_FileWithoutNameOrDraft_ListedWithError(string fields)
+    {
+        var client = factory.CreateClient();
+        var id = Guid.NewGuid();
+        var json = $$"""{"schemaVersion":1,"id":"{{id}}","version":1,"createdAt":"2026-01-01T00:00:00Z","updatedAt":"2026-01-01T00:00:00Z"{{fields}}}""";
+        Directory.CreateDirectory(factory.SheetsPath); // o store só cria a pasta quando é resolvido
+        await File.WriteAllTextAsync(Path.Combine(factory.SheetsPath, $"{id}.json"), json, TestContext.Current.CancellationToken);
+        var list = (await (await client.Get(Sheets)).Json()).AsArray();
+        Assert.NotNull(list.Single(s => (string)s!["id"]! == id.ToString())!["error"]);
+    }
 }

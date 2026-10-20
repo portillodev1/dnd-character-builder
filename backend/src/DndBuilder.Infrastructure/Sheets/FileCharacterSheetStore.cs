@@ -117,7 +117,12 @@ public sealed class FileCharacterSheetStore : ICharacterSheetStore, IDisposable
         await using var stream = File.OpenRead(path);
         var file = await JsonSerializer.DeserializeAsync<SheetFile>(stream, Json, ct).ConfigureAwait(false)
             ?? throw new InvalidDataException($"Ficha vazia: {path}");
-        return file.SchemaVersion == SchemaVersion ? file : throw new InvalidDataException($"schemaVersion {file.SchemaVersion} não suportado: {path}");
+        if (file.SchemaVersion != SchemaVersion)
+        {
+            throw new InvalidDataException($"schemaVersion {file.SchemaVersion} não suportado: {path}");
+        }
+        // JSON válido mas editado à mão sem "name"/"draft": é arquivo com problema, não exceção genérica.
+        return file is { Name: not null, Draft: not null } ? file : throw new InvalidDataException($"Ficha sem name ou draft: {path}");
     }
 
     private async Task WriteAsync(SheetFile file, CancellationToken ct)

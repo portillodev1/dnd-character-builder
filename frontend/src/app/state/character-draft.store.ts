@@ -102,7 +102,7 @@ export class CharacterDraftStore {
       if (e instanceof HttpErrorResponse && e.status === 409) {
         this.status.set('conflict');
       } else if (e instanceof HttpErrorResponse && e.status === 400) {
-        this.errors.set((e.error as ValidationProblem | null)?.errors ?? {});
+        this.errors.set(draftFieldErrors((e.error as ValidationProblem | null)?.errors ?? {}));
         this.status.set('invalid');
       } else {
         this.status.set('error');
@@ -120,4 +120,14 @@ export class CharacterDraftStore {
     this.sheet.set(saved.sheet);
     this.errors.set(saved.errors ?? {});
   }
+}
+
+/**
+ * O 400 do PUT prefixa os campos do rascunho (`draft.baseAbilities`); os passos usam as mesmas
+ * chaves de `SavedSheet.errors` (`baseAbilities`), então o prefixo sai aqui.
+ */
+function draftFieldErrors(errors: Record<string, string[]>): Record<string, string[]> {
+  return Object.fromEntries(
+    Object.entries(errors).map(([key, messages]) => [key.replace(/^draft\./, ''), messages]),
+  );
 }
