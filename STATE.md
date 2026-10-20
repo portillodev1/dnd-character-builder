@@ -2,9 +2,12 @@
 
 Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia o
 `## Handoff
-- **Última unidade**: QA do MVP (`docs/qa/2026-10-20-teste-e2e/`) + correção de FE-1 (erros do
-  400 com prefixo `draft.` não apareciam nos passos) e BE-1 (arquivo sem `name`/`draft` derrubava
-  a lista). Commit local; **push pendente**. Restam FE-2…14 e BE-2…8 do relatório.
+- **Última unidade**: Fase 7 especificada — specs F6–F9 (`input-validation`,
+  `sheet-file-integrity`, `wizard-feedback`, `beginner-guidance`) e `.specs/project/tasks-fase-7.md`
+  (T0–T33) a partir do relatório de QA. **Revisão humana pendente**; T0 (aprovar mudanças de
+  contrato) e T1 (ADR-0010) bloqueiam a implementação.
+- **QA do MVP (anterior)**: `docs/qa/2026-10-20-teste-e2e/`; FE-1 e BE-1 corrigidos (`34749c3`,
+  já no `origin/main`).
 - **Fase 6 (anterior)**: E2E + a11y (ADR-0009).
   - `frontend/e2e/`: 22 testes Playwright cobrindo F1–F5 + axe (WCAG 2.2 AA) em todos os passos,
     claro e escuro, e navegação por teclado. `scripts/e2e.sh` sobe API (5180, fichas em
@@ -27,6 +30,7 @@ Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia 
   `PATH="/opt/homebrew/opt/node@24/bin:$PATH"` antes dos scripts. PDF do LdJ fica fora do repo
   (ADR-0004); para conferir páginas use `pdftotext` (poppler) num diretório temporário.
 - **Bloqueios**: nenhum.
-- **Próxima unidade**: revisão humana do MVP; depois backlog pós-MVP do `ROADMAP.md` (cada item com spec).
-- **Limpeza**: apagar `tasks-fase-1.md` … `tasks-fase-5.md` quando aprovadas.
+- **Próxima unidade**: revisão das specs F6–F9 → T0/T1 → Fase 7 na ordem do `tasks-fase-7.md`;
+  depois o backlog pós-MVP do `ROADMAP.md` (cada item com spec).
+- **Limpeza**: apagar `tasks-fase-1.md` … `tasks-fase-5.md` e `tasks-fase-7.md` quando aprovadas.
 - **Gates**: `verify.sh --strict` verde.

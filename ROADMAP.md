@@ -21,9 +21,18 @@ Objetivo: iniciante monta a ficha de D&D 5e entendendo de onde vem cada número.
 | 4 — API | endpoints de `docs/architecture/api-contract.md` (incl. CRUD de fichas em arquivo, F5) + OpenAPI | `Api.Tests` verde | ✅ aguardando revisão |
 | 5 — Wizard | "Minhas fichas" + passos Raça → Classe → Atributos → Perícias/Salvaguardas → Ficha, com salvamento automático | Vitest verde; critérios F1–F5 demonstráveis | ✅ aguardando revisão |
 | 6 — Qualidade | Playwright E2E, axe, polimento de textos | E2E dos 5 critérios verde | ✅ aguardando revisão |
+| 7 — Robustez e UX pós-QA | Specs F6–F9 a partir do [relatório de QA](docs/qa/2026-10-20-teste-e2e/README.md); tarefas em `.specs/project/tasks-fase-7.md` | Critérios F6–F9 com teste; `verify.sh --strict` verde | 📝 specs aguardando revisão |
 
 Dependências: 1 → 2 → (3 ∥ 4 parcialmente) → 5 → 6. Fases 2 e 3 podem correr em paralelo
 depois que o schema (`content/schemas/`) estiver fechado.
+
+### Fase 7 — features
+| Feature (spec) | Resolve |
+|---|---|
+| [F6 input-validation](.specs/features/input-validation/spec.md) | Entrada inválida → 400, nunca 500; mensagens com nomes |
+| [F7 sheet-file-integrity](.specs/features/sheet-file-integrity/spec.md) | Arquivo editado/copiado à mão → 422 claro; duplicar ficha |
+| [F8 wizard-feedback](.specs/features/wizard-feedback/spec.md) | Erros visíveis por passo, rede × escolha, diálogos acessíveis |
+| [F9 beginner-guidance](.specs/features/beginner-guidance/spec.md) | Contador da compra de pontos; selo "ainda não aplicado" |
 
 ## Pós-MVP (backlog, cada item exige spec)
 - Antecedentes completos (Cap. 4) — hoje só proficiências manuais extras.
