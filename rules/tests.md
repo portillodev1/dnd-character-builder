@@ -17,7 +17,7 @@ O agente **não se autoavalia**: quem decide "pronto" é o gate (`scripts/verify
 | `Ruleset.Tests` | xUnit v3 | Todo JSON de `content/` valida no schema e tem `source` |
 | `Api.Tests` | xUnit v3 + `WebApplicationFactory` | Contrato HTTP, status codes, ProblemDetails |
 | `frontend` unit | Vitest (runner padrão Angular) | Componentes/stores sem regra de D&D |
-| E2E (fase 2) | Playwright | Fluxo do wizard ponta a ponta |
+| E2E (`frontend/e2e/`) | Playwright + axe | Critérios F1–F5 ponta a ponta e WCAG 2.2 AA — `scripts/e2e.sh` |
 
 ## Regras de domínio = testes de tabela
 - Fórmulas do Livro do Jogador são testadas com **casos de tabela** (Theory/InlineData)

@@ -38,6 +38,7 @@
 | Preciso… | Rode | Em vez de |
 |---|---|---|
 | Testar | `scripts/test.sh [--front\|--back] [--filter <p>]` | `dotnet test` / `ng test` na mão |
+| E2E + a11y | `scripts/e2e.sh [--grep <p>]` | `npx playwright test` na mão |
 | Lint/format | `scripts/lint.sh [--fix]` | lembrar flags do linter |
 | Build | `scripts/build.sh` | — |
 | Mudou DTO da API | `scripts/gen-api.sh` (tipos do front) | editar `core/api/generated/` |

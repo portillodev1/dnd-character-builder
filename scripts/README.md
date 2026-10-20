@@ -11,7 +11,8 @@ No Windows rode via **Git Bash** (`bash scripts/verify.sh`).
 | `build.sh` | `dotnet build -c Release` + `ng build` | — |
 | `gen-api.sh` | Atualiza o snapshot do OpenAPI e regenera os tipos do front (ADR-0007) | — |
 | `check-docs.sh` | Sensor: nenhum `.md` acima de 100 linhas | — |
-| `verify.sh` | **Gate**: check-docs + build + lint + test | `--strict` |
+| `e2e.sh` | E2E Playwright + axe com API/front isolados (ADR-0009) | `--grep <p>` |
+| `verify.sh` | **Gate**: check-docs + build + lint + test + e2e | `--strict` |
 | `bootstrap.sh` | Reconstrói contexto: handoff, git, toolchain, scaffold | — |
 | `_lib.sh` | Helpers (detecção de back/front, `skip`) — não executar | — |
 

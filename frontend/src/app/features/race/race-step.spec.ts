@@ -7,7 +7,7 @@ import { anao, meioElfo } from '../../testing/fixtures';
 import { RaceStepComponent } from './race-step';
 
 describe('RaceStepComponent', () => {
-  async function render(draft: object) {
+  async function render(draft: object, anaoRace = anao) {
     TestBed.configureTestingModule({
       imports: [RaceStepComponent],
       providers: [
@@ -17,7 +17,7 @@ describe('RaceStepComponent', () => {
           provide: RulesetService,
           useValue: {
             races: vi.fn().mockResolvedValue([]),
-            race: vi.fn((id: string) => Promise.resolve(id === 'anao' ? anao : meioElfo)),
+            race: vi.fn((id: string) => Promise.resolve(id === 'anao' ? anaoRace : meioElfo)),
           },
         },
       ],
@@ -40,6 +40,16 @@ describe('RaceStepComponent', () => {
       { origin: 'Anão', traits: ['Visão no Escuro'] },
       { origin: 'Anão da Colina', traits: ['Tenacidade Anã'] },
     ]);
+  });
+
+  it('deslocamento quando a sub-raça o altera deve mostrar o da sub-raça', async () => {
+    const colina = { ...anao.subraces[0], speed: { ...anao.speed, meters: 10.5 } };
+    const el = await render(
+      { raceId: 'anao', subraceId: colina.id },
+      { ...anao, subraces: [colina] },
+    );
+
+    expect(el.querySelector('#race-basics + ul')?.textContent).toContain('Deslocamento: 10,5 m');
   });
 
   it('próximo quando há escolha pendente deve ficar bloqueado com o motivo (F1 AC6)', async () => {

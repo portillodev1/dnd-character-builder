@@ -20,7 +20,7 @@ Objetivo: iniciante monta a ficha de D&D 5e entendendo de onde vem cada número.
 | 3 — Catálogo | schemas + 9 raças (+ sub-raças) + 12 classes (níveis 1–20, classe base) | `Ruleset.Tests` verde; revisão humana vs. LdJ | ✅ aguardando revisão |
 | 4 — API | endpoints de `docs/architecture/api-contract.md` (incl. CRUD de fichas em arquivo, F5) + OpenAPI | `Api.Tests` verde | ✅ aguardando revisão |
 | 5 — Wizard | "Minhas fichas" + passos Raça → Classe → Atributos → Perícias/Salvaguardas → Ficha, com salvamento automático | Vitest verde; critérios F1–F5 demonstráveis | ✅ aguardando revisão |
-| 6 — Qualidade | Playwright E2E, axe, polimento de textos | E2E dos 5 critérios verde | ☐ |
+| 6 — Qualidade | Playwright E2E, axe, polimento de textos | E2E dos 5 critérios verde | ✅ aguardando revisão |
 
 Dependências: 1 → 2 → (3 ∥ 4 parcialmente) → 5 → 6. Fases 2 e 3 podem correr em paralelo
 depois que o schema (`content/schemas/`) estiver fechado.

@@ -33,16 +33,17 @@
 | Controle | Direção | Execução | Onde roda | Status |
 |---|---|---|---|---|
 | Specs `.specs/features/*/spec.md` + `docs/domain/calculations.md` | guia | inferencial | antes da geração | ✅ |
-| `Domain.Tests` — testes de tabela por fórmula (LdJ) | sensor | computacional | test | planejado |
-| Invariante `Total == ΣParts` em todo `DerivedValue` | sensor | computacional | test | planejado |
-| `Ruleset.Tests` — schema + integridade do catálogo | sensor | computacional | test | planejado |
-| `Api.Tests` — contrato HTTP / ProblemDetails | sensor | computacional | test | planejado |
-| Playwright — wizard ponta a ponta (fase 2) | sensor | computacional | pipeline | planejado |
+| `Domain.Tests` — testes de tabela por fórmula (LdJ) | sensor | computacional | test | ✅ |
+| Invariante `Total == ΣParts` em todo `DerivedValue` | sensor | computacional | test | ✅ |
+| `Ruleset.Tests` — schema + integridade do catálogo | sensor | computacional | test | ✅ |
+| `Api.Tests` — contrato HTTP / ProblemDetails | sensor | computacional | test | ✅ |
+| Playwright — critérios F1–F5 ponta a ponta (`scripts/e2e.sh`) | sensor | computacional | pipeline | ✅ |
+| axe-core — WCAG 2.2 AA em cada passo, claro e escuro | sensor | computacional | pipeline | ✅ |
 | Review agent contra spec (só no fim de cada feature) | sensor | inferencial | pré-integração | planejado |
 
 ## 3. Posicionamento no ciclo ("keep quality left")
 - **Pré-geração**: AGENTS.md → rule da tarefa → spec da feature.
-- **Pré-commit / fim de tarefa**: `scripts/verify.sh` (check-docs, build, lint, test). Obrigatório.
+- **Pré-commit / fim de tarefa**: `scripts/verify.sh` (check-docs, build, lint, test, e2e). Obrigatório.
 - **Pipeline**: `.github/workflows/verify.yml` roda `scripts/verify.sh --strict` em PR e push na `main`.
 - **Contínuo**: `check-docs.sh` contra inchaço de docs; revisão de `content/` contra LdJ por humano.
 

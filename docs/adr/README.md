@@ -16,3 +16,4 @@ Modelo: [ADR.template.md](ADR.template.md).
 | [0006](ADR-0006-character-sheets-as-json-files.md) | Fichas salvas como arquivos JSON no servidor (sem banco) | aceito |
 | [0007](ADR-0007-openapi-typescript.md) | Tipos do front gerados do OpenAPI (openapi-typescript) | aceito |
 | [0008](ADR-0008-fontsource-fonts.md) | Fontes de época empacotadas (@fontsource, OFL) | aceito |
+| [0009](ADR-0009-playwright-axe-e2e.md) | E2E com Playwright + axe-core (API e front isolados) | aceito |

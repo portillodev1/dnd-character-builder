@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@ang
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { SheetSummary } from '../../core/api/models';
+import { RulesetService } from '../../core/api/ruleset.service';
 import { SheetService } from '../../core/api/sheet.service';
 
 /** "Minhas fichas": listar, criar, abrir, apagar (F5 AC1, AC2, AC7). */
@@ -34,8 +35,7 @@ import { SheetService } from '../../core/api/sheet.service';
           } @else {
             <a [routerLink]="['/fichas', s.id]">{{ s.name }}</a>
             <span class="meta">
-              {{ s.raceId ?? 'sem raça' }} · {{ s.classId ?? 'sem classe' }} · nível
-              {{ s.level ?? '—' }} · alterada em {{ s.updatedAt | date: 'dd/MM/yyyy HH:mm' }}
+              {{ describe(s) }} · alterada em {{ s.updatedAt | date: "dd/MM/yyyy 'às' HH:mm" }}
             </span>
           }
           <button type="button" (click)="confirming.set(s)">Apagar</button>
@@ -105,15 +105,32 @@ import { SheetService } from '../../core/api/sheet.service';
 export class MySheetsComponent implements OnInit {
   private readonly api = inject(SheetService);
   private readonly router = inject(Router);
+  private readonly ruleset = inject(RulesetService);
 
   protected newName = '';
   protected readonly sheets = signal<SheetSummary[]>([]);
   protected readonly loaded = signal(false);
   protected readonly confirming = signal<SheetSummary | null>(null);
   protected readonly error = signal<string | null>(null);
+  /** id → nome de raças e classes do catálogo, para a lista não mostrar ids. */
+  private readonly names = signal<ReadonlyMap<string, string>>(new Map());
 
   async ngOnInit(): Promise<void> {
-    await this.load();
+    await Promise.all([this.load(), this.loadNames()]);
+  }
+
+  /** "Anão · Ladino · nível 3"; o que ainda não foi escolhido fica de fora. */
+  protected describe(s: SheetSummary): string {
+    const name = (id: string | null | undefined) => (id ? (this.names().get(id) ?? id) : null);
+    const race = name(s.raceId);
+    const cls = name(s.classId);
+    if (!race && !cls) {
+      return 'Raça e classe a escolher';
+    }
+    return [
+      race ?? 'raça a escolher',
+      cls ? `${cls} · nível ${s.level ?? 1}` : 'classe a escolher',
+    ].join(' · ');
   }
 
   protected async create(): Promise<void> {
@@ -127,6 +144,15 @@ export class MySheetsComponent implements OnInit {
     this.sheets.update((list) => list.filter((s) => s.id !== sheet.id));
   }
 
+  private async loadNames(): Promise<void> {
+    try {
+      const [races, classes] = await Promise.all([this.ruleset.races(), this.ruleset.classes()]);
+      this.names.set(new Map([...races, ...classes].map((x) => [x.id, x.name])));
+    } catch {
+      // Sem catálogo a lista continua útil com os ids; o erro de API já aparece em load().
+    }
+  }
+
   private async load(): Promise<void> {
     try {
       const list = await this.api.list();
@@ -136,7 +162,7 @@ export class MySheetsComponent implements OnInit {
       );
     } catch {
       this.error.set(
-        'Não foi possível falar com a API. Ela está rodando em http://localhost:5080?',
+        'Não foi possível carregar suas fichas: o servidor não respondeu. Confira se a API está rodando (http://localhost:5080).',
       );
     } finally {
       this.loaded.set(true);

@@ -2,28 +2,28 @@
 
 Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia o
 `## Handoff
-- **Última unidade**: lacunas da Fase 5 fechadas (specs F4 AC1/AC4, F3 AC5). Commit local; **push pendente**.
-  - Deslocamento: `SpeedRules` + `DerivedMeasure` (metros, decimal) → `sheet.speed` com breakdown
-    (Elfo da Floresta = 9 + 1,5 Pés Ligeiros, p. 23–24); sub-raça ganhou `speed` opcional no catálogo.
-  - Escolhas: `origin: "choice"` em `bonuses[]` (+1 Meio-Elfo; perícias de raça/classe/antecedente e
-    Especialização, valor = Bônus de Proficiência) e em `traits[]` (idioma/ferramenta/resistência);
-    "Meus bônus › Escolhas" não lê mais o rascunho.
-  - Especialização: `expertiseCount` em `/classes/{id}/features?level=N`; o front trava acima do limite.
+- **Última unidade**: Fase 6 — E2E + a11y (ADR-0009). Commit local; **push pendente**.
+  - `frontend/e2e/`: 22 testes Playwright cobrindo F1–F5 + axe (WCAG 2.2 AA) em todos os passos,
+    claro e escuro, e navegação por teclado. `scripts/e2e.sh` sobe API (5180, fichas em
+    `frontend/e2e/.data/`) e front (4300) isolados; entra no `verify.sh` e no CI.
+  - Polimento: "Minhas fichas" mostra nomes de raça/classe; passo Raça usa o deslocamento da
+    sub-raça ("10,5 m"); mensagens de erro de servidor em linguagem de iniciante.
+- **Lacunas F5 (anterior)**: deslocamento com breakdown, bônus de escolha com origem própria e
+  limite de Especialização (`20ab4cb`).
 - **Design do front** (polimento da Fase 6, adiantado): estética de manuscrito — velino com grão,
   rubricas em vermelho, azul-lápis, filetes duplos, capitular, passos em numerais romanos; tema
   escuro "à luz de vela". Fontes EB Garamond + IM Fell English via @fontsource (ADR-0008). Ícones
-  de tipo de bônus agora são sinais tipográficos (sem emoji). Commits locais; **push pendente**.
+  de tipo de bônus agora são sinais tipográficos (sem emoji). Já no `origin/main`.
 - **Fase 5 (anterior)**: wizard Angular + "Minhas fichas" (`.specs/project/tasks-fase-5.md`); tipos do
   front gerados do OpenAPI (ADR-0007); salvamento automático; `bonus-breakdown` em todo número.
   Testes: 20 front, 248 back.
 - **Rodar**: `.claude/launch.json` (local, não versionado) tem `api` (5080) e `web` (4200).
-- **Lacunas conhecidas**: passo Raça ainda mostra o deslocamento da raça-mãe (a ficha já usa o da
-  sub-raça); aumentos de deslocamento de classe (Monge, Bárbaro) fora do MVP.
-- **Revisão humana pendente**: Fases 1–5.
+- **Lacunas conhecidas**: aumentos de deslocamento de classe (Monge, Bárbaro) fora do MVP.
+- **Revisão humana pendente**: Fases 1–6 (MVP completo).
 - **Toolchain local (macOS)**: Node 24 via `brew install node@24` (keg-only) → exporte
   `PATH="/opt/homebrew/opt/node@24/bin:$PATH"` antes dos scripts. PDF do LdJ fica fora do repo
   (ADR-0004); para conferir páginas use `pdftotext` (poppler) num diretório temporário.
 - **Bloqueios**: nenhum.
-- **Próxima unidade**: Fase 6 (Playwright E2E dos 5 critérios, axe, polimento de textos; visual já polido).
+- **Próxima unidade**: revisão humana do MVP; depois backlog pós-MVP do `ROADMAP.md` (cada item com spec).
 - **Limpeza**: apagar `tasks-fase-1.md` … `tasks-fase-5.md` quando aprovadas.
 - **Gates**: `verify.sh --strict` verde.

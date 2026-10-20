@@ -71,12 +71,14 @@ import { StepNavComponent } from '../wizard/step-nav';
         <h3 id="race-basics">Básico</h3>
         <ul>
           <li>Tamanho: {{ r.size === 'pequeno' ? 'Pequeno' : 'Médio' }}</li>
-          <li>
-            Deslocamento: {{ r.speed.meters }} m (LdJ p. {{ r.speed.source.page }})
-            @if (r.speed.note) {
-              — {{ r.speed.note }}
-            }
-          </li>
+          @if (speed(); as sp) {
+            <li>
+              Deslocamento: {{ meters(sp.meters) }} m (LdJ p. {{ sp.source.page }})
+              @if (sp.note) {
+                — {{ sp.note }}
+              }
+            </li>
+          }
           <li>Idiomas: {{ r.languages.join(', ') }}</li>
           @for (b of allBonuses(); track $index) {
             <li>{{ bonusText(b) }} (LdJ p. {{ b.source.page }})</li>
@@ -187,6 +189,8 @@ export class RaceStepComponent {
   protected readonly subrace = computed(
     () => this.race()?.subraces.find((s) => s.id === this.subraceId()) ?? null,
   );
+  /** A sub-raça pode trocar o deslocamento da raça (ex.: Elfo da Floresta, LdJ p. 24). */
+  protected readonly speed = computed(() => this.subrace()?.speed ?? this.race()?.speed ?? null);
   protected readonly allBonuses = computed(() => [
     ...(this.race()?.bonuses ?? []),
     ...(this.subrace()?.bonuses ?? []),
@@ -267,6 +271,10 @@ export class RaceStepComponent {
           : current;
       return { ...d, choices: { ...(d.choices ?? {}), [choice.id]: picks } };
     });
+  }
+
+  protected meters(value: number): string {
+    return value.toLocaleString('pt-BR');
   }
 
   protected increases(r: RaceSummary): string {

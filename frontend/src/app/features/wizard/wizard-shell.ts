@@ -41,7 +41,7 @@ import { wizardSteps } from './wizard-steps';
               Não salvo: corrija os campos destacados.
             }
             @case ('error') {
-              Não foi possível salvar. Verifique a API.
+              Não foi possível salvar: o servidor não respondeu. Tente de novo em instantes.
             }
           }
         </span>

@@ -45,4 +45,4 @@ Raça ─► Classe+Nível ─► Atributos ─► Perícias/Salvaguardas ─►
 
 ## Testes
 - Vitest (runner padrão do Angular) para componentes e store.
-- Playwright (fase 2) para o fluxo completo do wizard.
+- Playwright + axe (`frontend/e2e/`, ADR-0009) para o fluxo completo do wizard e WCAG 2.2 AA.

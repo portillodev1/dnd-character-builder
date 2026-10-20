@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { SheetSummary } from '../../core/api/models';
+import { RulesetService } from '../../core/api/ruleset.service';
 import { SheetService } from '../../core/api/sheet.service';
 import { MySheetsComponent } from './my-sheets';
 
@@ -20,6 +21,10 @@ describe('MySheetsComponent', () => {
     delete: vi.fn().mockResolvedValue(undefined),
     create: vi.fn(),
   };
+  const ruleset = {
+    races: vi.fn().mockResolvedValue([{ id: 'anao', name: 'Anão' }]),
+    classes: vi.fn().mockResolvedValue([{ id: 'ladino', name: 'Ladino' }]),
+  };
 
   async function render() {
     api.list.mockResolvedValue([
@@ -28,7 +33,11 @@ describe('MySheetsComponent', () => {
     ]);
     TestBed.configureTestingModule({
       imports: [MySheetsComponent],
-      providers: [provideRouter([]), { provide: SheetService, useValue: api }],
+      providers: [
+        provideRouter([]),
+        { provide: SheetService, useValue: api },
+        { provide: RulesetService, useValue: ruleset },
+      ],
     });
     const fixture = TestBed.createComponent(MySheetsComponent);
     await fixture.whenStable();
@@ -47,6 +56,12 @@ describe('MySheetsComponent', () => {
       'Recente',
       'Antiga',
     ]);
+  });
+
+  it('lista quando carregada deve mostrar nomes de raça e classe, não ids (F5 AC1)', async () => {
+    const { el } = await render();
+
+    expect(el.querySelector('.meta')?.textContent).toContain('Anão · Ladino · nível 1');
   });
 
   it('apagar quando confirmado deve remover o arquivo e a linha; antes disso pede confirmação (F5 AC7)', async () => {
