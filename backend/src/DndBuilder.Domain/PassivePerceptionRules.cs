@@ -1,6 +1,6 @@
 namespace DndBuilder.Domain;
 
-/// <summary>Sabedoria Passiva (Percepção) = 10 + perícia Percepção. LdJ p. 175.</summary>
+/// <summary>Sabedoria Passiva (Percepção) = 10 + perícia Percepção. LdJ p. 177.</summary>
 public static class PassivePerceptionRules
 {
     public const int Base = 10;
@@ -10,6 +10,6 @@ public static class PassivePerceptionRules
     {
         ArgumentNullException.ThrowIfNull(perception);
         return new DerivedValue(
-            [new BonusPart(Base, "Base dos testes passivos", BonusType.BaseScore, SourceRef.LdJ(175)), .. perception.Parts]);
+            [new BonusPart(Base, "Base dos testes passivos", BonusType.BaseScore, SourceRef.LdJ(177)), .. perception.Parts]);
     }
 }

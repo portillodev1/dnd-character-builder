@@ -5,7 +5,7 @@ public readonly record struct AbilityScore
 {
     public const int Min = 1;
     public const int Max = 30;
-    public const int PlayerMax = 20; // LdJ p. 13
+    public const int PlayerMax = 20; // LdJ p. 175
 
     public int Value { get; }
 

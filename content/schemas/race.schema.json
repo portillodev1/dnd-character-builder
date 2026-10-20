@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dndbuilder.local/schemas/race.schema.json",
+  "title": "Raça (LdJ Cap. 2)",
+  "type": "object",
+  "required": ["id", "name", "summary", "size", "speed", "bonuses", "traits", "languages", "subraces", "source"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "id": { "$ref": "common.schema.json#/$defs/id" },
+    "name": { "$ref": "common.schema.json#/$defs/name" },
+    "summary": { "$ref": "common.schema.json#/$defs/description" },
+    "size": { "enum": ["pequeno", "medio"] },
+    "speed": {
+      "type": "object",
+      "required": ["meters", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "meters": { "type": "number", "exclusiveMinimum": 0, "multipleOf": 1.5 },
+        "note": { "$ref": "common.schema.json#/$defs/description" },
+        "source": { "$ref": "common.schema.json#/$defs/source" }
+      }
+    },
+    "bonuses": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/bonus" } },
+    "choices": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/choice" } },
+    "traits": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/trait" } },
+    "languages": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "subraces": { "type": "array", "items": { "$ref": "#/$defs/subrace" } },
+    "source": { "$ref": "common.schema.json#/$defs/source" }
+  },
+  "$defs": {
+    "subrace": {
+      "description": "Somada à raça-mãe (docs/architecture/ruleset-data.md).",
+      "type": "object",
+      "required": ["id", "name", "summary", "bonuses", "traits", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "common.schema.json#/$defs/id" },
+        "name": { "$ref": "common.schema.json#/$defs/name" },
+        "summary": { "$ref": "common.schema.json#/$defs/description" },
+        "srd": { "type": "boolean", "description": "false = fora do SRD 5.1: só nome + mecânica resumida (ADR-0004)." },
+        "bonuses": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/bonus" } },
+        "choices": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/choice" } },
+        "traits": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/trait" } },
+        "source": { "$ref": "common.schema.json#/$defs/source" }
+      }
+    }
+  }
+}

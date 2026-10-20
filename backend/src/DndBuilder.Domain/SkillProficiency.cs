@@ -1,6 +1,6 @@
 namespace DndBuilder.Domain;
 
-/// <summary>Fator do bônus de proficiência numa perícia. LdJ p. 174–176.</summary>
+/// <summary>Fator do bônus de proficiência numa perícia. LdJ p. 176–177.</summary>
 public enum SkillProficiency
 {
     /// <summary>Fator 0.</summary>

@@ -1,6 +1,6 @@
 namespace DndBuilder.Domain;
 
-/// <summary>Como o jogador gerou os valores base. LdJ p. 12–13.</summary>
+/// <summary>Como o jogador gerou os valores base. LdJ p. 13.</summary>
 public enum BaseScoreMethod
 {
     /// <summary>15, 14, 13, 12, 10, 8 distribuídos à vontade.</summary>

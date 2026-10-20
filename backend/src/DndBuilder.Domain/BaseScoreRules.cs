@@ -1,6 +1,6 @@
 namespace DndBuilder.Domain;
 
-/// <summary>Validação dos valores base antes dos bônus raciais. LdJ p. 12–13.</summary>
+/// <summary>Validação dos valores base antes dos bônus raciais. LdJ p. 13.</summary>
 public static class BaseScoreRules
 {
     public const int PointBuyBudget = 27;

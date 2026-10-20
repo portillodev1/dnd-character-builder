@@ -2,7 +2,7 @@ namespace DndBuilder.Domain.Tests;
 
 public class PassivePerceptionRulesTests
 {
-    [Theory] // LdJ p. 175
+    [Theory] // LdJ p. 177
     [InlineData(10, SkillProficiency.None, 1, 10)]
     [InlineData(14, SkillProficiency.Proficient, 1, 14)] // 10 + 2 + 2
     [InlineData(8, SkillProficiency.None, 1, 9)]

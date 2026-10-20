@@ -1,6 +1,6 @@
 namespace DndBuilder.Domain;
 
-/// <summary>Os 6 atributos. LdJ p. 173.</summary>
+/// <summary>Os 6 atributos. LdJ p. 175.</summary>
 public enum Ability
 {
     Forca,

@@ -2,7 +2,7 @@
 
 Cada fórmula vira teste de tabela em `DndBuilder.Domain.Tests` (ver `rules/tests.md`).
 
-## 1. Valor de atributo (LdJ p. 12–13, 175)
+## 1. Valor de atributo (LdJ p. 13, 15, 175)
 ```txt
 valorFinal = valorBase + Σ(aumentos raciais e sub-raciais) [+ ASI de nível, fase 2]
 teto: 20 para jogadores (30 é o máximo absoluto do sistema)
@@ -27,7 +27,7 @@ salvaguarda(atr) = mod(atr) + (proficiente(atr) ? bônusProf : 0)
 ```
 Proficiência vem da **classe inicial** (2 atributos, ver glossário).
 
-## 5. Perícia (LdJ p. 174–176)
+## 5. Perícia (LdJ p. 176–181)
 ```txt
 perícia = mod(atributoChave) + fator × bônusProf
 fator: 0 sem proficiência · ½ (arred. p/ baixo) Versatilidade do Bardo
@@ -37,7 +37,7 @@ Fontes de proficiência: classe (escolha da lista), antecedente (2), raça
 (ex.: Elfo → Percepção; Meio-Orc → Intimidação; Meio-Elfo → 2 à escolha).
 Proficiência duplicada não acumula — o wizard pede outra escolha.
 
-## 6. Sabedoria Passiva (Percepção) (LdJ p. 175)
+## 6. Sabedoria Passiva (Percepção) (LdJ p. 177)
 ```txt
 passiva = 10 + perícia(Percepção)
 ```
@@ -46,7 +46,7 @@ passiva = 10 + perícia(Percepção)
 ```txt
 nível 1: dadoDeVida máx + mod(Con)
 nível n: + (média do dado arred. p/ cima + mod(Con)) por nível
-extras: Anão da Colina +1 por nível (Robustez Anã)
+extras: Anão da Colina +1 por nível (Tenacidade Anã)
 ```
 
 ## Breakdown obrigatório

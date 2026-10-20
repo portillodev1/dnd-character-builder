@@ -1,0 +1,168 @@
+{
+  "$schema": "schemas/skills.schema.json",
+  "skills": [
+    {
+      "id": "acrobacia",
+      "name": "Acrobacia",
+      "ability": "destreza",
+      "source": {
+        "book": "LdJ",
+        "page": 178
+      }
+    },
+    {
+      "id": "arcanismo",
+      "name": "Arcanismo",
+      "ability": "inteligencia",
+      "source": {
+        "book": "LdJ",
+        "page": 179
+      }
+    },
+    {
+      "id": "atletismo",
+      "name": "Atletismo",
+      "ability": "forca",
+      "source": {
+        "book": "LdJ",
+        "page": 177
+      }
+    },
+    {
+      "id": "atuacao",
+      "name": "Atuação",
+      "ability": "carisma",
+      "source": {
+        "book": "LdJ",
+        "page": 180
+      }
+    },
+    {
+      "id": "enganacao",
+      "name": "Enganação",
+      "ability": "carisma",
+      "source": {
+        "book": "LdJ",
+        "page": 180
+      }
+    },
+    {
+      "id": "furtividade",
+      "name": "Furtividade",
+      "ability": "destreza",
+      "source": {
+        "book": "LdJ",
+        "page": 178
+      }
+    },
+    {
+      "id": "historia",
+      "name": "História",
+      "ability": "inteligencia",
+      "source": {
+        "book": "LdJ",
+        "page": 179
+      }
+    },
+    {
+      "id": "intimidacao",
+      "name": "Intimidação",
+      "ability": "carisma",
+      "source": {
+        "book": "LdJ",
+        "page": 181
+      }
+    },
+    {
+      "id": "intuicao",
+      "name": "Intuição",
+      "ability": "sabedoria",
+      "source": {
+        "book": "LdJ",
+        "page": 180
+      }
+    },
+    {
+      "id": "investigacao",
+      "name": "Investigação",
+      "ability": "inteligencia",
+      "source": {
+        "book": "LdJ",
+        "page": 180
+      }
+    },
+    {
+      "id": "lidar-com-animais",
+      "name": "Lidar com Animais",
+      "bookName": "Adestrar Animais",
+      "ability": "sabedoria",
+      "source": {
+        "book": "LdJ",
+        "page": 180
+      }
+    },
+    {
+      "id": "medicina",
+      "name": "Medicina",
+      "ability": "sabedoria",
+      "source": {
+        "book": "LdJ",
+        "page": 180
+      }
+    },
+    {
+      "id": "natureza",
+      "name": "Natureza",
+      "ability": "inteligencia",
+      "source": {
+        "book": "LdJ",
+        "page": 180
+      }
+    },
+    {
+      "id": "percepcao",
+      "name": "Percepção",
+      "ability": "sabedoria",
+      "source": {
+        "book": "LdJ",
+        "page": 180
+      }
+    },
+    {
+      "id": "persuasao",
+      "name": "Persuasão",
+      "ability": "carisma",
+      "source": {
+        "book": "LdJ",
+        "page": 181
+      }
+    },
+    {
+      "id": "prestidigitacao",
+      "name": "Prestidigitação",
+      "ability": "destreza",
+      "source": {
+        "book": "LdJ",
+        "page": 179
+      }
+    },
+    {
+      "id": "religiao",
+      "name": "Religião",
+      "ability": "inteligencia",
+      "source": {
+        "book": "LdJ",
+        "page": 180
+      }
+    },
+    {
+      "id": "sobrevivencia",
+      "name": "Sobrevivência",
+      "ability": "sabedoria",
+      "source": {
+        "book": "LdJ",
+        "page": 180
+      }
+    }
+  ]
+}

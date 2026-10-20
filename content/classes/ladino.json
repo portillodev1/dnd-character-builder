@@ -1,0 +1,376 @@
+{
+  "$schema": "../schemas/class.schema.json",
+  "id": "ladino",
+  "name": "Ladino",
+  "summary": "Especialista furtivo e habilidoso, que resolve problemas com astúcia e acerta golpes precisos nos pontos fracos dos inimigos.",
+  "hitDie": 8,
+  "primaryAbilities": [
+    "destreza"
+  ],
+  "savingThrows": [
+    "destreza",
+    "inteligencia"
+  ],
+  "skillChoices": {
+    "count": 4,
+    "from": [
+      "acrobacia",
+      "atletismo",
+      "atuacao",
+      "enganacao",
+      "furtividade",
+      "intimidacao",
+      "intuicao",
+      "investigacao",
+      "percepcao",
+      "persuasao",
+      "prestidigitacao"
+    ]
+  },
+  "proficiencies": {
+    "armor": [
+      "Armaduras leves"
+    ],
+    "weapons": [
+      "Armas simples",
+      "Bestas de mão",
+      "Espadas longas",
+      "Rapieiras",
+      "Espadas curtas"
+    ],
+    "tools": [
+      "Ferramentas de ladrão"
+    ]
+  },
+  "subclassLevel": 3,
+  "table": [
+    {
+      "id": "ataque-furtivo",
+      "name": "Ataque Furtivo",
+      "values": [
+        "1d6",
+        "1d6",
+        "2d6",
+        "2d6",
+        "3d6",
+        "3d6",
+        "4d6",
+        "4d6",
+        "5d6",
+        "5d6",
+        "6d6",
+        "6d6",
+        "7d6",
+        "7d6",
+        "8d6",
+        "8d6",
+        "9d6",
+        "9d6",
+        "10d6",
+        "10d6"
+      ]
+    }
+  ],
+  "features": [
+    {
+      "id": "especializacao",
+      "name": "Especialização",
+      "level": 1,
+      "kind": "other",
+      "description": "Escolha duas perícias em que você é proficiente (ou ferramentas de ladrão): nelas você soma o dobro do bônus de proficiência.",
+      "grants": [
+        {
+          "type": "expertise",
+          "count": 2
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 91
+      }
+    },
+    {
+      "id": "ataque-furtivo",
+      "name": "Ataque Furtivo",
+      "level": 1,
+      "kind": "other",
+      "description": "Uma vez por turno, causa dano extra a um alvo quando você ataca com vantagem, ou quando um aliado está ao lado dele e você não está em desvantagem. Precisa usar arma de acuidade ou à distância.",
+      "scaling": "ataque-furtivo",
+      "source": {
+        "book": "LdJ",
+        "page": 91
+      }
+    },
+    {
+      "id": "giria-de-ladrao",
+      "name": "Gíria de Ladrão",
+      "level": 1,
+      "kind": "language",
+      "description": "Você conhece o código secreto de gestos, símbolos e gírias usado pelos ladrões para passar mensagens escondidas.",
+      "source": {
+        "book": "LdJ",
+        "page": 91
+      }
+    },
+    {
+      "id": "acao-ardilosa",
+      "name": "Ação Ardilosa",
+      "level": 2,
+      "kind": "other",
+      "description": "Em todo turno de combate você pode usar uma ação bônus para Disparada, Desengajar ou Esconder.",
+      "source": {
+        "book": "LdJ",
+        "page": 91
+      }
+    },
+    {
+      "id": "arquetipo-de-ladino",
+      "name": "Arquétipo de Ladino",
+      "level": 3,
+      "kind": "other",
+      "description": "Escolha o seu arquétipo (ex.: Ladrão). Ele dá características extras nos níveis 3, 9, 13 e 17.",
+      "grants": [
+        {
+          "type": "subclass-choice"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 91
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-4",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 4,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 91
+      }
+    },
+    {
+      "id": "esquiva-sobrenatural",
+      "name": "Esquiva Sobrenatural",
+      "level": 5,
+      "kind": "other",
+      "description": "Quando um atacante que você consegue ver o atinge, você pode usar sua reação para sofrer só metade do dano.",
+      "source": {
+        "book": "LdJ",
+        "page": 91
+      }
+    },
+    {
+      "id": "especializacao-6",
+      "name": "Especialização",
+      "level": 6,
+      "kind": "other",
+      "description": "Escolha mais duas perícias proficientes para somar o dobro do bônus de proficiência.",
+      "grants": [
+        {
+          "type": "expertise",
+          "count": 2
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 91
+      }
+    },
+    {
+      "id": "evasao",
+      "name": "Evasão",
+      "level": 7,
+      "kind": "other",
+      "description": "Em salvaguardas de Destreza contra efeitos de área (como uma bola de fogo), sucesso não causa dano e falha causa só metade.",
+      "source": {
+        "book": "LdJ",
+        "page": 91
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-8",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 8,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 91
+      }
+    },
+    {
+      "id": "caracteristica-de-arquetipo-9",
+      "name": "Característica de Arquétipo de Ladino",
+      "level": 9,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 9 do seu arquétipo.",
+      "source": {
+        "book": "LdJ",
+        "page": 92
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-10",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 10,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 91
+      }
+    },
+    {
+      "id": "talento-confiavel",
+      "name": "Talento Confiável",
+      "level": 11,
+      "kind": "other",
+      "description": "Em qualquer teste de habilidade em que você soma o bônus de proficiência, um resultado de 9 ou menos no d20 conta como 10.",
+      "source": {
+        "book": "LdJ",
+        "page": 91
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-12",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 12,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 91
+      }
+    },
+    {
+      "id": "caracteristica-de-arquetipo-13",
+      "name": "Característica de Arquétipo de Ladino",
+      "level": 13,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 13 do seu arquétipo.",
+      "source": {
+        "book": "LdJ",
+        "page": 92
+      }
+    },
+    {
+      "id": "sentido-cego",
+      "name": "Sentido Cego",
+      "level": 14,
+      "kind": "sense",
+      "description": "Se você consegue ouvir, sabe onde está qualquer criatura escondida ou invisível a até 3 m de você.",
+      "source": {
+        "book": "LdJ",
+        "page": 91
+      }
+    },
+    {
+      "id": "mente-escorregadia",
+      "name": "Mente Escorregadia",
+      "level": 15,
+      "kind": "proficiency",
+      "description": "Você ganha proficiência em salvaguardas de Sabedoria.",
+      "grants": [
+        {
+          "type": "save-proficiency",
+          "ability": "sabedoria"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 91
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-16",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 16,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 91
+      }
+    },
+    {
+      "id": "caracteristica-de-arquetipo-17",
+      "name": "Característica de Arquétipo de Ladino",
+      "level": 17,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 17 do seu arquétipo.",
+      "source": {
+        "book": "LdJ",
+        "page": 92
+      }
+    },
+    {
+      "id": "elusivo",
+      "name": "Elusivo",
+      "level": 18,
+      "kind": "other",
+      "description": "Nenhum ataque tem vantagem contra você enquanto você não estiver incapacitado.",
+      "source": {
+        "book": "LdJ",
+        "page": 91
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-19",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 19,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 91
+      }
+    },
+    {
+      "id": "golpe-de-sorte",
+      "name": "Golpe de Sorte",
+      "level": 20,
+      "kind": "other",
+      "description": "Transforme um ataque que errou um alvo ao seu alcance em acerto, ou trate um teste que falhou como um 20 natural. Depois de usar, só pode de novo após um descanso curto ou longo.",
+      "source": {
+        "book": "LdJ",
+        "page": 92
+      }
+    }
+  ],
+  "source": {
+    "book": "LdJ",
+    "page": 89
+  }
+}

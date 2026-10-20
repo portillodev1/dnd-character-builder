@@ -9,7 +9,7 @@ public class SkillRulesTests
         Assert.Equal("5 = 3 + 2", $"{stealth.Total} = {string.Join(" + ", stealth.Parts.Select(p => p.Value))}");
     }
 
-    [Theory] // LdJ p. 174–176: fator 0, ½ (arred. p/ baixo), 1, 2
+    [Theory] // LdJ p. 176: fator 0, ½ (arred. p/ baixo), 1, 2
     [InlineData(SkillProficiency.None, 1, 3)]
     [InlineData(SkillProficiency.Half, 1, 4)]       // ⌊2/2⌋ = 1
     [InlineData(SkillProficiency.Half, 5, 4)]       // ⌊3/2⌋ = 1

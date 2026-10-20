@@ -28,5 +28,5 @@ Angular (wizard) ──HTTP──► Api (Minimal API) ──► Application (ca
 ```txt
 Perícia Furtividade = +5
   +3  Modificador de Destreza       (tipo: Modificador de habilidade)
-  +2  Bônus de Proficiência nív. 1  (tipo: Proficiência — Ladino, p. 89)
+  +2  Bônus de Proficiência nív. 1  (tipo: Proficiência — Ladino, p. 90)
 ```

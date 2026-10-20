@@ -1,6 +1,6 @@
 namespace DndBuilder.Domain;
 
-/// <summary>As 18 perícias da ficha. LdJ p. 174–176.</summary>
+/// <summary>As 18 perícias da ficha. LdJ p. 176–181.</summary>
 public enum Skill
 {
     Acrobacia,
@@ -25,7 +25,7 @@ public enum Skill
 
 public static class SkillExtensions
 {
-    /// <summary>Atributo-chave da perícia (glossário, LdJ p. 174).</summary>
+    /// <summary>Atributo-chave da perícia (LdJ p. 177–181).</summary>
     public static Ability KeyAbility(this Skill skill) => skill switch
     {
         Skill.Atletismo => Ability.Forca,

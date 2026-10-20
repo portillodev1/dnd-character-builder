@@ -12,3 +12,4 @@ Modelo: [ADR.template.md](ADR.template.md).
 | [0002](ADR-0002-stateless-api-rules-in-domain.md) | API stateless, sem banco; cálculo só no Domain | aceito |
 | [0003](ADR-0003-ruleset-as-versioned-json.md) | Catálogo de regras como JSON versionado com schema | aceito |
 | [0004](ADR-0004-content-licensing.md) | Conteúdo: SRD 5.1 + resumos próprios; PDF não versionado | aceito |
+| [0005](ADR-0005-json-schema-validator.md) | JsonSchema.Net para validar `content/` (isento da taxa OSMF) | aceito |

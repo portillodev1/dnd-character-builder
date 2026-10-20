@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dndbuilder.local/schemas/skills.schema.json",
+  "title": "As 18 perícias e seu atributo-chave (LdJ Cap. 7)",
+  "type": "object",
+  "required": ["skills"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "skills": {
+      "type": "array", "minItems": 18, "maxItems": 18,
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "ability", "source"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "$ref": "common.schema.json#/$defs/skill" },
+          "name": { "$ref": "common.schema.json#/$defs/name" },
+          "bookName": { "$ref": "common.schema.json#/$defs/name", "description": "Nome no livro, se diferente da ficha (glossário)." },
+          "ability": { "$ref": "common.schema.json#/$defs/ability" },
+          "source": { "$ref": "common.schema.json#/$defs/source" }
+        }
+      }
+    }
+  }
+}

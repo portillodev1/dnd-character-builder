@@ -7,7 +7,8 @@ Regras do jogo como **dados versionados** (ADR-0003). Regras para a IA:
 ```txt
 content/
   schemas/
-    race.schema.json · class.schema.json · common.schema.json (source, bonus, trait)
+    race.schema.json · class.schema.json · skills.schema.json · common.schema.json
+    (draft 2020-12; validados com JsonSchema.Net — ADR-0005)
   races/      anao.json · elfo.json · halfling.json · humano.json · draconato.json
               gnomo.json · meio-elfo.json · meio-orc.json · tiefling.json
   classes/    barbaro.json · bardo.json · bruxo.json · clerigo.json · druida.json
@@ -19,11 +20,11 @@ content/
 ## Entidades
 | Entidade | Campos-chave |
 |---|---|
-| `Race` | `id`, `name`, `size`, `speed`, `bonuses[]`, `traits[]`, `languages[]`, `subraces[]`, `source` |
-| `Subrace` | igual a `Race` sem `subraces`; somado à raça-mãe |
-| `Class` | `id`, `name`, `hitDie`, `savingThrows[2]`, `skillChoices {count, from[]}`, `armor/weapon/tool proficiencies`, `features[]`, `source` |
-| `ClassFeature` | `id`, `name`, `level`, `kind`, `description`, `grants[]` (ex.: `expertise`, `half-proficiency`), `source` |
-| `Bonus` | `target` (`ability:x`, `skill:x`, `save:x`, `speed`, `hp-per-level`, `ac`), `value`, `bonusType`, `source` |
+| `Race` | `id`, `name`, `summary`, `size`, `speed {meters, note?}`, `bonuses[]`, `choices[]`, `traits[]`, `languages[]`, `subraces[]` (embutidas), `source` |
+| `Subrace` | `id`, `name`, `summary`, `srd` (false = fora do SRD, ADR-0004), `bonuses[]`, `choices[]`, `traits[]`, `source`; somada à raça-mãe |
+| `Class` | `id`, `name`, `summary`, `hitDie`, `primaryAbilities[]`, `savingThrows[2]`, `skillChoices {count, from[]}`, `proficiencies {armor, weapons, tools}`, `subclassLevel`, `table[] {id, name, values[20]}`, `features[]`, `source` |
+| `ClassFeature` | `id`, `name`, `level`, `kind`, `description`, `scaling?` (coluna de `table`), `grants[]` (`expertise`, `half-proficiency`, `skill-proficiency`, `save-proficiency`, `ability-score-improvement`, `subclass-choice`), `source` |
+| `Bonus` | `target` (`ability:x`, `skill:x`, `save:x`, `speed`, `hp-per-level`, `ac`), `value`, `bonusType`, `label?`, `source` |
 | `Trait` | `id`, `name`, `kind` (`sense`, `resistance`, `advantage`, `proficiency`, `language`, `spell`, `other`), `description`, `source` |
 
 ## Escolhas do jogador

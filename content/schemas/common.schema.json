@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dndbuilder.local/schemas/common.schema.json",
+  "title": "Tipos comuns do catálogo",
+  "$defs": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "name": { "type": "string", "minLength": 1, "maxLength": 80 },
+    "description": {
+      "description": "Resumo próprio para iniciante, até 3 frases (ADR-0004).",
+      "type": "string", "minLength": 1, "maxLength": 400
+    },
+    "source": {
+      "type": "object",
+      "required": ["book", "page"],
+      "additionalProperties": false,
+      "properties": {
+        "book": { "enum": ["LdJ"] },
+        "page": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "ability": { "enum": ["forca", "destreza", "constituicao", "inteligencia", "sabedoria", "carisma"] },
+    "skill": {
+      "enum": ["acrobacia", "arcanismo", "atletismo", "atuacao", "enganacao", "furtividade",
+               "historia", "intimidacao", "intuicao", "investigacao", "lidar-com-animais",
+               "medicina", "natureza", "percepcao", "persuasao", "prestidigitacao",
+               "religiao", "sobrevivencia"]
+    },
+    "bonusType": {
+      "description": "docs/domain/bonus-types.md — parcelas numéricas.",
+      "enum": ["base-score", "ability-score-increase", "ability-modifier", "proficiency-bonus",
+               "proficiency", "expertise", "half-proficiency", "hit-points", "speed", "armor-class"]
+    },
+    "kind": {
+      "description": "docs/domain/bonus-types.md — benefícios não numéricos.",
+      "enum": ["sense", "resistance", "advantage", "proficiency", "language", "spell", "other"]
+    },
+    "bonus": {
+      "type": "object",
+      "required": ["target", "value", "bonusType", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "target": {
+          "type": "string",
+          "pattern": "^(ability:[a-z]+|skill:[a-z-]+|save:[a-z]+|speed|hp-per-level|ac)$"
+        },
+        "value": { "type": "integer" },
+        "bonusType": { "$ref": "#/$defs/bonusType" },
+        "label": { "$ref": "#/$defs/name" },
+        "source": { "$ref": "#/$defs/source" }
+      }
+    },
+    "grant": {
+      "description": "Vocabulário fechado interpretado pelo Domain (ADR-0003).",
+      "type": "object",
+      "required": ["type"],
+      "additionalProperties": false,
+      "properties": {
+        "type": {
+          "enum": ["expertise", "half-proficiency", "skill-proficiency", "save-proficiency",
+                   "ability-score-improvement", "subclass-choice"]
+        },
+        "count": { "type": "integer", "minimum": 1 },
+        "skill": { "$ref": "#/$defs/skill" },
+        "ability": { "$ref": "#/$defs/ability" }
+      }
+    },
+    "choice": {
+      "description": "Escolha pendente do jogador; vira warning na API até ser feita.",
+      "type": "object",
+      "required": ["id", "name", "count", "from", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "$ref": "#/$defs/name" },
+        "count": { "type": "integer", "minimum": 1 },
+        "from": { "type": "array", "minItems": 2, "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "bonusType": { "$ref": "#/$defs/bonusType" },
+        "kind": { "$ref": "#/$defs/kind" },
+        "source": { "$ref": "#/$defs/source" }
+      }
+    },
+    "trait": {
+      "type": "object",
+      "required": ["id", "name", "kind", "description", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "$ref": "#/$defs/name" },
+        "kind": { "$ref": "#/$defs/kind" },
+        "description": { "$ref": "#/$defs/description" },
+        "grants": { "type": "array", "items": { "$ref": "#/$defs/grant" } },
+        "source": { "$ref": "#/$defs/source" }
+      }
+    }
+  }
+}

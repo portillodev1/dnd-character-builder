@@ -2,7 +2,7 @@ namespace DndBuilder.Domain.Tests;
 
 public class DerivedValueTests
 {
-    private static BonusPart Part(int value) => new(value, "x", BonusType.BaseScore, SourceRef.LdJ(12));
+    private static BonusPart Part(int value) => new(value, "x", BonusType.BaseScore, SourceRef.LdJ(13));
 
     [Fact]
     public void DerivedValue_WithParts_TotalIsSumOfParts()

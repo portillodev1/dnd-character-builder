@@ -17,7 +17,7 @@ sentidos, resistências, proficiências, idiomas e traços especiais.
 2. **Dado** que escolho "Anão", **então** vejo sub-raças disponíveis e sou obrigado a escolher
    uma antes de avançar (raças sem sub-raça avançam direto).
 3. **Dado** Anão + Anão da Colina, **então** vejo traços agrupados por origem:
-   "Anão" (ex.: Visão no Escuro, Resiliência Anã) e "Anão da Colina" (ex.: Robustez Anã).
+   "Anão" (ex.: Visão no Escuro, Resiliência Anã) e "Anão da Colina" (ex.: Tenacidade Anã).
 4. Cada traço mostra: nome, **tipo** (`kind`, ver `docs/domain/bonus-types.md`),
    descrição curta própria e página do LdJ.
 5. Aumentos de atributo aparecem como bônus tipados (`ability-score-increase`) com valor e atributo.

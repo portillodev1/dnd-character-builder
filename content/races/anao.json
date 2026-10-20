@@ -1,0 +1,76 @@
+{
+  "$schema": "../schemas/race.schema.json",
+  "id": "anao",
+  "name": "Anão",
+  "summary": "Povo baixo, robusto e teimoso, famoso pela resistência e pelo trabalho com pedra e metal.",
+  "size": "medio",
+  "speed": {
+    "meters": 7.5,
+    "note": "Usar armadura pesada não reduz o seu deslocamento.",
+    "source": { "book": "LdJ", "page": 20 }
+  },
+  "bonuses": [
+    { "target": "ability:constituicao", "value": 2, "bonusType": "ability-score-increase",
+      "label": "Anão", "source": { "book": "LdJ", "page": 20 } }
+  ],
+  "choices": [
+    { "id": "proficiencia-com-ferramentas", "name": "Proficiência com Ferramentas", "count": 1,
+      "from": ["Ferramentas de ferreiro", "Suprimentos de cervejeiro", "Ferramentas de pedreiro"],
+      "kind": "proficiency", "source": { "book": "LdJ", "page": 20 } }
+  ],
+  "traits": [
+    { "id": "visao-no-escuro", "name": "Visão no Escuro", "kind": "sense",
+      "description": "Até 18 m de distância, a penumbra não atrapalha sua visão e a escuridão total conta como penumbra para você. No escuro você só vê em preto e branco.",
+      "source": { "book": "LdJ", "page": 20 } },
+    { "id": "resiliencia-ana", "name": "Resiliência Anã", "kind": "resistance",
+      "description": "Você sofre menos dano de veneno (resistência) e rola com vantagem as salvaguardas contra veneno.",
+      "source": { "book": "LdJ", "page": 20 } },
+    { "id": "treinamento-anao-em-combate", "name": "Treinamento Anão em Combate", "kind": "proficiency",
+      "description": "Você sabe usar machado de batalha, machadinha, martelo leve e martelo de guerra.",
+      "source": { "book": "LdJ", "page": 20 } },
+    { "id": "especializacao-em-rochas", "name": "Especialização em Rochas", "kind": "other",
+      "description": "Em testes de História sobre trabalhos em pedra, você conta como proficiente e soma o dobro do bônus de proficiência.",
+      "source": { "book": "LdJ", "page": 20 } },
+    { "id": "idiomas-anao", "name": "Idiomas", "kind": "language",
+      "description": "Você fala, lê e escreve Comum e Anão.",
+      "source": { "book": "LdJ", "page": 20 } }
+  ],
+  "languages": ["Comum", "Anão"],
+  "subraces": [
+    {
+      "id": "anao-da-colina",
+      "name": "Anão da Colina",
+      "summary": "Anão de sentidos aguçados, intuição forte e resistência acima do normal.",
+      "srd": true,
+      "bonuses": [
+        { "target": "ability:sabedoria", "value": 1, "bonusType": "ability-score-increase",
+          "label": "Anão da Colina", "source": { "book": "LdJ", "page": 20 } },
+        { "target": "hp-per-level", "value": 1, "bonusType": "hit-points",
+          "label": "Tenacidade Anã", "source": { "book": "LdJ", "page": 20 } }
+      ],
+      "traits": [
+        { "id": "tenacidade-ana", "name": "Tenacidade Anã", "kind": "other",
+          "description": "Seus pontos de vida máximos aumentam em 1, e em mais 1 a cada nível que você ganhar.",
+          "source": { "book": "LdJ", "page": 20 } }
+      ],
+      "source": { "book": "LdJ", "page": 20 }
+    },
+    {
+      "id": "anao-da-montanha",
+      "name": "Anão da Montanha",
+      "summary": "Anão forte e acostumado à vida dura nas montanhas, treinado para lutar de armadura.",
+      "srd": false,
+      "bonuses": [
+        { "target": "ability:forca", "value": 2, "bonusType": "ability-score-increase",
+          "label": "Anão da Montanha", "source": { "book": "LdJ", "page": 20 } }
+      ],
+      "traits": [
+        { "id": "treinamento-anao-com-armaduras", "name": "Treinamento Anão com Armaduras", "kind": "proficiency",
+          "description": "Você sabe usar armaduras leves e médias.",
+          "source": { "book": "LdJ", "page": 20 } }
+      ],
+      "source": { "book": "LdJ", "page": 20 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 18 }
+}

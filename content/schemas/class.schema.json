@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dndbuilder.local/schemas/class.schema.json",
+  "title": "Classe base (LdJ Cap. 3)",
+  "type": "object",
+  "required": ["id", "name", "summary", "hitDie", "primaryAbilities", "savingThrows", "skillChoices",
+               "proficiencies", "subclassLevel", "table", "features", "source"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "id": { "$ref": "common.schema.json#/$defs/id" },
+    "name": { "$ref": "common.schema.json#/$defs/name" },
+    "summary": { "$ref": "common.schema.json#/$defs/description" },
+    "hitDie": { "enum": [6, 8, 10, 12] },
+    "primaryAbilities": { "type": "array", "minItems": 1, "maxItems": 2, "uniqueItems": true,
+                          "items": { "$ref": "common.schema.json#/$defs/ability" } },
+    "savingThrows": { "type": "array", "minItems": 2, "maxItems": 2, "uniqueItems": true,
+                      "items": { "$ref": "common.schema.json#/$defs/ability" } },
+    "skillChoices": {
+      "type": "object",
+      "required": ["count", "from"],
+      "additionalProperties": false,
+      "properties": {
+        "count": { "type": "integer", "minimum": 1 },
+        "from": { "type": "array", "minItems": 1, "uniqueItems": true,
+                  "items": { "$ref": "common.schema.json#/$defs/skill" } }
+      }
+    },
+    "proficiencies": {
+      "type": "object",
+      "required": ["armor", "weapons", "tools"],
+      "additionalProperties": false,
+      "properties": {
+        "armor": { "$ref": "#/$defs/stringList" },
+        "weapons": { "$ref": "#/$defs/stringList" },
+        "tools": { "$ref": "#/$defs/stringList" }
+      }
+    },
+    "subclassLevel": { "type": "integer", "minimum": 1, "maximum": 3 },
+    "table": {
+      "description": "Colunas que escalam por nível; values[i] = valor no nível i+1.",
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "values"],
+        "additionalProperties": false,
+        "properties": {
+          "id": { "$ref": "common.schema.json#/$defs/id" },
+          "name": { "$ref": "common.schema.json#/$defs/name" },
+          "values": { "type": "array", "minItems": 20, "maxItems": 20, "items": { "type": "string", "minLength": 1 } }
+        }
+      }
+    },
+    "features": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/feature" } },
+    "source": { "$ref": "common.schema.json#/$defs/source" }
+  },
+  "$defs": {
+    "stringList": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+    "feature": {
+      "type": "object",
+      "required": ["id", "name", "level", "kind", "description", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "id": { "$ref": "common.schema.json#/$defs/id" },
+        "name": { "$ref": "common.schema.json#/$defs/name" },
+        "level": { "type": "integer", "minimum": 1, "maximum": 20 },
+        "kind": { "$ref": "common.schema.json#/$defs/kind" },
+        "description": { "$ref": "common.schema.json#/$defs/description" },
+        "scaling": { "$ref": "common.schema.json#/$defs/id", "description": "id de uma coluna de table[]." },
+        "grants": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/grant" } },
+        "source": { "$ref": "common.schema.json#/$defs/source" }
+      }
+    }
+  }
+}

@@ -1,6 +1,6 @@
 # Spec F3: Perícias e salvaguardas — calcular e preencher
 
-Critério de pronto **3**. Fórmulas: `docs/domain/calculations.md` §2–6. LdJ Cap. 7 (p. 174–181).
+Critério de pronto **3**. Fórmulas: `docs/domain/calculations.md` §2–6. LdJ Cap. 7 (p. 175–182).
 
 ## Objective
 O iniciante preenche as seções "Salvaguardas" e "Perícias" da ficha sabendo

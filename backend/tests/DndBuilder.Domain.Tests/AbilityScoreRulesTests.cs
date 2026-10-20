@@ -16,7 +16,7 @@ public class AbilityScoreRulesTests
     public void FinalScore_FirstPart_IsBaseScore()
         => Assert.Equal(BonusType.BaseScore, AbilityScoreRules.FinalScore(14, []).Parts[0].Type);
 
-    [Theory] // LdJ p. 13: teto 20 para jogadores
+    [Theory] // LdJ p. 175: teto 20 para aventureiros
     [InlineData(19, 2, 20)]
     [InlineData(20, 1, 20)]
     [InlineData(18, 2, 20)]

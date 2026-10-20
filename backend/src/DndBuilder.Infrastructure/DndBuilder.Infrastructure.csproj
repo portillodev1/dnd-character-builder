@@ -4,4 +4,14 @@
     <ProjectReference Include="..\DndBuilder.Application\DndBuilder.Application.csproj" />
     <ProjectReference Include="..\DndBuilder.Domain\DndBuilder.Domain.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JsonSchema.Net" />
+  </ItemGroup>
+
+  <!-- Catálogo de regras embarcado no assembly (ADR-0003). Nome lógico: content/<pasta>/<arquivo>.json -->
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\..\content\**\*.json"
+                      LogicalName="content/$([System.String]::Copy('%(RecursiveDir)').Replace('\','/'))%(Filename)%(Extension)" />
+  </ItemGroup>
 </Project>

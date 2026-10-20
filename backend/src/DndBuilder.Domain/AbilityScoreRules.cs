@@ -1,17 +1,17 @@
 namespace DndBuilder.Domain;
 
-/// <summary>Valor final de atributo e modificador, com breakdown. LdJ p. 12–13, 175.</summary>
+/// <summary>Valor final de atributo e modificador, com breakdown. LdJ p. 13, 175.</summary>
 public static class AbilityScoreRules
 {
     /// <summary>
-    /// valorFinal = valorBase + Σ aumentos (raça/sub-raça), sem passar de 20 (LdJ p. 13).
+    /// valorFinal = valorBase + Σ aumentos (raça/sub-raça), sem passar de 20 (LdJ p. 175).
     /// Um aumento que ultrapassaria o teto entra reduzido e o rótulo explica o motivo.
     /// </summary>
     public static DerivedValue FinalScore(int baseScore, IEnumerable<BonusPart> increases)
     {
         ArgumentNullException.ThrowIfNull(increases);
         var running = new AbilityScore(baseScore).Value;
-        var parts = new List<BonusPart> { new(running, "Valor base", BonusType.BaseScore, SourceRef.LdJ(12)) };
+        var parts = new List<BonusPart> { new(running, "Valor base", BonusType.BaseScore, SourceRef.LdJ(13)) };
 
         foreach (var increase in increases)
         {

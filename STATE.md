@@ -20,27 +20,28 @@ Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia 
 | AD-012 | 2026-10-19 | Antecedente no MVP = marcar 2 perícias; deploy só local; PDF pós-MVP | spec projeto |
 
 ## Eval gates disponíveis (de `HARNESS.md` §4)
-`check-docs.sh` ✅ · `build.sh` ✅ · `lint.sh` ✅ · `test.sh --back` ✅ (142) · `test.sh --front` ✅ (1) · `verify.sh --strict` ✅ (exige Node 24) · CI `verify.yml` ⏳ (roda no próximo push)
+`check-docs.sh` ✅ · `build.sh` ✅ · `lint.sh` ✅ · `test.sh --back` ✅ (156) · `test.sh --front` ✅ (1) · `verify.sh --strict` ✅ (exige Node 24) · CI `verify.yml` ⏳ (roda no próximo push)
 
 ## Specs
 | Feature | Fase spec-driven | Artefatos |
 |---|---|---|
-| projeto | Specify ✅ · Plan ✅ · Tasks Fase 1 ✅ · Tasks Fase 2 ✅ | `.specs/project/spec.md`, `plan.md` |
+| projeto | Specify ✅ · Plan ✅ · Tasks Fase 1 ✅ · Tasks Fase 2 ✅ · Tasks Fase 3 (fatia 1) ✅ | `.specs/project/spec.md`, `plan.md` |
 | F1 race-traits | Specify ✅ | `.specs/features/race-traits/spec.md` |
 | F2 class-features | Specify ✅ | `.specs/features/class-features/spec.md` |
 | F3 skills-saves | Specify ✅ | `.specs/features/skills-saves/spec.md` |
 | F4 bonus-breakdown | Specify ✅ | `.specs/features/bonus-breakdown/spec.md` |
 
 ## Handoff
-- **Última unidade**: Fase 2 — Motor de regras (T1–T8 de `.specs/project/tasks-fase-2.md`). Commitado;
-  **push pendente de aprovação** (junto com a Fase 1).
-- **Feito**: `Domain` com `AbilityScore`, `Modifier`, `Level`, `ProficiencyBonus`, `DerivedValue`/`BonusPart`/
-  `BonusType`/`SourceRef`, `Ability`, `Skill` (18), regras de atributo (teto 20), métodos de valor base,
-  salvaguardas, perícias (fator 0/½/1/2) e Sabedoria Passiva. `Domain.Tests` cobre §1–6 (142 testes back).
-  Scripts `scripts/*.sh` ganharam bit de execução no git (`verify.sh` chama `./check-docs.sh`).
+- **Última unidade**: Fase 3, fatia 1 (T1–T6 de `.specs/project/tasks-fase-3.md`). Commitada;
+  **push pendente de aprovação**. Páginas conferidas no PDF (impressa = PDF + 1).
+- **Feito**: ADR-0005 (JsonSchema.Net 9.4.1, isento da taxa OSMF); schemas `common`/`race`/`class`/
+  `skills` (draft 2020-12); `skills.json`, `races/anao.json` (Colina + Montanha), `classes/ladino.json`;
+  `Infrastructure/Content` (`EmbeddedContent`, `ContentValidator`); `Ruleset.Tests` (156 testes back).
 - **Toolchain local (macOS)**: Node 24 via `brew install node@24` (keg-only) → exporte
   `PATH="/opt/homebrew/opt/node@24/bin:$PATH"` antes dos scripts.
-- **Bloqueios**: nenhum.
-- **Próxima unidade**: Fase 3 — schema do catálogo + Anão + Ladino (`plan.md` item 3).
-- **Limpeza**: apagar `tasks-fase-1.md` e `tasks-fase-2.md` quando aprovadas.
+- **Bloqueios**: nenhum. PDF do LdJ fica **fora do repo** (ADR-0004); para conferir páginas use
+  `pdftotext` (poppler, instalado via brew) num diretório temporário.
+- **Próxima unidade**: fatia 2 (8 raças + 11 classes,
+  paralelizável por arquivo) → Fase 4 (loader tipado + endpoints).
+- **Limpeza**: apagar `tasks-fase-1.md`, `tasks-fase-2.md` e `tasks-fase-3.md` quando aprovadas.
 - **Gates**: `verify.sh --strict` verde.

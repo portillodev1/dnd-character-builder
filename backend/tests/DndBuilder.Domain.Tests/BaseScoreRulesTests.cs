@@ -14,7 +14,7 @@ public class BaseScoreRulesTests
     public void PointBuyCost_ForScore_MatchesTable(int score, int expected)
         => Assert.Equal(expected, BaseScoreRules.PointBuyCost(score));
 
-    [Theory] // LdJ p. 12–13
+    [Theory] // LdJ p. 13
     [InlineData(BaseScoreMethod.StandardArray, new[] { 8, 15, 10, 14, 12, 13 })]
     [InlineData(BaseScoreMethod.PointBuy, new[] { 15, 15, 15, 8, 8, 8 })]   // 27 pontos
     [InlineData(BaseScoreMethod.PointBuy, new[] { 13, 13, 13, 12, 12, 12 })] // 27 pontos

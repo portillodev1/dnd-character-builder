@@ -6,7 +6,8 @@ Modelo detalhado (humanos): `docs/architecture/ruleset-data.md`.
 ## Regras
 - Um arquivo por entidade: `content/races/<id>.json`, `content/classes/<id>.json`.
   `id` em kebab-case sem acento (`meio-elfo`, `patrulheiro`).
-- Todo arquivo valida contra `content/schemas/*.schema.json` (gate: `Ruleset.Tests`).
+- Todo arquivo valida contra `content/schemas/*.schema.json` (gate: `Ruleset.Tests`);
+  sub-raças ficam **embutidas** na raça; fora do SRD 5.1 → `"srd": false` (ADR-0004).
 - Toda característica/bônus tem `source`: `{ "book": "LdJ", "page": <n> }`.
 - Bônus são **tipados** (enum `bonusType`, ver `docs/domain/bonus-types.md`) — nunca texto livre.
 - Características de classe têm `level` (1–20). O filtro "até o nível N" é da API, não do JSON.
@@ -27,6 +28,6 @@ Modelo detalhado (humanos): `docs/architecture/ruleset-data.md`.
       "description": "Enxerga na penumbra a até 18 m como se fosse luz plena.",
       "source": { "book": "LdJ", "page": 20 } }
   ],
-  "subraces": ["anao-da-colina", "anao-da-montanha"]
+  "subraces": [ { "id": "anao-da-colina", "name": "Anão da Colina", "srd": true, "...": "..." } ]
 }
 ```
