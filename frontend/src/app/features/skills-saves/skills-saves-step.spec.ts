@@ -9,6 +9,7 @@ import { SkillsSavesStepComponent } from './skills-saves-step';
 
 const ladino = {
   name: 'Ladino',
+  expertiseCount: 2,
   skillChoices: {
     count: 4,
     from: ['acrobacia', 'furtividade', 'percepcao', 'enganacao', 'intuicao'],
@@ -25,7 +26,7 @@ const skill = (sheetLabel: string, sources: string[] = []) => ({
 });
 
 describe('SkillsSavesStepComponent', () => {
-  async function render() {
+  async function render(expertise: string[] = []) {
     TestBed.configureTestingModule({
       imports: [SkillsSavesStepComponent],
       providers: [
@@ -35,7 +36,12 @@ describe('SkillsSavesStepComponent', () => {
       ],
     });
     const store = TestBed.inject(CharacterDraftStore);
-    store.draft.set({ classId: 'ladino', level: 1, skillChoices: ['furtividade', 'acrobacia'] });
+    store.draft.set({
+      classId: 'ladino',
+      level: 1,
+      skillChoices: ['furtividade', 'acrobacia'],
+      expertise,
+    });
     store.sheet.set(
       sheet({
         skills: {
@@ -65,5 +71,14 @@ describe('SkillsSavesStepComponent', () => {
     );
     expect(box?.disabled).toBe(true);
     expect(box?.title).toBe('Já proficiente por Elfo.');
+  });
+
+  it('Especialização quando o limite da classe é atingido deve travar as demais (F3 AC5)', async () => {
+    const el = await render(['furtividade', 'acrobacia']);
+
+    const box = el.querySelector<HTMLInputElement>('input[aria-label="Especialização: Percepção"]');
+    expect(box?.disabled).toBe(true);
+    expect(box?.title).toBe('Limite de 2 atingido.');
+    expect(el.querySelector('.counter')?.textContent).toContain('Especialização: 2 de 2');
   });
 });

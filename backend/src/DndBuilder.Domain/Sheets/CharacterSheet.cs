@@ -11,12 +11,13 @@ public sealed record SkillResult(Skill Skill, SkillProficiency Proficiency, IRea
 
 public sealed record FeatureResult(ClassFeature Feature, string? ScalingValue);
 
-/// <summary>Origem de um traço/bônus para a visão "Meus bônus" (F4 AC4).</summary>
+/// <summary>Origem de um traço/bônus para a visão "Meus bônus" (F4 AC4). <c>Choice</c>: escolha do jogador.</summary>
 public enum Origin
 {
     Race,
     Subrace,
     Class,
+    Choice,
 }
 
 public sealed record TraitResult(Trait Trait, Origin Origin, string OriginName);
@@ -32,6 +33,7 @@ public sealed record CharacterSheet
     public IReadOnlyList<SkillResult> Skills { get; init; } = [];
     public DerivedValue? PassivePerception { get; init; }
     public DerivedValue? HitPoints { get; init; }
+    public DerivedMeasure? Speed { get; init; }
     public IReadOnlyList<FeatureResult> Features { get; init; } = [];
     public IReadOnlyList<FeatureResult> NextLevelFeatures { get; init; } = [];
     public IReadOnlyList<TraitResult> Traits { get; init; } = [];

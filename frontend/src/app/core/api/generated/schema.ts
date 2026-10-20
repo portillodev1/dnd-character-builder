@@ -190,6 +190,7 @@ export interface components {
             };
             passivePerception: null | components["schemas"]["DerivedValueDto"];
             hitPoints: null | components["schemas"]["DerivedValueDto"];
+            speed: null | components["schemas"]["DerivedMeasureDto"];
             features: components["schemas"]["FeatureDto"][];
             nextLevelFeatures: components["schemas"]["FeatureDto"][];
             traits: components["schemas"]["SheetTraitDto"][];
@@ -220,6 +221,8 @@ export interface components {
             subclassLevel: number;
             /** Format: int32 */
             level: number;
+            /** Format: int32 */
+            expertiseCount: number;
             features: components["schemas"]["FeatureDto"][];
             nextLevel: components["schemas"]["FeatureDto"][];
             source: components["schemas"]["SourceDto"];
@@ -236,6 +239,11 @@ export interface components {
         CreateSheetRequest: {
             name: null | string;
             draft: null | components["schemas"]["CharacterDraftDto"];
+        };
+        DerivedMeasureDto: {
+            /** Format: double */
+            total: number;
+            parts: components["schemas"]["MeasurePartDto"][];
         };
         DerivedValueDto: {
             /** Format: int32 */
@@ -262,6 +270,13 @@ export interface components {
             errors?: {
                 [key: string]: string[];
             };
+        };
+        MeasurePartDto: {
+            /** Format: double */
+            value: number;
+            label: string;
+            bonusType: string;
+            source: components["schemas"]["SourceDto"];
         };
         ProficienciesDto: {
             armor: string[];
@@ -365,6 +380,7 @@ export interface components {
             /** Format: double */
             meters: number;
             note: null | string;
+            label: null | string;
             source: components["schemas"]["SourceDto"];
         };
         SubraceDto: {
@@ -375,6 +391,7 @@ export interface components {
             bonuses: components["schemas"]["BonusDto"][];
             choices: components["schemas"]["ChoiceDto"][];
             traits: components["schemas"]["TraitDto"][];
+            speed: null | components["schemas"]["SpeedDto"];
             source: components["schemas"]["SourceDto"];
         };
         SubraceSummaryDto: {

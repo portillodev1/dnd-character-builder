@@ -21,6 +21,7 @@ export function sheet(overrides: Partial<CharacterSheet> = {}): CharacterSheet {
     skills: {},
     passivePerception: null,
     hitPoints: null,
+    speed: null,
     features: [],
     nextLevelFeatures: [],
     traits: [],
@@ -51,7 +52,7 @@ export const anao: Race = {
   name: 'Anão',
   summary: 's',
   size: 'medio',
-  speed: { meters: 7.5, note: null, source: src(20) },
+  speed: { meters: 7.5, note: null, label: null, source: src(20) },
   bonuses: [
     {
       target: 'ability:constituicao',
@@ -89,6 +90,7 @@ export const anao: Race = {
           source: src(20),
         },
       ],
+      speed: null,
       source: src(20),
     },
   ],

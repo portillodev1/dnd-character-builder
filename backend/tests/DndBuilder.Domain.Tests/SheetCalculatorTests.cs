@@ -67,6 +67,25 @@ public class SheetCalculatorTests
     public void Compute_Level2_NextLevelHasArchetype()
         => Assert.Equal("arquetipo-de-ladino", Assert.Single(Sheet(Draft(2)).NextLevelFeatures).Feature.Id);
 
+    [Fact] // F4 AC1, calculations.md §8: Anão 7,5 m (LdJ p. 20), sub-raça sem deslocamento próprio não muda nada
+    public void Compute_HillDwarf_SpeedIsRaceBase()
+    {
+        var speed = Sheet(Draft()).Speed!;
+        Assert.Equal((7.5m, "Anão", 20), (speed.Total, Assert.Single(speed.Parts).Label, speed.Parts[0].Source.Page));
+    }
+
+    [Fact] // §8: Elfo da Floresta → 9 m do Elfo (p. 23) + 1,5 m de Pés Ligeiros (p. 24) = 10,5 m
+    public void Compute_WoodElf_SpeedAddsLightFoot()
+    {
+        var speed = Sheet(new CharacterDraft { RaceId = "elfo", SubraceId = "elfo-da-floresta" }).Speed!;
+        Assert.Equal((10.5m, "9 Elfo + 1.5 Pés Ligeiros"),
+            (speed.Total, string.Join(" + ", speed.Parts.Select(p => FormattableString.Invariant($"{p.Value} {p.Label}")))));
+    }
+
+    [Fact] // sem raça não há deslocamento
+    public void Compute_NoRace_SpeedIsNull()
+        => Assert.Null(Sheet(new CharacterDraft()).Speed);
+
     private static CharacterDraft HalfElf(params (string Id, string[] Picks)[] choices) => Draft() with
     {
         RaceId = "meio-elfo",
@@ -88,9 +107,38 @@ public class SheetCalculatorTests
         Assert.Equal((SkillProficiency.Proficient, "Meio-Elfo"), (athletics.Proficiency, athletics.ProficiencySources.Single()));
     }
 
+    [Fact] // F4 AC4: +1 do Meio-Elfo é escolha (origem própria), o +2 em Carisma segue da raça (LdJ p. 39)
+    public void Compute_HalfElfAbilityChoice_BonusHasChoiceOrigin()
+    {
+        var bonuses = Sheet(HalfElf(("aumento-de-atributo", ["ability:forca", "ability:destreza"]))).Bonuses.Where(b => b.Bonus.Target.StartsWith("ability:", StringComparison.Ordinal));
+        Assert.Equal("Race:ability:carisma Choice:ability:forca Choice:ability:destreza",
+            string.Join(' ', bonuses.Select(b => $"{b.Origin}:{b.Bonus.Target}")));
+    }
+
+    [Fact] // F4 AC4: perícias escolhidas (raça, classe, antecedente) e Especialização viram bônus de escolha, valendo o Bônus de Proficiência
+    public void Compute_SkillChoices_AreChoiceBonusesWithProficiencyValue()
+    {
+        var choices = Sheet(HalfElf(("versatilidade-em-pericia", ["skill:atletismo", "skill:historia"])) with { Choices = new Dictionary<string, IReadOnlyList<string>> { ["versatilidade-em-pericia"] = ["skill:atletismo"] } })
+            .Bonuses.Where(b => b.Origin == Origin.Choice && b.Bonus.Target is "skill:atletismo" or "skill:furtividade" or "skill:intuicao");
+        Assert.Equal([
+                "skill:atletismo +2 Proficiency Versatilidade em Perícia Meio-Elfo p.39",
+                "skill:furtividade +2 Proficiency Perícia de classe Ladino p.89",
+                "skill:intuicao +2 Proficiency Perícia do antecedente Antecedente p.127",
+                "skill:furtividade +2 Expertise Especialização Ladino p.91",
+            ],
+            choices.Select(b => $"{b.Bonus.Target} +{b.Bonus.Value} {b.Bonus.BonusType} {b.Bonus.Label} {b.OriginName} p.{b.Bonus.Source.Page}"));
+    }
+
+    [Fact] // F4 AC4–5: escolha sem número (ferramenta do Anão, LdJ p. 20) vira traço de origem "escolha"
+    public void Compute_ToolChoice_IsChoiceTrait()
+    {
+        var trait = Sheet(Draft()).Traits.Single(t => t.Origin == Origin.Choice);
+        Assert.Equal(("Proficiência com Ferramentas: a", "Anão"), (trait.Trait.Name, trait.OriginName));
+    }
+
     [Fact] // F1 AC3: traços agrupados por origem
     public void Compute_HillDwarf_TraitsCarryOrigin()
-        => Assert.Equal("Race:visao-no-escuro Subrace:tenacidade-ana",
+        => Assert.Equal("Race:visao-no-escuro Subrace:tenacidade-ana Choice:ferramentas",
             string.Join(' ', Sheet(Draft()).Traits.Select(t => $"{t.Origin}:{t.Trait.Id}")));
 
     [Fact] // F4 AC3: Total == ΣParts para todo valor da ficha
@@ -101,6 +149,7 @@ public class SheetCalculatorTests
             .Concat(s.SavingThrows.Select(x => x.Value)).Concat(s.Skills.Select(x => x.Value!))
             .Append(s.ProficiencyBonus!).Append(s.PassivePerception!).Append(s.HitPoints!);
         Assert.All(values, v => Assert.Equal(v.Parts.Sum(p => p.Value), v.Total));
+        Assert.Equal(s.Speed!.Parts.Sum(p => p.Value), s.Speed.Total);
     }
 
     [Fact] // incompleto não é erro: vira warning (api-contract.md)

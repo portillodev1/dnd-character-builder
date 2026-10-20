@@ -11,16 +11,7 @@
     "name": { "$ref": "common.schema.json#/$defs/name" },
     "summary": { "$ref": "common.schema.json#/$defs/description" },
     "size": { "enum": ["pequeno", "medio"] },
-    "speed": {
-      "type": "object",
-      "required": ["meters", "source"],
-      "additionalProperties": false,
-      "properties": {
-        "meters": { "type": "number", "exclusiveMinimum": 0, "multipleOf": 1.5 },
-        "note": { "$ref": "common.schema.json#/$defs/description" },
-        "source": { "$ref": "common.schema.json#/$defs/source" }
-      }
-    },
+    "speed": { "$ref": "#/$defs/speed" },
     "bonuses": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/bonus" } },
     "choices": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/choice" } },
     "traits": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/trait" } },
@@ -29,6 +20,17 @@
     "source": { "$ref": "common.schema.json#/$defs/source" }
   },
   "$defs": {
+    "speed": {
+      "type": "object",
+      "required": ["meters", "source"],
+      "additionalProperties": false,
+      "properties": {
+        "meters": { "type": "number", "exclusiveMinimum": 0, "multipleOf": 1.5 },
+        "note": { "$ref": "common.schema.json#/$defs/description" },
+        "label": { "$ref": "common.schema.json#/$defs/name", "description": "Traço que muda o deslocamento (breakdown)." },
+        "source": { "$ref": "common.schema.json#/$defs/source" }
+      }
+    },
     "subrace": {
       "description": "Somada à raça-mãe (docs/architecture/ruleset-data.md).",
       "type": "object",
@@ -39,6 +41,7 @@
         "name": { "$ref": "common.schema.json#/$defs/name" },
         "summary": { "$ref": "common.schema.json#/$defs/description" },
         "srd": { "type": "boolean", "description": "false = fora do SRD 5.1: só nome + mecânica resumida (ADR-0004)." },
+        "speed": { "$ref": "#/$defs/speed", "description": "Substitui o deslocamento da raça-mãe (ex.: Elfo da Floresta)." },
         "bonuses": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/bonus" } },
         "choices": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/choice" } },
         "traits": { "type": "array", "items": { "$ref": "common.schema.json#/$defs/trait" } },

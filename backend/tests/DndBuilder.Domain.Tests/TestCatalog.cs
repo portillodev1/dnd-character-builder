@@ -45,6 +45,8 @@ internal static class TestCatalog
         Traits = [new Trait { Id = "sentidos-agucados", Name = "Sentidos Aguçados", Kind = TraitKind.Proficiency, Description = "d",
             Grants = [new Grant { Type = GrantType.SkillProficiency, Skill = "percepcao" }], Source = P(23) }],
         Languages = ["Comum"],
+        Subraces = [new Subrace { Id = "elfo-da-floresta", Name = "Elfo da Floresta", Summary = "s", Source = P(24),
+            Speed = new Speed { Meters = 10.5m, Label = "Pés Ligeiros", Source = P(24) } }],
         Source = P(21),
     };
 

@@ -49,6 +49,8 @@ público → PERGUNTE (AGENTS.md). Erros sempre em **ProblemDetails** (RFC 9457)
   "skills": { "furtividade": { "sheetLabel": "Furtividade (Des)", "ability": "destreza",
       "proficiency": "expertise", "proficiencySources": ["Ladino"], "total": 6, "parts": [] } },
   "passivePerception": { "total": 15, "parts": [] }, "hitPoints": { "total": 30, "parts": [] },
+  "speed": { "total": 7.5, "parts": [ { "value": 7.5, "label": "Anão", "bonusType": "speed",
+      "source": { "book": "LdJ", "page": 20 } } ] },
   "features": [ { "id": "ataque-furtivo", "level": 1, "kind": "other", "scalingValue": "2d6" } ],
   "nextLevelFeatures": [], "traits": [ { "id": "visao-no-escuro", "origin": "race", "originName": "Anão" } ],
   "bonuses": [ { "target": "ability:constituicao", "value": 2, "bonusType": "ability-score-increase",
@@ -56,6 +58,10 @@ público → PERGUNTE (AGENTS.md). Erros sempre em **ProblemDetails** (RFC 9457)
   "warnings": [ "Escolha 4 perícias da lista do Ladino (3 de 4)" ]
 }
 ```
+`origin` de `bonuses[]`/`traits[]`: `race` · `subrace` · `class` · `choice` (escolha do jogador: +1 do
+Meio-Elfo, perícias de raça/classe/antecedente e Especialização com `value` = Bônus de Proficiência,
+e escolhas sem número como idioma/ferramenta em `traits[]`). `speed` é decimal (metros).
+`GET /classes/{id}/features?level=N` traz `expertiseCount`: Especializações concedidas até N.
 
 ## Validação (400 com `errors` por campo)
 - `level` 1–20; `baseAbilities` 1–20 antes de bônus raciais (método escolhido valida faixa).

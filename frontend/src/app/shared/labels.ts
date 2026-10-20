@@ -132,4 +132,5 @@ export function optionLabel(option: string): string {
   return option;
 }
 
-export const signed = (n: number): string => (n >= 0 ? `+${n}` : `${n}`);
+export const signed = (n: number): string =>
+  n >= 0 ? `+${n.toLocaleString('pt-BR')}` : n.toLocaleString('pt-BR');

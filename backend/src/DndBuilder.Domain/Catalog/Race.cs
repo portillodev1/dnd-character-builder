@@ -4,6 +4,9 @@ public sealed record Speed
 {
     public required decimal Meters { get; init; }
     public string? Note { get; init; }
+
+    /// <summary>Nome do traço que muda o deslocamento (ex.: "Pés Ligeiros"), usado no breakdown.</summary>
+    public string? Label { get; init; }
     public required SourceRef Source { get; init; }
 }
 
@@ -31,6 +34,9 @@ public sealed record Subrace
     public required string Name { get; init; }
     public required string Summary { get; init; }
     public bool Srd { get; init; } = true;
+
+    /// <summary>Deslocamento que substitui o da raça-mãe (ex.: Elfo da Floresta 10,5 m), ou null.</summary>
+    public Speed? Speed { get; init; }
     public IReadOnlyList<CatalogBonus> Bonuses { get; init; } = [];
     public IReadOnlyList<Choice> Choices { get; init; } = [];
     public IReadOnlyList<Trait> Traits { get; init; } = [];

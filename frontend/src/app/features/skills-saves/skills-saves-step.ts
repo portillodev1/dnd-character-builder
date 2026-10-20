@@ -47,6 +47,10 @@ const PROFICIENCY_TEXT: Readonly<Record<string, string>> = {
         <p class="counter" aria-live="polite">
           Perícias do {{ d.name }}: {{ classPicks().length }} de {{ d.skillChoices.count }} ·
           Antecedente: {{ backgroundPicks().length }} de {{ backgroundCount }}
+          @if (d.expertiseCount > 0) {
+            · Especialização: {{ expertisePicks().length }} de
+            {{ d.expertiseCount }}
+          }
         </p>
       } @else {
         <p>Escolha a classe no passo anterior para marcar as perícias da classe.</p>
@@ -99,6 +103,8 @@ const PROFICIENCY_TEXT: Readonly<Record<string, string>> = {
                     type="checkbox"
                     [attr.aria-label]="'Especialização: ' + row.name"
                     [checked]="row.expertise"
+                    [disabled]="!!row.expertiseBlocked"
+                    [title]="row.expertiseBlocked ?? ''"
                     (change)="toggleExpertise(row.id)"
                   />
                 }
@@ -223,7 +229,7 @@ export class SkillsSavesStepComponent {
   protected readonly details = signal<ClassFeatures | null>(null);
   protected readonly classPicks = computed(() => this.store.draft().skillChoices ?? []);
   protected readonly backgroundPicks = computed(() => this.store.draft().extraProficiencies ?? []);
-  private readonly expertisePicks = computed(() => this.store.draft().expertise ?? []);
+  protected readonly expertisePicks = computed(() => this.store.draft().expertise ?? []);
 
   protected readonly fieldErrors = computed(() =>
     Object.entries(this.store.errors())
@@ -237,6 +243,9 @@ export class SkillsSavesStepComponent {
     const className = d?.name;
     const classFull = d !== null && this.classPicks().length >= d.skillChoices.count;
     const backgroundFull = this.backgroundPicks().length >= BACKGROUND_SKILLS;
+    // Quantas Especializações a classe concede no nível vem da API (F3 AC5).
+    const expertiseCount = d?.expertiseCount ?? 0;
+    const expertiseFull = this.expertisePicks().length >= expertiseCount;
     return SKILLS.map((id) => {
       const skill = sheet?.skills[id];
       const sources = skill?.proficiencySources ?? [];
@@ -265,6 +274,14 @@ export class SkillsSavesStepComponent {
           : backgroundFull
             ? `Limite de ${BACKGROUND_SKILLS} atingido.`
             : null;
+      const expertise = this.expertisePicks().includes(id);
+      const expertiseBlocked = expertise
+        ? null
+        : expertiseCount === 0
+          ? 'Sua classe e nível não concedem Especialização.'
+          : expertiseFull
+            ? `Limite de ${expertiseCount} atingido.`
+            : null;
       const proficiency = skill?.proficiency ?? 'none';
       return {
         id,
@@ -276,7 +293,8 @@ export class SkillsSavesStepComponent {
         backgroundBlocked,
         sources,
         proficient: proficiency === 'proficient' || proficiency === 'expertise',
-        expertise: this.expertisePicks().includes(id),
+        expertise,
+        expertiseBlocked,
         proficiencyText: PROFICIENCY_TEXT[proficiency] ?? proficiency,
         total: skill?.total ?? null,
         parts: skill?.parts ?? null,

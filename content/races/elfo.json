@@ -173,6 +173,14 @@
       "name": "Elfo da Floresta",
       "summary": "Elfo veloz e furtivo, de sentidos e intuição aguçados.",
       "srd": false,
+      "speed": {
+        "meters": 10.5,
+        "label": "Pés Ligeiros",
+        "source": {
+          "book": "LdJ",
+          "page": 24
+        }
+      },
       "bonuses": [
         {
           "target": "ability:sabedoria",

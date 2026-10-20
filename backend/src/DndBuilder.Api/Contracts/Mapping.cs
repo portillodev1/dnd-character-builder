@@ -17,6 +17,11 @@ internal static class Mapping
     public static DerivedValueDto Dto(this DerivedValue v)
         => new(v.Total, [.. v.Parts.Select(p => new BonusPartDto(p.Value, p.Label, Id(p.Type), p.Source.Dto()))]);
 
+    public static DerivedMeasureDto Dto(this DerivedMeasure m)
+        => new(m.Total, [.. m.Parts.Select(p => new MeasurePartDto(p.Value, p.Label, Id(p.Type), p.Source.Dto()))]);
+
+    public static SpeedDto Dto(this Speed s) => new(s.Meters, s.Note, s.Label, s.Source.Dto());
+
     public static BonusDto Dto(this CatalogBonus b) => new(b.Target, b.Value, Id(b.BonusType), b.Label, b.Source.Dto());
 
     public static TraitDto Dto(this Trait t) => new(t.Id, t.Name, Id(t.Kind), t.Description, t.Source.Dto());
@@ -32,10 +37,10 @@ internal static class Mapping
             [.. r.Subraces.Select(s => new SubraceSummaryDto(s.Id, s.Name))]);
 
     public static RaceDto Dto(this Race r)
-        => new(r.Id, r.Name, r.Summary, Id(r.Size), new SpeedDto(r.Speed.Meters, r.Speed.Note, r.Speed.Source.Dto()),
+        => new(r.Id, r.Name, r.Summary, Id(r.Size), r.Speed.Dto(),
             [.. r.Bonuses.Select(Dto)], [.. r.Choices.Select(Dto)], [.. r.Traits.Select(Dto)], r.Languages,
             [.. r.Subraces.Select(s => new SubraceDto(s.Id, s.Name, s.Summary, s.Srd, [.. s.Bonuses.Select(Dto)],
-                [.. s.Choices.Select(Dto)], [.. s.Traits.Select(Dto)], s.Source.Dto()))],
+                [.. s.Choices.Select(Dto)], [.. s.Traits.Select(Dto)], s.Speed?.Dto(), s.Source.Dto()))],
             r.Source.Dto());
 
     public static ClassSummaryDto Summary(this CharacterClass c)
@@ -47,7 +52,7 @@ internal static class Mapping
         return new(c.Id, c.Name, c.Summary, c.HitDie, [.. c.PrimaryAbilities.Select(CatalogIds.Id)], [.. c.SavingThrows.Select(CatalogIds.Id)],
             new SkillChoicesDto(c.SkillChoices.Count, c.SkillChoices.From),
             new ProficienciesDto(c.Proficiencies.Armor, c.Proficiencies.Weapons, c.Proficiencies.Tools),
-            c.SubclassLevel, v.Level.Value, [.. v.Features.Select(Dto)], [.. v.NextLevel.Select(Dto)], c.Source.Dto());
+            c.SubclassLevel, v.Level.Value, c.ExpertiseCount(v.Level), [.. v.Features.Select(Dto)], [.. v.NextLevel.Select(Dto)], c.Source.Dto());
     }
 
     public static CharacterDraft ToDomain(this CharacterDraftDto d) => new()
@@ -95,6 +100,7 @@ internal static class Mapping
         }),
         s.PassivePerception?.Dto(),
         s.HitPoints?.Dto(),
+        s.Speed?.Dto(),
         [.. s.Features.Select(Dto)],
         [.. s.NextLevelFeatures.Select(Dto)],
         [.. s.Traits.Select(t => new SheetTraitDto(t.Trait.Id, t.Trait.Name, Id(t.Trait.Kind), t.Trait.Description, Id(t.Origin), t.OriginName, t.Trait.Source.Dto()))],

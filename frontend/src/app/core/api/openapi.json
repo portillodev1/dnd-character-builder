@@ -541,6 +541,7 @@
           "skills",
           "passivePerception",
           "hitPoints",
+          "speed",
           "features",
           "nextLevelFeatures",
           "traits",
@@ -594,6 +595,16 @@
               },
               {
                 "$ref": "#/components/schemas/DerivedValueDto"
+              }
+            ]
+          },
+          "speed": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/DerivedMeasureDto"
               }
             ]
           },
@@ -686,6 +697,7 @@
           "proficiencies",
           "subclassLevel",
           "level",
+          "expertiseCount",
           "features",
           "nextLevel",
           "source"
@@ -728,6 +740,10 @@
             "format": "int32"
           },
           "level": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "expertiseCount": {
             "type": "integer",
             "format": "int32"
           },
@@ -808,6 +824,25 @@
                 "$ref": "#/components/schemas/CharacterDraftDto"
               }
             ]
+          }
+        }
+      },
+      "DerivedMeasureDto": {
+        "required": [
+          "total",
+          "parts"
+        ],
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "number",
+            "format": "double"
+          },
+          "parts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MeasurePartDto"
+            }
           }
         }
       },
@@ -911,6 +946,30 @@
                 "type": "string"
               }
             }
+          }
+        }
+      },
+      "MeasurePartDto": {
+        "required": [
+          "value",
+          "label",
+          "bonusType",
+          "source"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "format": "double"
+          },
+          "label": {
+            "type": "string"
+          },
+          "bonusType": {
+            "type": "string"
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceDto"
           }
         }
       },
@@ -1340,6 +1399,7 @@
         "required": [
           "meters",
           "note",
+          "label",
           "source"
         ],
         "type": "object",
@@ -1349,6 +1409,12 @@
             "format": "double"
           },
           "note": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "label": {
             "type": [
               "null",
               "string"
@@ -1368,6 +1434,7 @@
           "bonuses",
           "choices",
           "traits",
+          "speed",
           "source"
         ],
         "type": "object",
@@ -1401,6 +1468,16 @@
             "items": {
               "$ref": "#/components/schemas/TraitDto"
             }
+          },
+          "speed": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SpeedDto"
+              }
+            ]
           },
           "source": {
             "$ref": "#/components/schemas/SourceDto"

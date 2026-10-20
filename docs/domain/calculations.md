@@ -49,6 +49,14 @@ nível n: + (média do dado arred. p/ cima + mod(Con)) por nível
 extras: Anão da Colina +1 por nível (Tenacidade Anã)
 ```
 
+## 8. Deslocamento (exibido) (LdJ Cap. 2)
+```txt
+deslocamento = deslocamento da raça (ex.: Anão 7,5 m p. 20; Elfo 9 m p. 23)
+             + (deslocamento da sub-raça − da raça), se a sub-raça o redefine
+               (Elfo da Floresta, Pés Ligeiros: 10,5 m, p. 24 → parcela +1,5 m)
+```
+Em metros, com decimais: sai como `DerivedMeasure` (mesma invariante `total = Σ parts`).
+
 ## Breakdown obrigatório
 Toda fórmula devolve `DerivedValue { total, parts[] }`; cada parcela tem `bonusType`
 (ver [bonus-types.md](bonus-types.md)) e `source` (página do LdJ).

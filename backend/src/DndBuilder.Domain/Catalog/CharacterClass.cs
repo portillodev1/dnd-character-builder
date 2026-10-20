@@ -53,6 +53,10 @@ public sealed record CharacterClass
     public IReadOnlyList<ClassFeature> FeaturesUpTo(Level level)
         => [.. Features.Where(f => f.Level <= level.Value).OrderBy(f => f.Level)];
 
+    /// <summary>Perícias com Especialização que a classe concede até o nível (Ladino 1/6: LdJ p. 91; Bardo 3/10: p. 54).</summary>
+    public int ExpertiseCount(Level level)
+        => FeaturesUpTo(level).SelectMany(f => f.Grants).Where(g => g.Type == GrantType.Expertise).Sum(g => g.Count ?? 0);
+
     /// <summary>Características ganhas exatamente no nível (seção "Próximo nível", F2 AC6).</summary>
     public IReadOnlyList<ClassFeature> FeaturesAt(int level)
         => [.. Features.Where(f => f.Level == level)];

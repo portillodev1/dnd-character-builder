@@ -2,17 +2,19 @@
 
 Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia o
 `## Handoff
-- **Última unidade**: Fase 5 — wizard Angular + "Minhas fichas" (`.specs/project/tasks-fase-5.md`).
-  Commitada localmente; **push pendente de aprovação**.
-- **Feito**: tipos do front gerados do OpenAPI (ADR-0007, `scripts/gen-api.sh`; snapshot testado em
-  `Api.Tests`); `CharacterDraftStore` com salvamento automático (debounce, 400 por campo, 409);
-  rotas `/fichas` e `/fichas/:id/{raca,classe,atributos,pericias,ficha}`; `bonus-breakdown` em todo
-  número; "Meus bônus" por origem; painel "Como preencher". Fluxo Meio-Elfo → Ladino nv. 3
-  conferido no navegador contra a API real. 16 testes front, 230 back.
+- **Última unidade**: lacunas da Fase 5 fechadas (specs F4 AC1/AC4, F3 AC5). Commit local; **push pendente**.
+  - Deslocamento: `SpeedRules` + `DerivedMeasure` (metros, decimal) → `sheet.speed` com breakdown
+    (Elfo da Floresta = 9 + 1,5 Pés Ligeiros, p. 23–24); sub-raça ganhou `speed` opcional no catálogo.
+  - Escolhas: `origin: "choice"` em `bonuses[]` (+1 Meio-Elfo; perícias de raça/classe/antecedente e
+    Especialização, valor = Bônus de Proficiência) e em `traits[]` (idioma/ferramenta/resistência);
+    "Meus bônus › Escolhas" não lê mais o rascunho.
+  - Especialização: `expertiseCount` em `/classes/{id}/features?level=N`; o front trava acima do limite.
+- **Fase 5 (anterior)**: wizard Angular + "Minhas fichas" (`.specs/project/tasks-fase-5.md`); tipos do
+  front gerados do OpenAPI (ADR-0007); salvamento automático; `bonus-breakdown` em todo número.
+  Testes: 20 front, 248 back.
 - **Rodar**: `.claude/launch.json` (local, não versionado) tem `api` (5080) e `web` (4200).
-- **Lacunas conhecidas**: deslocamento sem breakdown (a API não o calcula); "Escolhas" em
-  "Meus bônus" lista as escolhas do rascunho (a API marca bônus de escolha com origem da raça);
-  Especialização: o front não sabe quantas a classe concede — a API avisa/recusa.
+- **Lacunas conhecidas**: passo Raça ainda mostra o deslocamento da raça-mãe (a ficha já usa o da
+  sub-raça); aumentos de deslocamento de classe (Monge, Bárbaro) fora do MVP.
 - **Revisão humana pendente**: Fases 1–5.
 - **Toolchain local (macOS)**: Node 24 via `brew install node@24` (keg-only) → exporte
   `PATH="/opt/homebrew/opt/node@24/bin:$PATH"` antes dos scripts. PDF do LdJ fica fora do repo

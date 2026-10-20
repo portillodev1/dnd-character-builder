@@ -40,6 +40,28 @@ describe('BonusBreakdownComponent', () => {
     ]);
   });
 
+  it('breakdown com unidade deve mostrar o total decimal em pt-BR com a unidade (deslocamento)', async () => {
+    const fixture = TestBed.createComponent(BonusBreakdownComponent);
+    fixture.componentRef.setInput('label', 'Deslocamento');
+    fixture.componentRef.setInput('total', 10.5);
+    fixture.componentRef.setInput('unit', 'm');
+    fixture.componentRef.setInput('parts', [
+      { value: 9, label: 'Elfo', bonusType: 'speed', source: { book: 'LdJ', page: 23 } },
+      { value: 1.5, label: 'Pés Ligeiros', bonusType: 'speed', source: { book: 'LdJ', page: 24 } },
+    ]);
+    await fixture.whenStable();
+    const button = (fixture.nativeElement as HTMLElement).querySelector('button')!;
+
+    button.click();
+    await fixture.whenStable();
+
+    const values = Array.from(
+      (fixture.nativeElement as HTMLElement).querySelectorAll('li .value'),
+      (v) => v.textContent?.trim(),
+    );
+    expect([button.textContent?.trim(), ...values]).toEqual(['10,5 m', '+9', '+1,5']);
+  });
+
   it.each(['Enter', ' '])(
     'breakdown quando recebe a tecla "%s" deve alternar o painel (F4 AC1)',
     async (key) => {

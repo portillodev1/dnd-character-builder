@@ -1,21 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  effect,
-  inject,
-  signal,
-} from '@angular/core';
-import { Race, SheetBonus, SheetTrait } from '../../core/api/models';
-import { RulesetService } from '../../core/api/ruleset.service';
-import {
-  ABILITY_NAMES,
-  SKILL_NAMES,
-  bonusType,
-  kind,
-  optionLabel,
-  signed,
-} from '../../shared/labels';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { SheetBonus, SheetTrait } from '../../core/api/models';
+import { ABILITY_NAMES, bonusType, kind, optionLabel, signed } from '../../shared/labels';
 import { BonusBreakdownComponent } from '../../shared/ui/bonus-breakdown';
 import { BonusLegendComponent } from '../../shared/ui/bonus-legend';
 import { TraitCardComponent } from '../../shared/ui/trait-card';
@@ -99,11 +84,15 @@ interface BonusGroup {
                 />
               </dd>
             }
-            @if (race(); as r) {
+            @if (s.speed; as sp) {
               <dt>Deslocamento</dt>
               <dd>
-                {{ r.speed.meters }} m
-                <small>({{ r.name }}, LdJ p. {{ r.speed.source.page }})</small>
+                <app-bonus-breakdown
+                  label="Deslocamento"
+                  [total]="sp.total"
+                  [parts]="sp.parts"
+                  unit="m"
+                />
               </dd>
             }
           </dl>
@@ -249,12 +238,13 @@ interface BonusGroup {
   `,
 })
 export class SheetStepComponent {
-  private readonly ruleset = inject(RulesetService);
   protected readonly store = inject(CharacterDraftStore);
-  protected readonly race = signal<Race | null>(null);
 
   protected readonly abilities = computed(() =>
-    Object.entries(this.store.sheet()?.abilities ?? {}).map(([id, a]) => ({ id, ...a })),
+    Object.entries(this.store.sheet()?.abilities ?? {}).map(([id, a]) => ({
+      id,
+      ...a,
+    })),
   );
   protected readonly saves = computed(() =>
     Object.entries(this.store.sheet()?.savingThrows ?? {}).map(([id, t]) => ({
@@ -264,7 +254,10 @@ export class SheetStepComponent {
     })),
   );
   protected readonly skills = computed(() =>
-    Object.entries(this.store.sheet()?.skills ?? {}).map(([id, k]) => ({ id, ...k })),
+    Object.entries(this.store.sheet()?.skills ?? {}).map(([id, k]) => ({
+      id,
+      ...k,
+    })),
   );
 
   /** "Meus bônus" agrupado por origem: Raça, Sub-raça, Classe (nível N), Escolhas (F4 AC4–AC5). */
@@ -284,23 +277,12 @@ export class SheetStepComponent {
     const subrace =
       sheet.bonuses.find((b) => b.origin === 'subrace')?.originName ??
       sheet.traits.find((t) => t.origin === 'subrace')?.originName;
-    const choices = [
-      ...Object.values(draft.choices ?? {})
-        .flat()
-        .map((o) => `Escolha: ${optionLabel(o)}`),
-      ...(draft.skillChoices ?? []).map(
-        (k) => `Perícia de classe: ${SKILL_NAMES[k] ?? k} · Proficiência`,
-      ),
-      ...(draft.extraProficiencies ?? []).map(
-        (k) => `Perícia do antecedente: ${SKILL_NAMES[k] ?? k} · Proficiência`,
-      ),
-      ...(draft.expertise ?? []).map(
-        (k) => `Especialização: ${SKILL_NAMES[k] ?? k} · ${bonusType('expertise').label}`,
-      ),
-    ];
     const groups: BonusGroup[] = [
       { title: `Raça${race ? ` — ${race}` : ''}`, items: byOrigin('race') },
-      { title: `Sub-raça${subrace ? ` — ${subrace}` : ''}`, items: byOrigin('subrace') },
+      {
+        title: `Sub-raça${subrace ? ` — ${subrace}` : ''}`,
+        items: byOrigin('subrace'),
+      },
       {
         title: `Classe (nível ${draft.level ?? 1})`,
         items: sheet.features.map(
@@ -308,29 +290,22 @@ export class SheetStepComponent {
             `${f.name}${f.scalingValue ? ` (${f.scalingValue})` : ''} · ${kind(f.kind).label} · nível ${f.level}`,
         ),
       },
-      { title: 'Escolhas', items: choices },
+      { title: 'Escolhas', items: byOrigin('choice') },
     ];
     return groups.filter((g) => g.items.length > 0);
   });
-
-  constructor() {
-    effect(() => {
-      const id = this.store.draft().raceId;
-      if (!id) {
-        this.race.set(null);
-      } else {
-        void this.ruleset.race(id).then((r) => this.race.set(r));
-      }
-    });
-  }
 }
 
 function bonusLine(b: SheetBonus): string {
   const target = b.target === 'hp-per-level' ? 'PV por nível' : optionLabel(b.target);
-  return `${signed(b.value)} ${target} · ${bonusType(b.bonusType).label} · ${b.label ?? b.originName}`;
+  // Escolhas dizem de quem é a escolha (Meio-Elfo, Ladino, Antecedente).
+  const from =
+    b.origin === 'choice' ? `${b.label ?? ''} (${b.originName})` : (b.label ?? b.originName);
+  return `${signed(b.value)} ${target} · ${bonusType(b.bonusType).label} · ${from}`;
 }
 
 function traitLine(t: SheetTrait): string {
   const k = kind(t.kind);
-  return `${t.name} · ${k.label}${t.kind === 'advantage' ? ' (role 2d20 e fique com o maior)' : ''}`;
+  const from = t.origin === 'choice' ? ` (${t.originName})` : '';
+  return `${t.name} · ${k.label}${from}${t.kind === 'advantage' ? ' (role 2d20 e fique com o maior)' : ''}`;
 }

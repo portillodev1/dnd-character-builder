@@ -32,11 +32,13 @@ public static class SheetCalculator
             Skills = skills,
             PassivePerception = perception is null ? null : PassivePerceptionRules.Compute(perception),
             HitPoints = HitPoints(r, scores, bonuses),
+            Speed = r.Race is null ? null : SpeedRules.Compute(r.Race, r.Subrace),
             Features = [.. features.Select(f => new FeatureResult(f, r.Class!.ScalingValue(f, r.Level!.Value)))],
             NextLevelFeatures = NextLevel(r),
             Traits = [.. (r.Race?.Traits ?? []).Select(t => new TraitResult(t, Origin.Race, r.Race!.Name))
-                .Concat((r.Subrace?.Traits ?? []).Select(t => new TraitResult(t, Origin.Subrace, r.Subrace!.Name)))],
-            Bonuses = bonuses,
+                .Concat((r.Subrace?.Traits ?? []).Select(t => new TraitResult(t, Origin.Subrace, r.Subrace!.Name)))
+                .Concat(r.ChoiceTraits)],
+            Bonuses = [.. bonuses, .. SkillChoiceBonuses(r)],
             Warnings = r.Warnings,
         };
         return new SheetComputation(sheet, new Dictionary<string, string[]>());
@@ -46,6 +48,18 @@ public static class SheetCalculator
         => [.. (r.Race?.Bonuses ?? []).Select(b => new BonusResult(b, Origin.Race, r.Race!.Name))
             .Concat((r.Subrace?.Bonuses ?? []).Select(b => new BonusResult(b, Origin.Subrace, r.Subrace!.Name)))
             .Concat(r.ChoiceBonuses)];
+
+    /// <summary>
+    /// Perícias escolhidas como bônus de origem "escolha"; o valor é o que a escolha soma na perícia:
+    /// o Bônus de Proficiência (LdJ p. 15), ou 0 enquanto não houver nível.
+    /// </summary>
+    private static IEnumerable<BonusResult> SkillChoiceBonuses(ResolvedDraft r)
+    {
+        var proficiency = r.Level is { } level ? ProficiencyBonus.Derive(level).Total : 0;
+        return r.SkillGrants.Select(g => new BonusResult(
+            new CatalogBonus { Target = $"skill:{CatalogIds.Id(g.Skill)}", Value = proficiency, BonusType = g.Type, Label = g.Label, Source = g.Source },
+            Origin.Choice, g.OriginName));
+    }
 
     private static AbilityResult Ability(Ability ability, int baseScore, List<BonusResult> bonuses)
     {

@@ -112,12 +112,15 @@ export class BonusBreakdownComponent {
   readonly parts = input.required<readonly BonusPart[]>();
   /** Mostra com sinal (+3) — modificadores, perícias, salvaguardas. */
   readonly withSign = input(false);
+  /** Unidade após o total (ex.: "m" no deslocamento). */
+  readonly unit = input('');
 
   protected readonly open = signal(false);
   protected readonly panelId = `bonus-breakdown-${nextId++}`;
-  protected readonly shown = computed(() =>
-    this.withSign() ? signed(this.total()) : `${this.total()}`,
-  );
+  protected readonly shown = computed(() => {
+    const n = this.withSign() ? signed(this.total()) : this.total().toLocaleString('pt-BR');
+    return this.unit() ? `${n} ${this.unit()}` : n;
+  });
   protected readonly ordered = computed(() =>
     [...this.parts()].sort((a, b) => rank(a.bonusType) - rank(b.bonusType)),
   );

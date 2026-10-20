@@ -34,6 +34,7 @@ public sealed record CharacterSheetDto(
     IReadOnlyDictionary<string, SkillDto> Skills,
     DerivedValueDto? PassivePerception,
     DerivedValueDto? HitPoints,
+    DerivedMeasureDto? Speed,
     IReadOnlyList<FeatureDto> Features,
     IReadOnlyList<FeatureDto> NextLevelFeatures,
     IReadOnlyList<SheetTraitDto> Traits,

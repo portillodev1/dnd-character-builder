@@ -45,6 +45,16 @@ public class CatalogEndpointsTests(ApiFactory factory) : IClassFixture<ApiFactor
         Assert.Equal("3d6", (string)features.Single(f => (string)f!["id"]! == "ataque-furtivo")!["scalingValue"]!);
     }
 
+    [Theory] // F3 AC5: Especialização concedida até o nível — Bardo nv. 3 e 10 (LdJ p. 54), Ladino nv. 1 e 6 (p. 91)
+    [InlineData("bardo", 2, 0)]
+    [InlineData("bardo", 3, 2)]
+    [InlineData("bardo", 10, 4)]
+    [InlineData("ladino", 1, 2)]
+    [InlineData("ladino", 6, 4)]
+    [InlineData("guerreiro", 20, 0)]
+    public async Task GetClassFeatures_ExpertiseCount_MatchesLevel(string id, int level, int expected)
+        => Assert.Equal(expected, (int)(await (await factory.CreateClient().Get($"/api/v1/classes/{id}/features?level={level}")).Json())["expertiseCount"]!);
+
     [Theory] // F2 AC8: nível fora de 1–20 → 400
     [InlineData(0)]
     [InlineData(21)]

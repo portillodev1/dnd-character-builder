@@ -24,6 +24,23 @@ public class ComputeEndpointTests(ApiFactory factory) : IClassFixture<ApiFactory
             $"{con["total"]} = {string.Join(" + ", con["parts"]!.AsArray().Select(p => $"{p!["value"]} {p["bonusType"]}"))}");
     }
 
+    [Fact] // F4 AC1: deslocamento com conta — Elfo 9 m (LdJ p. 23) + Pés Ligeiros 1,5 m (Elfo da Floresta, p. 24)
+    public async Task Compute_WoodElf_SpeedBreakdown()
+    {
+        var speed = (await (await factory.CreateClient().Post(Compute, new { raceId = "elfo", subraceId = "elfo-da-floresta" })).Json())["speed"]!;
+        Assert.Equal("10.5 = 9 Elfo p.23 + 1.5 Pés Ligeiros p.24",
+            $"{speed["total"]} = {string.Join(" + ", speed["parts"]!.AsArray().Select(p => $"{p!["value"]} {p["label"]} p.{p["source"]!["page"]}"))}");
+    }
+
+    [Fact] // F4 AC4: escolhas do jogador saem com origin "choice" (Meio-Elfo +1, perícias, Especialização)
+    public async Task Compute_FullDraft_ChoiceBonusesHaveChoiceOrigin()
+    {
+        var bonuses = (await (await factory.CreateClient().Post(Compute, Http.FullDraft())).Json())["bonuses"]!.AsArray();
+        Assert.Equal(["proficiency:Ladino", "expertise:Ladino"],
+            bonuses.Where(b => (string)b!["origin"]! == "choice" && (string)b["target"]! == "skill:furtividade")
+                .Select(b => $"{b!["bonusType"]}:{b["originName"]}"));
+    }
+
     [Fact] // F3: perícia fora da lista da classe → 400 com erro no campo
     public async Task Compute_SkillOutsideClassList_Returns400()
     {
@@ -62,7 +79,7 @@ public class ComputeEndpointTests(ApiFactory factory) : IClassFixture<ApiFactory
         {
             case JsonObject o:
                 if (o["total"] is JsonValue && o["parts"] is JsonArray parts
-                    && (int)o["total"]! != parts.Sum(p => (int)p!["value"]!))
+                    && (decimal)o["total"]! != parts.Sum(p => (decimal)p!["value"]!))
                 {
                     problems.Add($"{path}: total {o["total"]} ≠ Σ parts");
                 }

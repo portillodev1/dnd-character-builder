@@ -8,6 +8,12 @@ public sealed record BonusPartDto(int Value, string Label, string BonusType, Sou
 /// <summary>Todo número da ficha sai assim: total + parcelas que somam o total (F4).</summary>
 public sealed record DerivedValueDto(int Total, IReadOnlyList<BonusPartDto> Parts);
 
+/// <summary>Parcela de uma medida em metros (ex.: deslocamento); <c>Value</c> pode ser decimal (1,5 m).</summary>
+public sealed record MeasurePartDto(decimal Value, string Label, string BonusType, SourceDto Source);
+
+/// <summary>Medida em metros com breakdown (deslocamento): <c>Total</c> = Σ <c>Parts.Value</c>.</summary>
+public sealed record DerivedMeasureDto(decimal Total, IReadOnlyList<MeasurePartDto> Parts);
+
 public sealed record BonusDto(string Target, int Value, string BonusType, string? Label, SourceDto Source);
 
 public sealed record TraitDto(string Id, string Name, string Kind, string Description, SourceDto Source);

@@ -2,13 +2,18 @@ using DndBuilder.Domain.Catalog;
 
 namespace DndBuilder.Domain.Sheets;
 
+/// <summary>Perícia vinda de escolha do jogador; vira bônus de origem "escolha" em "Meus bônus" (F4 AC4).</summary>
+internal sealed record SkillChoiceGrant(Skill Skill, BonusType Type, string Label, string OriginName, SourceRef Source);
+
 /// <summary>
 /// Rascunho validado e convertido para tipos do Domain. Valores inválidos viram erro por campo;
 /// escolhas faltando viram warning (api-contract.md § Validação). LdJ Cap. 1–3 e 7.
 /// </summary>
 internal sealed class ResolvedDraft
 {
-    private const int BackgroundSkills = 2; // AD-012: antecedente = 2 perícias
+    private const int BackgroundSkills = 2; // antecedente = 2 perícias (LdJ p. 127)
+    private const string Background = "Antecedente";
+    private static readonly SourceRef BackgroundSource = SourceRef.LdJ(127);
 
     private readonly Dictionary<string, List<string>> errors = new(StringComparer.Ordinal);
     private readonly List<string> warnings = [];
@@ -23,10 +28,16 @@ internal sealed class ResolvedDraft
     public Dictionary<Skill, List<string>> SkillSources { get; } = [];
     public HashSet<Skill> Expertise { get; } = [];
 
-    /// <summary>Aumentos de atributo vindos de escolhas da raça (ex.: Meio-Elfo +1 em dois atributos).</summary>
+    /// <summary>Aumentos de atributo vindos de escolhas da raça (ex.: Meio-Elfo +1 em dois atributos), com origem "escolha".</summary>
     public List<BonusResult> ChoiceBonuses { get; } = [];
 
-    private readonly List<(Skill Skill, string Origin)> choiceSkills = [];
+    /// <summary>Perícias escolhidas pelo jogador (raça, classe, antecedente) e Especializações — "Meus bônus" › Escolhas.</summary>
+    public List<SkillChoiceGrant> SkillGrants { get; } = [];
+
+    /// <summary>Escolhas sem número (idioma, resistência, ferramenta) — traços de origem "escolha".</summary>
+    public List<TraitResult> ChoiceTraits { get; } = [];
+
+    private readonly List<(Skill Skill, Choice Choice, string Origin)> choiceSkills = [];
 
     public IReadOnlyDictionary<string, string[]> Errors => errors.ToDictionary(e => e.Key, e => e.Value.ToArray(), StringComparer.Ordinal);
     public IReadOnlyList<string> Warnings => warnings;
@@ -160,8 +171,8 @@ internal sealed class ResolvedDraft
 
     private void ResolveRaceChoices(CharacterDraft d)
     {
-        var available = (Race?.Choices ?? []).Select(c => (Choice: c, Origin: Origin.Race, Name: Race!.Name))
-            .Concat((Subrace?.Choices ?? []).Select(c => (Choice: c, Origin: Origin.Subrace, Name: Subrace!.Name)))
+        var available = (Race?.Choices ?? []).Select(c => (Choice: c, Name: Race!.Name))
+            .Concat((Subrace?.Choices ?? []).Select(c => (Choice: c, Name: Subrace!.Name)))
             .ToDictionary(c => c.Choice.Id, StringComparer.Ordinal);
         foreach (var (id, picks) in d.Choices)
         {
@@ -175,10 +186,10 @@ internal sealed class ResolvedDraft
             }
             else
             {
-                ApplyChoice(entry.Choice, picks, entry.Origin, entry.Name);
+                ApplyChoice(entry.Choice, picks, entry.Name);
             }
         }
-        foreach (var (choice, _, _) in available.Values)
+        foreach (var (choice, _) in available.Values)
         {
             var made = d.Choices.TryGetValue(choice.Id, out var picks) ? picks.Count : 0;
             if (made < choice.Count)
@@ -188,19 +199,31 @@ internal sealed class ResolvedDraft
         }
     }
 
-    private void ApplyChoice(Choice choice, IReadOnlyList<string> picks, Origin origin, string originName)
+    private void ApplyChoice(Choice choice, IReadOnlyList<string> picks, string originName)
     {
         foreach (var pick in picks)
         {
             if (choice.BonusType == BonusType.AbilityScoreIncrease && pick.StartsWith("ability:", StringComparison.Ordinal))
             {
                 var bonus = new CatalogBonus { Target = pick, Value = choice.Value ?? 1, BonusType = BonusType.AbilityScoreIncrease, Label = choice.Name, Source = choice.Source };
-                ChoiceBonuses.Add(new BonusResult(bonus, origin, originName));
+                ChoiceBonuses.Add(new BonusResult(bonus, Origin.Choice, originName));
             }
             else if (choice.BonusType == BonusType.Proficiency && pick.StartsWith("skill:", StringComparison.Ordinal)
                 && CatalogIds.TryParseSkill(pick["skill:".Length..], out var skill))
             {
-                choiceSkills.Add((skill.Value, originName));
+                choiceSkills.Add((skill.Value, choice, originName));
+            }
+            else if (choice.BonusType is null)
+            {
+                var trait = new Trait
+                {
+                    Id = choice.Id,
+                    Name = $"{choice.Name}: {pick}",
+                    Kind = choice.Kind ?? TraitKind.Other,
+                    Description = $"Você escolheu {pick} ({choice.Name}).",
+                    Source = choice.Source,
+                };
+                ChoiceTraits.Add(new TraitResult(trait, Origin.Choice, originName));
             }
         }
     }
@@ -218,9 +241,10 @@ internal sealed class ResolvedDraft
                 }
             }
         }
-        foreach (var (skill, origin) in choiceSkills)
+        foreach (var (skill, choice, origin) in choiceSkills)
         {
             AddSource(skill, origin);
+            SkillGrants.Add(new(skill, BonusType.Proficiency, choice.Name, origin, choice.Source));
         }
 
         var classChoices = ParseSkills(d.SkillChoices, "skillChoices");
@@ -246,6 +270,7 @@ internal sealed class ResolvedDraft
                 else
                 {
                     AddSource(skill, Class.Name);
+                    SkillGrants.Add(new(skill, BonusType.Proficiency, "Perícia de classe", Class.Name, Class.Source));
                 }
             }
             var count = Class.SkillChoices.Count;
@@ -268,7 +293,8 @@ internal sealed class ResolvedDraft
             }
             else
             {
-                AddSource(skill, "Antecedente");
+                AddSource(skill, Background);
+                SkillGrants.Add(new(skill, BonusType.Proficiency, "Perícia do antecedente", Background, BackgroundSource));
             }
         }
         if (background.Count > BackgroundSkills)
@@ -283,7 +309,8 @@ internal sealed class ResolvedDraft
 
     private void ResolveExpertise(CharacterDraft d)
     {
-        var allowed = Features.SelectMany(f => f.Grants).Where(g => g.Type == GrantType.Expertise).Sum(g => g.Count ?? 0);
+        var allowed = Class is not null && Level is { } level ? Class.ExpertiseCount(level) : 0;
+        var source = Features.FirstOrDefault(f => f.Grants.Any(g => g.Type == GrantType.Expertise))?.Source;
         var chosen = ParseSkills(d.Expertise, "expertise");
         if (chosen.Count > allowed)
         {
@@ -301,6 +328,7 @@ internal sealed class ResolvedDraft
             else
             {
                 Expertise.Add(skill);
+                SkillGrants.Add(new(skill, BonusType.Expertise, "Especialização", Class!.Name, source!));
             }
         }
         if (chosen.Count < allowed)

@@ -17,6 +17,14 @@ public class ClassFeatureFilterTests
     public void ScalingValue_SneakAttack_MatchesTable(int level, string expected)
         => Assert.Equal(expected, TestCatalog.Ladino.ScalingValue(TestCatalog.Ladino.Features[1], new Level(level)));
 
+    [Theory] // F3 AC5: Especialização do Ladino — 2 no nível 1, +2 no nível 6 (LdJ p. 91)
+    [InlineData(1, 2)]
+    [InlineData(5, 2)]
+    [InlineData(6, 4)]
+    [InlineData(20, 4)]
+    public void ExpertiseCount_Rogue_GrowsAtLevel6(int level, int expected)
+        => Assert.Equal(expected, TestCatalog.Ladino.ExpertiseCount(new Level(level)));
+
     [Fact]
     public void ScalingValue_FeatureWithoutScaling_IsNull()
         => Assert.Null(TestCatalog.Ladino.ScalingValue(TestCatalog.Ladino.Features[0], new Level(1)));
