@@ -20,24 +20,27 @@ Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia 
 | AD-012 | 2026-10-19 | Antecedente no MVP = marcar 2 perícias; deploy só local; PDF pós-MVP | spec projeto |
 
 ## Eval gates disponíveis (de `HARNESS.md` §4)
-`check-docs.sh` ✅ · `build.sh` ✅ · `lint.sh` ✅ · `test.sh --back` ✅ (6) · `test.sh --front` ✅ (1) · `verify.sh --strict` ✅ · CI `verify.yml` ⏳ (roda no próximo push)
+`check-docs.sh` ✅ · `build.sh` ✅ · `lint.sh` ✅ · `test.sh --back` ✅ (142) · `test.sh --front` ✅ (1) · `verify.sh --strict` ✅ (exige Node 24) · CI `verify.yml` ⏳ (roda no próximo push)
 
 ## Specs
 | Feature | Fase spec-driven | Artefatos |
 |---|---|---|
-| projeto | Specify ✅ · Plan ✅ · Tasks Fase 1 ✅ | `.specs/project/spec.md`, `plan.md` |
+| projeto | Specify ✅ · Plan ✅ · Tasks Fase 1 ✅ · Tasks Fase 2 ✅ | `.specs/project/spec.md`, `plan.md` |
 | F1 race-traits | Specify ✅ | `.specs/features/race-traits/spec.md` |
 | F2 class-features | Specify ✅ | `.specs/features/class-features/spec.md` |
 | F3 skills-saves | Specify ✅ | `.specs/features/skills-saves/spec.md` |
 | F4 bonus-breakdown | Specify ✅ | `.specs/features/bonus-breakdown/spec.md` |
 
 ## Handoff
-- **Última unidade**: Fase 1 — Scaffold (T1–T7 de `.specs/project/tasks-fase-1.md`). Commitado; **push pendente de aprovação**.
-- **Feito**: `backend/DndBuilder.slnx` (.NET 10, 4 src + 3 testes xUnit v3/MTP, `/health`, OpenAPI,
-  ArchitectureTests); `frontend/` Angular 22.2 (zoneless, Vitest, angular-eslint + regras de fronteira,
-  shell do wizard com 5 rotas lazy); CI `.github/workflows/verify.yml`.
-- **Bloqueios**: nenhum. CI só será validado de verdade após o push.
-- **Próxima unidade**: Fase 2 — motor de regras no `Domain` (`.specs/project/plan.md` item 2),
-  guiado por `docs/domain/calculations.md` §1–6. Gerar `tasks-fase-2.md` antes de codar.
-- **Limpeza**: apagar `.specs/project/tasks-fase-1.md` quando a Fase 1 for aprovada.
+- **Última unidade**: Fase 2 — Motor de regras (T1–T8 de `.specs/project/tasks-fase-2.md`). Commitado;
+  **push pendente de aprovação** (junto com a Fase 1).
+- **Feito**: `Domain` com `AbilityScore`, `Modifier`, `Level`, `ProficiencyBonus`, `DerivedValue`/`BonusPart`/
+  `BonusType`/`SourceRef`, `Ability`, `Skill` (18), regras de atributo (teto 20), métodos de valor base,
+  salvaguardas, perícias (fator 0/½/1/2) e Sabedoria Passiva. `Domain.Tests` cobre §1–6 (142 testes back).
+  Scripts `scripts/*.sh` ganharam bit de execução no git (`verify.sh` chama `./check-docs.sh`).
+- **Toolchain local (macOS)**: Node 24 via `brew install node@24` (keg-only) → exporte
+  `PATH="/opt/homebrew/opt/node@24/bin:$PATH"` antes dos scripts.
+- **Bloqueios**: nenhum.
+- **Próxima unidade**: Fase 3 — schema do catálogo + Anão + Ladino (`plan.md` item 3).
+- **Limpeza**: apagar `tasks-fase-1.md` e `tasks-fase-2.md` quando aprovadas.
 - **Gates**: `verify.sh --strict` verde.
