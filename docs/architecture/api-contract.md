@@ -11,6 +11,11 @@ público → PERGUNTE (AGENTS.md). Erros sempre em **ProblemDetails** (RFC 9457)
 | GET | `/api/v1/classes` | 2 | Lista resumida (`id`, `name`, `hitDie`, `primaryAbilities`) |
 | GET | `/api/v1/classes/{id}/features?level=N` | 2 | Características com `level ≤ N`, proficiências, salvaguardas |
 | POST | `/api/v1/character-sheets/compute` | 3, 4 | Ficha derivada com breakdowns |
+| GET | `/api/v1/character-sheets` | 5 | Fichas salvas (resumo), mais recente primeiro |
+| POST | `/api/v1/character-sheets` | 5 | Cria ficha → `201` + `Location` |
+| GET | `/api/v1/character-sheets/{id}` | 5 | Ficha salva + ficha derivada recalculada |
+| PUT | `/api/v1/character-sheets/{id}` | 5 | Atualiza `name`/`draft` (exige `version`) |
+| DELETE | `/api/v1/character-sheets/{id}` | 5 | Apaga o arquivo → `204` |
 | GET | `/health` | — | 200 OK |
 
 ## `POST /character-sheets/compute` — entrada
@@ -52,3 +57,23 @@ público → PERGUNTE (AGENTS.md). Erros sempre em **ProblemDetails** (RFC 9457)
 - `skillChoices` ⊆ lista da classe (+ antecedente/raça); quantidade = permitida pela classe.
 - `expertise` só se a classe/nível concede, e só em perícias já proficientes.
 - Escolhas incompletas **não** são erro: viram `warnings` (o wizard é progressivo).
+
+## Fichas salvas (ADR-0006, spec F5)
+Cada ficha é um arquivo `<SheetsPath>/<id>.json` com **só as escolhas**; a ficha derivada é
+recalculada a cada `GET`. `{id}` é GUID (`{id:guid}` na rota — não colide com `/compute`).
+```json
+// POST /api/v1/character-sheets  (corpo; draft pode estar incompleto)
+{ "name": "Thorin", "draft": { "raceId": "anao", "classId": "ladino", "level": 1 } }
+// GET /api/v1/character-sheets
+[ { "id": "0199f6c2-…", "name": "Thorin", "raceId": "anao", "classId": "ladino",
+    "level": 1, "updatedAt": "2026-10-20T18:42:10Z" } ]
+// GET /api/v1/character-sheets/{id}
+{ "id": "0199f6c2-…", "name": "Thorin", "version": 3, "createdAt": "…", "updatedAt": "…",
+  "draft": { "…": "mesmo formato da entrada do /compute" },
+  "sheet": { "…": "mesmo formato da saída do /compute (com warnings)" } }
+// PUT /api/v1/character-sheets/{id}
+{ "name": "Thorin", "version": 3, "draft": { "…": "…" } }   // → 200 com version 4
+```
+- `version` divergente → `409` ProblemDetails (a outra aba salvou antes).
+- `draft` com valor inválido → `400` (mesmas regras de Validação acima); incompleto → `warnings`.
+- `id` inexistente → `404`. Arquivo corrompido aparece na lista com `"error"`, sem derrubar o `GET`.

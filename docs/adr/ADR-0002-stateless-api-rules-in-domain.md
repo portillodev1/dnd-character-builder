@@ -1,6 +1,6 @@
 # ADR-0002: API stateless, sem banco; cálculo só no Domain
 
-- **Status**: aceito
+- **Status**: aceito — persistência substituída pelo ADR-0006 (cálculo só no Domain segue valendo)
 - **Data**: 2026-10-19
 - **Decisores**: Gabriel Portillo
 

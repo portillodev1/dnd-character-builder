@@ -12,10 +12,11 @@ frontend/
     core/
       api/generated/         # tipos/cliente gerados do OpenAPI (não editar)
       api/ruleset.service.ts # catálogo (raças, classes)
-      api/sheet.service.ts   # POST compute
+      api/sheet.service.ts   # compute + CRUD de fichas salvas (ADR-0006)
     state/
-      character-draft.store.ts  # signals; persiste rascunho em localStorage
+      character-draft.store.ts  # signals; ficha aberta, salva via PUT com debounce
     features/
+      my-sheets/     # "Minhas fichas": listar, nova, abrir, renomear, apagar (critério 5)
       race/          # passo 1 — escolher raça/sub-raça, ver traços (critério 1)
       class/         # passo 2 — classe + nível, ver características (critério 2)
       abilities/     # passo 3 — valores de atributo (padrão / compra / manual)
@@ -29,7 +30,7 @@ frontend/
 ## Fluxo do wizard
 ```txt
 Raça ─► Classe+Nível ─► Atributos ─► Perícias/Salvaguardas ─► Ficha
-  └─ cada passo grava no draft store ─► debounce ─► POST /compute ─► store.sheet
+  └─ cada passo grava no draft store ─► debounce ─► PUT /character-sheets/{id} ─► store.sheet
 ```
 - O **store** guarda só escolhas do usuário; a ficha derivada é sempre a última resposta da API.
 - Voltar a um passo invalida escolhas dependentes (ex.: trocar classe limpa perícias de classe).

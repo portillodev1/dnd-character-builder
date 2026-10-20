@@ -12,7 +12,7 @@ backend/
   src/
     DndBuilder.Domain/         # motor de regras puro
     DndBuilder.Application/    # casos de uso + portas
-    DndBuilder.Infrastructure/ # catálogo JSON (embedded) + validação de schema
+    DndBuilder.Infrastructure/ # catálogo JSON (embedded) + schema; fichas em arquivo (ADR-0006)
     DndBuilder.Api/            # Minimal APIs, OpenAPI, ProblemDetails, CORS
   tests/
     DndBuilder.Domain.Tests/   # testes de tabela das fórmulas
@@ -36,11 +36,14 @@ backend/
 - `ListRaces`, `GetRace(id)` → traços + bônus da raça/sub-raça (critério 1).
 - `ListClasses`, `GetClassFeatures(id, level)` → características até o nível (critério 2).
 - `ComputeSheet(draft)` → atributos, perícias, salvaguardas, bônus com breakdown (critérios 3 e 4).
-- Porta: `IRulesetCatalog` (implementada na Infrastructure).
+- `ListSheets`, `CreateSheet`, `GetSheet(id)` (recalcula), `UpdateSheet(id, version)`, `DeleteSheet` (critério 5).
+- Portas: `IRulesetCatalog` e `ICharacterSheetStore` (implementadas na Infrastructure).
 
 ## Infrastructure
 - `content/**/*.json` entra como **EmbeddedResource** no build.
 - No startup: carrega, valida contra `content/schemas/`, indexa por `id`; falha rápida se inválido.
+- `FileCharacterSheetStore`: 1 arquivo `<id>.json` em `Storage:SheetsPath`; gravação atômica
+  (temp + rename); `version` para concorrência otimista (`409`). Testes usam pasta temporária.
 
 ## Api
 - `MapGroup("/api/v1/...")` por recurso; DTOs próprios; erros RFC 9457.

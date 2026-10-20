@@ -18,6 +18,7 @@ Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia 
 | AD-010 | 2026-10-19 | Sub-raças/arquétipos fora do SRD: nome + mecânica resumida | ADR-0004 |
 | AD-011 | 2026-10-19 | Atributos no MVP: conjunto padrão, compra de pontos (27) e manual | spec projeto |
 | AD-012 | 2026-10-19 | Antecedente no MVP = marcar 2 perícias; deploy só local; PDF pós-MVP | spec projeto |
+| AD-013 | 2026-10-20 | Sem banco; fichas salvas como JSON em `data/fichas/` (só escolhas, recalcula ao ler); código na Fase 4 | ADR-0006 |
 
 ## Eval gates disponíveis (de `HARNESS.md` §4)
 `check-docs.sh` ✅ · `build.sh` ✅ · `lint.sh` ✅ · `test.sh --back` ✅ (156) · `test.sh --front` ✅ (1) · `verify.sh --strict` ✅ (exige Node 24) · CI `verify.yml` ⏳ (roda no próximo push)
@@ -30,10 +31,11 @@ Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia 
 | F2 class-features | Specify ✅ | `.specs/features/class-features/spec.md` |
 | F3 skills-saves | Specify ✅ | `.specs/features/skills-saves/spec.md` |
 | F4 bonus-breakdown | Specify ✅ | `.specs/features/bonus-breakdown/spec.md` |
+| F5 character-sheets | Specify ✅ | `.specs/features/character-sheets/spec.md` |
 
 ## Handoff
-- **Última unidade**: Fase 3, fatia 1 (T1–T6 de `.specs/project/tasks-fase-3.md`). Commitada;
-  **push pendente de aprovação**. Páginas conferidas no PDF (impressa = PDF + 1).
+- **Última unidade**: ADR-0006 + spec F5 (fichas salvas em arquivo JSON, sem banco) — só docs.
+  Antes: Fase 3, fatia 1 (`tasks-fase-3.md` T1–T6), já no remoto (CI verde).
 - **Feito**: ADR-0005 (JsonSchema.Net 9.4.1, isento da taxa OSMF); schemas `common`/`race`/`class`/
   `skills` (draft 2020-12); `skills.json`, `races/anao.json` (Colina + Montanha), `classes/ladino.json`;
   `Infrastructure/Content` (`EmbeddedContent`, `ContentValidator`); `Ruleset.Tests` (156 testes back).
@@ -42,6 +44,6 @@ Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia 
 - **Bloqueios**: nenhum. PDF do LdJ fica **fora do repo** (ADR-0004); para conferir páginas use
   `pdftotext` (poppler, instalado via brew) num diretório temporário.
 - **Próxima unidade**: fatia 2 (8 raças + 11 classes,
-  paralelizável por arquivo) → Fase 4 (loader tipado + endpoints).
+  paralelizável por arquivo) → Fase 4 (loader tipado + endpoints + CRUD de fichas F5).
 - **Limpeza**: apagar `tasks-fase-1.md`, `tasks-fase-2.md` e `tasks-fase-3.md` quando aprovadas.
 - **Gates**: `verify.sh --strict` verde.

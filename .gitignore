@@ -33,3 +33,6 @@ obj/
 
 # Angular
 .angular/
+
+# Fichas salvas pelo usuário (ADR-0006)
+data/

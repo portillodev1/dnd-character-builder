@@ -4,12 +4,12 @@ Skill: `spec-driven-development` · Fase: **Specify ✅ → Plan ✅ → Tasks �
 
 ## Objective
 Jogador **iniciante** de D&D 5e cria a ficha passo a passo e entende **de onde vem cada
-número**. Sucesso = os 4 critérios de pronto (ver `ROADMAP.md`), cada um detalhado numa
+número**. Sucesso = os 5 critérios de pronto (ver `ROADMAP.md`), cada um detalhado numa
 feature spec em `.specs/features/`.
 
 ## Assumptions (corrija se errado)
 1. Web app responsivo (desktop primeiro); sem app mobile nativo.
-2. Sem login e sem salvar ficha no servidor; rascunho no `localStorage` (ADR-0002).
+2. Sem login e sem banco; fichas salvas como arquivos JSON no servidor, só escolhas (ADR-0006).
 3. Idioma único pt-BR; termos da ficha oficial (glossário).
 4. Escopo de regras: raças/sub-raças e classes base do LdJ, níveis 1–20; sem multiclasse.
 5. Antecedente no MVP = só marcar 2 perícias extras (sem catálogo de antecedentes).
