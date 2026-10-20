@@ -27,7 +27,9 @@ público → PERGUNTE (AGENTS.md). Erros sempre em **ProblemDetails** (RFC 9457)
                      "inteligencia": 12, "sabedoria": 13, "carisma": 8 },
   "skillChoices": ["furtividade", "percepcao", "acrobacia", "enganacao"],
   "expertise": ["furtividade", "percepcao"],
-  "extraProficiencies": []
+  "extraProficiencies": ["intuicao", "investigacao"],
+  "abilityMethod": "standard-array",
+  "choices": { "proficiencia-com-ferramentas": ["Ferramentas de ferreiro"] }
 }
 ```
 
@@ -36,17 +38,21 @@ público → PERGUNTE (AGENTS.md). Erros sempre em **ProblemDetails** (RFC 9457)
 {
   "abilities": { "constituicao": {
       "score": { "total": 16, "parts": [
-        { "value": 14, "label": "Valor base", "bonusType": "base-score" },
+        { "value": 14, "label": "Valor base", "bonusType": "base-score",
+          "source": { "book": "LdJ", "page": 13 } },
         { "value": 2, "label": "Anão", "bonusType": "ability-score-increase",
           "source": { "book": "LdJ", "page": 20 } } ] },
-      "modifier": 3 } },
+      "modifier": { "total": 3, "parts": [ { "value": 3, "bonusType": "ability-modifier", "…": "…" } ] } } },
   "proficiencyBonus": { "total": 2, "parts": [ { "value": 2, "label": "Nível 3",
       "bonusType": "proficiency-bonus", "source": { "book": "LdJ", "page": 15 } } ] },
   "savingThrows": { "destreza": { "proficient": true, "total": 4, "parts": [] } },
-  "skills": { "furtividade": { "ability": "destreza", "proficiency": "expertise",
-      "total": 6, "parts": [] } },
-  "passivePerception": { "total": 15, "parts": [] },
-  "features": [ { "id": "ataque-furtivo", "level": 1, "origin": "class" } ],
+  "skills": { "furtividade": { "sheetLabel": "Furtividade (Des)", "ability": "destreza",
+      "proficiency": "expertise", "proficiencySources": ["Ladino"], "total": 6, "parts": [] } },
+  "passivePerception": { "total": 15, "parts": [] }, "hitPoints": { "total": 30, "parts": [] },
+  "features": [ { "id": "ataque-furtivo", "level": 1, "kind": "other", "scalingValue": "2d6" } ],
+  "nextLevelFeatures": [], "traits": [ { "id": "visao-no-escuro", "origin": "race", "originName": "Anão" } ],
+  "bonuses": [ { "target": "ability:constituicao", "value": 2, "bonusType": "ability-score-increase",
+      "origin": "race", "originName": "Anão" } ],
   "warnings": [ "Escolha 4 perícias da lista do Ladino (3 de 4)" ]
 }
 ```

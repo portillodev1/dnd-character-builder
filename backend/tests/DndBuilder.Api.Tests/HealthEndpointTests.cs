@@ -1,10 +1,9 @@
 namespace DndBuilder.Api.Tests;
 
 using System.Net;
-using Microsoft.AspNetCore.Mvc.Testing;
 
-public class HealthEndpointTests(WebApplicationFactory<Program> factory)
-    : IClassFixture<WebApplicationFactory<Program>>
+public class HealthEndpointTests(ApiFactory factory)
+    : IClassFixture<ApiFactory>
 {
     [Fact]
     public async Task Health_WhenCalled_Returns200()

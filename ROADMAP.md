@@ -18,7 +18,7 @@ Objetivo: iniciante monta a ficha de D&D 5e entendendo de onde vem cada número.
 | 1 — Scaffold | .NET 10 SDK; `DndBuilder.slnx` + 4 projetos + 3 de teste; `ng new` Angular 22; ESLint/Prettier; CI | `verify.sh --strict` verde com 1 teste trivial por projeto | ✅ aguardando revisão |
 | 2 — Motor de regras | `Domain`: atributos, modificador, proficiência, perícias, salvaguardas, `DerivedValue` | `Domain.Tests` cobre `docs/domain/calculations.md` §1–6 | ✅ aguardando revisão |
 | 3 — Catálogo | schemas + 9 raças (+ sub-raças) + 12 classes (níveis 1–20, classe base) | `Ruleset.Tests` verde; revisão humana vs. LdJ | 🔄 fatia 1 (Anão + Ladino) |
-| 4 — API | endpoints de `docs/architecture/api-contract.md` (incl. CRUD de fichas em arquivo, F5) + OpenAPI | `Api.Tests` verde | ☐ |
+| 4 — API | endpoints de `docs/architecture/api-contract.md` (incl. CRUD de fichas em arquivo, F5) + OpenAPI | `Api.Tests` verde | ✅ aguardando revisão (catálogo: Anão + Ladino) |
 | 5 — Wizard | "Minhas fichas" + passos Raça → Classe → Atributos → Perícias/Salvaguardas → Ficha, com salvamento automático | Vitest verde; critérios F1–F5 demonstráveis | ☐ |
 | 6 — Qualidade | Playwright E2E, axe, polimento de textos | E2E dos 5 critérios verde | ☐ |
 

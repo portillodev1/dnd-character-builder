@@ -1,0 +1,112 @@
+using DndBuilder.Domain.Catalog;
+
+namespace DndBuilder.Domain.Sheets;
+
+/// <summary>Rascunho + catálogo → ficha derivada com breakdown (calculations.md §1–7).</summary>
+public static class SheetCalculator
+{
+    public static SheetComputation Compute(CharacterDraft draft, IReadOnlyCollection<Race> races, IReadOnlyCollection<CharacterClass> classes)
+    {
+        ArgumentNullException.ThrowIfNull(draft);
+        ArgumentNullException.ThrowIfNull(races);
+        ArgumentNullException.ThrowIfNull(classes);
+
+        var r = ResolvedDraft.Resolve(draft, races, classes);
+        if (r.Errors.Count > 0)
+        {
+            return new SheetComputation(null, r.Errors);
+        }
+
+        var bonuses = RaceBonuses(r);
+        var abilities = r.BaseAbilities.OrderBy(a => a.Key).Select(a => Ability(a.Key, a.Value, bonuses)).ToList();
+        var scores = abilities.ToDictionary(a => a.Ability, a => new AbilityScore(a.Score.Total));
+        var features = r.Features;
+        var skills = Skills(r, scores, features);
+        var perception = skills.First(s => s.Skill == Skill.Percepcao).Value;
+
+        var sheet = new CharacterSheet
+        {
+            Abilities = abilities,
+            ProficiencyBonus = r.Level is { } level ? ProficiencyBonus.Derive(level) : null,
+            SavingThrows = SavingThrows(r, scores, features),
+            Skills = skills,
+            PassivePerception = perception is null ? null : PassivePerceptionRules.Compute(perception),
+            HitPoints = HitPoints(r, scores, bonuses),
+            Features = [.. features.Select(f => new FeatureResult(f, r.Class!.ScalingValue(f, r.Level!.Value)))],
+            NextLevelFeatures = NextLevel(r),
+            Traits = [.. (r.Race?.Traits ?? []).Select(t => new TraitResult(t, Origin.Race, r.Race!.Name))
+                .Concat((r.Subrace?.Traits ?? []).Select(t => new TraitResult(t, Origin.Subrace, r.Subrace!.Name)))],
+            Bonuses = bonuses,
+            Warnings = r.Warnings,
+        };
+        return new SheetComputation(sheet, new Dictionary<string, string[]>());
+    }
+
+    private static List<BonusResult> RaceBonuses(ResolvedDraft r)
+        => [.. (r.Race?.Bonuses ?? []).Select(b => new BonusResult(b, Origin.Race, r.Race!.Name))
+            .Concat((r.Subrace?.Bonuses ?? []).Select(b => new BonusResult(b, Origin.Subrace, r.Subrace!.Name)))];
+
+    private static AbilityResult Ability(Ability ability, int baseScore, List<BonusResult> bonuses)
+    {
+        var increases = bonuses.Where(b => b.Bonus.TargetAbility == ability && b.Bonus.BonusType == BonusType.AbilityScoreIncrease)
+            .Select(b => new BonusPart(b.Bonus.Value, b.Bonus.Label ?? b.OriginName, BonusType.AbilityScoreIncrease, b.Bonus.Source));
+        var score = AbilityScoreRules.FinalScore(baseScore, increases);
+        return new AbilityResult(ability, score, AbilityScoreRules.Modifier(ability, new AbilityScore(score.Total)));
+    }
+
+    private static List<SavingThrowResult> SavingThrows(ResolvedDraft r, Dictionary<Ability, AbilityScore> scores, IReadOnlyList<ClassFeature> features)
+    {
+        if (r.Level is not { } level)
+        {
+            return [];
+        }
+        var proficient = (r.Class?.SavingThrows ?? []).ToHashSet();
+        foreach (var grant in features.SelectMany(f => f.Grants).Where(g => g.Type == GrantType.SaveProficiency))
+        {
+            if (CatalogIds.TryParseAbility(grant.Ability, out var ability))
+            {
+                proficient.Add(ability.Value);
+            }
+        }
+        return [.. scores.Select(s => new SavingThrowResult(s.Key, proficient.Contains(s.Key),
+            SavingThrowRules.Compute(s.Key, s.Value, proficient.Contains(s.Key), level)))];
+    }
+
+    private static List<SkillResult> Skills(ResolvedDraft r, Dictionary<Ability, AbilityScore> scores, IReadOnlyList<ClassFeature> features)
+    {
+        var half = features.SelectMany(f => f.Grants).Any(g => g.Type == GrantType.HalfProficiency);
+        return [.. Enum.GetValues<Skill>().Select(skill =>
+        {
+            var sources = r.SkillSources.TryGetValue(skill, out var s) ? s : [];
+            var proficiency = r.Expertise.Contains(skill) ? SkillProficiency.Expertise
+                : sources.Count > 0 ? SkillProficiency.Proficient
+                : half ? SkillProficiency.Half
+                : SkillProficiency.None;
+            var value = r.Level is { } level && scores.TryGetValue(skill.KeyAbility(), out var score)
+                ? SkillRules.Compute(skill, score, proficiency, level)
+                : null;
+            return new SkillResult(skill, proficiency, sources, value);
+        })];
+    }
+
+    private static DerivedValue? HitPoints(ResolvedDraft r, Dictionary<Ability, AbilityScore> scores, List<BonusResult> bonuses)
+    {
+        if (r.Class is null || r.Level is not { } level || !scores.TryGetValue(Domain.Ability.Constituicao, out var con))
+        {
+            return null;
+        }
+        var extra = bonuses.Where(b => b.Bonus.Target == "hp-per-level")
+            .Select(b => new BonusPart(b.Bonus.Value, b.Bonus.Label ?? b.OriginName, BonusType.HitPoints, b.Bonus.Source));
+        return HitPointsRules.Compute(r.Class.HitDie, level, con.Modifier, extra);
+    }
+
+    private static List<FeatureResult> NextLevel(ResolvedDraft r)
+    {
+        if (r.Class is null || r.Level is not { Value: < Level.Max } level)
+        {
+            return [];
+        }
+        var next = new Level(level.Value + 1);
+        return [.. r.Class.FeaturesAt(next.Value).Select(f => new FeatureResult(f, r.Class.ScalingValue(f, next)))];
+    }
+}

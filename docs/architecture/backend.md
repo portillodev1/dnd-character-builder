@@ -25,12 +25,13 @@ backend/
 |---|---|
 | `Ability` (enum 6) / `AbilityScore` / `Modifier` | Valor 1–30 e modificador `⌊(v−10)/2⌋` |
 | `Level`, `ProficiencyBonus` | Nível 1–20 → +2…+6 |
-| `Skill` (18) + `SkillAbilityMap` | Perícia → atributo-chave |
-| `ProficiencyLevel` | Nenhuma · Metade (Versatilidade) · Proficiente · Especialização |
+| `Skill` (18) + `CatalogIds` | Perícia → atributo-chave; ids em texto ↔ enums |
+| `SkillProficiency` | Nenhuma · Metade (Versatilidade) · Proficiente · Especialização |
 | `BonusPart` | `{ Value, Label, BonusType, SourceRef }` |
 | `DerivedValue` | `{ Total, Parts[] }`, invariante `Total = ΣParts` |
-| `CharacterDraft` | Entrada: raça, sub-raça, classe, nível, atributos base, escolhas |
-| `SheetCalculator` | `CharacterDraft` + catálogo → `CharacterSheet` derivada |
+| `Catalog/*` | `Race`, `Subrace`, `CharacterClass`, `ClassFeature` (desserializados do `content/`) |
+| `Sheets/CharacterDraft` | Entrada (ids em texto): raça, sub-raça, classe, nível, atributos base, escolhas |
+| `Sheets/SheetCalculator` | `CharacterDraft` + catálogo → `CharacterSheet` ou erros por campo (+ `warnings`) |
 
 ## Application — casos de uso
 - `ListRaces`, `GetRace(id)` → traços + bônus da raça/sub-raça (critério 1).
@@ -38,6 +39,8 @@ backend/
 - `ComputeSheet(draft)` → atributos, perícias, salvaguardas, bônus com breakdown (critérios 3 e 4).
 - `ListSheets`, `CreateSheet`, `GetSheet(id)` (recalcula), `UpdateSheet(id, version)`, `DeleteSheet` (critério 5).
 - Portas: `IRulesetCatalog` e `ICharacterSheetStore` (implementadas na Infrastructure).
+- Resultado explícito `Result<T>` (`Ok`/`NotFound`/`Invalid`/`Conflict`) → ProblemDetails na Api.
+- Registro de DI na Api (`Composition/ApplicationServices`), para a Application não depender de pacote de DI.
 
 ## Infrastructure
 - `content/**/*.json` entra como **EmbeddedResource** no build.

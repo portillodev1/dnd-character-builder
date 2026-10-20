@@ -21,12 +21,12 @@ Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia 
 | AD-013 | 2026-10-20 | Sem banco; fichas salvas como JSON em `data/fichas/` (só escolhas, recalcula ao ler); código na Fase 4 | ADR-0006 |
 
 ## Eval gates disponíveis (de `HARNESS.md` §4)
-`check-docs.sh` ✅ · `build.sh` ✅ · `lint.sh` ✅ · `test.sh --back` ✅ (156) · `test.sh --front` ✅ (1) · `verify.sh --strict` ✅ (exige Node 24) · CI `verify.yml` ⏳ (roda no próximo push)
+`check-docs.sh` ✅ · `build.sh` ✅ · `lint.sh` ✅ · `test.sh --back` ✅ (224) · `test.sh --front` ✅ (1) · `verify.sh --strict` ✅ (exige Node 24) · CI `verify.yml` ⏳ (roda no próximo push)
 
 ## Specs
 | Feature | Fase spec-driven | Artefatos |
 |---|---|---|
-| projeto | Specify ✅ · Plan ✅ · Tasks Fase 1 ✅ · Tasks Fase 2 ✅ · Tasks Fase 3 (fatia 1) ✅ | `.specs/project/spec.md`, `plan.md` |
+| projeto | Specify ✅ · Plan ✅ · Tasks Fase 1 ✅ · Tasks Fase 2 ✅ · Tasks Fase 3 (fatia 1) ✅ · Tasks Fase 4 ✅ | `.specs/project/spec.md`, `plan.md` |
 | F1 race-traits | Specify ✅ | `.specs/features/race-traits/spec.md` |
 | F2 class-features | Specify ✅ | `.specs/features/class-features/spec.md` |
 | F3 skills-saves | Specify ✅ | `.specs/features/skills-saves/spec.md` |
@@ -34,16 +34,19 @@ Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia 
 | F5 character-sheets | Specify ✅ | `.specs/features/character-sheets/spec.md` |
 
 ## Handoff
-- **Última unidade**: ADR-0006 + spec F5 (fichas salvas em arquivo JSON, sem banco) — só docs.
-  Antes: Fase 3, fatia 1 (`tasks-fase-3.md` T1–T6), já no remoto (CI verde).
-- **Feito**: ADR-0005 (JsonSchema.Net 9.4.1, isento da taxa OSMF); schemas `common`/`race`/`class`/
-  `skills` (draft 2020-12); `skills.json`, `races/anao.json` (Colina + Montanha), `classes/ladino.json`;
-  `Infrastructure/Content` (`EmbeddedContent`, `ContentValidator`); `Ruleset.Tests` (156 testes back).
+- **Última unidade**: Fase 4 — API (T1–T8 de `.specs/project/tasks-fase-4.md`). Commitada;
+  **push pendente de aprovação**.
+- **Feito**: Domain `Catalog/*` + `Sheets/` (`CharacterDraft` → `SheetCalculator` → `CharacterSheet`,
+  PV §7, erros por campo e warnings); Application (`Result<T>`, 10 casos de uso, portas
+  `IRulesetCatalog`/`ICharacterSheetStore`); Infrastructure (`JsonRulesetCatalog` com falha rápida,
+  `FileCharacterSheetStore`); Api com 8 rotas + OpenAPI. 224 testes back.
+- **Rodar a API**: `dotnet run --project backend/src/DndBuilder.Api` → http://localhost:5080;
+  fichas em `data/fichas/` (fora do git; `Storage:SheetsPath`).
 - **Toolchain local (macOS)**: Node 24 via `brew install node@24` (keg-only) → exporte
-  `PATH="/opt/homebrew/opt/node@24/bin:$PATH"` antes dos scripts.
-- **Bloqueios**: nenhum. PDF do LdJ fica **fora do repo** (ADR-0004); para conferir páginas use
-  `pdftotext` (poppler, instalado via brew) num diretório temporário.
-- **Próxima unidade**: fatia 2 (8 raças + 11 classes,
-  paralelizável por arquivo) → Fase 4 (loader tipado + endpoints + CRUD de fichas F5).
-- **Limpeza**: apagar `tasks-fase-1.md`, `tasks-fase-2.md` e `tasks-fase-3.md` quando aprovadas.
+  `PATH="/opt/homebrew/opt/node@24/bin:$PATH"` antes dos scripts. PDF do LdJ fica fora do repo
+  (ADR-0004); para conferir páginas use `pdftotext` (poppler) num diretório temporário.
+- **Bloqueios**: nenhum.
+- **Próxima unidade**: Fase 3 fatia 2 (8 raças + 11 classes, paralelizável por arquivo) e/ou
+  Fase 5 (wizard Angular + "Minhas fichas") sobre Anão + Ladino.
+- **Limpeza**: apagar `tasks-fase-1.md` … `tasks-fase-4.md` quando aprovadas.
 - **Gates**: `verify.sh --strict` verde.
