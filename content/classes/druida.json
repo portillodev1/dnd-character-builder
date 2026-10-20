@@ -1,0 +1,357 @@
+{
+  "$schema": "../schemas/class.schema.json",
+  "id": "druida",
+  "name": "Druida",
+  "summary": "Guardião da natureza que conjura magias primais e se transforma em animais.",
+  "hitDie": 8,
+  "primaryAbilities": [
+    "sabedoria"
+  ],
+  "savingThrows": [
+    "inteligencia",
+    "sabedoria"
+  ],
+  "skillChoices": {
+    "count": 2,
+    "from": [
+      "arcanismo",
+      "lidar-com-animais",
+      "intuicao",
+      "medicina",
+      "natureza",
+      "percepcao",
+      "religiao",
+      "sobrevivencia"
+    ]
+  },
+  "proficiencies": {
+    "armor": [
+      "Armaduras leves",
+      "Armaduras médias",
+      "Escudos (não metálicos)"
+    ],
+    "weapons": [
+      "Clavas",
+      "Adagas",
+      "Dardos",
+      "Azagaias",
+      "Maças",
+      "Bordões",
+      "Cimitarras",
+      "Foices",
+      "Fundas",
+      "Lanças"
+    ],
+    "tools": [
+      "Kit de herbalismo"
+    ]
+  },
+  "subclassLevel": 2,
+  "table": [
+    {
+      "id": "truques-conhecidos",
+      "name": "Truques Conhecidos",
+      "values": [
+        "2",
+        "2",
+        "2",
+        "3",
+        "3",
+        "3",
+        "3",
+        "3",
+        "3",
+        "4",
+        "4",
+        "4",
+        "4",
+        "4",
+        "4",
+        "4",
+        "4",
+        "4",
+        "4",
+        "4"
+      ]
+    },
+    {
+      "id": "espacos-de-magia",
+      "name": "Espaços de magia (1º/2º/3º…)",
+      "values": [
+        "2",
+        "3",
+        "4/2",
+        "4/3",
+        "4/3/2",
+        "4/3/3",
+        "4/3/3/1",
+        "4/3/3/2",
+        "4/3/3/3/1",
+        "4/3/3/3/2",
+        "4/3/3/3/2/1",
+        "4/3/3/3/2/1",
+        "4/3/3/3/2/1/1",
+        "4/3/3/3/2/1/1",
+        "4/3/3/3/2/1/1/1",
+        "4/3/3/3/2/1/1/1",
+        "4/3/3/3/2/1/1/1/1",
+        "4/3/3/3/3/1/1/1/1",
+        "4/3/3/3/3/2/1/1/1",
+        "4/3/3/3/3/2/2/1/1"
+      ]
+    },
+    {
+      "id": "forma-selvagem",
+      "name": "Forma Selvagem (ND máx.)",
+      "values": [
+        "—",
+        "1/4, sem voo ou natação",
+        "1/4, sem voo ou natação",
+        "1/2, sem voo",
+        "1/2, sem voo",
+        "1/2, sem voo",
+        "1/2, sem voo",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1"
+      ]
+    }
+  ],
+  "features": [
+    {
+      "id": "druidico",
+      "name": "Druídico",
+      "level": 1,
+      "kind": "language",
+      "description": "Você conhece o Druídico, a língua secreta dos druidas, e consegue deixar e ler mensagens escondidas nela.",
+      "source": {
+        "book": "LdJ",
+        "page": 73
+      }
+    },
+    {
+      "id": "conjuracao",
+      "name": "Conjuração",
+      "level": 1,
+      "kind": "spell",
+      "description": "Você conjura magias de druida com Sabedoria. Todo dia prepara magias da lista inteira: nível de druida + mod. de Sabedoria (mínimo 1).",
+      "scaling": "espacos-de-magia",
+      "source": {
+        "book": "LdJ",
+        "page": 73
+      }
+    },
+    {
+      "id": "forma-selvagem",
+      "name": "Forma Selvagem",
+      "level": 2,
+      "kind": "other",
+      "description": "Com uma ação, você vira um animal que já viu, duas vezes por descanso curto ou longo. O nível de desafio máximo e os limites de voo e natação melhoram com o nível.",
+      "scaling": "forma-selvagem",
+      "source": {
+        "book": "LdJ",
+        "page": 73
+      }
+    },
+    {
+      "id": "circulo-druidico",
+      "name": "Círculo Druídico",
+      "level": 2,
+      "kind": "other",
+      "description": "Escolha o seu círculo (ex.: Terra ou Lua). Ele dá características nos níveis 2, 6, 10 e 14.",
+      "grants": [
+        {
+          "type": "subclass-choice"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 74
+      }
+    },
+    {
+      "id": "aprimoramento-de-forma-selvagem-4",
+      "name": "Aprimoramento de Forma Selvagem",
+      "level": 4,
+      "kind": "other",
+      "description": "Agora você pode virar bestas de ND até 1/2, desde que não voem.",
+      "scaling": "forma-selvagem",
+      "source": {
+        "book": "LdJ",
+        "page": 73
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-4",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 4,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 74
+      }
+    },
+    {
+      "id": "caracteristica-de-circulo-druidico-6",
+      "name": "Característica de Círculo Druídico",
+      "level": 6,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 6 da opção de Círculo Druídico que escolheu.",
+      "source": {
+        "book": "LdJ",
+        "page": 75
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-8",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 8,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 74
+      }
+    },
+    {
+      "id": "aprimoramento-de-forma-selvagem-8",
+      "name": "Aprimoramento de Forma Selvagem",
+      "level": 8,
+      "kind": "other",
+      "description": "Agora você pode virar bestas de ND até 1, inclusive com deslocamento de voo.",
+      "scaling": "forma-selvagem",
+      "source": {
+        "book": "LdJ",
+        "page": 73
+      }
+    },
+    {
+      "id": "caracteristica-de-circulo-druidico-10",
+      "name": "Característica de Círculo Druídico",
+      "level": 10,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 10 da opção de Círculo Druídico que escolheu.",
+      "source": {
+        "book": "LdJ",
+        "page": 75
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-12",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 12,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 74
+      }
+    },
+    {
+      "id": "caracteristica-de-circulo-druidico-14",
+      "name": "Característica de Círculo Druídico",
+      "level": 14,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 14 da opção de Círculo Druídico que escolheu.",
+      "source": {
+        "book": "LdJ",
+        "page": 75
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-16",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 16,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 74
+      }
+    },
+    {
+      "id": "corpo-atemporal",
+      "name": "Corpo Atemporal",
+      "level": 18,
+      "kind": "other",
+      "description": "Você envelhece só 1 ano a cada 10 que passam.",
+      "source": {
+        "book": "LdJ",
+        "page": 74
+      }
+    },
+    {
+      "id": "magias-da-besta",
+      "name": "Magias da Besta",
+      "level": 18,
+      "kind": "spell",
+      "description": "Você pode conjurar magias na Forma Selvagem, com componentes verbais e somáticos (mas não materiais caros).",
+      "source": {
+        "book": "LdJ",
+        "page": 74
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-19",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 19,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 74
+      }
+    },
+    {
+      "id": "arquidruida",
+      "name": "Arquidruida",
+      "level": 20,
+      "kind": "other",
+      "description": "Você usa a Forma Selvagem quantas vezes quiser e ignora componentes verbais, somáticos e materiais sem custo das magias de druida.",
+      "source": {
+        "book": "LdJ",
+        "page": 74
+      }
+    }
+  ],
+  "source": {
+    "book": "LdJ",
+    "page": 71
+  }
+}

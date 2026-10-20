@@ -29,8 +29,10 @@ content/
 
 ## Escolhas do jogador
 Bônus que exigem escolha (ex.: Meio-Elfo +1 em dois atributos; Versatilidade em Perícia)
-são modelados como `choice { count, from[], bonusType }`. A API devolve `warnings`
-enquanto a escolha não for feita.
+são modelados como `choice { count, from[], bonusType, value? }`. Com `bonusType`, o Domain
+aplica cada opção escolhida: `ability:x` soma `value` (padrão 1) como aumento de atributo e
+`skill:x` dá proficiência com origem na raça. Sem `bonusType` (idioma, ferramenta, ancestral),
+a escolha só é registrada. A API devolve `warnings` enquanto a escolha não for feita.
 
 ## Escopo de subclasses
 MVP: só características **da classe base** e o marco "escolha seu arquétipo no nível N".

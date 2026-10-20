@@ -67,6 +67,27 @@ public class SheetCalculatorTests
     public void Compute_Level2_NextLevelHasArchetype()
         => Assert.Equal("arquetipo-de-ladino", Assert.Single(Sheet(Draft(2)).NextLevelFeatures).Feature.Id);
 
+    private static CharacterDraft HalfElf(params (string Id, string[] Picks)[] choices) => Draft() with
+    {
+        RaceId = "meio-elfo",
+        SubraceId = null,
+        Choices = choices.ToDictionary(c => c.Id, c => (IReadOnlyList<string>)c.Picks),
+    };
+
+    [Fact] // F4: Meio-Elfo +1 escolhido em Força → 10 + 1 = 11, parcela com o nome da escolha (LdJ p. 39)
+    public void Compute_HalfElfAbilityChoice_AddsIncreasePart()
+    {
+        var str = Sheet(HalfElf(("aumento-de-atributo", ["ability:forca", "ability:destreza"]))).Abilities.Single(a => a.Ability == Ability.Forca);
+        Assert.Equal((11, "Aumento de Atributo"), (str.Score.Total, str.Score.Parts[^1].Label));
+    }
+
+    [Fact] // F3: Versatilidade em Perícia dá proficiência com origem na raça (LdJ p. 39)
+    public void Compute_HalfElfSkillChoice_IsProficientFromRace()
+    {
+        var athletics = Sheet(HalfElf(("versatilidade-em-pericia", ["skill:atletismo", "skill:historia"]))).Skills.Single(s => s.Skill == Skill.Atletismo);
+        Assert.Equal((SkillProficiency.Proficient, "Meio-Elfo"), (athletics.Proficiency, athletics.ProficiencySources.Single()));
+    }
+
     [Fact] // F1 AC3: traços agrupados por origem
     public void Compute_HillDwarf_TraitsCarryOrigin()
         => Assert.Equal("Race:visao-no-escuro Subrace:tenacidade-ana",

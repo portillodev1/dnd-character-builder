@@ -1,0 +1,461 @@
+{
+  "$schema": "../schemas/class.schema.json",
+  "id": "bardo",
+  "name": "Bardo",
+  "summary": "Artista mágico que usa música e palavras para inspirar aliados, atrapalhar inimigos e conjurar magias.",
+  "hitDie": 8,
+  "primaryAbilities": [
+    "carisma"
+  ],
+  "savingThrows": [
+    "destreza",
+    "carisma"
+  ],
+  "skillChoices": {
+    "count": 3,
+    "from": [
+      "acrobacia",
+      "arcanismo",
+      "atletismo",
+      "atuacao",
+      "enganacao",
+      "furtividade",
+      "historia",
+      "intimidacao",
+      "intuicao",
+      "investigacao",
+      "lidar-com-animais",
+      "medicina",
+      "natureza",
+      "percepcao",
+      "persuasao",
+      "prestidigitacao",
+      "religiao",
+      "sobrevivencia"
+    ]
+  },
+  "proficiencies": {
+    "armor": [
+      "Armaduras leves"
+    ],
+    "weapons": [
+      "Armas simples",
+      "Bestas de mão",
+      "Espadas longas",
+      "Rapieiras",
+      "Espadas curtas"
+    ],
+    "tools": [
+      "Três instrumentos musicais à sua escolha"
+    ]
+  },
+  "subclassLevel": 3,
+  "table": [
+    {
+      "id": "inspiracao-de-bardo",
+      "name": "Inspiração de Bardo",
+      "values": [
+        "d6",
+        "d6",
+        "d6",
+        "d6",
+        "d8",
+        "d8",
+        "d8",
+        "d8",
+        "d8",
+        "d10",
+        "d10",
+        "d10",
+        "d10",
+        "d10",
+        "d12",
+        "d12",
+        "d12",
+        "d12",
+        "d12",
+        "d12"
+      ]
+    },
+    {
+      "id": "cancao-de-descanso",
+      "name": "Canção de Descanso",
+      "values": [
+        "—",
+        "d6",
+        "d6",
+        "d6",
+        "d6",
+        "d6",
+        "d6",
+        "d6",
+        "d8",
+        "d8",
+        "d8",
+        "d8",
+        "d10",
+        "d10",
+        "d10",
+        "d10",
+        "d12",
+        "d12",
+        "d12",
+        "d12"
+      ]
+    },
+    {
+      "id": "truques-conhecidos",
+      "name": "Truques Conhecidos",
+      "values": [
+        "2",
+        "2",
+        "2",
+        "3",
+        "3",
+        "3",
+        "3",
+        "3",
+        "3",
+        "4",
+        "4",
+        "4",
+        "4",
+        "4",
+        "4",
+        "4",
+        "4",
+        "4",
+        "4",
+        "4"
+      ]
+    },
+    {
+      "id": "magias-conhecidas",
+      "name": "Magias Conhecidas",
+      "values": [
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "14",
+        "15",
+        "15",
+        "16",
+        "18",
+        "19",
+        "19",
+        "20",
+        "22",
+        "22",
+        "22"
+      ]
+    },
+    {
+      "id": "espacos-de-magia",
+      "name": "Espaços de magia (1º/2º/3º…)",
+      "values": [
+        "2",
+        "3",
+        "4/2",
+        "4/3",
+        "4/3/2",
+        "4/3/3",
+        "4/3/3/1",
+        "4/3/3/2",
+        "4/3/3/3/1",
+        "4/3/3/3/2",
+        "4/3/3/3/2/1",
+        "4/3/3/3/2/1",
+        "4/3/3/3/2/1/1",
+        "4/3/3/3/2/1/1",
+        "4/3/3/3/2/1/1/1",
+        "4/3/3/3/2/1/1/1",
+        "4/3/3/3/2/1/1/1/1",
+        "4/3/3/3/3/1/1/1/1",
+        "4/3/3/3/3/2/1/1/1",
+        "4/3/3/3/3/2/2/1/1"
+      ]
+    }
+  ],
+  "features": [
+    {
+      "id": "conjuracao",
+      "name": "Conjuração",
+      "level": 1,
+      "kind": "spell",
+      "description": "Você conjura magias de bardo usando Carisma. Conhece um número fixo de truques e magias (veja a tabela) e pode trocar uma magia ao subir de nível.",
+      "scaling": "magias-conhecidas",
+      "source": {
+        "book": "LdJ",
+        "page": 52
+      }
+    },
+    {
+      "id": "inspiracao-de-bardo",
+      "name": "Inspiração de Bardo",
+      "level": 1,
+      "kind": "other",
+      "description": "Com uma ação bônus, dê a um aliado um dado extra para somar em um ataque, teste ou salvaguarda. Usos = mod. de Carisma (mínimo 1) por descanso longo.",
+      "scaling": "inspiracao-de-bardo",
+      "source": {
+        "book": "LdJ",
+        "page": 53
+      }
+    },
+    {
+      "id": "versatilidade",
+      "name": "Versatilidade",
+      "level": 2,
+      "kind": "other",
+      "description": "Você soma metade do bônus de proficiência (arredondado para baixo) em todo teste de habilidade em que ainda não soma proficiência.",
+      "grants": [
+        {
+          "type": "half-proficiency"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 54
+      }
+    },
+    {
+      "id": "cancao-de-descanso",
+      "name": "Canção de Descanso",
+      "level": 2,
+      "kind": "other",
+      "description": "Num descanso curto, aliados que gastarem Dados de Vida para se curar recuperam um dado extra de pontos de vida graças à sua música.",
+      "scaling": "cancao-de-descanso",
+      "source": {
+        "book": "LdJ",
+        "page": 54
+      }
+    },
+    {
+      "id": "colegio-de-bardo",
+      "name": "Colégio de Bardo",
+      "level": 3,
+      "kind": "other",
+      "description": "Escolha o seu colégio (ex.: Conhecimento ou Bravura). Ele dá características nos níveis 3, 6 e 14.",
+      "grants": [
+        {
+          "type": "subclass-choice"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 54
+      }
+    },
+    {
+      "id": "aptidao",
+      "name": "Aptidão",
+      "level": 3,
+      "kind": "other",
+      "description": "Escolha duas perícias em que você é proficiente: nelas você soma o dobro do bônus de proficiência.",
+      "grants": [
+        {
+          "type": "expertise",
+          "count": 2
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 54
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-4",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 4,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 54
+      }
+    },
+    {
+      "id": "fonte-de-inspiracao",
+      "name": "Fonte de Inspiração",
+      "level": 5,
+      "kind": "other",
+      "description": "Seus usos de Inspiração de Bardo voltam também após um descanso curto.",
+      "source": {
+        "book": "LdJ",
+        "page": 54
+      }
+    },
+    {
+      "id": "caracteristica-de-colegio-de-bardo-6",
+      "name": "Característica de Colégio de Bardo",
+      "level": 6,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 6 da opção de Colégio de Bardo que escolheu.",
+      "source": {
+        "book": "LdJ",
+        "page": 54
+      }
+    },
+    {
+      "id": "cancao-de-protecao",
+      "name": "Canção de Proteção",
+      "level": 6,
+      "kind": "other",
+      "description": "Com uma ação, você toca uma música: até o fim do seu próximo turno, você e aliados a até 9 m têm vantagem em salvaguardas contra medo e enfeitiçamento.",
+      "source": {
+        "book": "LdJ",
+        "page": 54
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-8",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 8,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 54
+      }
+    },
+    {
+      "id": "aptidao-10",
+      "name": "Aptidão",
+      "level": 10,
+      "kind": "other",
+      "description": "Escolha mais duas perícias proficientes para somar o dobro do bônus de proficiência.",
+      "grants": [
+        {
+          "type": "expertise",
+          "count": 2
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 54
+      }
+    },
+    {
+      "id": "segredos-magicos",
+      "name": "Segredos Mágicos",
+      "level": 10,
+      "kind": "spell",
+      "description": "Aprenda duas magias de qualquer classe; elas contam como magias de bardo. Você ganha mais duas no 14º e no 18º nível.",
+      "source": {
+        "book": "LdJ",
+        "page": 54
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-12",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 12,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 54
+      }
+    },
+    {
+      "id": "caracteristica-de-colegio-de-bardo-14",
+      "name": "Característica de Colégio de Bardo",
+      "level": 14,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 14 da opção de Colégio de Bardo que escolheu.",
+      "source": {
+        "book": "LdJ",
+        "page": 54
+      }
+    },
+    {
+      "id": "segredos-magicos-14",
+      "name": "Segredos Mágicos",
+      "level": 14,
+      "kind": "spell",
+      "description": "Aprenda mais duas magias de qualquer classe.",
+      "source": {
+        "book": "LdJ",
+        "page": 54
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-16",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 16,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 54
+      }
+    },
+    {
+      "id": "segredos-magicos-18",
+      "name": "Segredos Mágicos",
+      "level": 18,
+      "kind": "spell",
+      "description": "Aprenda mais duas magias de qualquer classe.",
+      "source": {
+        "book": "LdJ",
+        "page": 54
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-19",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 19,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 54
+      }
+    },
+    {
+      "id": "inspiracao-superior",
+      "name": "Inspiração Superior",
+      "level": 20,
+      "kind": "other",
+      "description": "Ao rolar iniciativa sem nenhum uso de Inspiração de Bardo sobrando, você recupera um uso.",
+      "source": {
+        "book": "LdJ",
+        "page": 54
+      }
+    }
+  ],
+  "source": {
+    "book": "LdJ",
+    "page": 51
+  }
+}

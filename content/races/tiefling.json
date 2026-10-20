@@ -1,0 +1,87 @@
+{
+  "$schema": "../schemas/race.schema.json",
+  "id": "tiefling",
+  "name": "Tiefling",
+  "summary": "Descendente de uma linhagem infernal, marcado por chifres e cauda e alvo de desconfiança.",
+  "size": "medio",
+  "speed": {
+    "meters": 9,
+    "source": {
+      "book": "LdJ",
+      "page": 43
+    }
+  },
+  "bonuses": [
+    {
+      "target": "ability:inteligencia",
+      "value": 1,
+      "bonusType": "ability-score-increase",
+      "label": "Tiefling",
+      "source": {
+        "book": "LdJ",
+        "page": 43
+      }
+    },
+    {
+      "target": "ability:carisma",
+      "value": 2,
+      "bonusType": "ability-score-increase",
+      "label": "Tiefling",
+      "source": {
+        "book": "LdJ",
+        "page": 43
+      }
+    }
+  ],
+  "traits": [
+    {
+      "id": "visao-no-escuro",
+      "name": "Visão no Escuro",
+      "kind": "sense",
+      "description": "Até 18 m de distância, a penumbra não atrapalha sua visão e a escuridão total conta como penumbra para você. No escuro você só vê em preto e branco.",
+      "source": {
+        "book": "LdJ",
+        "page": 43
+      }
+    },
+    {
+      "id": "resistencia-infernal",
+      "name": "Resistência Infernal",
+      "kind": "resistance",
+      "description": "Você sofre menos dano de fogo (resistência).",
+      "source": {
+        "book": "LdJ",
+        "page": 43
+      }
+    },
+    {
+      "id": "legado-infernal",
+      "name": "Legado Infernal",
+      "kind": "spell",
+      "description": "Você conhece o truque taumaturgia. No 3º nível pode conjurar repreensão infernal (como magia de 2º nível) e no 5º, escuridão, uma vez cada por descanso longo. Usa Carisma.",
+      "source": {
+        "book": "LdJ",
+        "page": 43
+      }
+    },
+    {
+      "id": "idiomas-tiefling",
+      "name": "Idiomas",
+      "kind": "language",
+      "description": "Você fala, lê e escreve Comum e Infernal.",
+      "source": {
+        "book": "LdJ",
+        "page": 43
+      }
+    }
+  ],
+  "languages": [
+    "Comum",
+    "Infernal"
+  ],
+  "subraces": [],
+  "source": {
+    "book": "LdJ",
+    "page": 42
+  }
+}

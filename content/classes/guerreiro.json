@@ -1,0 +1,416 @@
+{
+  "$schema": "../schemas/class.schema.json",
+  "id": "guerreiro",
+  "name": "Guerreiro",
+  "summary": "Mestre das armas e armaduras, que ataca muitas vezes e se recupera rápido no meio da luta.",
+  "hitDie": 10,
+  "primaryAbilities": [
+    "forca",
+    "destreza"
+  ],
+  "savingThrows": [
+    "forca",
+    "constituicao"
+  ],
+  "skillChoices": {
+    "count": 2,
+    "from": [
+      "acrobacia",
+      "lidar-com-animais",
+      "atletismo",
+      "historia",
+      "intuicao",
+      "intimidacao",
+      "percepcao",
+      "sobrevivencia"
+    ]
+  },
+  "proficiencies": {
+    "armor": [
+      "Todas as armaduras",
+      "Escudos"
+    ],
+    "weapons": [
+      "Armas simples",
+      "Armas marciais"
+    ],
+    "tools": []
+  },
+  "subclassLevel": 3,
+  "table": [
+    {
+      "id": "ataques-por-acao",
+      "name": "Ataques por ação de Ataque",
+      "values": [
+        "1",
+        "1",
+        "1",
+        "1",
+        "2",
+        "2",
+        "2",
+        "2",
+        "2",
+        "2",
+        "3",
+        "3",
+        "3",
+        "3",
+        "3",
+        "3",
+        "3",
+        "3",
+        "3",
+        "4"
+      ]
+    },
+    {
+      "id": "surto-de-acao",
+      "name": "Surto de Ação (usos)",
+      "values": [
+        "—",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "1",
+        "2",
+        "2",
+        "2",
+        "2"
+      ]
+    },
+    {
+      "id": "indomavel",
+      "name": "Indomável (usos)",
+      "values": [
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "1",
+        "1",
+        "1",
+        "1",
+        "2",
+        "2",
+        "2",
+        "2",
+        "3",
+        "3",
+        "3",
+        "3"
+      ]
+    }
+  ],
+  "features": [
+    {
+      "id": "estilo-de-luta",
+      "name": "Estilo de Luta",
+      "level": 1,
+      "kind": "other",
+      "description": "Escolha uma especialidade de combate, como Arquearia (+2 em ataques à distância), Defesa (+1 na CA de armadura) ou Duelismo.",
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "retomar-o-folego",
+      "name": "Retomar o Fôlego",
+      "level": 1,
+      "kind": "other",
+      "description": "Com uma ação bônus, recupere 1d10 + seu nível de guerreiro em pontos de vida, uma vez por descanso curto ou longo.",
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "surto-de-acao",
+      "name": "Surto de Ação",
+      "level": 2,
+      "kind": "other",
+      "description": "Uma vez por descanso curto ou longo, ganhe uma ação extra no seu turno. No 17º nível, são dois usos.",
+      "scaling": "surto-de-acao",
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "arquetipo-marcial",
+      "name": "Arquétipo Marcial",
+      "level": 3,
+      "kind": "other",
+      "description": "Escolha o seu arquétipo (ex.: Campeão, Mestre de Batalha ou Cavaleiro Arcano). Ele dá características nos níveis 3, 7, 10, 15 e 18.",
+      "grants": [
+        {
+          "type": "subclass-choice"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-4",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 4,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "ataque-extra",
+      "name": "Ataque Extra",
+      "level": 5,
+      "kind": "other",
+      "description": "Quando usar a ação de Ataque, você ataca duas vezes. Vira três ataques no 11º nível e quatro no 20º.",
+      "scaling": "ataques-por-acao",
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-6",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 6,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "caracteristica-de-arquetipo-marcial-7",
+      "name": "Característica de Arquétipo Marcial",
+      "level": 7,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 7 da opção de Arquétipo Marcial que escolheu.",
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-8",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 8,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "indomavel",
+      "name": "Indomável",
+      "level": 9,
+      "kind": "other",
+      "description": "Quando falhar numa salvaguarda, role de novo e use o novo resultado, uma vez por descanso longo. Ganha mais usos no 13º e no 17º nível.",
+      "scaling": "indomavel",
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "caracteristica-de-arquetipo-marcial-10",
+      "name": "Característica de Arquétipo Marcial",
+      "level": 10,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 10 da opção de Arquétipo Marcial que escolheu.",
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "ataque-extra-11",
+      "name": "Ataque Extra (2)",
+      "level": 11,
+      "kind": "other",
+      "description": "Agora você ataca três vezes com a ação de Ataque.",
+      "scaling": "ataques-por-acao",
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-12",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 12,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "indomavel-13",
+      "name": "Indomável (dois usos)",
+      "level": 13,
+      "kind": "other",
+      "description": "Você pode usar Indomável duas vezes por descanso longo.",
+      "scaling": "indomavel",
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-14",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 14,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "caracteristica-de-arquetipo-marcial-15",
+      "name": "Característica de Arquétipo Marcial",
+      "level": 15,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 15 da opção de Arquétipo Marcial que escolheu.",
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-16",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 16,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "surto-de-acao-17",
+      "name": "Surto de Ação (dois usos)",
+      "level": 17,
+      "kind": "other",
+      "description": "Você pode usar Surto de Ação duas vezes por descanso, mas só uma vez por turno.",
+      "scaling": "surto-de-acao",
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "indomavel-17",
+      "name": "Indomável (três usos)",
+      "level": 17,
+      "kind": "other",
+      "description": "Você pode usar Indomável três vezes por descanso longo.",
+      "scaling": "indomavel",
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "caracteristica-de-arquetipo-marcial-18",
+      "name": "Característica de Arquétipo Marcial",
+      "level": 18,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 18 da opção de Arquétipo Marcial que escolheu.",
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-19",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 19,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    },
+    {
+      "id": "ataque-extra-20",
+      "name": "Ataque Extra (3)",
+      "level": 20,
+      "kind": "other",
+      "description": "Agora você ataca quatro vezes com a ação de Ataque.",
+      "scaling": "ataques-por-acao",
+      "source": {
+        "book": "LdJ",
+        "page": 85
+      }
+    }
+  ],
+  "source": {
+    "book": "LdJ",
+    "page": 83
+  }
+}

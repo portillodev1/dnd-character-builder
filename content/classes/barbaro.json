@@ -1,0 +1,387 @@
+{
+  "$schema": "../schemas/class.schema.json",
+  "id": "barbaro",
+  "name": "Bárbaro",
+  "summary": "Guerreiro feroz que entra em fúria no combate, aguenta muito dano e luta com força bruta.",
+  "hitDie": 12,
+  "primaryAbilities": [
+    "forca"
+  ],
+  "savingThrows": [
+    "forca",
+    "constituicao"
+  ],
+  "skillChoices": {
+    "count": 2,
+    "from": [
+      "lidar-com-animais",
+      "atletismo",
+      "intimidacao",
+      "natureza",
+      "percepcao",
+      "sobrevivencia"
+    ]
+  },
+  "proficiencies": {
+    "armor": [
+      "Armaduras leves",
+      "Armaduras médias",
+      "Escudos"
+    ],
+    "weapons": [
+      "Armas simples",
+      "Armas marciais"
+    ],
+    "tools": []
+  },
+  "subclassLevel": 3,
+  "table": [
+    {
+      "id": "furias",
+      "name": "Fúrias",
+      "values": [
+        "2",
+        "2",
+        "3",
+        "3",
+        "3",
+        "4",
+        "4",
+        "4",
+        "4",
+        "4",
+        "4",
+        "5",
+        "5",
+        "5",
+        "5",
+        "5",
+        "6",
+        "6",
+        "6",
+        "Ilimitado"
+      ]
+    },
+    {
+      "id": "dano-de-furia",
+      "name": "Dano de Fúria",
+      "values": [
+        "+2",
+        "+2",
+        "+2",
+        "+2",
+        "+2",
+        "+2",
+        "+2",
+        "+2",
+        "+3",
+        "+3",
+        "+3",
+        "+3",
+        "+3",
+        "+3",
+        "+3",
+        "+4",
+        "+4",
+        "+4",
+        "+4",
+        "+4"
+      ]
+    },
+    {
+      "id": "critico-brutal",
+      "name": "Crítico Brutal",
+      "values": [
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "—",
+        "+1 dado",
+        "+1 dado",
+        "+1 dado",
+        "+1 dado",
+        "+2 dados",
+        "+2 dados",
+        "+2 dados",
+        "+2 dados",
+        "+3 dados",
+        "+3 dados",
+        "+3 dados",
+        "+3 dados"
+      ]
+    }
+  ],
+  "features": [
+    {
+      "id": "furia",
+      "name": "Fúria",
+      "level": 1,
+      "kind": "other",
+      "description": "Com uma ação bônus você entra em fúria por 1 minuto: vantagem em testes e salvaguardas de Força, dano extra em ataques corpo a corpo com Força e resistência a dano de concussão, cortante e perfurante. Não vale com armadura pesada.",
+      "scaling": "furias",
+      "source": {
+        "book": "LdJ",
+        "page": 48
+      }
+    },
+    {
+      "id": "defesa-sem-armadura",
+      "name": "Defesa sem Armadura",
+      "level": 1,
+      "kind": "other",
+      "description": "Sem armadura, sua Classe de Armadura é 10 + mod. de Destreza + mod. de Constituição. Você pode usar escudo e manter o benefício.",
+      "source": {
+        "book": "LdJ",
+        "page": 48
+      }
+    },
+    {
+      "id": "ataque-descuidado",
+      "name": "Ataque Descuidado",
+      "level": 2,
+      "kind": "other",
+      "description": "No primeiro ataque do turno, você pode atacar com vantagem usando Força, mas até o seu próximo turno os ataques contra você também têm vantagem.",
+      "source": {
+        "book": "LdJ",
+        "page": 48
+      }
+    },
+    {
+      "id": "sentido-de-perigo",
+      "name": "Sentido de Perigo",
+      "level": 2,
+      "kind": "advantage",
+      "description": "Você rola com vantagem as salvaguardas de Destreza contra efeitos que consegue ver, como armadilhas e magias, se não estiver cego, surdo ou incapacitado.",
+      "source": {
+        "book": "LdJ",
+        "page": 48
+      }
+    },
+    {
+      "id": "caminho-primitivo",
+      "name": "Caminho Primitivo",
+      "level": 3,
+      "kind": "other",
+      "description": "Escolha o caminho da sua fúria (ex.: Furioso ou Guerreiro Totêmico). Ele dá características nos níveis 3, 6, 10 e 14.",
+      "grants": [
+        {
+          "type": "subclass-choice"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 48
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-4",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 4,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 49
+      }
+    },
+    {
+      "id": "ataque-extra",
+      "name": "Ataque Extra",
+      "level": 5,
+      "kind": "other",
+      "description": "Quando usar a ação de Ataque no seu turno, você ataca duas vezes em vez de uma.",
+      "source": {
+        "book": "LdJ",
+        "page": 49
+      }
+    },
+    {
+      "id": "movimento-rapido",
+      "name": "Movimento Rápido",
+      "level": 5,
+      "kind": "other",
+      "description": "Seu deslocamento aumenta 3 m enquanto você não usar armadura pesada.",
+      "source": {
+        "book": "LdJ",
+        "page": 49
+      }
+    },
+    {
+      "id": "caracteristica-de-caminho-primitivo-6",
+      "name": "Característica de Caminho Primitivo",
+      "level": 6,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 6 da opção de Caminho Primitivo que escolheu.",
+      "source": {
+        "book": "LdJ",
+        "page": 49
+      }
+    },
+    {
+      "id": "instinto-selvagem",
+      "name": "Instinto Selvagem",
+      "level": 7,
+      "kind": "advantage",
+      "description": "Você tem vantagem na iniciativa. Se for surpreendido, pode agir no primeiro turno desde que entre em fúria antes de qualquer outra coisa.",
+      "source": {
+        "book": "LdJ",
+        "page": 49
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-8",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 8,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 49
+      }
+    },
+    {
+      "id": "critico-brutal",
+      "name": "Crítico Brutal",
+      "level": 9,
+      "kind": "other",
+      "description": "Num acerto crítico corpo a corpo, você rola dados de dano da arma extras: 1 no 9º nível, 2 no 13º e 3 no 17º.",
+      "scaling": "critico-brutal",
+      "source": {
+        "book": "LdJ",
+        "page": 49
+      }
+    },
+    {
+      "id": "caracteristica-de-caminho-primitivo-10",
+      "name": "Característica de Caminho Primitivo",
+      "level": 10,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 10 da opção de Caminho Primitivo que escolheu.",
+      "source": {
+        "book": "LdJ",
+        "page": 49
+      }
+    },
+    {
+      "id": "furia-implacavel",
+      "name": "Fúria Implacável",
+      "level": 11,
+      "kind": "other",
+      "description": "Se cair a 0 PV em fúria sem morrer, faça uma salvaguarda de Constituição (CD 10, +5 a cada uso até descansar) para ficar com 1 PV.",
+      "source": {
+        "book": "LdJ",
+        "page": 49
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-12",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 12,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 49
+      }
+    },
+    {
+      "id": "caracteristica-de-caminho-primitivo-14",
+      "name": "Característica de Caminho Primitivo",
+      "level": 14,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 14 da opção de Caminho Primitivo que escolheu.",
+      "source": {
+        "book": "LdJ",
+        "page": 49
+      }
+    },
+    {
+      "id": "furia-persistente",
+      "name": "Fúria Persistente",
+      "level": 15,
+      "kind": "other",
+      "description": "Sua fúria só acaba antes do tempo se você cair inconsciente ou decidir encerrá-la.",
+      "source": {
+        "book": "LdJ",
+        "page": 49
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-16",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 16,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 49
+      }
+    },
+    {
+      "id": "forca-indomavel",
+      "name": "Força Indomável",
+      "level": 18,
+      "kind": "other",
+      "description": "Se o total de um teste de Força ficar abaixo do seu valor de Força, use o valor de Força no lugar.",
+      "source": {
+        "book": "LdJ",
+        "page": 49
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-19",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 19,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 49
+      }
+    },
+    {
+      "id": "campeao-primitivo",
+      "name": "Campeão Primitivo",
+      "level": 20,
+      "kind": "other",
+      "description": "Sua Força e sua Constituição aumentam em 4, e o máximo delas passa a ser 24.",
+      "source": {
+        "book": "LdJ",
+        "page": 49
+      }
+    }
+  ],
+  "source": {
+    "book": "LdJ",
+    "page": 46
+  }
+}

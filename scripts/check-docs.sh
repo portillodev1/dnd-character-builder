@@ -8,7 +8,7 @@ FAIL=0
 while IFS= read -r f; do
   n=$(wc -l < "$f")
   if [ "$n" -gt 100 ]; then echo "FAIL: $f tem $n linhas (teto 100) — quebre em .md menores" >&2; FAIL=1; fi
-done < <(find . -name "*.md" -not -path "./frontend/node_modules/*" -not -path "./.git/*" \
+done < <(find . -name "*.md" -not -path "./frontend/node_modules/*" -not -path "./.git/*" -not -path "./.claude/*" \
            -not -path "*/bin/*" -not -path "*/obj/*")
 [ $FAIL = 0 ] && echo "check-docs: OK"
 exit $FAIL

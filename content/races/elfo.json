@@ -1,0 +1,294 @@
+{
+  "$schema": "../schemas/race.schema.json",
+  "id": "elfo",
+  "name": "Elfo",
+  "summary": "Povo gracioso e de vida longa, ligado à natureza e à magia, com sentidos aguçados.",
+  "size": "medio",
+  "speed": {
+    "meters": 9,
+    "source": {
+      "book": "LdJ",
+      "page": 23
+    }
+  },
+  "bonuses": [
+    {
+      "target": "ability:destreza",
+      "value": 2,
+      "bonusType": "ability-score-increase",
+      "label": "Elfo",
+      "source": {
+        "book": "LdJ",
+        "page": 23
+      }
+    }
+  ],
+  "traits": [
+    {
+      "id": "visao-no-escuro",
+      "name": "Visão no Escuro",
+      "kind": "sense",
+      "description": "Até 18 m de distância, a penumbra não atrapalha sua visão e a escuridão total conta como penumbra para você. No escuro você só vê em preto e branco.",
+      "source": {
+        "book": "LdJ",
+        "page": 23
+      }
+    },
+    {
+      "id": "sentidos-agucados",
+      "name": "Sentidos Aguçados",
+      "kind": "proficiency",
+      "description": "Você é proficiente na perícia Percepção.",
+      "grants": [
+        {
+          "type": "skill-proficiency",
+          "skill": "percepcao"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 23
+      }
+    },
+    {
+      "id": "ancestral-feerico",
+      "name": "Ancestral Feérico",
+      "kind": "advantage",
+      "description": "Você rola com vantagem as salvaguardas para não ficar enfeitiçado, e magias não conseguem fazer você dormir.",
+      "source": {
+        "book": "LdJ",
+        "page": 23
+      }
+    },
+    {
+      "id": "transe",
+      "name": "Transe",
+      "kind": "other",
+      "description": "Você não dorme: medita em semiconsciência por 4 horas e descansa tanto quanto um humano que dormiu 8 horas.",
+      "source": {
+        "book": "LdJ",
+        "page": 23
+      }
+    },
+    {
+      "id": "idiomas-elfo",
+      "name": "Idiomas",
+      "kind": "language",
+      "description": "Você fala, lê e escreve Comum e Élfico.",
+      "source": {
+        "book": "LdJ",
+        "page": 23
+      }
+    }
+  ],
+  "languages": [
+    "Comum",
+    "Élfico"
+  ],
+  "subraces": [
+    {
+      "id": "alto-elfo",
+      "name": "Alto Elfo",
+      "summary": "Elfo de mente afiada que domina o básico da magia arcana.",
+      "srd": true,
+      "bonuses": [
+        {
+          "target": "ability:inteligencia",
+          "value": 1,
+          "bonusType": "ability-score-increase",
+          "label": "Alto Elfo",
+          "source": {
+            "book": "LdJ",
+            "page": 23
+          }
+        }
+      ],
+      "choices": [
+        {
+          "id": "idioma-adicional",
+          "name": "Idioma Adicional",
+          "count": 1,
+          "from": [
+            "Anão",
+            "Gigante",
+            "Gnômico",
+            "Goblin",
+            "Halfling",
+            "Orc",
+            "Abissal",
+            "Celestial",
+            "Dracônico",
+            "Dialeto Subterrâneo",
+            "Infernal",
+            "Primordial",
+            "Silvestre",
+            "Subcomum"
+          ],
+          "kind": "language",
+          "source": {
+            "book": "LdJ",
+            "page": 24
+          }
+        }
+      ],
+      "traits": [
+        {
+          "id": "treinamento-elfico-com-armas",
+          "name": "Treinamento Élfico com Armas",
+          "kind": "proficiency",
+          "description": "Você sabe usar espada longa, espada curta, arco longo e arco curto.",
+          "source": {
+            "book": "LdJ",
+            "page": 23
+          }
+        },
+        {
+          "id": "truque",
+          "name": "Truque",
+          "kind": "spell",
+          "description": "Você conhece um truque à sua escolha da lista de magias do mago. Use Inteligência para conjurá-lo.",
+          "source": {
+            "book": "LdJ",
+            "page": 24
+          }
+        },
+        {
+          "id": "idioma-adicional",
+          "name": "Idioma Adicional",
+          "kind": "language",
+          "description": "Você fala, lê e escreve um idioma extra à sua escolha.",
+          "source": {
+            "book": "LdJ",
+            "page": 24
+          }
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 23
+      }
+    },
+    {
+      "id": "elfo-da-floresta",
+      "name": "Elfo da Floresta",
+      "summary": "Elfo veloz e furtivo, de sentidos e intuição aguçados.",
+      "srd": false,
+      "bonuses": [
+        {
+          "target": "ability:sabedoria",
+          "value": 1,
+          "bonusType": "ability-score-increase",
+          "label": "Elfo da Floresta",
+          "source": {
+            "book": "LdJ",
+            "page": 24
+          }
+        }
+      ],
+      "traits": [
+        {
+          "id": "treinamento-elfico-com-armas",
+          "name": "Treinamento Élfico com Armas",
+          "kind": "proficiency",
+          "description": "Você sabe usar espada longa, espada curta, arco longo e arco curto.",
+          "source": {
+            "book": "LdJ",
+            "page": 24
+          }
+        },
+        {
+          "id": "pes-ligeiros",
+          "name": "Pés Ligeiros",
+          "kind": "other",
+          "description": "Seu deslocamento base de caminhada passa a ser 10,5 m.",
+          "source": {
+            "book": "LdJ",
+            "page": 24
+          }
+        },
+        {
+          "id": "mascara-da-natureza",
+          "name": "Máscara da Natureza",
+          "kind": "other",
+          "description": "Você pode tentar se esconder mesmo quando só está levemente encoberto por fenômenos naturais, como folhagem, chuva forte, neve ou névoa.",
+          "source": {
+            "book": "LdJ",
+            "page": 24
+          }
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 24
+      }
+    },
+    {
+      "id": "elfo-negro",
+      "name": "Elfo Negro (Drow)",
+      "summary": "Elfo do Subterrâneo, com visão no escuro superior e magia inata, mas sensível à luz do sol.",
+      "srd": false,
+      "bonuses": [
+        {
+          "target": "ability:carisma",
+          "value": 1,
+          "bonusType": "ability-score-increase",
+          "label": "Elfo Negro",
+          "source": {
+            "book": "LdJ",
+            "page": 24
+          }
+        }
+      ],
+      "traits": [
+        {
+          "id": "visao-no-escuro-superior",
+          "name": "Visão no Escuro Superior",
+          "kind": "sense",
+          "description": "Sua Visão no Escuro alcança 36 m em vez de 18 m.",
+          "source": {
+            "book": "LdJ",
+            "page": 24
+          }
+        },
+        {
+          "id": "sensibilidade-a-luz-solar",
+          "name": "Sensibilidade à Luz Solar",
+          "kind": "other",
+          "description": "Sob luz solar direta (você, o alvo ou o que tenta perceber), você tem desvantagem em ataques e em testes de Percepção que dependem da visão.",
+          "source": {
+            "book": "LdJ",
+            "page": 24
+          }
+        },
+        {
+          "id": "magia-drow",
+          "name": "Magia Drow",
+          "kind": "spell",
+          "description": "Você conhece o truque globos de luz. No 3º nível pode conjurar fogo das fadas e no 5º, escuridão, uma vez cada por descanso longo. Usa Carisma.",
+          "source": {
+            "book": "LdJ",
+            "page": 24
+          }
+        },
+        {
+          "id": "treinamento-drow-com-armas",
+          "name": "Treinamento Drow com Armas",
+          "kind": "proficiency",
+          "description": "Você sabe usar rapieira, espada curta e besta de mão.",
+          "source": {
+            "book": "LdJ",
+            "page": 24
+          }
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 24
+      }
+    }
+  ],
+  "source": {
+    "book": "LdJ",
+    "page": 21
+  }
+}

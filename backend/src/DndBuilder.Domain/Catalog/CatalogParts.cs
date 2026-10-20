@@ -22,7 +22,10 @@ public sealed record Grant
     public string? Ability { get; init; }
 }
 
-/// <summary>Escolha pendente do jogador (vira warning até ser feita).</summary>
+/// <summary>
+/// Escolha pendente do jogador (vira warning até ser feita). Com <c>BonusType</c>, cada opção
+/// escolhida vira parcela: <c>ability:x</c> soma <c>Value</c> (padrão 1); <c>skill:x</c> dá proficiência.
+/// </summary>
 public sealed record Choice
 {
     public required string Id { get; init; }
@@ -30,6 +33,7 @@ public sealed record Choice
     public required int Count { get; init; }
     public required IReadOnlyList<string> From { get; init; }
     public BonusType? BonusType { get; init; }
+    public int? Value { get; init; }
     public TraitKind? Kind { get; init; }
     public required SourceRef Source { get; init; }
 }

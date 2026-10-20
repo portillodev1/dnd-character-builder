@@ -1,0 +1,480 @@
+{
+  "$schema": "../schemas/class.schema.json",
+  "id": "monge",
+  "name": "Monge",
+  "summary": "Artista marcial que luta sem armas nem armadura, canalizando o chi para golpes rápidos e proezas sobre-humanas.",
+  "hitDie": 8,
+  "primaryAbilities": [
+    "destreza",
+    "sabedoria"
+  ],
+  "savingThrows": [
+    "forca",
+    "destreza"
+  ],
+  "skillChoices": {
+    "count": 2,
+    "from": [
+      "acrobacia",
+      "atletismo",
+      "furtividade",
+      "historia",
+      "intuicao",
+      "religiao"
+    ]
+  },
+  "proficiencies": {
+    "armor": [],
+    "weapons": [
+      "Armas simples",
+      "Espadas curtas"
+    ],
+    "tools": [
+      "Um tipo de ferramenta de artesão ou instrumento musical, à sua escolha"
+    ]
+  },
+  "subclassLevel": 3,
+  "table": [
+    {
+      "id": "artes-marciais",
+      "name": "Artes Marciais",
+      "values": [
+        "1d4",
+        "1d4",
+        "1d4",
+        "1d4",
+        "1d6",
+        "1d6",
+        "1d6",
+        "1d6",
+        "1d6",
+        "1d6",
+        "1d8",
+        "1d8",
+        "1d8",
+        "1d8",
+        "1d8",
+        "1d8",
+        "1d10",
+        "1d10",
+        "1d10",
+        "1d10"
+      ]
+    },
+    {
+      "id": "pontos-de-chi",
+      "name": "Pontos de Chi",
+      "values": [
+        "—",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20"
+      ]
+    },
+    {
+      "id": "movimento-sem-armadura",
+      "name": "Movimento sem Armadura",
+      "values": [
+        "—",
+        "+3 m",
+        "+3 m",
+        "+3 m",
+        "+3 m",
+        "+4,5 m",
+        "+4,5 m",
+        "+4,5 m",
+        "+4,5 m",
+        "+6 m",
+        "+6 m",
+        "+6 m",
+        "+6 m",
+        "+7,5 m",
+        "+7,5 m",
+        "+7,5 m",
+        "+7,5 m",
+        "+9 m",
+        "+9 m",
+        "+9 m"
+      ]
+    }
+  ],
+  "features": [
+    {
+      "id": "defesa-sem-armadura",
+      "name": "Defesa sem Armadura",
+      "level": 1,
+      "kind": "other",
+      "description": "Sem armadura e sem escudo, sua Classe de Armadura é 10 + mod. de Destreza + mod. de Sabedoria.",
+      "source": {
+        "book": "LdJ",
+        "page": 104
+      }
+    },
+    {
+      "id": "artes-marciais",
+      "name": "Artes Marciais",
+      "level": 1,
+      "kind": "other",
+      "description": "Desarmado ou com armas de monge, você pode usar Destreza no ataque e no dano, usar o dado de Artes Marciais e fazer um golpe desarmado extra com ação bônus.",
+      "scaling": "artes-marciais",
+      "source": {
+        "book": "LdJ",
+        "page": 104
+      }
+    },
+    {
+      "id": "chi",
+      "name": "Chi",
+      "level": 2,
+      "kind": "other",
+      "description": "Você ganha pontos de chi, que voltam após descanso curto ou longo, para Rajada de Golpes, Defesa Paciente e Passo do Vento.",
+      "scaling": "pontos-de-chi",
+      "source": {
+        "book": "LdJ",
+        "page": 104
+      }
+    },
+    {
+      "id": "movimento-sem-armadura",
+      "name": "Movimento sem Armadura",
+      "level": 2,
+      "kind": "other",
+      "description": "Sem armadura e sem escudo, seu deslocamento aumenta (veja a tabela).",
+      "scaling": "movimento-sem-armadura",
+      "source": {
+        "book": "LdJ",
+        "page": 104
+      }
+    },
+    {
+      "id": "tradicao-monastica",
+      "name": "Tradição Monástica",
+      "level": 3,
+      "kind": "other",
+      "description": "Escolha a sua tradição (ex.: Mão Aberta, Sombra ou Quatro Elementos). Ele dá características nos níveis 3, 6, 11 e 17.",
+      "grants": [
+        {
+          "type": "subclass-choice"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 104
+      }
+    },
+    {
+      "id": "defletir-projeteis",
+      "name": "Defletir Projéteis",
+      "level": 3,
+      "kind": "other",
+      "description": "Com sua reação, reduza o dano de um ataque à distância em 1d10 + mod. de Destreza + nível de monge; se zerar, pode pegar e arremessar o projétil de volta.",
+      "source": {
+        "book": "LdJ",
+        "page": 104
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-4",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 4,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 104
+      }
+    },
+    {
+      "id": "queda-lenta",
+      "name": "Queda Lenta",
+      "level": 4,
+      "kind": "other",
+      "description": "Com sua reação ao cair, reduza o dano de queda em 5 × seu nível de monge.",
+      "source": {
+        "book": "LdJ",
+        "page": 104
+      }
+    },
+    {
+      "id": "ataque-extra",
+      "name": "Ataque Extra",
+      "level": 5,
+      "kind": "other",
+      "description": "Quando usar a ação de Ataque no seu turno, você ataca duas vezes em vez de uma.",
+      "source": {
+        "book": "LdJ",
+        "page": 105
+      }
+    },
+    {
+      "id": "ataque-atordoante",
+      "name": "Ataque Atordoante",
+      "level": 5,
+      "kind": "other",
+      "description": "Ao acertar um ataque corpo a corpo, gaste 1 chi: o alvo faz salvaguarda de Constituição ou fica atordoado até o fim do seu próximo turno.",
+      "source": {
+        "book": "LdJ",
+        "page": 105
+      }
+    },
+    {
+      "id": "caracteristica-de-tradicao-monastica-6",
+      "name": "Característica de Tradição Monástica",
+      "level": 6,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 6 da opção de Tradição Monástica que escolheu.",
+      "source": {
+        "book": "LdJ",
+        "page": 105
+      }
+    },
+    {
+      "id": "golpes-de-chi",
+      "name": "Golpes de Chi",
+      "level": 6,
+      "kind": "other",
+      "description": "Seus golpes desarmados contam como mágicos para vencer resistências e imunidades.",
+      "source": {
+        "book": "LdJ",
+        "page": 105
+      }
+    },
+    {
+      "id": "evasao",
+      "name": "Evasão",
+      "level": 7,
+      "kind": "other",
+      "description": "Em salvaguardas de Destreza contra efeitos de área, sucesso não causa dano e falha causa só metade.",
+      "source": {
+        "book": "LdJ",
+        "page": 105
+      }
+    },
+    {
+      "id": "mente-tranquila",
+      "name": "Mente Tranquila",
+      "level": 7,
+      "kind": "other",
+      "description": "Com uma ação, encerre em você um efeito que o deixe enfeitiçado ou amedrontado.",
+      "source": {
+        "book": "LdJ",
+        "page": 105
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-8",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 8,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 104
+      }
+    },
+    {
+      "id": "aprimoramento-de-movimento-sem-armadura",
+      "name": "Aprimoramento de Movimento sem Armadura",
+      "level": 9,
+      "kind": "other",
+      "description": "Você corre por superfícies verticais e sobre líquidos no seu turno sem cair.",
+      "scaling": "movimento-sem-armadura",
+      "source": {
+        "book": "LdJ",
+        "page": 104
+      }
+    },
+    {
+      "id": "pureza-corporal",
+      "name": "Pureza Corporal",
+      "level": 10,
+      "kind": "resistance",
+      "description": "Você fica imune a doenças e a veneno.",
+      "source": {
+        "book": "LdJ",
+        "page": 105
+      }
+    },
+    {
+      "id": "caracteristica-de-tradicao-monastica-11",
+      "name": "Característica de Tradição Monástica",
+      "level": 11,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 11 da opção de Tradição Monástica que escolheu.",
+      "source": {
+        "book": "LdJ",
+        "page": 105
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-12",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 12,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 104
+      }
+    },
+    {
+      "id": "idiomas-do-sol-e-da-lua",
+      "name": "Idiomas do Sol e da Lua",
+      "level": 13,
+      "kind": "language",
+      "description": "Você entende qualquer idioma falado, e quem entende algum idioma entende o que você fala.",
+      "source": {
+        "book": "LdJ",
+        "page": 105
+      }
+    },
+    {
+      "id": "alma-de-diamante",
+      "name": "Alma de Diamante",
+      "level": 14,
+      "kind": "proficiency",
+      "description": "Você ganha proficiência em todas as salvaguardas e pode gastar 1 chi para rolar de novo uma salvaguarda que falhou.",
+      "grants": [
+        {
+          "type": "save-proficiency",
+          "ability": "forca"
+        },
+        {
+          "type": "save-proficiency",
+          "ability": "destreza"
+        },
+        {
+          "type": "save-proficiency",
+          "ability": "constituicao"
+        },
+        {
+          "type": "save-proficiency",
+          "ability": "inteligencia"
+        },
+        {
+          "type": "save-proficiency",
+          "ability": "sabedoria"
+        },
+        {
+          "type": "save-proficiency",
+          "ability": "carisma"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 105
+      }
+    },
+    {
+      "id": "corpo-atemporal",
+      "name": "Corpo Atemporal",
+      "level": 15,
+      "kind": "other",
+      "description": "Você não sofre os efeitos da velhice, não pode ser envelhecido por magia e não precisa comer nem beber.",
+      "source": {
+        "book": "LdJ",
+        "page": 105
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-16",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 16,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 104
+      }
+    },
+    {
+      "id": "caracteristica-de-tradicao-monastica-17",
+      "name": "Característica de Tradição Monástica",
+      "level": 17,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 17 da opção de Tradição Monástica que escolheu.",
+      "source": {
+        "book": "LdJ",
+        "page": 105
+      }
+    },
+    {
+      "id": "corpo-vazio",
+      "name": "Corpo Vazio",
+      "level": 18,
+      "kind": "other",
+      "description": "Gaste 4 chi para ficar invisível por 1 minuto com resistência a quase todo dano, ou 8 chi para conjurar projeção astral.",
+      "source": {
+        "book": "LdJ",
+        "page": 105
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-19",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 19,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 104
+      }
+    },
+    {
+      "id": "auto-aperfeicoamento",
+      "name": "Auto Aperfeiçoamento",
+      "level": 20,
+      "kind": "other",
+      "description": "Ao rolar iniciativa sem nenhum ponto de chi, você recupera 4 pontos.",
+      "source": {
+        "book": "LdJ",
+        "page": 105
+      }
+    }
+  ],
+  "source": {
+    "book": "LdJ",
+    "page": 102
+  }
+}

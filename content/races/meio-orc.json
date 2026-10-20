@@ -1,0 +1,103 @@
+{
+  "$schema": "../schemas/race.schema.json",
+  "id": "meio-orc",
+  "name": "Meio-Orc",
+  "summary": "Forte e intimidador, une a determinação humana à ferocidade orc.",
+  "size": "medio",
+  "speed": {
+    "meters": 9,
+    "source": {
+      "book": "LdJ",
+      "page": 41
+    }
+  },
+  "bonuses": [
+    {
+      "target": "ability:forca",
+      "value": 2,
+      "bonusType": "ability-score-increase",
+      "label": "Meio-Orc",
+      "source": {
+        "book": "LdJ",
+        "page": 41
+      }
+    },
+    {
+      "target": "ability:constituicao",
+      "value": 1,
+      "bonusType": "ability-score-increase",
+      "label": "Meio-Orc",
+      "source": {
+        "book": "LdJ",
+        "page": 41
+      }
+    }
+  ],
+  "traits": [
+    {
+      "id": "visao-no-escuro",
+      "name": "Visão no Escuro",
+      "kind": "sense",
+      "description": "Até 18 m de distância, a penumbra não atrapalha sua visão e a escuridão total conta como penumbra para você. No escuro você só vê em preto e branco.",
+      "source": {
+        "book": "LdJ",
+        "page": 41
+      }
+    },
+    {
+      "id": "ameacador",
+      "name": "Ameaçador",
+      "kind": "proficiency",
+      "description": "Você é proficiente na perícia Intimidação.",
+      "grants": [
+        {
+          "type": "skill-proficiency",
+          "skill": "intimidacao"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 41
+      }
+    },
+    {
+      "id": "resistencia-implacavel",
+      "name": "Resistência Implacável",
+      "kind": "other",
+      "description": "Quando cair a 0 pontos de vida sem morrer na hora, você pode ficar com 1 ponto de vida. Só pode de novo após um descanso longo.",
+      "source": {
+        "book": "LdJ",
+        "page": 41
+      }
+    },
+    {
+      "id": "ataques-selvagens",
+      "name": "Ataques Selvagens",
+      "kind": "other",
+      "description": "Num acerto crítico com arma corpo a corpo, você rola mais um dos dados de dano da arma e soma ao dano extra.",
+      "source": {
+        "book": "LdJ",
+        "page": 41
+      }
+    },
+    {
+      "id": "idiomas-meio-orc",
+      "name": "Idiomas",
+      "kind": "language",
+      "description": "Você fala, lê e escreve Comum e Orc.",
+      "source": {
+        "book": "LdJ",
+        "page": 41
+      }
+    }
+  ],
+  "languages": [
+    "Comum",
+    "Orc"
+  ],
+  "subraces": [],
+  "source": {
+    "book": "LdJ",
+    "page": 40
+  }
+}

@@ -35,6 +35,29 @@ public class IntegrityTests
         }, t));
     }
 
+    [Theory] // T9: catálogo completo do LdJ — 9 raças (Cap. 2) e 12 classes (Cap. 3)
+    [InlineData("races", 9)]
+    [InlineData("classes", 12)]
+    public void Catalog_Folder_HasEveryEntityOfTheBook(string folder, int count)
+        => Assert.Equal(count, Catalog.In(folder).Count());
+
+    [Fact] // escolhas tipadas: opções ability:x / skill:x existem (calculadas pelo Domain)
+    public void ChoiceOptions_WithBonusType_ReferenceExistingEntities()
+    {
+        var skills = Catalog.SkillIds();
+        var options = Catalog.In("races")
+            .SelectMany(r => r.Node["subraces"]!.AsArray().Select(s => s!).Prepend(r.Node))
+            .SelectMany(n => n["choices"]?.AsArray() ?? [])
+            .Where(c => c!["bonusType"] is not null)
+            .SelectMany(c => c!["from"]!.AsArray().Select(o => (string)o!));
+        Assert.All(options, o => Assert.True(o.Split(':') switch
+        {
+            ["ability", var a] => Abilities.Contains(a),
+            ["skill", var x] => skills.Contains(x),
+            _ => false,
+        }, o));
+    }
+
     [Fact] // F2: ≥ 1 característica no nível 1
     public void Features_EveryClass_HasAtLeastOneAtLevel1()
         => Assert.All(Catalog.In("classes"), c => Assert.Contains(c.Node["features"]!.AsArray(), f => (int)f!["level"]! == 1));

@@ -1,0 +1,153 @@
+{
+  "$schema": "../schemas/race.schema.json",
+  "id": "meio-elfo",
+  "name": "Meio-Elfo",
+  "summary": "Filho de dois mundos, com o carisma e a versatilidade humana e os sentidos élficos.",
+  "size": "medio",
+  "speed": {
+    "meters": 9,
+    "source": {
+      "book": "LdJ",
+      "page": 39
+    }
+  },
+  "bonuses": [
+    {
+      "target": "ability:carisma",
+      "value": 2,
+      "bonusType": "ability-score-increase",
+      "label": "Meio-Elfo",
+      "source": {
+        "book": "LdJ",
+        "page": 39
+      }
+    }
+  ],
+  "choices": [
+    {
+      "id": "aumento-de-atributo",
+      "name": "Aumento de Atributo (Meio-Elfo)",
+      "count": 2,
+      "from": [
+        "ability:forca",
+        "ability:destreza",
+        "ability:constituicao",
+        "ability:inteligencia",
+        "ability:sabedoria"
+      ],
+      "bonusType": "ability-score-increase",
+      "value": 1,
+      "source": {
+        "book": "LdJ",
+        "page": 39
+      }
+    },
+    {
+      "id": "versatilidade-em-pericia",
+      "name": "Versatilidade em Perícia",
+      "count": 2,
+      "from": [
+        "skill:acrobacia",
+        "skill:arcanismo",
+        "skill:atletismo",
+        "skill:atuacao",
+        "skill:enganacao",
+        "skill:furtividade",
+        "skill:historia",
+        "skill:intimidacao",
+        "skill:intuicao",
+        "skill:investigacao",
+        "skill:lidar-com-animais",
+        "skill:medicina",
+        "skill:natureza",
+        "skill:percepcao",
+        "skill:persuasao",
+        "skill:prestidigitacao",
+        "skill:religiao",
+        "skill:sobrevivencia"
+      ],
+      "bonusType": "proficiency",
+      "source": {
+        "book": "LdJ",
+        "page": 39
+      }
+    },
+    {
+      "id": "idioma-adicional",
+      "name": "Idioma Adicional",
+      "count": 1,
+      "from": [
+        "Anão",
+        "Gigante",
+        "Gnômico",
+        "Goblin",
+        "Halfling",
+        "Orc",
+        "Abissal",
+        "Celestial",
+        "Dracônico",
+        "Dialeto Subterrâneo",
+        "Infernal",
+        "Primordial",
+        "Silvestre",
+        "Subcomum"
+      ],
+      "kind": "language",
+      "source": {
+        "book": "LdJ",
+        "page": 39
+      }
+    }
+  ],
+  "traits": [
+    {
+      "id": "visao-no-escuro",
+      "name": "Visão no Escuro",
+      "kind": "sense",
+      "description": "Até 18 m de distância, a penumbra não atrapalha sua visão e a escuridão total conta como penumbra para você. No escuro você só vê em preto e branco.",
+      "source": {
+        "book": "LdJ",
+        "page": 39
+      }
+    },
+    {
+      "id": "ancestral-feerico",
+      "name": "Ancestral Feérico",
+      "kind": "advantage",
+      "description": "Você rola com vantagem as salvaguardas para não ficar enfeitiçado, e magias não conseguem fazer você dormir.",
+      "source": {
+        "book": "LdJ",
+        "page": 39
+      }
+    },
+    {
+      "id": "versatilidade-em-pericia",
+      "name": "Versatilidade em Perícia",
+      "kind": "proficiency",
+      "description": "Você ganha proficiência em duas perícias à sua escolha.",
+      "source": {
+        "book": "LdJ",
+        "page": 39
+      }
+    },
+    {
+      "id": "idiomas-meio-elfo",
+      "name": "Idiomas",
+      "kind": "language",
+      "description": "Você fala, lê e escreve Comum, Élfico e mais um idioma à sua escolha.",
+      "source": {
+        "book": "LdJ",
+        "page": 39
+      }
+    }
+  ],
+  "languages": [
+    "Comum",
+    "Élfico"
+  ],
+  "subraces": [],
+  "source": {
+    "book": "LdJ",
+    "page": 38
+  }
+}

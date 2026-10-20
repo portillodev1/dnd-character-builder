@@ -48,6 +48,26 @@ internal static class TestCatalog
         Source = P(21),
     };
 
+    /// <summary>Raça fictícia com escolhas que entram no cálculo (como o Meio-Elfo).</summary>
+    public static readonly Race MeioElfo = new()
+    {
+        Id = "meio-elfo",
+        Name = "Meio-Elfo",
+        Summary = "s",
+        Size = CreatureSize.Medio,
+        Speed = new Speed { Meters = 9m, Source = P(39) },
+        Bonuses = [new CatalogBonus { Target = "ability:carisma", Value = 2, BonusType = BonusType.AbilityScoreIncrease, Source = P(39) }],
+        Choices =
+        [
+            new Choice { Id = "aumento-de-atributo", Name = "Aumento de Atributo", Count = 2, Value = 1, BonusType = BonusType.AbilityScoreIncrease,
+                From = ["ability:forca", "ability:destreza", "ability:sabedoria"], Source = P(39) },
+            new Choice { Id = "versatilidade-em-pericia", Name = "Versatilidade em Perícia", Count = 2, BonusType = BonusType.Proficiency,
+                From = ["skill:atletismo", "skill:historia", "skill:medicina"], Source = P(39) },
+        ],
+        Languages = ["Comum", "Élfico"],
+        Source = P(38),
+    };
+
     private static ClassFeature F(string id, int level, params Grant[] grants)
         => new() { Id = id, Name = id, Level = level, Kind = TraitKind.Other, Description = "d", Grants = grants, Source = P(91) };
 
@@ -76,6 +96,6 @@ internal static class TestCatalog
         Source = P(89),
     };
 
-    public static readonly Race[] Races = [Anao, Elfo];
+    public static readonly Race[] Races = [Anao, Elfo, MeioElfo];
     public static readonly CharacterClass[] Classes = [Ladino];
 }

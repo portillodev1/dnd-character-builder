@@ -44,7 +44,8 @@ public static class SheetCalculator
 
     private static List<BonusResult> RaceBonuses(ResolvedDraft r)
         => [.. (r.Race?.Bonuses ?? []).Select(b => new BonusResult(b, Origin.Race, r.Race!.Name))
-            .Concat((r.Subrace?.Bonuses ?? []).Select(b => new BonusResult(b, Origin.Subrace, r.Subrace!.Name)))];
+            .Concat((r.Subrace?.Bonuses ?? []).Select(b => new BonusResult(b, Origin.Subrace, r.Subrace!.Name)))
+            .Concat(r.ChoiceBonuses)];
 
     private static AbilityResult Ability(Ability ability, int baseScore, List<BonusResult> bonuses)
     {

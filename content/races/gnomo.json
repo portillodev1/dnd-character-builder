@@ -1,0 +1,156 @@
+{
+  "$schema": "../schemas/race.schema.json",
+  "id": "gnomo",
+  "name": "Gnomo",
+  "summary": "Povo pequeno, curioso e inventivo, que encara a vida com entusiasmo e bom humor.",
+  "size": "pequeno",
+  "speed": {
+    "meters": 7.5,
+    "source": {
+      "book": "LdJ",
+      "page": 37
+    }
+  },
+  "bonuses": [
+    {
+      "target": "ability:inteligencia",
+      "value": 2,
+      "bonusType": "ability-score-increase",
+      "label": "Gnomo",
+      "source": {
+        "book": "LdJ",
+        "page": 36
+      }
+    }
+  ],
+  "traits": [
+    {
+      "id": "visao-no-escuro",
+      "name": "Visão no Escuro",
+      "kind": "sense",
+      "description": "Até 18 m de distância, a penumbra não atrapalha sua visão e a escuridão total conta como penumbra para você. No escuro você só vê em preto e branco.",
+      "source": {
+        "book": "LdJ",
+        "page": 37
+      }
+    },
+    {
+      "id": "esperteza-gnomica",
+      "name": "Esperteza Gnômica",
+      "kind": "advantage",
+      "description": "Você rola com vantagem as salvaguardas de Inteligência, Sabedoria e Carisma contra magia.",
+      "source": {
+        "book": "LdJ",
+        "page": 37
+      }
+    },
+    {
+      "id": "idiomas-gnomo",
+      "name": "Idiomas",
+      "kind": "language",
+      "description": "Você fala, lê e escreve Comum e Gnômico.",
+      "source": {
+        "book": "LdJ",
+        "page": 37
+      }
+    }
+  ],
+  "languages": [
+    "Comum",
+    "Gnômico"
+  ],
+  "subraces": [
+    {
+      "id": "gnomo-da-floresta",
+      "name": "Gnomo da Floresta",
+      "summary": "Gnomo reservado, com jeito natural para ilusões e amizade com animais.",
+      "srd": false,
+      "bonuses": [
+        {
+          "target": "ability:destreza",
+          "value": 1,
+          "bonusType": "ability-score-increase",
+          "label": "Gnomo da Floresta",
+          "source": {
+            "book": "LdJ",
+            "page": 37
+          }
+        }
+      ],
+      "traits": [
+        {
+          "id": "ilusionista-nato",
+          "name": "Ilusionista Nato",
+          "kind": "spell",
+          "description": "Você conhece o truque ilusão menor e usa Inteligência para conjurá-lo.",
+          "source": {
+            "book": "LdJ",
+            "page": 37
+          }
+        },
+        {
+          "id": "falar-com-bestas-pequenas",
+          "name": "Falar com Bestas Pequenas",
+          "kind": "other",
+          "description": "Com sons e gestos, você passa ideias simples para bestas de tamanho Pequeno ou menor.",
+          "source": {
+            "book": "LdJ",
+            "page": 37
+          }
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 37
+      }
+    },
+    {
+      "id": "gnomo-das-rochas",
+      "name": "Gnomo das Rochas",
+      "summary": "Gnomo resistente e engenhoso, que adora mecanismos e invenções.",
+      "srd": true,
+      "bonuses": [
+        {
+          "target": "ability:constituicao",
+          "value": 1,
+          "bonusType": "ability-score-increase",
+          "label": "Gnomo das Rochas",
+          "source": {
+            "book": "LdJ",
+            "page": 37
+          }
+        }
+      ],
+      "traits": [
+        {
+          "id": "conhecimento-de-artifice",
+          "name": "Conhecimento de Artífice",
+          "kind": "other",
+          "description": "Em testes de História sobre itens mágicos, objetos alquímicos ou mecanismos, você soma o dobro do bônus de proficiência.",
+          "source": {
+            "book": "LdJ",
+            "page": 37
+          }
+        },
+        {
+          "id": "engenhoqueiro",
+          "name": "Engenhoqueiro",
+          "kind": "proficiency",
+          "description": "Você sabe usar ferramentas de engenhoqueiro e, com 1 hora e 10 po, monta pequenos mecanismos (brinquedo, isqueiro, caixa de música) que funcionam por 24 horas.",
+          "source": {
+            "book": "LdJ",
+            "page": 37
+          }
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 37
+      }
+    }
+  ],
+  "source": {
+    "book": "LdJ",
+    "page": 35
+  }
+}

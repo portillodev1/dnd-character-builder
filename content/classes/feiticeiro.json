@@ -1,0 +1,346 @@
+{
+  "$schema": "../schemas/class.schema.json",
+  "id": "feiticeiro",
+  "name": "Feiticeiro",
+  "summary": "Conjurador com magia no sangue, que molda as próprias magias usando pontos de feitiçaria.",
+  "hitDie": 6,
+  "primaryAbilities": [
+    "carisma"
+  ],
+  "savingThrows": [
+    "constituicao",
+    "carisma"
+  ],
+  "skillChoices": {
+    "count": 2,
+    "from": [
+      "arcanismo",
+      "enganacao",
+      "intuicao",
+      "intimidacao",
+      "persuasao",
+      "religiao"
+    ]
+  },
+  "proficiencies": {
+    "armor": [],
+    "weapons": [
+      "Adagas",
+      "Dardos",
+      "Fundas",
+      "Bordões",
+      "Bestas leves"
+    ],
+    "tools": []
+  },
+  "subclassLevel": 1,
+  "table": [
+    {
+      "id": "pontos-de-feiticaria",
+      "name": "Pontos de Feitiçaria",
+      "values": [
+        "—",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "20"
+      ]
+    },
+    {
+      "id": "truques-conhecidos",
+      "name": "Truques Conhecidos",
+      "values": [
+        "4",
+        "4",
+        "4",
+        "5",
+        "5",
+        "5",
+        "5",
+        "5",
+        "5",
+        "6",
+        "6",
+        "6",
+        "6",
+        "6",
+        "6",
+        "6",
+        "6",
+        "6",
+        "6",
+        "6"
+      ]
+    },
+    {
+      "id": "magias-conhecidas",
+      "name": "Magias Conhecidas",
+      "values": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "12",
+        "13",
+        "13",
+        "14",
+        "14",
+        "15",
+        "15",
+        "15",
+        "15"
+      ]
+    },
+    {
+      "id": "espacos-de-magia",
+      "name": "Espaços de magia (1º/2º/3º…)",
+      "values": [
+        "2",
+        "3",
+        "4/2",
+        "4/3",
+        "4/3/2",
+        "4/3/3",
+        "4/3/3/1",
+        "4/3/3/2",
+        "4/3/3/3/1",
+        "4/3/3/3/2",
+        "4/3/3/3/2/1",
+        "4/3/3/3/2/1",
+        "4/3/3/3/2/1/1",
+        "4/3/3/3/2/1/1",
+        "4/3/3/3/2/1/1/1",
+        "4/3/3/3/2/1/1/1",
+        "4/3/3/3/2/1/1/1/1",
+        "4/3/3/3/3/1/1/1/1",
+        "4/3/3/3/3/2/1/1/1",
+        "4/3/3/3/3/2/2/1/1"
+      ]
+    }
+  ],
+  "features": [
+    {
+      "id": "conjuracao",
+      "name": "Conjuração",
+      "level": 1,
+      "kind": "spell",
+      "description": "Você conjura magias de feiticeiro com Carisma. Conhece um número fixo de truques e magias (veja a tabela) e pode trocar uma magia ao subir de nível.",
+      "scaling": "magias-conhecidas",
+      "source": {
+        "book": "LdJ",
+        "page": 79
+      }
+    },
+    {
+      "id": "origem-de-feiticaria",
+      "name": "Origem de Feitiçaria",
+      "level": 1,
+      "kind": "other",
+      "description": "Escolha a origem do seu poder (ex.: Linhagem Dracônica ou Magia Selvagem). Ele dá características nos níveis 1, 6, 14 e 18.",
+      "grants": [
+        {
+          "type": "subclass-choice"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 79
+      }
+    },
+    {
+      "id": "fonte-de-magia",
+      "name": "Fonte de Magia",
+      "level": 2,
+      "kind": "other",
+      "description": "Você ganha pontos de feitiçaria, que voltam no descanso longo. Pode trocá-los por espaços de magia e vice-versa.",
+      "scaling": "pontos-de-feiticaria",
+      "source": {
+        "book": "LdJ",
+        "page": 79
+      }
+    },
+    {
+      "id": "metamagica",
+      "name": "Metamágica",
+      "level": 3,
+      "kind": "other",
+      "description": "Escolha duas opções de Metamágica para gastar pontos de feitiçaria e alterar magias (ex.: mais alcance, sem som, duas vezes). Você aprende mais uma no 10º e no 17º nível.",
+      "source": {
+        "book": "LdJ",
+        "page": 79
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-4",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 4,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 80
+      }
+    },
+    {
+      "id": "caracteristica-de-origem-de-feiticaria-6",
+      "name": "Característica de Origem de Feitiçaria",
+      "level": 6,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 6 da opção de Origem de Feitiçaria que escolheu.",
+      "source": {
+        "book": "LdJ",
+        "page": 80
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-8",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 8,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 80
+      }
+    },
+    {
+      "id": "metamagica-10",
+      "name": "Metamágica",
+      "level": 10,
+      "kind": "other",
+      "description": "Aprenda mais uma opção de Metamágica.",
+      "source": {
+        "book": "LdJ",
+        "page": 79
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-12",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 12,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 80
+      }
+    },
+    {
+      "id": "caracteristica-de-origem-de-feiticaria-14",
+      "name": "Característica de Origem de Feitiçaria",
+      "level": 14,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 14 da opção de Origem de Feitiçaria que escolheu.",
+      "source": {
+        "book": "LdJ",
+        "page": 80
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-16",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 16,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 80
+      }
+    },
+    {
+      "id": "metamagica-17",
+      "name": "Metamágica",
+      "level": 17,
+      "kind": "other",
+      "description": "Aprenda mais uma opção de Metamágica.",
+      "source": {
+        "book": "LdJ",
+        "page": 79
+      }
+    },
+    {
+      "id": "caracteristica-de-origem-de-feiticaria-18",
+      "name": "Característica de Origem de Feitiçaria",
+      "level": 18,
+      "kind": "other",
+      "description": "Você ganha a característica de nível 18 da opção de Origem de Feitiçaria que escolheu.",
+      "source": {
+        "book": "LdJ",
+        "page": 80
+      }
+    },
+    {
+      "id": "incremento-no-valor-de-habilidade-19",
+      "name": "Incremento no Valor de Habilidade",
+      "level": 19,
+      "kind": "other",
+      "description": "Some +2 em um atributo ou +1 em dois atributos (máximo 20).",
+      "grants": [
+        {
+          "type": "ability-score-improvement"
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 80
+      }
+    },
+    {
+      "id": "restauracao-mistica",
+      "name": "Restauração Mística",
+      "level": 20,
+      "kind": "other",
+      "description": "Ao terminar um descanso curto, você recupera 4 pontos de feitiçaria.",
+      "source": {
+        "book": "LdJ",
+        "page": 80
+      }
+    }
+  ],
+  "source": {
+    "book": "LdJ",
+    "page": 77
+  }
+}

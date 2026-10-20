@@ -1,0 +1,111 @@
+{
+  "$schema": "../schemas/race.schema.json",
+  "id": "draconato",
+  "name": "Draconato",
+  "summary": "Descendente orgulhoso de dragões, com sopro destrutivo e resistência herdada do ancestral.",
+  "size": "medio",
+  "speed": {
+    "meters": 9,
+    "source": {
+      "book": "LdJ",
+      "page": 34
+    }
+  },
+  "bonuses": [
+    {
+      "target": "ability:forca",
+      "value": 2,
+      "bonusType": "ability-score-increase",
+      "label": "Draconato",
+      "source": {
+        "book": "LdJ",
+        "page": 34
+      }
+    },
+    {
+      "target": "ability:carisma",
+      "value": 1,
+      "bonusType": "ability-score-increase",
+      "label": "Draconato",
+      "source": {
+        "book": "LdJ",
+        "page": 34
+      }
+    }
+  ],
+  "choices": [
+    {
+      "id": "ancestral-draconico",
+      "name": "Ancestral Dracônico",
+      "count": 1,
+      "from": [
+        "Azul (elétrico)",
+        "Branco (frio)",
+        "Bronze (elétrico)",
+        "Cobre (ácido)",
+        "Latão (fogo)",
+        "Negro (ácido)",
+        "Ouro (fogo)",
+        "Prata (frio)",
+        "Verde (veneno)",
+        "Vermelho (fogo)"
+      ],
+      "kind": "resistance",
+      "source": {
+        "book": "LdJ",
+        "page": 34
+      }
+    }
+  ],
+  "traits": [
+    {
+      "id": "ancestral-draconico",
+      "name": "Ancestral Dracônico",
+      "kind": "other",
+      "description": "Escolha um tipo de dragão como ancestral. Ele define a forma e o tipo de dano do seu sopro e a sua resistência a dano.",
+      "source": {
+        "book": "LdJ",
+        "page": 34
+      }
+    },
+    {
+      "id": "arma-de-sopro",
+      "name": "Arma de Sopro",
+      "kind": "other",
+      "description": "Com uma ação, você sopra energia numa área: cada criatura faz salvaguarda (CD 8 + mod. de Constituição + proficiência) e sofre 2d6 (metade se passar). Sobe para 3d6 no 6º nível, 4d6 no 11º e 5d6 no 16º; volta após descanso curto ou longo.",
+      "source": {
+        "book": "LdJ",
+        "page": 34
+      }
+    },
+    {
+      "id": "resistencia-a-dano",
+      "name": "Resistência a Dano",
+      "kind": "resistance",
+      "description": "Você sofre menos dano (resistência) do tipo ligado ao seu ancestral dracônico.",
+      "source": {
+        "book": "LdJ",
+        "page": 34
+      }
+    },
+    {
+      "id": "idiomas-draconato",
+      "name": "Idiomas",
+      "kind": "language",
+      "description": "Você fala, lê e escreve Comum e Dracônico.",
+      "source": {
+        "book": "LdJ",
+        "page": 34
+      }
+    }
+  ],
+  "languages": [
+    "Comum",
+    "Dracônico"
+  ],
+  "subraces": [],
+  "source": {
+    "book": "LdJ",
+    "page": 32
+  }
+}

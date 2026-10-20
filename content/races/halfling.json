@@ -1,0 +1,146 @@
+{
+  "$schema": "../schemas/race.schema.json",
+  "id": "halfling",
+  "name": "Halfling",
+  "summary": "Povo pequeno, alegre e sortudo, que valoriza o conforto de casa e a boa companhia.",
+  "size": "pequeno",
+  "speed": {
+    "meters": 7.5,
+    "source": {
+      "book": "LdJ",
+      "page": 28
+    }
+  },
+  "bonuses": [
+    {
+      "target": "ability:destreza",
+      "value": 2,
+      "bonusType": "ability-score-increase",
+      "label": "Halfling",
+      "source": {
+        "book": "LdJ",
+        "page": 28
+      }
+    }
+  ],
+  "traits": [
+    {
+      "id": "sortudo",
+      "name": "Sortudo",
+      "kind": "other",
+      "description": "Quando tirar 1 natural no d20 em um ataque, teste de habilidade ou salvaguarda, role de novo e use o novo resultado.",
+      "source": {
+        "book": "LdJ",
+        "page": 28
+      }
+    },
+    {
+      "id": "bravura",
+      "name": "Bravura",
+      "kind": "advantage",
+      "description": "Você rola com vantagem as salvaguardas contra ficar amedrontado.",
+      "source": {
+        "book": "LdJ",
+        "page": 28
+      }
+    },
+    {
+      "id": "agilidade-halfling",
+      "name": "Agilidade Halfling",
+      "kind": "other",
+      "description": "Você pode passar pelo espaço de qualquer criatura de tamanho maior que o seu.",
+      "source": {
+        "book": "LdJ",
+        "page": 28
+      }
+    },
+    {
+      "id": "idiomas-halfling",
+      "name": "Idiomas",
+      "kind": "language",
+      "description": "Você fala, lê e escreve Comum e Halfling.",
+      "source": {
+        "book": "LdJ",
+        "page": 28
+      }
+    }
+  ],
+  "languages": [
+    "Comum",
+    "Halfling"
+  ],
+  "subraces": [
+    {
+      "id": "pes-leves",
+      "name": "Pés-Leves",
+      "summary": "Halfling sociável que se esconde com facilidade, até atrás de outras pessoas.",
+      "srd": true,
+      "bonuses": [
+        {
+          "target": "ability:carisma",
+          "value": 1,
+          "bonusType": "ability-score-increase",
+          "label": "Pés-Leves",
+          "source": {
+            "book": "LdJ",
+            "page": 28
+          }
+        }
+      ],
+      "traits": [
+        {
+          "id": "furtividade-natural",
+          "name": "Furtividade Natural",
+          "kind": "other",
+          "description": "Você pode tentar se esconder usando como cobertura apenas uma criatura pelo menos um tamanho maior que você.",
+          "source": {
+            "book": "LdJ",
+            "page": 28
+          }
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 28
+      }
+    },
+    {
+      "id": "robusto",
+      "name": "Robusto",
+      "summary": "Halfling mais resistente que a média, com certa defesa natural contra venenos.",
+      "srd": false,
+      "bonuses": [
+        {
+          "target": "ability:constituicao",
+          "value": 1,
+          "bonusType": "ability-score-increase",
+          "label": "Robusto",
+          "source": {
+            "book": "LdJ",
+            "page": 28
+          }
+        }
+      ],
+      "traits": [
+        {
+          "id": "resiliencia-dos-robustos",
+          "name": "Resiliência dos Robustos",
+          "kind": "resistance",
+          "description": "Você sofre menos dano de veneno (resistência) e rola com vantagem as salvaguardas contra veneno.",
+          "source": {
+            "book": "LdJ",
+            "page": 28
+          }
+        }
+      ],
+      "source": {
+        "book": "LdJ",
+        "page": 28
+      }
+    }
+  ],
+  "source": {
+    "book": "LdJ",
+    "page": 26
+  }
+}

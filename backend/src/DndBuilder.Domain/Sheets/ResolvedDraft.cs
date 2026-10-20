@@ -23,6 +23,11 @@ internal sealed class ResolvedDraft
     public Dictionary<Skill, List<string>> SkillSources { get; } = [];
     public HashSet<Skill> Expertise { get; } = [];
 
+    /// <summary>Aumentos de atributo vindos de escolhas da raça (ex.: Meio-Elfo +1 em dois atributos).</summary>
+    public List<BonusResult> ChoiceBonuses { get; } = [];
+
+    private readonly List<(Skill Skill, string Origin)> choiceSkills = [];
+
     public IReadOnlyDictionary<string, string[]> Errors => errors.ToDictionary(e => e.Key, e => e.Value.ToArray(), StringComparer.Ordinal);
     public IReadOnlyList<string> Warnings => warnings;
 
@@ -155,24 +160,47 @@ internal sealed class ResolvedDraft
 
     private void ResolveRaceChoices(CharacterDraft d)
     {
-        var available = (Race?.Choices ?? []).Concat(Subrace?.Choices ?? []).ToDictionary(c => c.Id, StringComparer.Ordinal);
+        var available = (Race?.Choices ?? []).Select(c => (Choice: c, Origin: Origin.Race, Name: Race!.Name))
+            .Concat((Subrace?.Choices ?? []).Select(c => (Choice: c, Origin: Origin.Subrace, Name: Subrace!.Name)))
+            .ToDictionary(c => c.Choice.Id, StringComparer.Ordinal);
         foreach (var (id, picks) in d.Choices)
         {
-            if (!available.TryGetValue(id, out var choice))
+            if (!available.TryGetValue(id, out var entry))
             {
                 Error($"choices.{id}", $"Escolha '{id}' não existe para esta raça.");
             }
-            else if (picks.Count > choice.Count || picks.Distinct().Count() != picks.Count || picks.Any(p => !choice.From.Contains(p)))
+            else if (picks.Count > entry.Choice.Count || picks.Distinct().Count() != picks.Count || picks.Any(p => !entry.Choice.From.Contains(p)))
             {
-                Error($"choices.{id}", $"{choice.Name}: escolha {choice.Count} opção(ões) diferentes entre: {string.Join(", ", choice.From)}.");
+                Error($"choices.{id}", $"{entry.Choice.Name}: escolha {entry.Choice.Count} opção(ões) diferentes entre: {string.Join(", ", entry.Choice.From)}.");
+            }
+            else
+            {
+                ApplyChoice(entry.Choice, picks, entry.Origin, entry.Name);
             }
         }
-        foreach (var choice in available.Values)
+        foreach (var (choice, _, _) in available.Values)
         {
             var made = d.Choices.TryGetValue(choice.Id, out var picks) ? picks.Count : 0;
             if (made < choice.Count)
             {
                 warnings.Add($"{choice.Name}: escolha {choice.Count} ({made} de {choice.Count}).");
+            }
+        }
+    }
+
+    private void ApplyChoice(Choice choice, IReadOnlyList<string> picks, Origin origin, string originName)
+    {
+        foreach (var pick in picks)
+        {
+            if (choice.BonusType == BonusType.AbilityScoreIncrease && pick.StartsWith("ability:", StringComparison.Ordinal))
+            {
+                var bonus = new CatalogBonus { Target = pick, Value = choice.Value ?? 1, BonusType = BonusType.AbilityScoreIncrease, Label = choice.Name, Source = choice.Source };
+                ChoiceBonuses.Add(new BonusResult(bonus, origin, originName));
+            }
+            else if (choice.BonusType == BonusType.Proficiency && pick.StartsWith("skill:", StringComparison.Ordinal)
+                && CatalogIds.TryParseSkill(pick["skill:".Length..], out var skill))
+            {
+                choiceSkills.Add((skill.Value, originName));
             }
         }
     }
@@ -189,6 +217,10 @@ internal sealed class ResolvedDraft
                     AddSource(skill.Value, origin);
                 }
             }
+        }
+        foreach (var (skill, origin) in choiceSkills)
+        {
+            AddSource(skill, origin);
         }
 
         var classChoices = ParseSkills(d.SkillChoices, "skillChoices");

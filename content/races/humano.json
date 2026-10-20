@@ -1,0 +1,125 @@
+{
+  "$schema": "../schemas/race.schema.json",
+  "id": "humano",
+  "name": "Humano",
+  "summary": "Povo ambicioso, adaptável e espalhado por todo o mundo, com vidas curtas e grandes conquistas.",
+  "size": "medio",
+  "speed": {
+    "meters": 9,
+    "source": {
+      "book": "LdJ",
+      "page": 31
+    }
+  },
+  "bonuses": [
+    {
+      "target": "ability:forca",
+      "value": 1,
+      "bonusType": "ability-score-increase",
+      "label": "Humano",
+      "source": {
+        "book": "LdJ",
+        "page": 31
+      }
+    },
+    {
+      "target": "ability:destreza",
+      "value": 1,
+      "bonusType": "ability-score-increase",
+      "label": "Humano",
+      "source": {
+        "book": "LdJ",
+        "page": 31
+      }
+    },
+    {
+      "target": "ability:constituicao",
+      "value": 1,
+      "bonusType": "ability-score-increase",
+      "label": "Humano",
+      "source": {
+        "book": "LdJ",
+        "page": 31
+      }
+    },
+    {
+      "target": "ability:inteligencia",
+      "value": 1,
+      "bonusType": "ability-score-increase",
+      "label": "Humano",
+      "source": {
+        "book": "LdJ",
+        "page": 31
+      }
+    },
+    {
+      "target": "ability:sabedoria",
+      "value": 1,
+      "bonusType": "ability-score-increase",
+      "label": "Humano",
+      "source": {
+        "book": "LdJ",
+        "page": 31
+      }
+    },
+    {
+      "target": "ability:carisma",
+      "value": 1,
+      "bonusType": "ability-score-increase",
+      "label": "Humano",
+      "source": {
+        "book": "LdJ",
+        "page": 31
+      }
+    }
+  ],
+  "choices": [
+    {
+      "id": "idioma-adicional",
+      "name": "Idioma Adicional",
+      "count": 1,
+      "from": [
+        "Anão",
+        "Élfico",
+        "Gigante",
+        "Gnômico",
+        "Goblin",
+        "Halfling",
+        "Orc",
+        "Abissal",
+        "Celestial",
+        "Dracônico",
+        "Dialeto Subterrâneo",
+        "Infernal",
+        "Primordial",
+        "Silvestre",
+        "Subcomum"
+      ],
+      "kind": "language",
+      "source": {
+        "book": "LdJ",
+        "page": 31
+      }
+    }
+  ],
+  "traits": [
+    {
+      "id": "idiomas-humano",
+      "name": "Idiomas",
+      "kind": "language",
+      "description": "Você fala, lê e escreve Comum e mais um idioma à sua escolha.",
+      "source": {
+        "book": "LdJ",
+        "page": 31
+      }
+    }
+  ],
+  "languages": [
+    "Comum"
+  ],
+  "subraces": [],
+  "source": {
+    "book": "LdJ",
+    "page": 29
+  }
+}
