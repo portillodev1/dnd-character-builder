@@ -3,10 +3,13 @@ using DndBuilder.Api.Endpoints;
 using DndBuilder.Application.Ports;
 using DndBuilder.Infrastructure.Content;
 using DndBuilder.Infrastructure.Sheets;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
+// Números só como número JSON: o OpenAPI sai com "integer" (tipos gerados do front — ADR-0007).
+builder.Services.ConfigureHttpJsonOptions(o => o.SerializerOptions.NumberHandling = JsonNumberHandling.Strict);
 builder.Services.AddProblemDetails();
 
 var frontendOrigin = builder.Configuration["Frontend:Origin"] ?? "http://localhost:4200";

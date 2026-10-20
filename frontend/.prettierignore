@@ -1,3 +1,5 @@
 dist
 .angular
 coverage
+src/app/core/api/openapi.json
+src/app/core/api/generated

@@ -1,11 +1,175 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
+import { ClassFeatures, ClassSummary } from '../../core/api/models';
+import { RulesetService } from '../../core/api/ruleset.service';
+import { ABILITY_NAMES, SKILL_NAMES } from '../../shared/labels';
+import { TraitCardComponent } from '../../shared/ui/trait-card';
+import { CharacterDraftStore } from '../../state/character-draft.store';
+import { StepNavComponent } from '../wizard/step-nav';
 
+const LEVELS = Array.from({ length: 20 }, (_, i) => i + 1);
+
+/** Passo 2 — classe e nível com as características até o nível (spec F2). */
 @Component({
   selector: 'app-class-step',
+  imports: [TraitCardComponent, StepNavComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h2>Classe e nível</h2>
-    <p>Em construção — ver .specs/features/class-features/spec.md.</p>
+    <p class="help">
+      A classe é a profissão do aventureiro: define pontos de vida, proficiências, salvaguardas e o
+      que você sabe fazer em cada nível (LdJ cap. 3, p. 45).
+    </p>
+
+    <fieldset class="classes">
+      <legend>Escolha a classe</legend>
+      @for (c of classes(); track c.id) {
+        <label class="class">
+          <input
+            type="radio"
+            name="class"
+            [value]="c.id"
+            [checked]="c.id === classId()"
+            (change)="pickClass(c.id)"
+          />
+          <strong>{{ c.name }}</strong>
+          <span>{{ c.summary }}</span>
+          <span class="meta">
+            Dado de Vida d{{ c.hitDie }} · Atributo principal: {{ names(c.primaryAbilities) }} ·
+            Salvaguardas: {{ names(c.savingThrows) }}
+          </span>
+        </label>
+      }
+    </fieldset>
+
+    <label for="level">Nível do personagem</label>
+    <select id="level" [value]="level()" (change)="pickLevel($event)">
+      @for (n of levels; track n) {
+        <option [value]="n" [selected]="n === level()">{{ n }}</option>
+      }
+    </select>
+
+    @if (details(); as d) {
+      <section aria-labelledby="profs">
+        <h3 id="profs">Proficiências de {{ d.name }}</h3>
+        <ul>
+          <li>Armaduras: {{ d.proficiencies.armor.join(', ') || 'nenhuma' }}</li>
+          <li>Armas: {{ d.proficiencies.weapons.join(', ') || 'nenhuma' }}</li>
+          <li>Ferramentas: {{ d.proficiencies.tools.join(', ') || 'nenhuma' }}</li>
+          <li>Salvaguardas: {{ names(d.savingThrows) }}</li>
+          <li>
+            Perícias: escolha {{ d.skillChoices.count }} entre {{ skills(d.skillChoices.from) }}
+          </li>
+          <li>Pontos de vida: Dado de Vida d{{ d.hitDie }} por nível</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="features" class="features">
+        <h3 id="features">Características até o nível {{ d.level }}</h3>
+        @for (f of d.features; track f.id) {
+          <app-trait-card
+            [name]="f.name"
+            [kind]="f.kind"
+            [description]="f.description"
+            [page]="f.source.page"
+            [level]="f.level"
+            [scaling]="f.scalingValue"
+          />
+        }
+      </section>
+
+      @if (d.nextLevel.length > 0) {
+        <section aria-labelledby="next-level" class="features">
+          <h3 id="next-level">Próximo nível ({{ d.level + 1 }})</h3>
+          @for (f of d.nextLevel; track f.id) {
+            <app-trait-card
+              [name]="f.name"
+              [kind]="f.kind"
+              [description]="f.description"
+              [page]="f.source.page"
+              [level]="f.level"
+              [scaling]="f.scalingValue"
+            />
+          }
+        </section>
+      }
+    }
+
+    <app-step-nav
+      step="classe"
+      [blockedReason]="classId() ? null : 'Escolha uma classe para continuar.'"
+    />
+  `,
+  styles: `
+    .classes {
+      display: grid;
+      gap: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 0.25rem;
+    }
+    .class {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem 0.5rem;
+      align-items: baseline;
+    }
+    .meta,
+    .help {
+      color: #444;
+      font-size: 0.9em;
+    }
+    .features {
+      display: grid;
+      gap: 0.5rem;
+    }
   `,
 })
-export class ClassStepComponent {}
+export class ClassStepComponent {
+  private readonly ruleset = inject(RulesetService);
+  private readonly store = inject(CharacterDraftStore);
+
+  protected readonly levels = LEVELS;
+  protected readonly classes = signal<ClassSummary[]>([]);
+  protected readonly details = signal<ClassFeatures | null>(null);
+  protected readonly classId = computed(() => this.store.draft().classId ?? null);
+  protected readonly level = computed(() => this.store.draft().level ?? 1);
+
+  constructor() {
+    void this.ruleset.classes().then((list) => this.classes.set(list));
+    effect(() => {
+      const id = this.classId();
+      const level = this.level();
+      if (id === null) {
+        this.details.set(null);
+      } else {
+        void this.ruleset.classFeatures(id, level).then((d) => this.details.set(d));
+      }
+    });
+  }
+
+  protected pickClass(id: string): void {
+    if (id === this.classId()) {
+      return;
+    }
+    // Perícias e especializações dependem da classe: trocar de classe as limpa.
+    this.store.update({ classId: id, level: this.level(), skillChoices: [], expertise: [] });
+  }
+
+  protected pickLevel(event: Event): void {
+    this.store.update({ level: Number((event.target as HTMLSelectElement).value) });
+  }
+
+  protected names(ids: readonly string[]): string {
+    return ids.map((a) => ABILITY_NAMES[a] ?? a).join(', ');
+  }
+
+  protected skills(ids: readonly string[]): string {
+    return ids.map((s) => SKILL_NAMES[s] ?? s).join(', ');
+  }
+}

@@ -1,1 +1,11 @@
-/* You can add global styles to this file, and also import other style files */
+/* Estilos globais: foco sempre visível (WCAG 2.2 AA). */
+:focus-visible {
+  outline: 3px solid #1a5fb4;
+  outline-offset: 2px;
+}
+
+body {
+  margin: 0;
+  color: #1c1c1c;
+  background: #fafafa;
+}

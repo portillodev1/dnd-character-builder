@@ -40,6 +40,7 @@
 | Testar | `scripts/test.sh [--front\|--back] [--filter <p>]` | `dotnet test` / `ng test` na mão |
 | Lint/format | `scripts/lint.sh [--fix]` | lembrar flags do linter |
 | Build | `scripts/build.sh` | — |
+| Mudou DTO da API | `scripts/gen-api.sh` (tipos do front) | editar `core/api/generated/` |
 | Gate final | `scripts/verify.sh --strict` (mesmo do CI) | concluir sem validar |
 
 ## Quick reference — o que carregar por tipo de tarefa

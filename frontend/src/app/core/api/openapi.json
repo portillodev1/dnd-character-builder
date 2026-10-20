@@ -1,0 +1,1498 @@
+{
+  "openapi": "3.1.1",
+  "info": {
+    "title": "DndBuilder.Api | v1",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "tags": [
+          "DndBuilder.Api"
+        ],
+        "operationId": "Health",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnonymousTypeOfstring"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/races": {
+      "get": {
+        "tags": [
+          "Ra\u00E7as"
+        ],
+        "operationId": "ListRaces",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/RaceSummaryDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/races/{id}": {
+      "get": {
+        "tags": [
+          "Ra\u00E7as"
+        ],
+        "operationId": "GetRace",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RaceDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classes": {
+      "get": {
+        "tags": [
+          "Classes"
+        ],
+        "operationId": "ListClasses",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ClassSummaryDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/classes/{id}/features": {
+      "get": {
+        "tags": [
+          "Classes"
+        ],
+        "operationId": "GetClassFeatures",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "level",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ClassFeaturesDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem\u002Bjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/character-sheets/compute": {
+      "post": {
+        "tags": [
+          "Fichas"
+        ],
+        "operationId": "ComputeSheet",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CharacterDraftDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CharacterSheetDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem\u002Bjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/character-sheets": {
+      "get": {
+        "tags": [
+          "Fichas"
+        ],
+        "operationId": "ListSheets",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SheetSummaryDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Fichas"
+        ],
+        "operationId": "CreateSheet",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSheetRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SavedSheetDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem\u002Bjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/character-sheets/{id}": {
+      "get": {
+        "tags": [
+          "Fichas"
+        ],
+        "operationId": "GetSheet",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SavedSheetDto"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Fichas"
+        ],
+        "operationId": "UpdateSheet",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSheetRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SavedSheetDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/problem\u002Bjson": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Fichas"
+        ],
+        "operationId": "DeleteSheet",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AbilityDto": {
+        "required": [
+          "name",
+          "abbreviation",
+          "score",
+          "modifier"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "abbreviation": {
+            "type": "string"
+          },
+          "score": {
+            "$ref": "#/components/schemas/DerivedValueDto"
+          },
+          "modifier": {
+            "$ref": "#/components/schemas/DerivedValueDto"
+          }
+        }
+      },
+      "AnonymousTypeOfstring": {
+        "required": [
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "BonusDto": {
+        "required": [
+          "target",
+          "value",
+          "bonusType",
+          "label",
+          "source"
+        ],
+        "type": "object",
+        "properties": {
+          "target": {
+            "type": "string"
+          },
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bonusType": {
+            "type": "string"
+          },
+          "label": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceDto"
+          }
+        }
+      },
+      "BonusPartDto": {
+        "required": [
+          "value",
+          "label",
+          "bonusType",
+          "source"
+        ],
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "label": {
+            "type": "string"
+          },
+          "bonusType": {
+            "type": "string"
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceDto"
+          }
+        }
+      },
+      "CharacterDraftDto": {
+        "type": "object",
+        "properties": {
+          "raceId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "subraceId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "classId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "level": {
+            "type": [
+              "null",
+              "integer"
+            ],
+            "format": "int32"
+          },
+          "abilityMethod": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "baseAbilities": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "additionalProperties": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          "skillChoices": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "expertise": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "extraProficiencies": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
+          "choices": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "CharacterSheetDto": {
+        "required": [
+          "abilities",
+          "proficiencyBonus",
+          "savingThrows",
+          "skills",
+          "passivePerception",
+          "hitPoints",
+          "features",
+          "nextLevelFeatures",
+          "traits",
+          "bonuses",
+          "warnings"
+        ],
+        "type": "object",
+        "properties": {
+          "abilities": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/AbilityDto"
+            }
+          },
+          "proficiencyBonus": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/DerivedValueDto"
+              }
+            ]
+          },
+          "savingThrows": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/SavingThrowDto"
+            }
+          },
+          "skills": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/components/schemas/SkillDto"
+            }
+          },
+          "passivePerception": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/DerivedValueDto"
+              }
+            ]
+          },
+          "hitPoints": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/DerivedValueDto"
+              }
+            ]
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FeatureDto"
+            }
+          },
+          "nextLevelFeatures": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FeatureDto"
+            }
+          },
+          "traits": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SheetTraitDto"
+            }
+          },
+          "bonuses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SheetBonusDto"
+            }
+          },
+          "warnings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "ChoiceDto": {
+        "required": [
+          "id",
+          "name",
+          "count",
+          "from",
+          "kind",
+          "bonusType",
+          "source"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "from": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "kind": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "bonusType": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceDto"
+          }
+        }
+      },
+      "ClassFeaturesDto": {
+        "required": [
+          "id",
+          "name",
+          "summary",
+          "hitDie",
+          "primaryAbilities",
+          "savingThrows",
+          "skillChoices",
+          "proficiencies",
+          "subclassLevel",
+          "level",
+          "features",
+          "nextLevel",
+          "source"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "hitDie": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "primaryAbilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "savingThrows": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "skillChoices": {
+            "$ref": "#/components/schemas/SkillChoicesDto"
+          },
+          "proficiencies": {
+            "$ref": "#/components/schemas/ProficienciesDto"
+          },
+          "subclassLevel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "level": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FeatureDto"
+            }
+          },
+          "nextLevel": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FeatureDto"
+            }
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceDto"
+          }
+        }
+      },
+      "ClassSummaryDto": {
+        "required": [
+          "id",
+          "name",
+          "summary",
+          "hitDie",
+          "primaryAbilities",
+          "savingThrows"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "hitDie": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "primaryAbilities": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "savingThrows": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "CreateSheetRequest": {
+        "required": [
+          "name",
+          "draft"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "draft": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/CharacterDraftDto"
+              }
+            ]
+          }
+        }
+      },
+      "DerivedValueDto": {
+        "required": [
+          "total",
+          "parts"
+        ],
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BonusPartDto"
+            }
+          }
+        }
+      },
+      "FeatureDto": {
+        "required": [
+          "id",
+          "name",
+          "level",
+          "kind",
+          "description",
+          "scalingValue",
+          "source"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "level": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "scalingValue": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceDto"
+          }
+        }
+      },
+      "HttpValidationProblemDetails": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "title": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "status": {
+            "type": [
+              "null",
+              "integer"
+            ],
+            "format": "int32"
+          },
+          "detail": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "instance": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "errors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "ProficienciesDto": {
+        "required": [
+          "armor",
+          "weapons",
+          "tools"
+        ],
+        "type": "object",
+        "properties": {
+          "armor": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "weapons": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tools": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "RaceDto": {
+        "required": [
+          "id",
+          "name",
+          "summary",
+          "size",
+          "speed",
+          "bonuses",
+          "choices",
+          "traits",
+          "languages",
+          "subraces",
+          "source"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "size": {
+            "type": "string"
+          },
+          "speed": {
+            "$ref": "#/components/schemas/SpeedDto"
+          },
+          "bonuses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BonusDto"
+            }
+          },
+          "choices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChoiceDto"
+            }
+          },
+          "traits": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TraitDto"
+            }
+          },
+          "languages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "subraces": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubraceDto"
+            }
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceDto"
+          }
+        }
+      },
+      "RaceSummaryDto": {
+        "required": [
+          "id",
+          "name",
+          "summary",
+          "abilityIncreases",
+          "subraces"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "abilityIncreases": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BonusDto"
+            }
+          },
+          "subraces": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SubraceSummaryDto"
+            }
+          }
+        }
+      },
+      "SavedSheetDto": {
+        "required": [
+          "id",
+          "name",
+          "version",
+          "createdAt",
+          "updatedAt",
+          "draft",
+          "sheet",
+          "errors"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "draft": {
+            "$ref": "#/components/schemas/CharacterDraftDto"
+          },
+          "sheet": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/CharacterSheetDto"
+              }
+            ]
+          },
+          "errors": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "SavingThrowDto": {
+        "required": [
+          "proficient",
+          "total",
+          "parts"
+        ],
+        "type": "object",
+        "properties": {
+          "proficient": {
+            "type": "boolean"
+          },
+          "total": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "parts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BonusPartDto"
+            }
+          }
+        }
+      },
+      "SheetBonusDto": {
+        "required": [
+          "target",
+          "value",
+          "bonusType",
+          "label",
+          "origin",
+          "originName",
+          "source"
+        ],
+        "type": "object",
+        "properties": {
+          "target": {
+            "type": "string"
+          },
+          "value": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "bonusType": {
+            "type": "string"
+          },
+          "label": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "origin": {
+            "type": "string"
+          },
+          "originName": {
+            "type": "string"
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceDto"
+          }
+        }
+      },
+      "SheetSummaryDto": {
+        "required": [
+          "id",
+          "name",
+          "raceId",
+          "classId",
+          "level",
+          "updatedAt",
+          "error"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "raceId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "classId": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "level": {
+            "type": [
+              "null",
+              "integer"
+            ],
+            "format": "int32"
+          },
+          "updatedAt": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "date-time"
+          },
+          "error": {
+            "type": [
+              "null",
+              "string"
+            ]
+          }
+        }
+      },
+      "SheetTraitDto": {
+        "required": [
+          "id",
+          "name",
+          "kind",
+          "description",
+          "origin",
+          "originName",
+          "source"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "origin": {
+            "type": "string"
+          },
+          "originName": {
+            "type": "string"
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceDto"
+          }
+        }
+      },
+      "SkillChoicesDto": {
+        "required": [
+          "count",
+          "from"
+        ],
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "from": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "SkillDto": {
+        "required": [
+          "name",
+          "sheetLabel",
+          "ability",
+          "proficiency",
+          "proficiencySources",
+          "total",
+          "parts"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "sheetLabel": {
+            "type": "string"
+          },
+          "ability": {
+            "type": "string"
+          },
+          "proficiency": {
+            "type": "string"
+          },
+          "proficiencySources": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "total": {
+            "type": [
+              "null",
+              "integer"
+            ],
+            "format": "int32"
+          },
+          "parts": {
+            "type": [
+              "null",
+              "array"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/BonusPartDto"
+            }
+          }
+        }
+      },
+      "SourceDto": {
+        "required": [
+          "book",
+          "page"
+        ],
+        "type": "object",
+        "properties": {
+          "book": {
+            "type": "string"
+          },
+          "page": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "SpeedDto": {
+        "required": [
+          "meters",
+          "note",
+          "source"
+        ],
+        "type": "object",
+        "properties": {
+          "meters": {
+            "type": "number",
+            "format": "double"
+          },
+          "note": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceDto"
+          }
+        }
+      },
+      "SubraceDto": {
+        "required": [
+          "id",
+          "name",
+          "summary",
+          "srd",
+          "bonuses",
+          "choices",
+          "traits",
+          "source"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "srd": {
+            "type": "boolean"
+          },
+          "bonuses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BonusDto"
+            }
+          },
+          "choices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChoiceDto"
+            }
+          },
+          "traits": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TraitDto"
+            }
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceDto"
+          }
+        }
+      },
+      "SubraceSummaryDto": {
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "TraitDto": {
+        "required": [
+          "id",
+          "name",
+          "kind",
+          "description",
+          "source"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceDto"
+          }
+        }
+      },
+      "UpdateSheetRequest": {
+        "required": [
+          "name",
+          "version",
+          "draft"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": [
+              "null",
+              "string"
+            ]
+          },
+          "version": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "draft": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/CharacterDraftDto"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "DndBuilder.Api"
+    },
+    {
+      "name": "Ra\u00E7as"
+    },
+    {
+      "name": "Classes"
+    },
+    {
+      "name": "Fichas"
+    }
+  ]
+}

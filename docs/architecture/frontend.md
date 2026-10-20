@@ -8,7 +8,7 @@ frontend/
   angular.json · package.json · eslint.config.js · .prettierrc
   src/app/
     app.config.ts            # provideZonelessChangeDetection, provideHttpClient, rotas
-    app.routes.ts            # rotas lazy por passo
+    app.routes.ts            # /fichas (lista) e /fichas/:id/<passo> (wizard), lazy
     core/
       api/generated/         # tipos/cliente gerados do OpenAPI (não editar)
       api/ruleset.service.ts # catálogo (raças, classes)
@@ -17,6 +17,7 @@ frontend/
       character-draft.store.ts  # signals; ficha aberta, salva via PUT com debounce
     features/
       my-sheets/     # "Minhas fichas": listar, nova, abrir, renomear, apagar (critério 5)
+      wizard/        # shell da ficha aberta (nome, "Salvo às", 409), passos, step-nav, choice-picker
       race/          # passo 1 — escolher raça/sub-raça, ver traços (critério 1)
       class/         # passo 2 — classe + nível, ver características (critério 2)
       abilities/     # passo 3 — valores de atributo (padrão / compra / manual)

@@ -9,6 +9,7 @@ No Windows rode via **Git Bash** (`bash scripts/verify.sh`).
 | `test.sh` | Testes do back (`dotnet test`) e front (`ng test`, Vitest) | `--back`, `--front`, `--filter <p>`, `--watch` |
 | `lint.sh` | `dotnet format --verify-no-changes` + `ng lint` + Prettier | `--fix` |
 | `build.sh` | `dotnet build -c Release` + `ng build` | — |
+| `gen-api.sh` | Atualiza o snapshot do OpenAPI e regenera os tipos do front (ADR-0007) | — |
 | `check-docs.sh` | Sensor: nenhum `.md` acima de 100 linhas | — |
 | `verify.sh` | **Gate**: check-docs + build + lint + test | `--strict` |
 | `bootstrap.sh` | Reconstrói contexto: handoff, git, toolchain, scaffold | — |

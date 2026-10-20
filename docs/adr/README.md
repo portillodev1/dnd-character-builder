@@ -14,3 +14,4 @@ Modelo: [ADR.template.md](ADR.template.md).
 | [0004](ADR-0004-content-licensing.md) | Conteúdo: SRD 5.1 + resumos próprios; PDF não versionado | aceito |
 | [0005](ADR-0005-json-schema-validator.md) | JsonSchema.Net para validar `content/` (isento da taxa OSMF) | aceito |
 | [0006](ADR-0006-character-sheets-as-json-files.md) | Fichas salvas como arquivos JSON no servidor (sem banco) | aceito |
+| [0007](ADR-0007-openapi-typescript.md) | Tipos do front gerados do OpenAPI (openapi-typescript) | aceito |
