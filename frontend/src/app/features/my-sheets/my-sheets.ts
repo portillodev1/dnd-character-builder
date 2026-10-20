@@ -80,15 +80,13 @@ import { SheetService } from '../../core/api/sheet.service';
       gap: 0.25rem 1rem;
       align-items: center;
       padding: 0.75rem 1rem;
-      border: 1px solid var(--border);
-      border-left: 4px solid var(--accent);
+      border: var(--rule);
       border-radius: var(--radius);
       background: var(--surface);
     }
     .list a {
       font-family: var(--font-display);
-      font-size: 1.15rem;
-      font-weight: 700;
+      font-size: 1.4rem;
     }
     .list button {
       margin-left: auto;

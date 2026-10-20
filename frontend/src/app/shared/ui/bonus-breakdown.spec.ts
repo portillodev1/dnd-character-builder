@@ -35,8 +35,8 @@ describe('BonusBreakdownComponent', () => {
       Array.from(li.querySelectorAll('span'), (s) => s.textContent?.trim()).join(' | '),
     );
     expect(items).toEqual([
-      '+14 | Valor base | 🎲 Valor base | LdJ p. 13',
-      '+2 | Anão | ⬆️ Aumento de atributo | LdJ p. 20',
+      '+14 | Valor base | ⚀ Valor base | LdJ p. 13',
+      '+2 | Anão | ↑ Aumento de atributo | LdJ p. 20',
     ]);
   });
 

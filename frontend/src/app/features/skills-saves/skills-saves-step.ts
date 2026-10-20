@@ -228,9 +228,9 @@ const PROFICIENCY_TEXT: Readonly<Record<string, string>> = {
     .counter {
       display: inline-block;
       padding: 0.35rem 0.75rem;
-      border-radius: 999px;
-      background: var(--accent-soft);
-      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      font-style: italic;
     }
     section ul {
       padding: 0.75rem 1rem 0.75rem 2rem;

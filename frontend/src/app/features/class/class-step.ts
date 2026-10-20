@@ -112,19 +112,15 @@ const LEVELS = Array.from({ length: 20 }, (_, i) => i + 1);
       grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
       gap: 0.75rem;
     }
-    legend {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-    }
     .class {
       display: grid;
       grid-template-columns: auto 1fr;
       align-content: start;
       gap: 0.2rem 0.6rem;
       padding: 0.75rem;
-      border: 1px solid var(--border);
+      border: var(--rule);
       border-radius: var(--radius);
-      background: var(--bg);
+      background: transparent;
       cursor: pointer;
     }
     .class:hover {
@@ -133,14 +129,15 @@ const LEVELS = Array.from({ length: 20 }, (_, i) => i + 1);
     .class:has(:checked) {
       border-color: var(--accent);
       background: var(--accent-soft);
-      box-shadow: inset 0 0 0 1px var(--accent);
     }
     .class input {
       align-self: center;
     }
     .class strong {
       font-family: var(--font-display);
-      font-size: 1.1rem;
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: var(--accent);
     }
     .class span {
       grid-column: 2;

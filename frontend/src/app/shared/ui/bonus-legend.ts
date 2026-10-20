@@ -23,7 +23,7 @@ import { BONUS_TYPES, KINDS } from '../labels';
       gap: 0.25rem 1rem;
     }
     dt {
-      font-weight: 700;
+      font-weight: 600;
     }
     dd {
       margin: 0;

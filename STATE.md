@@ -9,9 +9,10 @@ Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia 
     Especialização, valor = Bônus de Proficiência) e em `traits[]` (idioma/ferramenta/resistência);
     "Meus bônus › Escolhas" não lê mais o rascunho.
   - Especialização: `expertiseCount` em `/classes/{id}/features?level=N`; o front trava acima do limite.
-- **Design do front** (polimento da Fase 6, adiantado): tokens de cor/tipografia claro+escuro em
-  `frontend/src/styles.scss`; cabeçalho, stepper numerado, cards de raça/classe, painéis da ficha,
-  tabela de perícias com rolagem no celular. Só estilos — nenhuma lógica mudou. Commit local; **push pendente**.
+- **Design do front** (polimento da Fase 6, adiantado): estética de manuscrito — velino com grão,
+  rubricas em vermelho, azul-lápis, filetes duplos, capitular, passos em numerais romanos; tema
+  escuro "à luz de vela". Fontes EB Garamond + IM Fell English via @fontsource (ADR-0008). Ícones
+  de tipo de bônus agora são sinais tipográficos (sem emoji). Commits locais; **push pendente**.
 - **Fase 5 (anterior)**: wizard Angular + "Minhas fichas" (`.specs/project/tasks-fase-5.md`); tipos do
   front gerados do OpenAPI (ADR-0007); salvamento automático; `bonus-breakdown` em todo número.
   Testes: 20 front, 248 back.

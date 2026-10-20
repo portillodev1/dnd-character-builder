@@ -68,7 +68,7 @@ let nextId = 0;
       border-radius: var(--radius-sm);
       background: var(--surface);
       font: inherit;
-      font-weight: 700;
+      font-weight: 600;
       font-variant-numeric: tabular-nums;
       cursor: pointer;
     }
@@ -111,7 +111,7 @@ let nextId = 0;
       border-top: 1px solid var(--border);
     }
     .value {
-      font-weight: 700;
+      font-weight: 600;
       font-variant-numeric: tabular-nums;
       grid-row: span 3;
       color: var(--accent);
@@ -124,7 +124,7 @@ let nextId = 0;
     .title {
       margin: 0 0 0.35rem;
       font-family: var(--font-display);
-      font-weight: 700;
+      font-size: 1.15rem;
     }
   `,
 })

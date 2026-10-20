@@ -39,7 +39,7 @@ import { optionLabel } from '../../shared/labels';
       align-items: center;
       padding: 0.3rem 0.7rem;
       border: 1px solid var(--border);
-      border-radius: 999px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
     }
     label:has(:checked) {

@@ -197,13 +197,13 @@ interface BonusGroup {
     }
     .sheet > section {
       padding: 0 1rem 1rem;
-      border: 1px solid var(--border);
-      border-top: 4px solid var(--accent);
+      border: var(--rule);
       border-radius: var(--radius);
       background: var(--surface);
     }
     .sheet h3 {
       margin-top: 1rem;
+      color: var(--accent);
     }
     .ability {
       display: flex;
@@ -260,7 +260,7 @@ interface BonusGroup {
     }
     .pending {
       padding: 0.25rem 1rem;
-      border-left: 4px solid var(--warning);
+      border-left: 3px double var(--warning);
       border-radius: var(--radius-sm);
       background: var(--warning-soft);
     }

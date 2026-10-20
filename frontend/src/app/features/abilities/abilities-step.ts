@@ -154,7 +154,7 @@ const ABILITIES = Object.keys(ABILITY_NAMES);
       align-items: center;
       padding: 0.35rem 0.8rem;
       border: 1px solid var(--border);
-      border-radius: 999px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
     }
     fieldset label:has(:checked) {

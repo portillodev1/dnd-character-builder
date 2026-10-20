@@ -116,19 +116,15 @@ import { StepNavComponent } from '../wizard/step-nav';
       grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
       gap: 0.75rem;
     }
-    legend {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-    }
     .race {
       display: grid;
       grid-template-columns: auto 1fr;
       align-content: start;
       gap: 0.2rem 0.6rem;
       padding: 0.75rem;
-      border: 1px solid var(--border);
+      border: var(--rule);
       border-radius: var(--radius);
-      background: var(--bg);
+      background: transparent;
       cursor: pointer;
     }
     .race:hover {
@@ -137,22 +133,23 @@ import { StepNavComponent } from '../wizard/step-nav';
     .race:has(:checked) {
       border-color: var(--accent);
       background: var(--accent-soft);
-      box-shadow: inset 0 0 0 1px var(--accent);
     }
     .race input {
       align-self: center;
     }
     .race strong {
       font-family: var(--font-display);
-      font-size: 1.1rem;
+      font-size: 1.35rem;
+      font-weight: 400;
+      color: var(--accent);
     }
     .race span {
       grid-column: 2;
       font-size: 0.92em;
     }
     .bonuses {
-      color: var(--accent);
-      font-weight: 600;
+      color: var(--muted);
+      font-style: italic;
     }
     section ul {
       margin: 0;
@@ -170,7 +167,7 @@ import { StepNavComponent } from '../wizard/step-nav';
     }
     .notice {
       padding: 0.5rem 0.75rem;
-      border-left: 4px solid var(--warning);
+      border-left: 3px double var(--warning);
       border-radius: var(--radius-sm);
       background: var(--warning-soft);
       color: var(--warning);

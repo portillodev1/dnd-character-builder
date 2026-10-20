@@ -29,7 +29,7 @@ import { kind } from '../labels';
     article {
       padding: 0.75rem 1rem;
       border: 1px solid var(--border);
-      border-left: 4px solid var(--accent);
+      border-left: 3px double var(--accent);
       border-radius: var(--radius);
       background: var(--surface);
     }

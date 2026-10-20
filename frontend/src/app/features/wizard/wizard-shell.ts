@@ -83,28 +83,31 @@ import { wizardSteps } from './wizard-steps';
       margin-top: 1.25rem;
     }
     .bar label {
-      font-weight: 600;
+      font-family: var(--font-sc);
+      color: var(--muted);
     }
     .bar input {
-      flex: 0 1 16rem;
+      flex: 0 1 18rem;
       font-family: var(--font-display);
-      font-size: 1.15rem;
-      font-weight: 700;
+      font-size: 1.4rem;
     }
     .status {
       color: var(--success);
-      font-size: 0.9em;
+      font-size: 0.95em;
+      font-style: italic;
     }
     .bar a {
       margin-left: auto;
     }
+    /* Passos como capítulos: numeral romano rubricado, o atual sublinhado em vermelho. */
     nav {
-      margin: 1.25rem 0 0.5rem;
+      margin: 1rem 0 0.5rem;
+      border-bottom: 1px solid var(--border);
     }
     nav ol {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0 1.75rem;
       margin: 0;
       padding: 0;
       list-style: none;
@@ -115,38 +118,27 @@ import { wizardSteps } from './wizard-steps';
     }
     nav a {
       display: inline-flex;
-      gap: 0.5rem;
-      align-items: center;
-      padding: 0.35rem 0.85rem 0.35rem 0.4rem;
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      background: var(--surface);
-      color: var(--ink);
+      gap: 0.4rem;
+      align-items: baseline;
+      padding: 0.4rem 0 0.3rem;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -1px;
+      font-family: var(--font-sc);
+      font-size: 1.1rem;
+      color: var(--muted);
       text-decoration: none;
     }
     nav a::before {
-      content: counter(step);
-      display: inline-grid;
-      place-items: center;
-      width: 1.6rem;
-      height: 1.6rem;
-      border-radius: 50%;
-      background: var(--surface-2);
-      font-size: 0.85rem;
-      font-weight: 700;
+      content: counter(step, upper-roman) '.';
+      font-family: var(--font-display);
+      color: var(--accent);
     }
     nav a:hover {
-      border-color: var(--accent);
       color: var(--ink);
     }
     nav a.active {
-      border-color: var(--accent);
-      background: var(--accent-soft);
-      font-weight: 700;
-    }
-    nav a.active::before {
-      background: var(--accent);
-      color: var(--accent-ink);
+      border-bottom-color: var(--accent);
+      color: var(--ink);
     }
   `,
 })
