@@ -21,8 +21,8 @@ O iniciante escolhe na própria ficha onde aplicar cada Incremento no Valor de H
    "Incremento no Valor de Habilidade (nível 4)" e a página da classe, aplicada **depois** dos
    aumentos raciais e em ordem de nível.
 3. Teto 20 (LdJ p. 175): a parcela que passaria de 20 sai com valor 0 e rótulo "(limitado ao teto
-   de 20)", como já acontece com bônus raciais; e a ficha avisa "Destreza já está em 20: o +1 do
-   Incremento do nível 8 não soma nada."
+   de 20)", como já acontece com bônus raciais; e a ficha avisa "Destreza já está em 20: o +1 de
+   Incremento no Valor de Habilidade (nível 8) não soma nada."
 4. Incremento com as 2 escolhas feitas não gera aviso; com 0 ou 1, aviso "Incremento no Valor de
    Habilidade (nível 4): escolha 2 aumentos (1 de 2)." O Incremento deixa de ser `manual`
    (o selo "anote à mão" some); a escolha de arquétipo continua `manual`.

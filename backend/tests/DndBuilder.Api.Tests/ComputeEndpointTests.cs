@@ -105,6 +105,21 @@ public class ComputeEndpointTests(ApiFactory factory) : IClassFixture<ApiFactory
             (pointBuy["pointBuy"]?.ToJsonString(), standard["pointBuy"]?.ToJsonString()));
     }
 
+    [Fact] // F10 AC2/AC8: Incremento do Ladino nv. 4 soma +2 na Destreza (15 → 17) e aparece em "Meus bônus"
+    public async Task Compute_AbilityImprovement_AddsToScoreAndBonuses()
+    {
+        var sheet = await (await factory.CreateClient().Post(Compute, new
+        {
+            classId = "ladino",
+            level = 4,
+            abilityMethod = "standard-array",
+            baseAbilities = new { forca = 10, destreza = 15, constituicao = 14, inteligencia = 12, sabedoria = 13, carisma = 8 },
+            abilityImprovements = new Dictionary<string, string[]> { ["incremento-no-valor-de-habilidade-4"] = ["destreza", "destreza"] },
+        })).Json();
+        Assert.Equal((17, 2), ((int)sheet["abilities"]!["destreza"]!["score"]!["total"]!,
+            sheet["bonuses"]!.AsArray().Count(b => (string?)b!["label"] == "Incremento no Valor de Habilidade (nível 4)" && (string?)b["originName"] == "Ladino")));
+    }
+
     // Números permitidos: total (com parts ao lado), value de parcela ou de bônus tipado (bonusType ao lado),
     // página do LdJ e nível de característica.
     private static void Walk(JsonNode? node, string path, bool inParts, List<string> problems)

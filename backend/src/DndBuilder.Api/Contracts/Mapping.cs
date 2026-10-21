@@ -30,7 +30,7 @@ internal static class Mapping
         => new(c.Id, c.Name, c.Count, c.From, c.Kind is { } k ? Id(k) : null, c.BonusType is { } b ? Id(b) : null, c.Source.Dto());
 
     public static FeatureDto Dto(this FeatureResult f)
-        => new(f.Feature.Id, f.Feature.Name, f.Feature.Level, Id(f.Feature.Kind), f.Feature.Description, f.ScalingValue, f.Manual, f.Feature.Source.Dto());
+        => new(f.Feature.Id, f.Feature.Name, f.Feature.Level, Id(f.Feature.Kind), f.Feature.Description, f.ScalingValue, f.Manual, f.AbilityImprovement, f.Feature.Source.Dto());
 
     public static RaceSummaryDto Summary(this Race r)
         => new(r.Id, r.Name, r.Summary, [.. r.Bonuses.Where(b => b.TargetAbility is not null).Select(Dto)],
@@ -69,6 +69,9 @@ internal static class Mapping
         // "choices.<id>": null = escolha ainda não feita, como lista vazia (spec F6 AC3).
         Choices = (d.Choices ?? new Dictionary<string, IReadOnlyList<string>>())
             .Where(c => c.Value is not null).ToDictionary(c => c.Key, c => c.Value, StringComparer.Ordinal),
+        // Mesma regra de choices: Incremento com null = ainda não escolhido (spec F10 AC4).
+        AbilityImprovements = (d.AbilityImprovements ?? new Dictionary<string, IReadOnlyList<string>>())
+            .Where(c => c.Value is not null).ToDictionary(c => c.Key, c => c.Value, StringComparer.Ordinal),
     };
 
     public static CharacterDraftDto Dto(this CharacterDraft d) => new()
@@ -83,6 +86,7 @@ internal static class Mapping
         Expertise = d.Expertise,
         ExtraProficiencies = d.ExtraProficiencies,
         Choices = d.Choices,
+        AbilityImprovements = d.AbilityImprovements,
     };
 
     public static CharacterSheetDto Dto(this CharacterSheet s) => new(

@@ -4,9 +4,11 @@ Cada fórmula vira teste de tabela em `DndBuilder.Domain.Tests` (ver `rules/test
 
 ## 1. Valor de atributo (LdJ p. 13, 15, 175)
 ```txt
-valorFinal = valorBase + Σ(aumentos raciais e sub-raciais) [+ ASI de nível, fase 2]
+valorFinal = valorBase + Σ(aumentos raciais e sub-raciais) + Σ(Incrementos de nível, +1 cada)
 teto: 20 para jogadores (30 é o máximo absoluto do sistema)
 ```
+Ordem: raça → escolhas raciais → Incrementos em ordem de nível (spec F10); o teto corta parcela a
+parcela, então o +1 que passaria de 20 aparece como 0 "(limitado ao teto de 20)".
 Métodos de valor base (Cap. 1): **conjunto padrão** 15,14,13,12,10,8 · **compra de pontos**
 (27 pontos, 8–15 antes de bônus) · **manual** (rolagem 4d6, descarta o menor).
 

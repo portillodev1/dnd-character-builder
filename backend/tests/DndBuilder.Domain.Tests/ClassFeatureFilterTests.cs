@@ -6,7 +6,7 @@ public class ClassFeatureFilterTests
     [InlineData(1, "especializacao ataque-furtivo")]
     [InlineData(2, "especializacao ataque-furtivo acao-ardilosa")]
     [InlineData(3, "especializacao ataque-furtivo acao-ardilosa arquetipo-de-ladino")]
-    [InlineData(20, "especializacao ataque-furtivo acao-ardilosa arquetipo-de-ladino incremento-no-valor-de-habilidade-4 especializacao-6 mente-escorregadia golpe-de-sorte")]
+    [InlineData(20, "especializacao ataque-furtivo acao-ardilosa arquetipo-de-ladino incremento-no-valor-de-habilidade-4 especializacao-6 incremento-no-valor-de-habilidade-8 mente-escorregadia golpe-de-sorte")]
     public void FeaturesUpTo_ForLevel_ReturnsFeaturesAtOrBelowInLevelOrder(int level, string expected)
         => Assert.Equal(expected, string.Join(' ', TestCatalog.Ladino.FeaturesUpTo(new Level(level)).Select(f => f.Id)));
 

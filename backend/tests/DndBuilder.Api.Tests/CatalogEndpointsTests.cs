@@ -79,11 +79,12 @@ public class CatalogEndpointsTests(ApiFactory factory) : IClassFixture<ApiFactor
         Assert.Equal("destreza inteligencia", string.Join(' ', ladino!["savingThrows"]!.AsArray().Select(s => (string)s!)));
     }
 
-    [Fact] // F9 AC3: Ladino nv. 4 — Arquétipo (3) e Incremento (4) marcados como manual; Especialização não
-    public async Task GetClassFeatures_Rogue4_MarksManualFeatures()
+    [Fact] // F9 AC3 + F10 AC4/AC5: Ladino nv. 4 — só o Arquétipo é manual; o Incremento é abilityImprovement
+    public async Task GetClassFeatures_Rogue4_MarksManualAndImprovementFeatures()
     {
         var features = (await (await factory.CreateClient().Get("/api/v1/classes/ladino/features?level=4")).Json())["features"]!.AsArray();
-        Assert.Equal(["Arquétipo de Ladino", "Incremento no Valor de Habilidade"],
-            features.Where(f => (bool)f!["manual"]!).Select(f => (string)f!["name"]!));
+        Assert.Equal(("Arquétipo de Ladino", "Incremento no Valor de Habilidade"),
+            (string.Join(", ", features.Where(f => (bool)f!["manual"]!).Select(f => (string)f!["name"]!)),
+             string.Join(", ", features.Where(f => (bool?)f!["abilityImprovement"] == true).Select(f => (string)f!["name"]!))));
     }
 }

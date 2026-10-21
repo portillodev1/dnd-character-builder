@@ -20,5 +20,8 @@ public sealed record TraitDto(string Id, string Name, string Kind, string Descri
 
 public sealed record ChoiceDto(string Id, string Name, int Count, IReadOnlyList<string> From, string? Kind, string? BonusType, SourceDto Source);
 
-/// <summary><c>Manual</c>: o app ainda não aplica a característica; o jogador anota à mão (spec F9 AC3).</summary>
-public sealed record FeatureDto(string Id, string Name, int Level, string Kind, string Description, string? ScalingValue, bool Manual, SourceDto Source);
+/// <summary>
+/// <c>Manual</c>: o app ainda não aplica a característica; o jogador anota à mão (spec F9 AC3).
+/// <c>AbilityImprovement</c>: Incremento no Valor de Habilidade, escolhido em <c>draft.abilityImprovements</c> (F10 AC5).
+/// </summary>
+public sealed record FeatureDto(string Id, string Name, int Level, string Kind, string Description, string? ScalingValue, bool Manual, bool AbilityImprovement, SourceDto Source);

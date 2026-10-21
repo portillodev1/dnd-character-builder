@@ -43,7 +43,7 @@ const METHODS: readonly Method[] = [
 const STANDARD_ARRAY = [15, 14, 13, 12, 10, 8];
 const ABILITIES = Object.keys(ABILITY_NAMES);
 
-/** Passo 3 — valores base dos atributos; totais e modificadores vêm da API com a conta. */
+/** Passo 3 — valores base dos atributos e Incrementos da classe; totais e modificadores vêm da API com a conta. */
 @Component({
   selector: 'app-abilities-step',
   imports: [BonusBreakdownComponent, StepNavComponent],
@@ -55,7 +55,7 @@ const ABILITIES = Object.keys(ABILITY_NAMES);
       depois a raça soma seus aumentos (LdJ p. 13 e p. 175).
     </p>
 
-    <fieldset>
+    <fieldset class="method">
       <legend>Método</legend>
       @for (m of methods; track m.id) {
         <label>
@@ -148,18 +148,44 @@ const ABILITIES = Object.keys(ABILITY_NAMES);
       </tbody>
     </table>
 
+    @if (improvements().length > 0) {
+      <section aria-labelledby="asi-title" class="asi">
+        <h3 id="asi-title">Incremento no Valor de Habilidade</h3>
+        <p>
+          A cada Incremento da sua classe, some +2 em um atributo (escolha o mesmo duas vezes) ou +1
+          em dois. Nenhum atributo passa de 20.
+        </p>
+        @for (f of improvements(); track f.id) {
+          <fieldset>
+            <legend>{{ f.name }} (nível {{ f.level }}) · LdJ p. {{ f.source.page }}</legend>
+            @for (slot of slots; track slot) {
+              <label [for]="f.id + '-' + slot">{{
+                slot === 0 ? 'Primeiro +1' : 'Segundo +1'
+              }}</label>
+              <select [id]="f.id + '-' + slot" (change)="setImprovement(f.id, slot, $event)">
+                <option value="" [selected]="pick(f.id, slot) === ''">—</option>
+                @for (a of abilities; track a) {
+                  <option [value]="a" [selected]="pick(f.id, slot) === a">{{ name(a) }}</option>
+                }
+              </select>
+            }
+          </fieldset>
+        }
+      </section>
+    }
+
     <app-step-nav
       step="atributos"
       [blockedReason]="complete() ? null : 'Defina os seis valores base.'"
     />
   `,
   styles: `
-    fieldset {
+    .method {
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
     }
-    fieldset label {
+    .method label {
       display: inline-flex;
       gap: 0.4rem;
       align-items: center;
@@ -168,17 +194,17 @@ const ABILITIES = Object.keys(ABILITY_NAMES);
       border-radius: var(--radius-sm);
       cursor: pointer;
     }
-    fieldset label:has(:checked) {
+    .method label:has(:checked) {
       border-color: var(--accent);
       background: var(--accent-soft);
       font-weight: 600;
     }
-    fieldset p {
+    .method p {
       width: 100%;
       margin: 0.25rem 0 0;
       color: var(--muted);
     }
-    fieldset .budget {
+    .method .budget {
       color: var(--ink);
       font-weight: 600;
     }
@@ -187,6 +213,13 @@ const ABILITIES = Object.keys(ABILITY_NAMES);
     }
     tbody th {
       font-weight: 600;
+    }
+    .asi fieldset {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.75rem;
+      align-items: center;
+      margin-top: 0.75rem;
     }
     td input {
       width: 5rem;
@@ -241,6 +274,31 @@ export class AbilitiesStepComponent {
 
   protected usedElsewhere(a: string, v: number): boolean {
     return ABILITIES.some((other) => other !== a && this.base(other) === v);
+  }
+
+  protected readonly slots = [0, 1] as const;
+  /** Incrementos até o nível, marcados pela API (`abilityImprovement`) — o front não conhece a tabela (F10 AC1). */
+  protected readonly improvements = computed(() =>
+    (this.store.sheet()?.features ?? []).filter((f) => f.abilityImprovement),
+  );
+
+  protected pick(featureId: string, slot: number): string {
+    return this.store.draft().abilityImprovements?.[featureId]?.[slot] ?? '';
+  }
+
+  /** Grava as duas escolhas do Incremento como lista (repetir o atributo = +2) — F10 AC2. */
+  protected setImprovement(featureId: string, slot: number, event: Event): void {
+    const value = (event.target as HTMLSelectElement).value;
+    this.store.update((d) => {
+      const slots = this.slots.map((i) => (i === slot ? value : this.pick(featureId, i)));
+      return {
+        ...d,
+        abilityImprovements: {
+          ...(d.abilityImprovements ?? {}),
+          [featureId]: slots.filter(Boolean),
+        },
+      };
+    });
   }
 
   protected pickMethod(id: Method['id']): void {

@@ -29,22 +29,24 @@ test.describe('F9 guias para o iniciante', () => {
     await expectAccessible(page);
   });
 
-  test('Ladino nível 4 deve marcar o que o app ainda não aplica e avisar na ficha', async ({
+  // F9 AC3/AC4 com F10 AC4: o Incremento passou a ser aplicado; o Arquétipo segue manual.
+  test('Ladino nível 4 deve marcar o Arquétipo como "anote à mão" e avisar na ficha', async ({
     page,
     api,
   }) => {
     const id = await api.create('Ladino 4', { raceId: 'humano', classId: 'ladino', level: 4 });
     await page.goto(`/fichas/${id}/classe`);
 
-    const asi = page.getByRole('article').filter({
-      has: page.getByRole('heading', { name: /Incremento no Valor de Habilidade/ }),
-    });
-    await expect(asi.first()).toContainText('Ainda não aplicado nesta ficha — anote à mão.');
+    const card = (name: RegExp) =>
+      page
+        .getByRole('article')
+        .filter({ has: page.getByRole('heading', { name }) })
+        .first();
+    await expect(card(/^Arquétipo de Ladino/)).toContainText('anote à mão');
+    await expect(card(/^Incremento no Valor de Habilidade/)).not.toContainText('anote à mão');
     await expectAccessible(page);
 
     await page.goto(`/fichas/${id}/ficha`);
-    await expect(
-      page.getByText('Incremento no Valor de Habilidade (nível 4) não está somado aos atributos'),
-    ).toBeVisible();
+    await expect(page.getByText('Arquétipo de Ladino (nível 3): escolha à mão')).toBeVisible();
   });
 });

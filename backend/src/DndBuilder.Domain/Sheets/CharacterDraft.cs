@@ -28,4 +28,10 @@ public sealed record CharacterDraft
 
     /// <summary>Escolhas raciais por id da escolha (ex.: <c>proficiencia-com-ferramentas</c>).</summary>
     public IReadOnlyDictionary<string, IReadOnlyList<string>> Choices { get; init; } = new Dictionary<string, IReadOnlyList<string>>();
+
+    /// <summary>
+    /// Incrementos no Valor de Habilidade por id da característica da classe: até 2 atributos, +1 cada
+    /// (repetir = +2). Ex.: <c>incremento-no-valor-de-habilidade-4</c> → <c>["destreza", "destreza"]</c> (spec F10).
+    /// </summary>
+    public IReadOnlyDictionary<string, IReadOnlyList<string>> AbilityImprovements { get; init; } = new Dictionary<string, IReadOnlyList<string>>();
 }

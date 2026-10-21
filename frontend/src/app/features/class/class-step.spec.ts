@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { ClassFeatures } from '../../core/api/models';
+import { feature } from '../../testing/fixtures';
 import { RulesetService } from '../../core/api/ruleset.service';
 import { SheetService } from '../../core/api/sheet.service';
 import { CharacterDraftStore } from '../../state/character-draft.store';
@@ -87,5 +88,71 @@ describe('ClassStepComponent', () => {
     expect(el.querySelector('#features')?.textContent?.trim()).toBe(
       'Características até o nível 3',
     );
+  });
+
+  it('baixar o nível deve remover as escolhas de Incrementos acima do novo nível e avisar (F10 AC7)', async () => {
+    const asi = (level: number) =>
+      feature({ id: `incremento-no-valor-de-habilidade-${level}`, level });
+    ruleset.classFeatures.mockImplementation((_: string, level: number) =>
+      Promise.resolve({
+        ...rogue(level, 2),
+        features: [4, 8].filter((l) => l <= level).map(asi),
+      }),
+    );
+    const { fixture, store, el } = await render({
+      classId: 'ladino',
+      level: 8,
+      abilityImprovements: {
+        'incremento-no-valor-de-habilidade-4': ['forca', 'forca'],
+        'incremento-no-valor-de-habilidade-8': ['destreza', 'carisma'],
+      },
+    });
+
+    await pickLevel(el, 6);
+    await fixture.whenStable();
+
+    expect([
+      store.draft().abilityImprovements,
+      el.querySelector('[role=status]')?.textContent?.trim(),
+    ]).toEqual([
+      { 'incremento-no-valor-de-habilidade-4': ['forca', 'forca'] },
+      'No nível 6 saem as escolhas de Incremento no Valor de Habilidade (nível 8).',
+    ]);
+  });
+
+  it('trocar de classe deve limpar as escolhas de Incrementos (F10 AC7)', async () => {
+    ruleset.classes.mockResolvedValueOnce([
+      {
+        id: 'ladino',
+        name: 'Ladino',
+        summary: 's',
+        hitDie: 8,
+        primaryAbilities: [],
+        savingThrows: [],
+      },
+      {
+        id: 'guerreiro',
+        name: 'Guerreiro',
+        summary: 's',
+        hitDie: 10,
+        primaryAbilities: [],
+        savingThrows: [],
+      },
+    ]);
+    ruleset.classFeatures.mockImplementation((_: string, level: number) =>
+      Promise.resolve(rogue(level, 2)),
+    );
+    const { fixture, store, el } = await render({
+      classId: 'ladino',
+      level: 4,
+      abilityImprovements: { 'incremento-no-valor-de-habilidade-4': ['forca', 'forca'] },
+    });
+
+    (el.querySelector('input[value=guerreiro]') as HTMLInputElement).dispatchEvent(
+      new Event('change'),
+    );
+    await fixture.whenStable();
+
+    expect(store.draft().abilityImprovements).toEqual({});
   });
 });

@@ -93,6 +93,7 @@ internal static class TestCatalog
             F("arquetipo-de-ladino", 3, new Grant { Type = GrantType.SubclassChoice }),
             F("incremento-no-valor-de-habilidade-4", 4, new Grant { Type = GrantType.AbilityScoreImprovement }),
             F("especializacao-6", 6, new Grant { Type = GrantType.Expertise, Count = 2 }),
+            F("incremento-no-valor-de-habilidade-8", 8, new Grant { Type = GrantType.AbilityScoreImprovement }),
             F("mente-escorregadia", 15, new Grant { Type = GrantType.SaveProficiency, Ability = "sabedoria" }),
             F("golpe-de-sorte", 20),
         ],

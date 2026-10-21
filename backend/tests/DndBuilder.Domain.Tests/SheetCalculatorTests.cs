@@ -236,19 +236,69 @@ public class SheetCalculatorTests
         Assert.Equal((new PointBuyResult(9 + 7 + 2 + 4, 27), (PointBuyResult?)null), (Sheet(pointBuy).PointBuy, Sheet(Draft()).PointBuy));
     }
 
-    [Theory] // F9 AC3: o que o app ainda não aplica (ASI, arquétipo) sai marcado como manual
+    [Theory] // F9 AC3 + F10 AC4: só o que o app ainda não aplica (arquétipo) sai manual; o Incremento não
     [InlineData(1, new string[0])]
     [InlineData(3, new[] { "arquetipo-de-ladino" })]
-    [InlineData(4, new[] { "arquetipo-de-ladino", "incremento-no-valor-de-habilidade-4" })]
+    [InlineData(4, new[] { "arquetipo-de-ladino" })]
     public void Compute_FeaturesNotApplied_AreManual(int level, string[] ids)
         => Assert.Equal(ids, Sheet(Draft(level)).Features.Where(f => f.Manual).Select(f => f.Feature.Id));
 
-    [Fact] // F9 AC4: cada característica manual vira um aviso para anotar à mão
+    [Fact] // F9 AC4: cada característica manual (arquétipo) vira um aviso para escolher à mão
     public void Compute_ManualFeatures_AddWarnings()
+        => Assert.Contains("arquetipo-de-ladino (nível 3): escolha à mão; o app ainda não aplica o arquétipo.", Sheet(Draft(4)).Warnings);
+
+    [Theory] // F10 AC4: Incremento com menos de 2 escolhas avisa quantas faltam; com 2, nenhum aviso
+    [InlineData(new string[0], "incremento-no-valor-de-habilidade-4 (nível 4): escolha 2 aumentos (0 de 2).")]
+    [InlineData(new[] { "destreza" }, "incremento-no-valor-de-habilidade-4 (nível 4): escolha 2 aumentos (1 de 2).")]
+    [InlineData(new[] { "destreza", "forca" }, null)]
+    public void Compute_ImprovementPicks_WarnUntilComplete(string[] picks, string? expected)
     {
-        var warnings = Sheet(Draft(4)).Warnings;
-        Assert.Equal((true, true),
-            (warnings.Contains("incremento-no-valor-de-habilidade-4 (nível 4) não está somado aos atributos: anote à mão."),
-             warnings.Contains("arquetipo-de-ladino (nível 3): escolha à mão; o app ainda não aplica o arquétipo.")));
+        var warnings = Sheet(WithImprovements(4, ("incremento-no-valor-de-habilidade-4", picks))).Warnings;
+        Assert.Equal(expected, warnings.SingleOrDefault(w => w.StartsWith("incremento-no-valor-de-habilidade-4", StringComparison.Ordinal)));
+    }
+
+    private const string Asi4 = "incremento-no-valor-de-habilidade-4";
+    private const string Asi8 = "incremento-no-valor-de-habilidade-8";
+
+    private static CharacterDraft WithImprovements(int level, params (string Feature, string[] Picks)[] picks)
+        => Draft(level) with { AbilityImprovements = picks.ToDictionary(p => p.Feature, p => (IReadOnlyList<string>)p.Picks) };
+
+    [Theory] // F10 AC6: só Incrementos da classe até o nível, até 2 atributos válidos
+    [InlineData(4, "acao-ardilosa", new[] { "destreza" })]            // não é Incremento
+    [InlineData(4, Asi8, new[] { "destreza" })]                       // acima do nível
+    [InlineData(4, Asi4, new[] { "destreza", "forca", "carisma" })]   // mais de 2
+    [InlineData(4, Asi4, new[] { "voar" })]                           // atributo inexistente
+    [InlineData(4, Asi4, new[] { "" })]                               // vazio
+    public void Compute_InvalidAbilityImprovement_IsFieldError(int level, string feature, string[] picks)
+        => Assert.Contains($"abilityImprovements.{feature}", Errors(WithImprovements(level, (feature, picks))).Keys);
+
+    private static DerivedValue Score(CharacterSheet sheet, Ability ability) => sheet.Abilities.Single(a => a.Ability == ability).Score;
+
+    private static string Parts(DerivedValue v) => string.Join(" + ", v.Parts.Select(p => $"{p.Value} {p.Label}"));
+
+    [Fact] // F10 AC2: +1 por escolha, depois dos aumentos raciais e em ordem de nível — LdJ p. 175
+    public void Compute_Improvements_AddAfterRaceInLevelOrder()
+    {
+        var sheet = Sheet(WithImprovements(8, (Asi8, ["constituicao"]), (Asi4, ["constituicao", "destreza"])));
+        Assert.Equal(("14 Valor base + 2 Anão + 1 incremento-no-valor-de-habilidade-4 (nível 4) + 1 incremento-no-valor-de-habilidade-8 (nível 8)", 18),
+            (Parts(Score(sheet, Ability.Constituicao)), Score(sheet, Ability.Constituicao).Total));
+    }
+
+    [Fact] // F10 AC2: repetir o atributo = +2 (duas parcelas de +1)
+    public void Compute_SameAbilityTwice_AddsTwo()
+        => Assert.Equal(17, Score(Sheet(WithImprovements(4, (Asi4, ["destreza", "destreza"]))), Ability.Destreza).Total);
+
+    [Fact] // F10 AC3: teto 20 — o +1 que passaria de 20 vira 0 e a ficha avisa (LdJ p. 175)
+    public void Compute_ImprovementAbove20_IsCappedWithWarning()
+    {
+        var draft = WithImprovements(8, (Asi4, ["destreza", "destreza"]), (Asi8, ["destreza", "forca"])) with
+        {
+            AbilityMethod = "manual",
+            BaseAbilities = new Dictionary<string, int>(Standard) { ["destreza"] = 18 },
+        };
+        var sheet = Sheet(draft);
+        Assert.Equal((20, 0, true),
+            (Score(sheet, Ability.Destreza).Total, Score(sheet, Ability.Destreza).Parts[^1].Value,
+             sheet.Warnings.Contains("Destreza já está em 20: o +1 de incremento-no-valor-de-habilidade-8 (nível 8) não soma nada.")));
     }
 }

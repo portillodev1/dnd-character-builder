@@ -1,4 +1,4 @@
-import { CharacterSheet, DerivedValue, Race, SavedSheet } from '../core/api/models';
+import { CharacterSheet, DerivedValue, Feature, Race, SavedSheet } from '../core/api/models';
 
 /** Dados de teste no formato da API (tipos gerados) — sem regra de cálculo. */
 export const value = (total: number): DerivedValue => ({
@@ -28,6 +28,21 @@ export function sheet(overrides: Partial<CharacterSheet> = {}): CharacterSheet {
     traits: [],
     bonuses: [],
     warnings: [],
+    ...overrides,
+  };
+}
+
+export function feature(overrides: Partial<Feature> = {}): Feature {
+  return {
+    id: 'incremento-no-valor-de-habilidade-4',
+    name: 'Incremento no Valor de Habilidade',
+    level: 4,
+    kind: 'other',
+    description: 'd',
+    scalingValue: null,
+    manual: false,
+    abilityImprovement: true,
+    source: { book: 'LdJ', page: 85 },
     ...overrides,
   };
 }

@@ -13,6 +13,9 @@ public sealed record CharacterDraftDto
     public IReadOnlyList<string>? Expertise { get; init; }
     public IReadOnlyList<string>? ExtraProficiencies { get; init; }
     public IReadOnlyDictionary<string, IReadOnlyList<string>>? Choices { get; init; }
+
+    /// <summary>Incremento no Valor de Habilidade → até 2 atributos, +1 cada (spec F10 AC2).</summary>
+    public IReadOnlyDictionary<string, IReadOnlyList<string>>? AbilityImprovements { get; init; }
 }
 
 public sealed record AbilityDto(string Name, string Abbreviation, DerivedValueDto Score, DerivedValueDto Modifier);

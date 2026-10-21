@@ -12,10 +12,13 @@ public sealed record SkillResult(Skill Skill, SkillProficiency Proficiency, IRea
 public sealed record FeatureResult(ClassFeature Feature, string? ScalingValue)
 {
     /// <summary>
-    /// O app ainda não aplica a característica à ficha (Incremento no Valor de Habilidade, escolha de
-    /// arquétipo): o jogador anota à mão (F9 AC3).
+    /// O app ainda não aplica a característica à ficha (escolha de arquétipo): o jogador anota à mão
+    /// (F9 AC3). O Incremento no Valor de Habilidade é aplicado desde a F10.
     /// </summary>
-    public bool Manual => Feature.Grants.Any(g => g.Type is GrantType.AbilityScoreImprovement or GrantType.SubclassChoice);
+    public bool Manual => Feature.Grants.Any(g => g.Type == GrantType.SubclassChoice);
+
+    /// <summary>Incremento no Valor de Habilidade: o front abre a escolha de +1/+1 (spec F10 AC5).</summary>
+    public bool AbilityImprovement => Feature.Grants.Any(g => g.Type == GrantType.AbilityScoreImprovement);
 }
 
 /// <summary>Origem de um traço/bônus para a visão "Meus bônus" (F4 AC4). <c>Choice</c>: escolha do jogador.</summary>

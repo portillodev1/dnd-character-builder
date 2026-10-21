@@ -18,7 +18,9 @@ public static class SheetCalculator
         }
 
         var bonuses = RaceBonuses(r);
-        var abilities = r.BaseAbilities.OrderBy(a => a.Key).Select(a => Ability(a.Key, a.Value, bonuses)).ToList();
+        var improvements = ImprovementBonuses(r);
+        var increases = bonuses.Concat(improvements).ToList(); // raça antes dos Incrementos: define onde o teto corta (F10 AC2)
+        var abilities = r.BaseAbilities.OrderBy(a => a.Key).Select(a => Ability(a.Key, a.Value, increases)).ToList();
         var scores = abilities.ToDictionary(a => a.Ability, a => new AbilityScore(a.Score.Total));
         var features = r.Features;
         var skills = Skills(r, scores, features);
@@ -41,20 +43,39 @@ public static class SheetCalculator
             Traits = [.. (r.Race?.Traits ?? []).Select(t => new TraitResult(t, Origin.Race, r.Race!.Name))
                 .Concat((r.Subrace?.Traits ?? []).Select(t => new TraitResult(t, Origin.Subrace, r.Subrace!.Name)))
                 .Concat(r.ChoiceTraits)],
-            Bonuses = [.. bonuses, .. SkillChoiceBonuses(r)],
-            Warnings = [.. r.Warnings, .. ManualWarnings(features)],
+            Bonuses = [.. bonuses, .. improvements, .. SkillChoiceBonuses(r)],
+            Warnings = [.. r.Warnings, .. ManualWarnings(features), .. WastedImprovements(abilities, improvements, increases)],
         };
         return new SheetComputation(sheet, new Dictionary<string, string[]>());
     }
 
     /// <summary>Um aviso por característica que o app ainda não aplica (F9 AC4).</summary>
     private static IEnumerable<string> ManualWarnings(IReadOnlyList<ClassFeature> features)
-        => features.SelectMany(f => f.Grants.Select(g => g.Type switch
-        {
-            GrantType.AbilityScoreImprovement => $"{f.Name} (nível {f.Level}) não está somado aos atributos: anote à mão.",
-            GrantType.SubclassChoice => $"{f.Name} (nível {f.Level}): escolha à mão; o app ainda não aplica o arquétipo.",
-            _ => null,
-        })).OfType<string>();
+        => features.Where(f => f.Grants.Any(g => g.Type == GrantType.SubclassChoice))
+            .Select(f => $"{f.Name} (nível {f.Level}): escolha à mão; o app ainda não aplica o arquétipo.");
+
+    /// <summary>Cada +1 de Incremento no Valor de Habilidade, origem "escolha" da classe (spec F10 AC2).</summary>
+    private static List<BonusResult> ImprovementBonuses(ResolvedDraft r)
+        => [.. r.Improvements.Select(i => new BonusResult(
+            new CatalogBonus
+            {
+                Target = $"ability:{CatalogIds.Id(i.Ability)}",
+                Value = 1,
+                BonusType = BonusType.AbilityScoreIncrease,
+                Label = $"{i.Feature.Name} (nível {i.Feature.Level})",
+                Source = i.Feature.Source,
+            },
+            Origin.Choice, r.Class!.Name))];
+
+    /// <summary>
+    /// +1 de Incremento cortado pelo teto 20 (LdJ p. 175): a parcela correspondente saiu com 0 (F10 AC3).
+    /// As parcelas do valor final seguem a ordem dos aumentos, depois do valor base.
+    /// </summary>
+    private static IEnumerable<string> WastedImprovements(List<AbilityResult> abilities, List<BonusResult> improvements, List<BonusResult> increases)
+        => abilities.SelectMany(a => increases.Where(b => b.Bonus.TargetAbility == a.Ability && b.Bonus.BonusType == BonusType.AbilityScoreIncrease)
+            .Zip(a.Score.Parts.Skip(1))
+            .Where(z => z.Second.Value == 0 && improvements.Contains(z.First))
+            .Select(z => $"{a.Ability.DisplayName()} já está em {AbilityScore.PlayerMax}: o +1 de {z.First.Bonus.Label} não soma nada."));
 
     private static List<BonusResult> RaceBonuses(ResolvedDraft r)
         => [.. (r.Race?.Bonuses ?? []).Select(b => new BonusResult(b, Origin.Race, r.Race!.Name))

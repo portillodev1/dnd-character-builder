@@ -30,7 +30,8 @@ público → PERGUNTE (AGENTS.md). Erros sempre em **ProblemDetails** (RFC 9457)
   "expertise": ["furtividade", "percepcao"],
   "extraProficiencies": ["intuicao", "investigacao"],
   "abilityMethod": "standard-array",
-  "choices": { "proficiencia-com-ferramentas": ["Ferramentas de ferreiro"] }
+  "choices": { "proficiencia-com-ferramentas": ["Ferramentas de ferreiro"] },
+  "abilityImprovements": { "incremento-no-valor-de-habilidade-4": ["destreza", "destreza"] }
 }
 ```
 
@@ -72,6 +73,8 @@ e escolhas sem número como idioma/ferramenta em `traits[]`). `speed` é decimal
 - `skillChoices` ⊆ lista da classe (+ antecedente/raça); quantidade = permitida pela classe.
 - `expertise` só se a classe/nível concede, e só em perícias já proficientes.
 - `choices.<id>: null` = não escolhido (warning); item `null` em listas → `400`.
+- `abilityImprovements.<featureId>`: Incremento da classe até o nível, até 2 atributos (repetir =
+  +2); fora disso → `400`. `features[].abilityImprovement` marca os Incrementos (spec F10).
 - Mensagens citam perícias/atributos pelo nome ("Acrobacia"), nunca pelo id.
 - Escolhas incompletas **não** são erro: viram `warnings` (o wizard é progressivo).
 

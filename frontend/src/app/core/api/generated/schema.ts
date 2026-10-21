@@ -192,6 +192,9 @@ export interface components {
             choices?: null | {
                 [key: string]: string[];
             };
+            abilityImprovements?: null | {
+                [key: string]: string[];
+            };
         };
         CharacterSheetDto: {
             abilities: {
@@ -276,6 +279,7 @@ export interface components {
             description: string;
             scalingValue: null | string;
             manual: boolean;
+            abilityImprovement: boolean;
             source: components["schemas"]["SourceDto"];
         };
         HttpValidationProblemDetails: {

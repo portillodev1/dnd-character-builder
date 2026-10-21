@@ -560,6 +560,18 @@
                 "type": "string"
               }
             }
+          },
+          "abilityImprovements": {
+            "type": [
+              "null",
+              "object"
+            ],
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           }
         }
       },
@@ -915,6 +927,7 @@
           "description",
           "scalingValue",
           "manual",
+          "abilityImprovement",
           "source"
         ],
         "type": "object",
@@ -942,6 +955,9 @@
             ]
           },
           "manual": {
+            "type": "boolean"
+          },
+          "abilityImprovement": {
             "type": "boolean"
           },
           "source": {

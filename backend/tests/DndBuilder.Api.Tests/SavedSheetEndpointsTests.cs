@@ -58,6 +58,17 @@ public class SavedSheetEndpointsTests(ApiFactory factory) : IClassFixture<ApiFac
         Assert.Equal((HttpStatusCode.BadRequest, true), (response.StatusCode, (await response.Json())["errors"]?["version"] is not null));
     }
 
+    [Fact] // F10 AC2: a escolha do Incremento é salva no arquivo e volta no GET
+    public async Task Update_AbilityImprovements_RoundTrips()
+    {
+        var client = factory.CreateClient();
+        var (location, version) = await CreateAsync(client);
+        var draft = new { classId = "ladino", level = 4, abilityImprovements = new Dictionary<string, string[]> { ["incremento-no-valor-de-habilidade-4"] = ["forca", "carisma"] } };
+        await client.Put(location, new { name = "Thorin", version, draft });
+        var saved = await (await client.Get(location)).Json();
+        Assert.Equal("""["forca","carisma"]""", saved["draft"]!["abilityImprovements"]?["incremento-no-valor-de-habilidade-4"]?.ToJsonString());
+    }
+
     [Fact] // F5 AC7: apagar remove o arquivo
     public async Task Delete_Existing_Returns204ThenGet404()
     {

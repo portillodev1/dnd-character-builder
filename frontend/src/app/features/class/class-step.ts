@@ -205,34 +205,56 @@ export class ClassStepComponent {
     if (id === this.classId()) {
       return;
     }
-    // Perícias e especializações dependem da classe: trocar de classe as limpa.
-    this.store.update({ classId: id, level: this.level(), skillChoices: [], expertise: [] });
+    // Perícias, Especializações e Incrementos dependem da classe: trocar de classe os limpa (F10 AC7).
+    this.store.update({
+      classId: id,
+      level: this.level(),
+      skillChoices: [],
+      expertise: [],
+      abilityImprovements: {},
+    });
   }
 
   /**
-   * Muda o nível; se a classe passa a conceder menos Especializações (contagem da API), desmarca
-   * as excedentes na mesma mudança, para o salvamento não ser recusado (F8 AC2).
+   * Muda o nível. Com a resposta da API para o novo nível, na mesma mudança: desmarca Especializações
+   * excedentes (F8 AC2) e remove escolhas de Incrementos que ficaram acima do nível (F10 AC7), para o
+   * salvamento não ser recusado.
    */
   protected async pickLevel(event: Event): Promise<void> {
     const level = Number((event.target as HTMLSelectElement).value);
     const id = this.classId();
-    const expertise = this.store.draft().expertise ?? [];
+    const draft = this.store.draft();
+    const expertise = draft.expertise ?? [];
+    const improvements = draft.abilityImprovements ?? {};
     const allowed =
-      id === null || expertise.length === 0
+      id === null || (expertise.length === 0 && Object.keys(improvements).length === 0)
         ? null
         : await this.ruleset.classFeatures(id, level).catch(() => null);
-    const removed = allowed ? expertise.slice(allowed.expertiseCount) : [];
-    this.store.update(
-      removed.length > 0
-        ? { level, expertise: expertise.slice(0, allowed!.expertiseCount) }
-        : { level },
-    );
-    this.notice.set(
-      removed.length > 0
-        ? `No nível ${level} o ${allowed!.name} concede ${allowed!.expertiseCount} Especializações: ` +
-            `desmarcamos ${this.skillList(removed)}.`
-        : null,
-    );
+    if (!allowed) {
+      this.store.update({ level });
+      this.notice.set(null);
+      return;
+    }
+    const keep = new Set(allowed.features.filter((f) => f.abilityImprovement).map((f) => f.id));
+    const removedExpertise = expertise.slice(allowed.expertiseCount);
+    const removedImprovements = Object.keys(improvements).filter((k) => !keep.has(k));
+    this.store.update({
+      level,
+      ...(removedExpertise.length > 0 && { expertise: expertise.slice(0, allowed.expertiseCount) }),
+      ...(removedImprovements.length > 0 && {
+        abilityImprovements: Object.fromEntries(
+          Object.entries(improvements).filter(([k]) => keep.has(k)),
+        ),
+      }),
+    });
+    const notices = [
+      removedExpertise.length > 0 &&
+        `No nível ${level} o ${allowed.name} concede ${allowed.expertiseCount} Especializações: ` +
+          `desmarcamos ${this.list(removedExpertise.map((s) => SKILL_NAMES[s] ?? s))}.`,
+      removedImprovements.length > 0 &&
+        `No nível ${level} saem as escolhas de ${this.list(removedImprovements.map((k) => this.featureName(k)))}.`,
+    ].filter(Boolean);
+    this.notice.set(notices.length > 0 ? notices.join(' ') : null);
   }
 
   protected names(ids: readonly string[]): string {
@@ -244,8 +266,13 @@ export class ClassStepComponent {
   }
 
   /** "Acrobacia e Enganação" / "Acrobacia, Enganação e Furtividade". */
-  private skillList(ids: readonly string[]): string {
-    const names = ids.map((s) => SKILL_NAMES[s] ?? s);
+  private list(names: readonly string[]): string {
     return names.length > 1 ? `${names.slice(0, -1).join(', ')} e ${names.at(-1)}` : names[0];
+  }
+
+  /** Nome da característica no nível anterior (ainda em `details`), para o aviso de F10 AC7. */
+  private featureName(id: string): string {
+    const f = this.details()?.features.find((x) => x.id === id);
+    return f ? `${f.name} (nível ${f.level})` : id;
   }
 }

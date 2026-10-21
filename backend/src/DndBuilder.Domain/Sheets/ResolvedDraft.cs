@@ -40,6 +40,9 @@ internal sealed class ResolvedDraft
 
     private readonly List<(Skill Skill, Choice Choice, string Origin)> choiceSkills = [];
 
+    /// <summary>Cada +1 de Incremento escolhido, em ordem de nível da característica (spec F10 AC2).</summary>
+    public List<(ClassFeature Feature, Ability Ability)> Improvements { get; } = [];
+
     public IReadOnlyDictionary<string, string[]> Errors => errors.ToDictionary(e => e.Key, e => e.Value.ToArray(), StringComparer.Ordinal);
     public IReadOnlyList<string> Warnings => warnings;
 
@@ -54,6 +57,7 @@ internal sealed class ResolvedDraft
         r.ResolveRaceChoices(draft);
         r.ResolveSkills(draft);
         r.ResolveExpertise(draft);
+        r.ResolveAbilityImprovements(draft);
         return r;
     }
 
@@ -343,6 +347,52 @@ internal sealed class ResolvedDraft
         {
             warnings.Add($"Especialização: escolha {allowed} perícias proficientes ({chosen.Count} de {allowed}).");
         }
+    }
+
+    /// <summary>
+    /// Incrementos no Valor de Habilidade (spec F10): só os da classe até o nível, até 2 atributos;
+    /// os que faltam escolher viram aviso (AC4). Página: a da característica na classe.
+    /// </summary>
+    private void ResolveAbilityImprovements(CharacterDraft d)
+    {
+        const int PicksPerImprovement = 2;
+        var available = Features.Where(f => f.Grants.Any(g => g.Type == GrantType.AbilityScoreImprovement)).ToList();
+        var made = new Dictionary<string, int>(StringComparer.Ordinal);
+        foreach (var (id, picks) in d.AbilityImprovements)
+        {
+            var field = $"abilityImprovements.{id}";
+            if (available.FirstOrDefault(f => f.Id == id) is not { } feature)
+            {
+                Error(field, Class is null || Level is null
+                    ? "Escolha a classe e o nível antes dos Incrementos no Valor de Habilidade."
+                    : $"'{id}' não é um Incremento no Valor de Habilidade do {Class.Name} até o nível {Level.Value.Value}.");
+                continue;
+            }
+            if (picks.Count > PicksPerImprovement)
+            {
+                Error(field, $"{feature.Name} (nível {feature.Level}): escolha no máximo {PicksPerImprovement} aumentos de +1.");
+                continue;
+            }
+            foreach (var pick in picks)
+            {
+                if (!CatalogIds.TryParseAbility(pick, out var ability))
+                {
+                    Error(field, string.IsNullOrEmpty(pick) ? "Atributo vazio na lista." : $"Atributo '{pick}' não existe.");
+                }
+                else
+                {
+                    Improvements.Add((feature, ability.Value));
+                    made[id] = made.GetValueOrDefault(id) + 1;
+                }
+            }
+        }
+        foreach (var feature in available.Where(f => made.GetValueOrDefault(f.Id) < PicksPerImprovement))
+        {
+            warnings.Add($"{feature.Name} (nível {feature.Level}): escolha {PicksPerImprovement} aumentos ({made.GetValueOrDefault(feature.Id)} de {PicksPerImprovement}).");
+        }
+        var ordered = Improvements.OrderBy(i => i.Feature.Level).ToList(); // estável: mantém a ordem das escolhas
+        Improvements.Clear();
+        Improvements.AddRange(ordered);
     }
 
     private List<Skill> ParseSkills(IReadOnlyList<string> ids, string field)
