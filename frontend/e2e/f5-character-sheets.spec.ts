@@ -75,7 +75,9 @@ test.describe('F5 Minhas fichas', () => {
     }
 
     await expect(page.getByRole('status').filter({ hasText: 'Não salvo' })).toBeVisible();
+    // Resumo no topo do wizard (F8 AC1) com link para o passo; a mesma mensagem fica junto aos campos.
     await expect(page.getByRole('alert')).toContainText('54 pontos gastos, o máximo é 27');
+    await expect(page.getByText('54 pontos gastos, o máximo é 27')).toHaveCount(2);
   });
 
   test('ficha alterada em outra aba deve oferecer recarregar', async ({ page, api, context }) => {

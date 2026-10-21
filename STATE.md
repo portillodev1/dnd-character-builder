@@ -2,11 +2,12 @@
 
 Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia o
 `## Handoff
-- **Última unidade**: Fase 7 — **F7 sheet-file-integrity completa** (T9–T14): arquivo com problema
-  (JSON inválido, sem `name`/`draft`, `schemaVersion` desconhecido, id ≠ nome do arquivo) → `422`
-  no `GET`/`PUT`/duplicar sem gravar nada, `DELETE` limpa, motivo em pt-BR na lista e log `Warning`;
-  `POST /{id}/duplicate` + botão "Duplicar". **Push pendente**. Próximo: F8 (T15).
-- **F6 (anterior)**: entrada inválida → 400, nunca 500 (`6fa259a`, já no `origin/main`).
+- **Última unidade**: Fase 7 — **F8 wizard-feedback completa** (T15–T27): resumo de erros com link
+  ao passo, nível menor corta Especializações, só inteiros nos atributos, status por cor com
+  "Tentar de novo", nome vazio restaurado, "Próximo" bloqueado, 404×422×rede ao abrir, erros em
+  "Minhas fichas", respostas antigas descartadas, `beforeunload`, `<dialog>` modal, API por proxy
+  (ADR-0010: `proxy.conf.json`; reinicie o `ng serve` de dev). **Push pendente**. Próximo: F9 (T28).
+- **F7 (anterior)**: arquivo com problema → 422, duplicar ficha (`027d66e`, já no `origin/main`).
 - **Specs da Fase 7**: F6–F9 + `.specs/project/tasks-fase-7.md` (`c1af3a6`).
 - **QA do MVP (anterior)**: `docs/qa/2026-10-20-teste-e2e/`; FE-1 e BE-1 corrigidos (`34749c3`,
   já no `origin/main`).

@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 
 /**
  * E2E do wizard contra a API real (ADR-0009). API e front sobem isolados dos servidores de dev:
- * API na 5180 com fichas em `e2e/.data/`, front na 4300.
+ * API na 5180 com fichas em `e2e/.data/`, front na 4300 com `proxy.e2e.conf.json` (ADR-0010).
  */
 export const E2E_API = 'http://localhost:5180';
 const FRONT = 'http://localhost:4300';
@@ -39,7 +39,8 @@ export default defineConfig({
       timeout: 180_000,
     },
     {
-      command: 'npx ng serve --port 4300',
+      // Mesmo front do dev, com o proxy apontando para a API isolada (ADR-0010).
+      command: 'npx ng serve --port 4300 --proxy-config proxy.e2e.conf.json',
       url: FRONT,
       reuseExistingServer: false,
       timeout: 180_000,

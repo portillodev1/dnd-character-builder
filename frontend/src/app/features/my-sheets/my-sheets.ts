@@ -1,9 +1,19 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, OnInit, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnInit,
+  afterRenderEffect,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { SheetSummary } from '../../core/api/models';
 import { RulesetService } from '../../core/api/ruleset.service';
+import { apiFailure } from '../../core/api/api-failure';
 import { SheetService } from '../../core/api/sheet.service';
 
 /** "Minhas fichas": listar, criar, abrir, duplicar, apagar (F5 AC1, AC2, AC7; F7 AC5). */
@@ -46,13 +56,20 @@ import { SheetService } from '../../core/api/sheet.service';
       }
     </ul>
 
-    @if (confirming(); as s) {
-      <div role="alertdialog" aria-modal="true" aria-labelledby="confirm-title" class="confirm">
+    <!-- Modal nativo: foco preso, Esc = Cancelar, foco volta ao botão de origem (F8 AC13). -->
+    <dialog
+      #confirmDialog
+      role="alertdialog"
+      aria-labelledby="confirm-title"
+      class="confirm"
+      (close)="confirming.set(null)"
+    >
+      @if (confirming(); as s) {
         <p id="confirm-title">Apagar a ficha "{{ s.name ?? s.id }}"? Isso não pode ser desfeito.</p>
         <button type="button" (click)="remove(s)">Apagar ficha</button>
-        <button type="button" (click)="confirming.set(null)">Cancelar</button>
-      </div>
-    }
+        <button type="button" autofocus (click)="confirmDialog.close()">Cancelar</button>
+      }
+    </dialog>
   `,
   styles: `
     .new {
@@ -119,6 +136,21 @@ export class MySheetsComponent implements OnInit {
   /** id → nome de raças e classes do catálogo, para a lista não mostrar ids. */
   private readonly names = signal<ReadonlyMap<string, string>>(new Map());
 
+  private readonly confirmDialog =
+    viewChild.required<ElementRef<HTMLDialogElement>>('confirmDialog');
+
+  constructor() {
+    // Depois de renderizar o conteúdo, para o autofocus de "Cancelar" valer.
+    afterRenderEffect(() => {
+      const dialog = this.confirmDialog().nativeElement;
+      if (this.confirming() && !dialog.open) {
+        dialog.showModal();
+      } else if (!this.confirming() && dialog.open) {
+        dialog.close();
+      }
+    });
+  }
+
   async ngOnInit(): Promise<void> {
     await Promise.all([this.load(), this.loadNames()]);
   }
@@ -133,24 +165,40 @@ export class MySheetsComponent implements OnInit {
     }
     return [
       race ?? 'raça a escolher',
-      cls ? `${cls} · nível ${s.level ?? 1}` : 'classe a escolher',
+      cls ? `${cls} · nível ${s.level ?? 'a escolher'}` : 'classe a escolher',
     ].join(' · ');
   }
 
   protected async create(): Promise<void> {
-    const saved = await this.api.create(this.newName.trim());
-    await this.router.navigate(['/fichas', saved.id, 'raca']);
+    await this.attempt(async () => {
+      const saved = await this.api.create(this.newName.trim());
+      await this.router.navigate(['/fichas', saved.id, 'raca']);
+    });
   }
 
   protected async duplicate(sheet: SheetSummary): Promise<void> {
-    const copy = await this.api.duplicate(sheet.id);
-    await this.router.navigate(['/fichas', copy.id, 'raca']);
+    await this.attempt(async () => {
+      const copy = await this.api.duplicate(sheet.id);
+      await this.router.navigate(['/fichas', copy.id, 'raca']);
+    });
   }
 
   protected async remove(sheet: SheetSummary): Promise<void> {
     this.confirming.set(null);
-    await this.api.delete(sheet.id);
-    this.sheets.update((list) => list.filter((s) => s.id !== sheet.id));
+    await this.attempt(async () => {
+      await this.api.delete(sheet.id);
+      this.sheets.update((list) => list.filter((s) => s.id !== sheet.id));
+    });
+  }
+
+  /** Falha de criar/duplicar/apagar vira aviso em `role="alert"`; o botão continua usável (F8 AC9). */
+  private async attempt(action: () => Promise<void>): Promise<void> {
+    this.error.set(null);
+    try {
+      await action();
+    } catch (e) {
+      this.error.set(apiFailure(e));
+    }
   }
 
   private async loadNames(): Promise<void> {
@@ -171,7 +219,7 @@ export class MySheetsComponent implements OnInit {
       );
     } catch {
       this.error.set(
-        'Não foi possível carregar suas fichas: o servidor não respondeu. Confira se a API está rodando (http://localhost:5080).',
+        'Não foi possível carregar suas fichas: a API (servidor) não respondeu. Confira se ela está rodando.',
       );
     } finally {
       this.loaded.set(true);

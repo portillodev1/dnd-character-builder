@@ -285,6 +285,15 @@ summary {
 [role='alertdialog'] button + button {
   margin-left: 0.5rem;
 }
+/* Diálogos modais nativos (F8 AC13): centrados sobre um véu, cores do tema. */
+dialog[role='alertdialog'] {
+  max-width: min(32rem, calc(100vw - 2rem));
+  margin: auto;
+  color: var(--ink);
+}
+dialog::backdrop {
+  background: rgb(0 0 0 / 45%);
+}
 
 /* Texto de apoio dos passos: abre com capitular rubricada, como num códice. */
 .help {

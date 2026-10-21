@@ -7,6 +7,7 @@ import {
   signal,
 } from '@angular/core';
 import { ClassFeatures } from '../../core/api/models';
+import { latestOnly } from '../../core/api/latest-only';
 import { RulesetService } from '../../core/api/ruleset.service';
 import { ABILITY_NAMES, SKILL_NAMES, signed } from '../../shared/labels';
 import { BonusBreakdownComponent } from '../../shared/ui/bonus-breakdown';
@@ -37,7 +38,7 @@ const PROFICIENCY_TEXT: Readonly<Record<string, string>> = {
     </p>
 
     @for (e of fieldErrors(); track $index) {
-      <p role="alert" class="error">{{ e }}</p>
+      <p class="error">{{ e }}</p>
     }
 
     @if (!store.sheet()) {
@@ -246,6 +247,7 @@ export class SkillsSavesStepComponent {
 
   protected readonly backgroundCount = BACKGROUND_SKILLS;
   protected readonly details = signal<ClassFeatures | null>(null);
+  private readonly showDetails = latestOnly<ClassFeatures | null>((d) => this.details.set(d));
   protected readonly classPicks = computed(() => this.store.draft().skillChoices ?? []);
   protected readonly backgroundPicks = computed(() => this.store.draft().extraProficiencies ?? []);
   protected readonly expertisePicks = computed(() => this.store.draft().expertise ?? []);
@@ -361,11 +363,7 @@ export class SkillsSavesStepComponent {
     effect(() => {
       const id = this.store.draft().classId;
       const level = this.store.draft().level ?? 1;
-      if (!id) {
-        this.details.set(null);
-      } else {
-        void this.ruleset.classFeatures(id, level).then((d) => this.details.set(d));
-      }
+      this.showDetails(id ? this.ruleset.classFeatures(id, level) : Promise.resolve(null));
     });
   }
 

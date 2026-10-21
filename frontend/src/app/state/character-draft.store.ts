@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { CharacterDraft, CharacterSheet, SavedSheet, ValidationProblem } from '../core/api/models';
+import { apiFailure } from '../core/api/api-failure';
 import { SheetService } from '../core/api/sheet.service';
 
 export type SaveStatus = 'idle' | 'pending' | 'saving' | 'saved' | 'invalid' | 'conflict' | 'error';
@@ -28,6 +29,8 @@ export class CharacterDraftStore {
   readonly errors = signal<Record<string, string[]>>({});
   readonly status = signal<SaveStatus>('idle');
   readonly savedAt = signal<Date | null>(null);
+  /** Motivo do estado `error` (rede, ficha apagada, arquivo com problema) — F8 AC4/AC5. */
+  readonly failure = signal<string | null>(null);
   readonly warnings = computed(() => this.sheet()?.warnings ?? []);
 
   async open(id: string): Promise<void> {
@@ -47,6 +50,13 @@ export class CharacterDraftStore {
   rename(name: string): void {
     this.name.set(name);
     this.schedule();
+  }
+
+  /** "Tentar de novo" depois de uma falha de rede: regrava o rascunho atual (F8 AC4). */
+  retry(): void {
+    clearTimeout(this.timer);
+    this.timer = undefined;
+    void this.save();
   }
 
   /** Grava já (sem esperar o debounce) e aguarda o término. */
@@ -97,6 +107,7 @@ export class CharacterDraftStore {
     try {
       this.apply(await this.api.update(id, this.version(), this.name(), this.draft()), false);
       this.status.set('saved');
+      this.failure.set(null);
       this.savedAt.set(new Date());
     } catch (e) {
       if (e instanceof HttpErrorResponse && e.status === 409) {
@@ -105,6 +116,7 @@ export class CharacterDraftStore {
         this.errors.set(draftFieldErrors((e.error as ValidationProblem | null)?.errors ?? {}));
         this.status.set('invalid');
       } else {
+        this.failure.set(apiFailure(e));
         this.status.set('error');
       }
     }

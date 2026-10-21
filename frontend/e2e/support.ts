@@ -2,21 +2,12 @@ import AxeBuilder from '@axe-core/playwright';
 import { test as base, expect, type APIRequestContext, type Page } from '@playwright/test';
 import { E2E_API } from '../playwright.config';
 
-/** Origem da API que o front conhece (`API_BASE_URL`); o E2E a redireciona para a API isolada. */
-const APP_API = 'http://localhost:5080';
-
 /** Rascunho no formato de `POST /character-sheets/compute` (docs/architecture/api-contract.md). */
 export type Draft = Record<string, unknown>;
 
+// O front chama a API por caminho relativo e o `ng serve` do E2E encaminha para a API isolada
+// (ADR-0010): não há reescrita de rotas aqui.
 export const test = base.extend<{ api: SheetsApi }>({
-  context: async ({ context }, use) => {
-    // Vale para todas as abas do contexto (o teste de conflito abre duas).
-    await context.route(`${APP_API}/**`, async (route) => {
-      const url = route.request().url().replace(APP_API, E2E_API);
-      await route.fulfill({ response: await route.fetch({ url }) });
-    });
-    await use(context);
-  },
   api: async ({ playwright }, use) => {
     const ctx = await playwright.request.newContext({ baseURL: E2E_API });
     await use(new SheetsApi(ctx));

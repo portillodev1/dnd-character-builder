@@ -4,4 +4,5 @@ Wizard de criação de ficha. Arquitetura: [docs/architecture/frontend.md](../do
 Regras para a IA: [rules/frontend-angular.md](../rules/frontend-angular.md).
 
 Use os scripts da raiz (`bash scripts/test.sh --front`, `lint.sh`, `build.sh`).
-Dev server: `npx ng serve` → http://localhost:4200 (a API roda em http://localhost:5080).
+Dev server: `npx ng serve` → http://localhost:4200; `/api` e `/health` vão pelo `proxy.conf.json`
+para a API em http://localhost:5080 (ADR-0010).

@@ -29,19 +29,19 @@ Regra: 1 comportamento por tarefa (≤ ~5 arquivos); teste de regressão que fal
 - [x] T14 — Botão "Duplicar" em "Minhas fichas" + E2E — F7 AC5 (front)
 
 ## F8 — Feedback do wizard (front)
-- [ ] T15 — Mapa campo → passo + resumo de erros no topo com links — F8 AC1
-- [ ] T16 — Baixar nível corta Especializações excedentes e avisa — F8 AC2
-- [ ] T17 — Atributos: só inteiros, mensagem local — F8 AC3
-- [ ] T18 — Status: cores por estado, 400 × rede/5xx, "Tentar de novo" — F8 AC4, AC5
-- [ ] T19 — Renomear para vazio restaura o nome e avisa — F8 AC6
-- [ ] T20 — "Próximo" bloqueado em `invalid`/`conflict` — F8 AC7
-- [ ] T21 — Abrir ficha: 404 × 422 × rede — F8 AC8 (depende de T9)
-- [ ] T22 — "Minhas fichas": erros de criar/apagar/duplicar em `role="alert"` — F8 AC9, AC10
-- [ ] T23 — Descartar respostas antigas de `classFeatures` — F8 AC11
-- [ ] T24 — `beforeunload` com salvamento pendente — F8 AC12
-- [ ] T25 — Diálogos com `<dialog>` modal (foco, Tab, Esc) + E2E de teclado — F8 AC13
-- [ ] T26 — Origem da API por config; remover reescrita de rota do E2E — F8 RNF (depende de T1)
-- [ ] T27 — E2E: baixar nível com Especializações; API fora; axe nos estados novos — F8
+- [x] T15 — Mapa campo → passo + resumo de erros no topo com links — F8 AC1
+- [x] T16 — Baixar nível corta Especializações excedentes e avisa — F8 AC2
+- [x] T17 — Atributos: só inteiros, mensagem local — F8 AC3
+- [x] T18 — Status: cores por estado, 400 × rede/5xx, "Tentar de novo" — F8 AC4, AC5
+- [x] T19 — Renomear para vazio restaura o nome e avisa — F8 AC6
+- [x] T20 — "Próximo" bloqueado em `invalid`/`conflict` — F8 AC7
+- [x] T21 — Abrir ficha: 404 × 422 × rede — F8 AC8 (depende de T9)
+- [x] T22 — "Minhas fichas": erros de criar/apagar/duplicar em `role="alert"` — F8 AC9, AC10
+- [x] T23 — Descartar respostas antigas de `classFeatures` — F8 AC11
+- [x] T24 — `beforeunload` com salvamento pendente — F8 AC12
+- [x] T25 — Diálogos com `<dialog>` modal (foco, Tab, Esc) + E2E de teclado — F8 AC13
+- [x] T26 — Origem da API por config; remover reescrita de rota do E2E — F8 RNF (depende de T1)
+- [x] T27 — E2E: baixar nível com Especializações; API fora; axe nos estados novos — F8
 
 ## F9 — Guias para o iniciante (back → front)
 - [ ] T28 — Domain: `pointBuy { spent, budget }` na ficha (LdJ p. 13) — F9 AC1 (back)

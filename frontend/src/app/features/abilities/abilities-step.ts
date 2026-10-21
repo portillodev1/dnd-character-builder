@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { ABILITY_NAMES } from '../../shared/labels';
 import { BonusBreakdownComponent } from '../../shared/ui/bonus-breakdown';
 import { CharacterDraftStore } from '../../state/character-draft.store';
@@ -73,7 +73,7 @@ const ABILITIES = Object.keys(ABILITY_NAMES);
     </fieldset>
 
     @for (e of formErrors(); track $index) {
-      <p role="alert" class="error">{{ e }}</p>
+      <p class="error">{{ e }}</p>
     }
 
     <table>
@@ -105,11 +105,17 @@ const ABILITIES = Object.keys(ABILITY_NAMES);
                 <input
                   [id]="'base-' + a"
                   type="number"
+                  step="1"
                   [min]="method().min"
                   [max]="method().max"
                   [value]="base(a) ?? ''"
+                  [attr.aria-invalid]="localErrors()[a] ? 'true' : null"
+                  [attr.aria-describedby]="localErrors()[a] ? 'base-' + a + '-error' : null"
                   (change)="setBase(a, $event)"
                 />
+                @if (localErrors()[a]; as error) {
+                  <span [id]="'base-' + a + '-error'" class="error">{{ error }}</span>
+                }
               }
             </td>
             @if (sheetAbility(a); as s) {
@@ -176,6 +182,10 @@ const ABILITIES = Object.keys(ABILITY_NAMES);
     td input {
       width: 5rem;
     }
+    td .error {
+      display: block;
+      font-size: 0.9em;
+    }
     .error {
       color: var(--danger);
     }
@@ -190,6 +200,8 @@ export class AbilitiesStepComponent {
   protected readonly method = computed(
     () => METHODS.find((m) => m.id === this.store.draft().abilityMethod) ?? METHODS[0],
   );
+  /** Erros de formato do campo, antes de enviar (F8 AC3). */
+  protected readonly localErrors = signal<Readonly<Record<string, string>>>({});
   protected readonly complete = computed(() => ABILITIES.every((a) => this.base(a) !== null));
   protected readonly formErrors = computed(() =>
     Object.entries(this.store.errors())
@@ -220,6 +232,17 @@ export class AbilitiesStepComponent {
 
   protected setBase(a: string, event: Event): void {
     const raw = (event.target as HTMLInputElement | HTMLSelectElement).value;
+    // Formato do campo, não regra de D&D: decimal nem chega à API (F8 AC3).
+    const invalid = raw !== '' && !Number.isInteger(Number(raw));
+    this.localErrors.update((e) =>
+      Object.fromEntries([
+        ...Object.entries(e).filter(([k]) => k !== a),
+        ...(invalid ? [[a, 'Use um número inteiro.']] : []),
+      ]),
+    );
+    if (invalid) {
+      return;
+    }
     this.store.update((d) => {
       const next = { ...(d.baseAbilities ?? {}) };
       if (raw === '') {

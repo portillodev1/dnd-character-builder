@@ -7,6 +7,7 @@ import {
   signal,
 } from '@angular/core';
 import { ClassFeatures, ClassSummary } from '../../core/api/models';
+import { latestOnly } from '../../core/api/latest-only';
 import { RulesetService } from '../../core/api/ruleset.service';
 import { ABILITY_NAMES, SKILL_NAMES } from '../../shared/labels';
 import { TraitCardComponent } from '../../shared/ui/trait-card';
@@ -54,6 +55,10 @@ const LEVELS = Array.from({ length: 20 }, (_, i) => i + 1);
         <option [value]="n" [selected]="n === level()">{{ n }}</option>
       }
     </select>
+
+    @if (notice(); as n) {
+      <p role="status" class="notice">{{ n }}</p>
+    }
 
     @if (details(); as d) {
       <section aria-labelledby="profs">
@@ -107,6 +112,12 @@ const LEVELS = Array.from({ length: 20 }, (_, i) => i + 1);
     />
   `,
   styles: `
+    .notice {
+      padding: 0.5rem 0.75rem;
+      border-left: 3px double var(--warning);
+      border-radius: var(--radius-sm);
+      background: var(--warning-soft);
+    }
     .classes {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
@@ -174,6 +185,8 @@ export class ClassStepComponent {
   protected readonly levels = LEVELS;
   protected readonly classes = signal<ClassSummary[]>([]);
   protected readonly details = signal<ClassFeatures | null>(null);
+  private readonly showDetails = latestOnly<ClassFeatures | null>((d) => this.details.set(d));
+  protected readonly notice = signal<string | null>(null);
   protected readonly classId = computed(() => this.store.draft().classId ?? null);
   protected readonly level = computed(() => this.store.draft().level ?? 1);
 
@@ -182,11 +195,7 @@ export class ClassStepComponent {
     effect(() => {
       const id = this.classId();
       const level = this.level();
-      if (id === null) {
-        this.details.set(null);
-      } else {
-        void this.ruleset.classFeatures(id, level).then((d) => this.details.set(d));
-      }
+      this.showDetails(id === null ? Promise.resolve(null) : this.ruleset.classFeatures(id, level));
     });
   }
 
@@ -198,8 +207,30 @@ export class ClassStepComponent {
     this.store.update({ classId: id, level: this.level(), skillChoices: [], expertise: [] });
   }
 
-  protected pickLevel(event: Event): void {
-    this.store.update({ level: Number((event.target as HTMLSelectElement).value) });
+  /**
+   * Muda o nível; se a classe passa a conceder menos Especializações (contagem da API), desmarca
+   * as excedentes na mesma mudança, para o salvamento não ser recusado (F8 AC2).
+   */
+  protected async pickLevel(event: Event): Promise<void> {
+    const level = Number((event.target as HTMLSelectElement).value);
+    const id = this.classId();
+    const expertise = this.store.draft().expertise ?? [];
+    const allowed =
+      id === null || expertise.length === 0
+        ? null
+        : await this.ruleset.classFeatures(id, level).catch(() => null);
+    const removed = allowed ? expertise.slice(allowed.expertiseCount) : [];
+    this.store.update(
+      removed.length > 0
+        ? { level, expertise: expertise.slice(0, allowed!.expertiseCount) }
+        : { level },
+    );
+    this.notice.set(
+      removed.length > 0
+        ? `No nível ${level} o ${allowed!.name} concede ${allowed!.expertiseCount} Especializações: ` +
+            `desmarcamos ${this.skillList(removed)}.`
+        : null,
+    );
   }
 
   protected names(ids: readonly string[]): string {
@@ -208,5 +239,11 @@ export class ClassStepComponent {
 
   protected skills(ids: readonly string[]): string {
     return ids.map((s) => SKILL_NAMES[s] ?? s).join(', ');
+  }
+
+  /** "Acrobacia e Enganação" / "Acrobacia, Enganação e Furtividade". */
+  private skillList(ids: readonly string[]): string {
+    const names = ids.map((s) => SKILL_NAMES[s] ?? s);
+    return names.length > 1 ? `${names.slice(0, -1).join(', ')} e ${names.at(-1)}` : names[0];
   }
 }

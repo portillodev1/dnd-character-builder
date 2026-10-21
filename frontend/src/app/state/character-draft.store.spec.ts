@@ -4,7 +4,8 @@ import { TestBed } from '@angular/core/testing';
 import { saved } from '../testing/fixtures';
 import { CharacterDraftStore, SAVE_DEBOUNCE_MS } from './character-draft.store';
 
-const url = 'http://localhost:5080/api/v1/character-sheets/00000000-0000-0000-0000-000000000001';
+// Caminho relativo: a origem da API vem do proxy do ng serve / mesma origem (ADR-0010).
+const url = '/api/v1/character-sheets/00000000-0000-0000-0000-000000000001';
 
 describe('CharacterDraftStore', () => {
   let store: CharacterDraftStore;
@@ -74,6 +75,24 @@ describe('CharacterDraftStore', () => {
     expect([store.status(), store.errors()]).toEqual([
       'invalid',
       { level: ['O nível deve estar entre 1 e 20.'] },
+    ]);
+  });
+
+  it('save quando a API não responde deve marcar erro com o motivo e "Tentar de novo" deve regravar (F8 AC4, AC5)', async () => {
+    store.update({ level: 3 });
+    vi.advanceTimersByTime(SAVE_DEBOUNCE_MS);
+    http.expectOne(url).flush(null, { status: 503, statusText: 'Service Unavailable' });
+    await store.flush();
+    const failed = [store.status(), store.failure()];
+
+    store.retry();
+    http.expectOne(url).flush(saved({ version: 2, draft: { level: 3 } }));
+    await store.flush();
+
+    expect([failed, store.status(), store.failure()]).toEqual([
+      ['error', 'A API (servidor) não respondeu. Tente de novo em instantes.'],
+      'saved',
+      null,
     ]);
   });
 });

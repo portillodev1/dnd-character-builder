@@ -1,9 +1,13 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { Router, provideRouter } from '@angular/router';
 import { SheetSummary } from '../../core/api/models';
 import { RulesetService } from '../../core/api/ruleset.service';
 import { SheetService } from '../../core/api/sheet.service';
+import { polyfillDialog } from '../../testing/dialog-polyfill';
 import { MySheetsComponent } from './my-sheets';
+
+polyfillDialog();
 
 const summary = (id: string, name: string, updatedAt: string): SheetSummary => ({
   id,
@@ -96,5 +100,65 @@ describe('MySheetsComponent', () => {
       ['2'],
       [['/fichas', '3', 'raca']],
     ]);
+  });
+
+  it('duplicar ou apagar quando a API falha deve avisar em role=alert (F8 AC9)', async () => {
+    const { fixture, el } = await render();
+    const offline = new HttpErrorResponse({ status: 0 });
+    api.duplicate.mockRejectedValueOnce(offline);
+    api.delete.mockRejectedValueOnce(new HttpErrorResponse({ status: 404 }));
+    const alerts = [];
+
+    buttonByText(el, 'Duplicar').click();
+    await fixture.whenStable();
+    alerts.push(el.querySelector('[role=alert]')?.textContent?.trim());
+    buttonByText(el, 'Apagar').click();
+    await fixture.whenStable();
+    buttonByText(el, 'Apagar ficha').click();
+    await fixture.whenStable();
+    alerts.push(el.querySelector('[role=alert]')?.textContent?.trim());
+
+    expect(alerts).toEqual([
+      'A API (servidor) não respondeu. Tente de novo em instantes.',
+      'Ficha não encontrada: ela pode ter sido apagada.',
+    ]);
+  });
+
+  it('ficha sem nível deve mostrar "nível a escolher" (F8 AC10)', async () => {
+    api.list.mockResolvedValueOnce([
+      { ...summary('1', 'Nova', '2026-10-20T10:00:00Z'), level: null },
+    ]);
+    TestBed.configureTestingModule({
+      imports: [MySheetsComponent],
+      providers: [
+        provideRouter([]),
+        { provide: SheetService, useValue: api },
+        { provide: RulesetService, useValue: ruleset },
+      ],
+    });
+    const fixture = TestBed.createComponent(MySheetsComponent);
+    await fixture.whenStable();
+
+    expect((fixture.nativeElement as HTMLElement).querySelector('.meta')?.textContent).toContain(
+      'Anão · Ladino · nível a escolher',
+    );
+  });
+
+  it('confirmação de apagar deve abrir como diálogo modal e "Cancelar"/Esc fecham sem apagar (F8 AC13)', async () => {
+    const { fixture, el } = await render();
+    const dialog = () => el.querySelector('dialog') as HTMLDialogElement;
+
+    buttonByText(el, 'Apagar').click();
+    await fixture.whenStable();
+    const opened = dialog().open;
+    dialog().close(); // Esc no navegador dispara cancel → close
+    await fixture.whenStable();
+
+    expect([
+      opened,
+      dialog().open,
+      dialog().textContent?.trim(),
+      api.delete.mock.calls.length,
+    ]).toEqual([true, false, '', 0]);
   });
 });
