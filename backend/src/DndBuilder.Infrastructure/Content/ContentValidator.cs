@@ -19,6 +19,7 @@ public static class ContentValidator
     {
         _ when path.StartsWith("races/", StringComparison.Ordinal) => "race.schema.json",
         _ when path.StartsWith("classes/", StringComparison.Ordinal) => "class.schema.json",
+        _ when path.StartsWith("archetypes/", StringComparison.Ordinal) => "archetype.schema.json",
         "skills.json" => "skills.schema.json",
         _ => throw new ArgumentException($"Arquivo de conteúdo sem schema conhecido: {path}", nameof(path)),
     };

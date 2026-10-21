@@ -9,13 +9,14 @@ public sealed record SavingThrowResult(Ability Ability, bool Proficient, Derived
 /// <summary><c>Value</c> é null enquanto faltar o atributo-chave ou o nível.</summary>
 public sealed record SkillResult(Skill Skill, SkillProficiency Proficiency, IReadOnlyList<string> ProficiencySources, DerivedValue? Value);
 
-public sealed record FeatureResult(ClassFeature Feature, string? ScalingValue)
+/// <summary><c>Archetype</c>: nome do arquétipo dono da característica, ou null se ela é da classe base (spec F12).</summary>
+public sealed record FeatureResult(ClassFeature Feature, string? ScalingValue, string? Archetype = null)
 {
     /// <summary>
-    /// O app ainda não aplica a característica à ficha (escolha de arquétipo): o jogador anota à mão
-    /// (F9 AC3). O Incremento no Valor de Habilidade é aplicado desde a F10.
+    /// A escolha de arquétipo ainda está pendente: o jogador anota à mão (F9 AC3). O Incremento no Valor
+    /// de Habilidade é aplicado desde a F10, e o arquétipo escolhido desde a F12 (o cálculo zera este valor).
     /// </summary>
-    public bool Manual => Feature.Grants.Any(g => g.Type == GrantType.SubclassChoice);
+    public bool Manual { get; init; } = Feature.Grants.Any(g => g.Type == GrantType.SubclassChoice);
 
     /// <summary>Incremento no Valor de Habilidade: o front abre a escolha de +1/+1 (spec F10 AC5).</summary>
     public bool AbilityImprovement => Feature.Grants.Any(g => g.Type == GrantType.AbilityScoreImprovement);
@@ -28,6 +29,7 @@ public enum Origin
     Subrace,
     Class,
     Choice,
+    Archetype,
 }
 
 public sealed record TraitResult(Trait Trait, Origin Origin, string OriginName);
@@ -40,6 +42,9 @@ public sealed record PointBuyResult(int Spent, int Budget);
 /// <summary>Ficha derivada. Seções ficam vazias/null enquanto faltam escolhas (ver <c>Warnings</c>).</summary>
 public sealed record CharacterSheet
 {
+    /// <summary>Arquétipo escolhido e válido (spec F12); null enquanto não escolhido.</summary>
+    public Archetype? Archetype { get; init; }
+
     public IReadOnlyList<AbilityResult> Abilities { get; init; } = [];
 
     /// <summary>Só com o método compra de pontos e os seis valores definidos.</summary>

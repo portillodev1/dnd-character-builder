@@ -1,0 +1,70 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "linhagem-draconica",
+  "classId": "feiticeiro",
+  "name": "Linhagem Dracônica",
+  "summary": "Seu sangue tem um dragão como ancestral: mais pontos de vida, escamas e, mais tarde, asas e uma aura assustadora.",
+  "srd": true,
+  "bonuses": [
+    {
+      "target": "hp-per-level",
+      "value": 1,
+      "bonusType": "hit-points",
+      "label": "Resiliência Dracônica",
+      "source": { "book": "LdJ", "page": 80 }
+    }
+  ],
+  "choices": [
+    {
+      "id": "linhagem-draconica-ancestral",
+      "name": "Ancestral Dracônico",
+      "count": 1,
+      "from": ["Azul", "Branco", "Bronze", "Cobre", "Latão", "Negro", "Ouro", "Prata", "Verde", "Vermelho"],
+      "kind": "other",
+      "source": { "book": "LdJ", "page": 80 }
+    }
+  ],
+  "features": [
+    {
+      "id": "ancestral-draconico",
+      "name": "Ancestral Dracônico",
+      "level": 1,
+      "kind": "language",
+      "description": "Você escolhe um tipo de dragão como ancestral (define o tipo de dano de características futuras), fala Dracônico e dobra seu bônus de proficiência em testes de Carisma com dragões.",
+      "source": { "book": "LdJ", "page": 80 }
+    },
+    {
+      "id": "resiliencia-draconica",
+      "name": "Resiliência Dracônica",
+      "level": 1,
+      "kind": "other",
+      "description": "Seus pontos de vida máximos aumentam em 1 por nível. Sem armadura, sua CA é 13 + modificador de Destreza.",
+      "source": { "book": "LdJ", "page": 80 }
+    },
+    {
+      "id": "afinidade-elemental",
+      "name": "Afinidade Elemental",
+      "level": 6,
+      "kind": "other",
+      "description": "Magias que causam o tipo de dano do seu ancestral somam seu modificador de Carisma ao dano. Você pode gastar 1 ponto de feitiçaria para ganhar resistência a esse dano por 1 hora.",
+      "source": { "book": "LdJ", "page": 80 }
+    },
+    {
+      "id": "asas-de-dragao",
+      "name": "Asas de Dragão",
+      "level": 14,
+      "kind": "other",
+      "description": "Com uma ação bônus você faz brotar asas e ganha deslocamento de voo igual ao seu deslocamento atual. Elas duram até você dissipá-las.",
+      "source": { "book": "LdJ", "page": 81 }
+    },
+    {
+      "id": "presenca-draconica",
+      "name": "Presença Dracônica",
+      "level": 18,
+      "kind": "other",
+      "description": "Com uma ação e 5 pontos de feitiçaria, você exala uma aura de 18 m que encanta ou amedronta criaturas, por até 1 minuto, enquanto você se concentrar.",
+      "source": { "book": "LdJ", "page": 81 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 80 }
+}

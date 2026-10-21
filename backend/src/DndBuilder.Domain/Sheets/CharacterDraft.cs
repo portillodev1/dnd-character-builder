@@ -11,6 +11,9 @@ public sealed record CharacterDraft
     public string? ClassId { get; init; }
     public int? Level { get; init; }
 
+    /// <summary>Id do arquétipo da classe (ex.: <c>campeao</c>); só vale a partir do nível do marco (spec F12).</summary>
+    public string? Archetype { get; init; }
+
     /// <summary><c>standard-array</c>, <c>point-buy</c> ou <c>manual</c> (LdJ p. 13). Opcional.</summary>
     public string? AbilityMethod { get; init; }
 

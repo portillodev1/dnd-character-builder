@@ -30,7 +30,7 @@ internal static class Mapping
         => new(c.Id, c.Name, c.Count, c.From, c.Kind is { } k ? Id(k) : null, c.BonusType is { } b ? Id(b) : null, c.Source.Dto());
 
     public static FeatureDto Dto(this FeatureResult f)
-        => new(f.Feature.Id, f.Feature.Name, f.Feature.Level, Id(f.Feature.Kind), f.Feature.Description, f.ScalingValue, f.Manual, f.AbilityImprovement, f.Feature.Source.Dto());
+        => new(f.Feature.Id, f.Feature.Name, f.Feature.Level, Id(f.Feature.Kind), f.Feature.Description, f.ScalingValue, f.Manual, f.AbilityImprovement, f.Archetype, f.Feature.Source.Dto());
 
     public static RaceSummaryDto Summary(this Race r)
         => new(r.Id, r.Name, r.Summary, [.. r.Bonuses.Where(b => b.TargetAbility is not null).Select(Dto)],
@@ -44,7 +44,9 @@ internal static class Mapping
             r.Source.Dto());
 
     public static ClassSummaryDto Summary(this CharacterClass c)
-        => new(c.Id, c.Name, c.Summary, c.HitDie, [.. c.PrimaryAbilities.Select(CatalogIds.Id)], [.. c.SavingThrows.Select(CatalogIds.Id)]);
+        => new(c.Id, c.Name, c.Summary, c.HitDie, [.. c.PrimaryAbilities.Select(CatalogIds.Id)], [.. c.SavingThrows.Select(CatalogIds.Id)],
+            c.SubclassLevel, [.. c.Archetypes.Select(a => new ArchetypeDto(a.Id, a.Name, a.Summary, a.Srd,
+                [.. a.Features.Select(f => new FeatureResult(f, null, a.Name).Dto())], a.Source.Dto()))]);
 
     public static ClassFeaturesDto Dto(this ClassFeaturesView v)
     {
@@ -61,6 +63,7 @@ internal static class Mapping
         SubraceId = d.SubraceId,
         ClassId = d.ClassId,
         Level = d.Level,
+        Archetype = d.Archetype,
         AbilityMethod = d.AbilityMethod,
         BaseAbilities = d.BaseAbilities ?? new Dictionary<string, int>(),
         SkillChoices = d.SkillChoices ?? [],
@@ -80,6 +83,7 @@ internal static class Mapping
         SubraceId = d.SubraceId,
         ClassId = d.ClassId,
         Level = d.Level,
+        Archetype = d.Archetype,
         AbilityMethod = d.AbilityMethod,
         BaseAbilities = d.BaseAbilities,
         SkillChoices = d.SkillChoices,
@@ -90,6 +94,7 @@ internal static class Mapping
     };
 
     public static CharacterSheetDto Dto(this CharacterSheet s) => new(
+        s.Archetype is { } archetype ? new SheetArchetypeDto(archetype.Id, archetype.Name) : null,
         s.Abilities.ToDictionary(a => CatalogIds.Id(a.Ability),
             a => new AbilityDto(a.Ability.DisplayName(), a.Ability.Abbreviation(), a.Score.Dto(), a.Modifier.Dto())),
         s.PointBuy is { } pointBuy ? new PointBuyDto(pointBuy.Spent, pointBuy.Budget) : null,

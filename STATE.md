@@ -5,7 +5,9 @@ Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia 
 - **Fase 9 (em andamento)**: tasks em `.specs/project/tasks-fase-9.md`. A: T1–T3 feitas (QA em `docs/qa/2026-10-21-*`; T3 = `6bfaf75`);
   T4–T5 (aprovação humana + push) pendentes. B: F11 `class-speed-bonus` implementada (T6–T10; Bárbaro p. 49, Monge p. 104),
   aguardando revisão humana. C: escopo decidido (T11, ADR-0011: todos os 41 arquétipos do LdJ, em fatias por classe);
-  spec F12 `class-archetypes` escrita; T12b = aprovar o contrato `draft.archetype` antes de codar (T13).
+  F12 `class-archetypes`: contrato `draft.archetype` aprovado e back-end pronto (T13; Campeão e
+  Linhagem Dracônica como dados-piloto). Falta o front (T14) e os dados (T15–T16); até lá o wizard ainda
+  não permite escolher o arquétipo.
 - **Última unidade**: **Fase 8 aprovada** (2026-10-21) e limpa — spec F10 permanece;
   `tasks-fase-8.md` apagado. Commits: spec `ed4b2df`, implementação `30204f1`.
 - **Fase 7 (anterior)**: aprovada (2026-10-21); F6 `6fa259a`, F7 `027d66e`, F8 `e49f055`, F9 `2f088fe`.

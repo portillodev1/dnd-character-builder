@@ -57,7 +57,7 @@
       "properties": {
         "type": {
           "enum": ["expertise", "half-proficiency", "skill-proficiency", "save-proficiency",
-                   "ability-score-improvement", "subclass-choice", "speed-bonus"]
+                   "ability-score-improvement", "subclass-choice", "speed-bonus", "archetype-slot"]
         },
         "count": { "type": "integer", "minimum": 1 },
         "skill": { "$ref": "#/$defs/skill" },

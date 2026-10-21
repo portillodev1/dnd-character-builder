@@ -8,8 +8,8 @@ público → PERGUNTE (AGENTS.md). Erros sempre em **ProblemDetails** (RFC 9457)
 |---|---|---|---|
 | GET | `/api/v1/races` | 1 | Lista resumida (`id`, `name`, `summary`, `subraces[]`) |
 | GET | `/api/v1/races/{id}` | 1 | Raça com `traits[]`, `bonuses[]`, sub-raças detalhadas |
-| GET | `/api/v1/classes` | 2 | Lista resumida (`id`, `name`, `hitDie`, `primaryAbilities`) |
-| GET | `/api/v1/classes/{id}/features?level=N` | 2 | Características com `level ≤ N`, proficiências, salvaguardas |
+| GET | `/api/v1/classes` | 2 | Lista resumida (`id`, `name`, `hitDie`, `primaryAbilities`, `archetypeLevel`, `archetypes[]`) |
+| GET | `/api/v1/classes/{id}/features?level=N[&archetype=<id>]` | 2 | Características com `level ≤ N`, proficiências, salvaguardas; com `archetype`, prévia com as dele |
 | POST | `/api/v1/character-sheets/compute` | 3, 4 | Ficha derivada com breakdowns |
 | GET | `/api/v1/character-sheets` | 5 | Fichas salvas (resumo), mais recente primeiro |
 | POST | `/api/v1/character-sheets` | 5 | Cria ficha → `201` + `Location` |
@@ -75,6 +75,10 @@ e escolhas sem número como idioma/ferramenta em `traits[]`). `speed` é decimal
 - `choices.<id>: null` = não escolhido (warning); item `null` em listas → `400`.
 - `abilityImprovements.<featureId>`: Incremento da classe até o nível, até 2 atributos (repetir =
   +2); fora disso → `400`. `features[].abilityImprovement` marca os Incrementos (spec F10).
+- `archetype` (draft): id de arquétipo **da classe**, só com `level ≥ archetypeLevel`; senão `400` em
+  `errors.archetype` (o mesmo na query `?archetype=` de `/features`). Escolhas dele vão em `choices`.
+  Saída (F12): `sheet.archetype {id, name} | null`, `features[].archetype` (nome do dono ou `null`),
+  `bonuses[].origin = "archetype"`; com arquétipo, os rótulos genéricos "Característica de …" somem.
 - Mensagens citam perícias/atributos pelo nome ("Acrobacia"), nunca pelo id.
 - Escolhas incompletas **não** são erro: viram `warnings` (o wizard é progressivo).
 

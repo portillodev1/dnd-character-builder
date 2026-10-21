@@ -187,6 +187,11 @@
       "level": 5,
       "kind": "other",
       "description": "Você ganha a característica de nível 5 da opção de Conclave de Patrulheiro que escolheu.",
+      "grants": [
+        {
+          "type": "archetype-slot"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 119
@@ -209,6 +214,11 @@
       "level": 7,
       "kind": "other",
       "description": "Você ganha a característica de nível 7 da opção de Conclave de Patrulheiro que escolheu.",
+      "grants": [
+        {
+          "type": "archetype-slot"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 119
@@ -258,6 +268,11 @@
       "level": 11,
       "kind": "other",
       "description": "Você ganha a característica de nível 11 da opção de Conclave de Patrulheiro que escolheu.",
+      "grants": [
+        {
+          "type": "archetype-slot"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 119
@@ -296,6 +311,11 @@
       "level": 15,
       "kind": "other",
       "description": "Você ganha a característica de nível 15 da opção de Conclave de Patrulheiro que escolheu.",
+      "grants": [
+        {
+          "type": "archetype-slot"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 119

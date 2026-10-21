@@ -131,6 +131,52 @@ internal static class TestCatalog
         }) with
         { Name = "Movimento sem Armadura", Source = P(104) });
 
+    /// <summary>Guerreiro fictício com Campeão (LdJ p. 83–86): marco no nível 3, rótulos genéricos nos níveis 7 e 10.</summary>
+    public static readonly CharacterClass Guerreiro = Marcial("guerreiro", "Guerreiro", 83,
+        F("arquetipo-marcial", 3, new Grant { Type = GrantType.SubclassChoice }) with { Name = "Arquétipo Marcial" },
+        F("caracteristica-de-arquetipo-marcial-7", 7, new Grant { Type = GrantType.ArchetypeSlot }) with { Name = "Característica de Arquétipo Marcial" },
+        F("caracteristica-de-arquetipo-marcial-10", 10, new Grant { Type = GrantType.ArchetypeSlot }) with { Name = "Característica de Arquétipo Marcial" }) with
+    {
+        HitDie = 10,
+        Archetypes =
+        [
+            new Archetype
+            {
+                Id = "campeao",
+                ClassId = "guerreiro",
+                Name = "Campeão",
+                Summary = "s",
+                Srd = true,
+                Features = [F("critico-aprimorado", 3) with { Name = "Crítico Aprimorado" }, F("atletismo-extraordinario", 7) with { Name = "Atletismo Extraordinário" }],
+                Source = P(85),
+            },
+        ],
+    };
+
+    /// <summary>Feiticeiro fictício com Linhagem Dracônica (p. 77–80): marco no nível 1, +1 PV por nível e escolha do ancestral.</summary>
+    public static readonly CharacterClass Feiticeiro = Marcial("feiticeiro", "Feiticeiro", 77,
+        F("origem-de-feiticaria", 1, new Grant { Type = GrantType.SubclassChoice }) with { Name = "Origem de Feitiçaria" },
+        F("caracteristica-de-origem-de-feiticaria-6", 6, new Grant { Type = GrantType.ArchetypeSlot }) with { Name = "Característica de Origem de Feitiçaria" }) with
+    {
+        HitDie = 6,
+        SubclassLevel = 1,
+        Archetypes =
+        [
+            new Archetype
+            {
+                Id = "linhagem-draconica",
+                ClassId = "feiticeiro",
+                Name = "Linhagem Dracônica",
+                Summary = "s",
+                Srd = true,
+                Bonuses = [new CatalogBonus { Target = "hp-per-level", Value = 1, BonusType = BonusType.HitPoints, Label = "Resiliência Dracônica", Source = P(80) }],
+                Choices = [new Choice { Id = "linhagem-draconica-ancestral", Name = "Ancestral Dracônico", Count = 1, From = ["Azul", "Vermelho"], Kind = TraitKind.Other, Source = P(80) }],
+                Features = [F("resiliencia-draconica", 1) with { Name = "Resiliência Dracônica" }, F("afinidade-elemental", 6) with { Name = "Afinidade Elemental" }],
+                Source = P(80),
+            },
+        ],
+    };
+
     public static readonly Race[] Races = [Anao, Elfo, MeioElfo];
-    public static readonly CharacterClass[] Classes = [Ladino, Barbaro, Monge];
+    public static readonly CharacterClass[] Classes = [Ladino, Barbaro, Monge, Guerreiro, Feiticeiro];
 }

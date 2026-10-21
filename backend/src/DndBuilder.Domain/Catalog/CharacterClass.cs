@@ -33,6 +33,28 @@ public sealed record ClassFeature
     public required SourceRef Source { get; init; }
 }
 
+/// <summary>
+/// Arquétipo de classe (LdJ Cap. 3, spec F12). <c>Bonuses</c> valem desde o nível do marco;
+/// <c>Choices</c> entram no mesmo mapa de escolhas do rascunho, com ids únicos.
+/// </summary>
+public sealed record Archetype
+{
+    public required string Id { get; init; }
+    public required string ClassId { get; init; }
+    public required string Name { get; init; }
+    public required string Summary { get; init; }
+    public required bool Srd { get; init; }
+    public required IReadOnlyList<ClassFeature> Features { get; init; }
+    public IReadOnlyList<CatalogBonus> Bonuses { get; init; } = [];
+    public IReadOnlyList<Choice> Choices { get; init; } = [];
+    public required SourceRef Source { get; init; }
+
+    public IReadOnlyList<ClassFeature> FeaturesUpTo(Level level)
+        => [.. Features.Where(f => f.Level <= level.Value).OrderBy(f => f.Level)];
+
+    public IReadOnlyList<ClassFeature> FeaturesAt(int level) => [.. Features.Where(f => f.Level == level)];
+}
+
 /// <summary>Classe base do LdJ (Cap. 3).</summary>
 public sealed record CharacterClass
 {
@@ -49,9 +71,29 @@ public sealed record CharacterClass
     public required IReadOnlyList<ClassFeature> Features { get; init; }
     public required SourceRef Source { get; init; }
 
+    /// <summary>Arquétipos da classe (ADR-0011), ligados pelo catálogo a partir de <c>content/archetypes/</c>.</summary>
+    public IReadOnlyList<Archetype> Archetypes { get; init; } = [];
+
+    /// <summary>Característica que abre a escolha do arquétipo (grant <c>subclass-choice</c>), se houver.</summary>
+    public ClassFeature? ArchetypeChoice => Features.FirstOrDefault(f => f.Grants.Any(g => g.Type == GrantType.SubclassChoice));
+
     /// <summary>Características que o personagem já tem no nível (F2 AC2–4), em ordem de nível.</summary>
     public IReadOnlyList<ClassFeature> FeaturesUpTo(Level level)
         => [.. Features.Where(f => f.Level <= level.Value).OrderBy(f => f.Level)];
+
+    /// <summary>
+    /// Características até o nível já com o arquétipo (spec F12 AC2): as dele entram depois das da classe no
+    /// mesmo nível e os rótulos genéricos "Característica de …" (grant <c>archetype-slot</c>) somem.
+    /// </summary>
+    public IReadOnlyList<ClassFeature> FeaturesUpTo(Level level, Archetype? archetype)
+        => [.. FeaturesUpTo(level).Where(f => !HiddenBy(archetype, f)).Concat(archetype?.FeaturesUpTo(level) ?? []).OrderBy(f => f.Level)];
+
+    /// <summary>Características exatamente no nível, com a mesma regra do arquétipo (F12 AC3).</summary>
+    public IReadOnlyList<ClassFeature> FeaturesAt(int level, Archetype? archetype)
+        => [.. FeaturesAt(level).Where(f => !HiddenBy(archetype, f)).Concat(archetype?.FeaturesAt(level) ?? [])];
+
+    private static bool HiddenBy(Archetype? archetype, ClassFeature feature)
+        => archetype is not null && feature.Grants.Any(g => g.Type == GrantType.ArchetypeSlot);
 
     /// <summary>Perícias com Especialização que a classe concede até o nível (Ladino 1/6: LdJ p. 91; Bardo 3/10: p. 54).</summary>
     public int ExpertiseCount(Level level)

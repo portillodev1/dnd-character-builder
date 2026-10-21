@@ -216,6 +216,11 @@
       "level": 9,
       "kind": "other",
       "description": "Você ganha a característica de nível 9 do seu arquétipo.",
+      "grants": [
+        {
+          "type": "archetype-slot"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 92
@@ -270,6 +275,11 @@
       "level": 13,
       "kind": "other",
       "description": "Você ganha a característica de nível 13 do seu arquétipo.",
+      "grants": [
+        {
+          "type": "archetype-slot"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 92
@@ -325,6 +335,11 @@
       "level": 17,
       "kind": "other",
       "description": "Você ganha a característica de nível 17 do seu arquétipo.",
+      "grants": [
+        {
+          "type": "archetype-slot"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 92

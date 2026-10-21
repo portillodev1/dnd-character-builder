@@ -228,6 +228,11 @@
       "level": 6,
       "kind": "other",
       "description": "Você ganha a característica de nível 6 da opção de Caminho Primitivo que escolheu.",
+      "grants": [
+        {
+          "type": "archetype-slot"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 49
@@ -278,6 +283,11 @@
       "level": 10,
       "kind": "other",
       "description": "Você ganha a característica de nível 10 da opção de Caminho Primitivo que escolheu.",
+      "grants": [
+        {
+          "type": "archetype-slot"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 49
@@ -316,6 +326,11 @@
       "level": 14,
       "kind": "other",
       "description": "Você ganha a característica de nível 14 da opção de Caminho Primitivo que escolheu.",
+      "grants": [
+        {
+          "type": "archetype-slot"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 49

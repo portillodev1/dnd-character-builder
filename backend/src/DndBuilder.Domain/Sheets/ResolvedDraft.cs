@@ -22,6 +22,9 @@ internal sealed class ResolvedDraft
     public Subrace? Subrace { get; private set; }
     public CharacterClass? Class { get; private set; }
     public Level? Level { get; private set; }
+
+    /// <summary>Arquétipo escolhido e válido para a classe e o nível (spec F12).</summary>
+    public Archetype? Archetype { get; private set; }
     public Dictionary<Ability, int> BaseAbilities { get; } = [];
     public BaseScoreMethod? AbilityMethod { get; private set; }
 
@@ -46,13 +49,21 @@ internal sealed class ResolvedDraft
     public IReadOnlyDictionary<string, string[]> Errors => errors.ToDictionary(e => e.Key, e => e.Value.ToArray(), StringComparer.Ordinal);
     public IReadOnlyList<string> Warnings => warnings;
 
-    public IReadOnlyList<ClassFeature> Features => Class is not null && Level is { } level ? Class.FeaturesUpTo(level) : [];
+    /// <summary>
+    /// Características da classe até o nível, mais as do arquétipo escolhido (depois das da classe no mesmo
+    /// nível); com arquétipo, os rótulos genéricos "Característica de …" somem (spec F12 AC2).
+    /// </summary>
+    public IReadOnlyList<ClassFeature> Features => Class is not null && Level is { } level ? Class.FeaturesUpTo(level, Archetype) : [];
+
+    /// <summary>Características exatamente no nível (classe sem rótulos genéricos + arquétipo), para "Próximo nível" (F12 AC3).</summary>
+    public IReadOnlyList<ClassFeature> FeaturesAt(int level) => Class is null ? [] : Class.FeaturesAt(level, Archetype);
 
     public static ResolvedDraft Resolve(CharacterDraft draft, IReadOnlyCollection<Race> races, IReadOnlyCollection<CharacterClass> classes)
     {
         var r = new ResolvedDraft();
         r.ResolveRace(draft, races);
         r.ResolveClass(draft, classes);
+        r.ResolveArchetype(draft);
         r.ResolveAbilities(draft);
         r.ResolveRaceChoices(draft);
         r.ResolveSkills(draft);
@@ -126,6 +137,40 @@ internal sealed class ResolvedDraft
         }
     }
 
+    /// <summary>
+    /// Arquétipo (spec F12): só os da classe e a partir do nível do marco; pendente vira aviso. Classe sem
+    /// arquétipos no catálogo mantém o aviso antigo de "escolha à mão" (feito no cálculo da ficha).
+    /// </summary>
+    private void ResolveArchetype(CharacterDraft d)
+    {
+        if (d.Archetype is null)
+        {
+            if (Class is { Archetypes.Count: > 0, ArchetypeChoice: { } pending } c && Level is { } current && current.Value >= c.SubclassLevel)
+            {
+                warnings.Add($"Escolha seu {pending.Name} (nível {c.SubclassLevel}).");
+            }
+            return;
+        }
+        if (Class is null)
+        {
+            Error("archetype", "Escolha a classe antes do arquétipo.");
+            return;
+        }
+        var archetype = Class.Archetypes.FirstOrDefault(a => a.Id == d.Archetype);
+        if (archetype is null)
+        {
+            Error("archetype", $"Arquétipo '{d.Archetype}' não pertence ao {Class.Name}.");
+        }
+        else if (Level is { } level && level.Value < Class.SubclassLevel)
+        {
+            Error("archetype", $"{archetype.Name}: o {Class.ArchetypeChoice?.Name ?? "arquétipo"} do {Class.Name} é escolhido a partir do nível {Class.SubclassLevel}.");
+        }
+        else
+        {
+            Archetype = archetype;
+        }
+    }
+
     private void ResolveAbilities(CharacterDraft d)
     {
         foreach (var (id, value) in d.BaseAbilities)
@@ -185,6 +230,7 @@ internal sealed class ResolvedDraft
     {
         var available = (Race?.Choices ?? []).Select(c => (Choice: c, Name: Race!.Name))
             .Concat((Subrace?.Choices ?? []).Select(c => (Choice: c, Name: Subrace!.Name)))
+            .Concat((Archetype?.Choices ?? []).Select(c => (Choice: c, Name: Archetype!.Name)))
             .ToDictionary(c => c.Choice.Id, StringComparer.Ordinal);
         foreach (var (id, picks) in d.Choices)
         {

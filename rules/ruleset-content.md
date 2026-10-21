@@ -4,7 +4,8 @@ O catálogo de regras é **dado, não código** (ADR-0003). Licenciamento: ADR-0
 Modelo detalhado (humanos): `docs/architecture/ruleset-data.md`.
 
 ## Regras
-- Um arquivo por entidade: `content/races/<id>.json`, `content/classes/<id>.json`.
+- Um arquivo por entidade: `content/races/<id>.json`, `content/classes/<id>.json`,
+  `content/archetypes/<id>.json` (com `classId`; níveis só os reservados pela classe — ADR-0011).
   `id` em kebab-case sem acento (`meio-elfo`, `patrulheiro`).
 - Todo arquivo valida contra `content/schemas/*.schema.json` (gate: `Ruleset.Tests`);
   sub-raças ficam **embutidas** na raça; fora do SRD 5.1 → `"srd": false` (ADR-0004).

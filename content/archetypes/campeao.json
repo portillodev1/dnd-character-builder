@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "campeao",
+  "classId": "guerreiro",
+  "name": "Campeão",
+  "summary": "Guerreiro de força bruta e atletismo: acerta golpes críticos com mais frequência e aguenta mais pancada.",
+  "srd": true,
+  "features": [
+    {
+      "id": "critico-aprimorado",
+      "name": "Crítico Aprimorado",
+      "level": 3,
+      "kind": "other",
+      "description": "Seus ataques com arma causam acerto crítico com 19 ou 20 no d20, não só com 20.",
+      "source": { "book": "LdJ", "page": 85 }
+    },
+    {
+      "id": "atletismo-extraordinario",
+      "name": "Atletismo Extraordinário",
+      "level": 7,
+      "kind": "other",
+      "description": "Em testes de Força, Destreza ou Constituição em que você não soma proficiência, soma metade dela (arredondada para cima). Seus saltos também ficam maiores.",
+      "source": { "book": "LdJ", "page": 85 }
+    },
+    {
+      "id": "estilo-de-luta-adicional",
+      "name": "Estilo de Luta Adicional",
+      "level": 10,
+      "kind": "other",
+      "description": "Você escolhe um segundo Estilo de Luta, entre os da característica de classe do Guerreiro.",
+      "source": { "book": "LdJ", "page": 86 }
+    },
+    {
+      "id": "critico-superior",
+      "name": "Crítico Superior",
+      "level": 15,
+      "kind": "other",
+      "description": "Seus ataques com arma causam acerto crítico com 18, 19 ou 20 no d20.",
+      "source": { "book": "LdJ", "page": 86 }
+    },
+    {
+      "id": "sobrevivente",
+      "name": "Sobrevivente",
+      "level": 18,
+      "kind": "other",
+      "description": "No início do seu turno, se estiver com metade dos pontos de vida ou menos (e acima de 0), você recupera 5 + modificador de Constituição.",
+      "source": { "book": "LdJ", "page": 86 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 85 }
+}

@@ -22,6 +22,9 @@ public enum GrantType
     AbilityScoreImprovement,
     SubclassChoice,
     SpeedBonus,
+
+    /// <summary>Rótulo genérico "Característica de &lt;arquétipo&gt;": some quando há arquétipo escolhido (spec F12).</summary>
+    ArchetypeSlot,
 }
 
 /// <summary>Condição de um bônus de deslocamento de classe (spec F11; o app ainda não modela armadura).</summary>

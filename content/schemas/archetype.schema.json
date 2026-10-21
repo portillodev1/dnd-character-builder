@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://dndbuilder.local/schemas/archetype.schema.json",
+  "title": "Arquétipo de classe (LdJ Cap. 3, ADR-0011)",
+  "type": "object",
+  "required": ["id", "classId", "name", "summary", "srd", "features", "source"],
+  "additionalProperties": false,
+  "properties": {
+    "$schema": { "type": "string" },
+    "id": { "$ref": "common.schema.json#/$defs/id" },
+    "classId": { "$ref": "common.schema.json#/$defs/id", "description": "id da classe dona (content/classes/<id>.json)." },
+    "name": { "$ref": "common.schema.json#/$defs/name" },
+    "summary": { "$ref": "common.schema.json#/$defs/description" },
+    "srd": { "type": "boolean", "description": "true = faz parte do SRD 5.1 (CC-BY-4.0); false = só no LdJ (ADR-0004/0011)." },
+    "features": {
+      "description": "Características por nível; níveis só os que a classe reserva ao arquétipo.",
+      "type": "array", "minItems": 1,
+      "items": { "$ref": "class.schema.json#/$defs/feature" }
+    },
+    "bonuses": {
+      "description": "Bônus numéricos que valem desde o nível do marco (ex.: hp-per-level).",
+      "type": "array", "items": { "$ref": "common.schema.json#/$defs/bonus" }
+    },
+    "choices": {
+      "description": "Escolhas do jogador; ids únicos no catálogo (prefixe com o id do arquétipo).",
+      "type": "array", "items": { "$ref": "common.schema.json#/$defs/choice" }
+    },
+    "source": { "$ref": "common.schema.json#/$defs/source" }
+  }
+}

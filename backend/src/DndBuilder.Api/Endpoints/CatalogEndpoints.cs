@@ -22,9 +22,9 @@ internal static class CatalogEndpoints
         var classes = app.MapGroup("/api/v1/classes").WithTags("Classes");
         classes.MapGet("/", (ListClasses uc) => TypedResults.Ok(uc.Execute().Select(c => c.Summary()).ToList()))
             .WithName("ListClasses");
-        classes.MapGet("/{id}/features", Results<Ok<ClassFeaturesDto>, ProblemHttpResult, ValidationProblem> (string id, int? level, GetClassFeatures uc) =>
+        classes.MapGet("/{id}/features", Results<Ok<ClassFeaturesDto>, ProblemHttpResult, ValidationProblem> (string id, int? level, string? archetype, GetClassFeatures uc) =>
         {
-            var r = uc.Execute(id, level);
+            var r = uc.Execute(id, level, archetype);
             return r.Status switch
             {
                 ResultStatus.Ok => TypedResults.Ok(r.Value!.Dto()),

@@ -218,6 +218,11 @@
       "level": 7,
       "kind": "other",
       "description": "Você ganha a característica de nível 7 da opção de Arquétipo Marcial que escolheu.",
+      "grants": [
+        {
+          "type": "archetype-slot"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 85
@@ -257,6 +262,11 @@
       "level": 10,
       "kind": "other",
       "description": "Você ganha a característica de nível 10 da opção de Arquétipo Marcial que escolheu.",
+      "grants": [
+        {
+          "type": "archetype-slot"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 85
@@ -324,6 +334,11 @@
       "level": 15,
       "kind": "other",
       "description": "Você ganha a característica de nível 15 da opção de Arquétipo Marcial que escolheu.",
+      "grants": [
+        {
+          "type": "archetype-slot"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 85
@@ -375,6 +390,11 @@
       "level": 18,
       "kind": "other",
       "description": "Você ganha a característica de nível 18 da opção de Arquétipo Marcial que escolheu.",
+      "grants": [
+        {
+          "type": "archetype-slot"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 85

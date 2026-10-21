@@ -257,6 +257,11 @@
       "level": 6,
       "kind": "other",
       "description": "Você ganha a característica de nível 6 da opção de Tradição Monástica que escolheu.",
+      "grants": [
+        {
+          "type": "archetype-slot"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 105
@@ -340,6 +345,11 @@
       "level": 11,
       "kind": "other",
       "description": "Você ganha a característica de nível 11 da opção de Tradição Monástica que escolheu.",
+      "grants": [
+        {
+          "type": "archetype-slot"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 105
@@ -442,6 +452,11 @@
       "level": 17,
       "kind": "other",
       "description": "Você ganha a característica de nível 17 da opção de Tradição Monástica que escolheu.",
+      "grants": [
+        {
+          "type": "archetype-slot"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 105

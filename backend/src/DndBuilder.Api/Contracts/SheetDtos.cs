@@ -16,7 +16,13 @@ public sealed record CharacterDraftDto
 
     /// <summary>Incremento no Valor de Habilidade → até 2 atributos, +1 cada (spec F10 AC2).</summary>
     public IReadOnlyDictionary<string, IReadOnlyList<string>>? AbilityImprovements { get; init; }
+
+    /// <summary>Id do arquétipo da classe (ex.: <c>campeao</c>); só vale a partir do nível do marco (spec F12).</summary>
+    public string? Archetype { get; init; }
 }
+
+/// <summary>Arquétipo escolhido, como a ficha o mostra (spec F12).</summary>
+public sealed record SheetArchetypeDto(string Id, string Name);
 
 public sealed record AbilityDto(string Name, string Abbreviation, DerivedValueDto Score, DerivedValueDto Modifier);
 
@@ -34,6 +40,7 @@ public sealed record SheetBonusDto(string Target, int Value, string BonusType, s
 public sealed record PointBuyDto(int Spent, int Budget);
 
 public sealed record CharacterSheetDto(
+    SheetArchetypeDto? Archetype,
     IReadOnlyDictionary<string, AbilityDto> Abilities,
     PointBuyDto? PointBuy,
     DerivedValueDto? ProficiencyBonus,

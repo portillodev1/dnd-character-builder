@@ -17,7 +17,7 @@ public static class SheetCalculator
             return new SheetComputation(null, r.Errors);
         }
 
-        var bonuses = RaceBonuses(r);
+        var bonuses = CatalogBonuses(r);
         var improvements = ImprovementBonuses(r);
         var increases = bonuses.Concat(improvements).ToList(); // raça antes dos Incrementos: define onde o teto corta (F10 AC2)
         var abilities = r.BaseAbilities.OrderBy(a => a.Key).Select(a => Ability(a.Key, a.Value, increases)).ToList();
@@ -28,6 +28,7 @@ public static class SheetCalculator
 
         var sheet = new CharacterSheet
         {
+            Archetype = r.Archetype,
             Abilities = abilities,
             PointBuy = r.AbilityMethod == BaseScoreMethod.PointBuy && r.BaseAbilities.Count == Enum.GetValues<Ability>().Length
                 ? new PointBuyResult(BaseScoreRules.PointBuySpent(r.BaseAbilities), BaseScoreRules.PointBuyBudget)
@@ -38,20 +39,20 @@ public static class SheetCalculator
             PassivePerception = perception is null ? null : PassivePerceptionRules.Compute(perception),
             HitPoints = HitPoints(r, scores, bonuses),
             Speed = r.Race is null ? null : SpeedRules.Compute(r.Race, r.Subrace, r.Class, r.Level),
-            Features = [.. features.Select(f => new FeatureResult(f, r.Class!.ScalingValue(f, r.Level!.Value)))],
+            Features = [.. features.Select(f => Feature(r, f, r.Class!.ScalingValue(f, r.Level!.Value)))],
             NextLevelFeatures = NextLevel(r),
             Traits = [.. (r.Race?.Traits ?? []).Select(t => new TraitResult(t, Origin.Race, r.Race!.Name))
                 .Concat((r.Subrace?.Traits ?? []).Select(t => new TraitResult(t, Origin.Subrace, r.Subrace!.Name)))
                 .Concat(r.ChoiceTraits)],
             Bonuses = [.. bonuses, .. improvements, .. SkillChoiceBonuses(r)],
-            Warnings = [.. r.Warnings, .. ManualWarnings(features), .. WastedImprovements(abilities, improvements, increases)],
+            Warnings = [.. r.Warnings, .. ManualWarnings(r, features), .. WastedImprovements(abilities, improvements, increases)],
         };
         return new SheetComputation(sheet, new Dictionary<string, string[]>());
     }
 
     /// <summary>Um aviso por característica que o app ainda não aplica (F9 AC4).</summary>
-    private static IEnumerable<string> ManualWarnings(IReadOnlyList<ClassFeature> features)
-        => features.Where(f => f.Grants.Any(g => g.Type == GrantType.SubclassChoice))
+    private static IEnumerable<string> ManualWarnings(ResolvedDraft r, IReadOnlyList<ClassFeature> features)
+        => r.Class is { Archetypes.Count: > 0 } ? [] : features.Where(f => f.Grants.Any(g => g.Type == GrantType.SubclassChoice))
             .Select(f => $"{f.Name} (nível {f.Level}): escolha à mão; o app ainda não aplica o arquétipo.");
 
     /// <summary>Cada +1 de Incremento no Valor de Habilidade, origem "escolha" da classe (spec F10 AC2).</summary>
@@ -77,10 +78,19 @@ public static class SheetCalculator
             .Where(z => z.Second.Value == 0 && improvements.Contains(z.First))
             .Select(z => $"{a.Ability.DisplayName()} já está em {AbilityScore.PlayerMax}: o +1 de {z.First.Bonus.Label} não soma nada."));
 
-    private static List<BonusResult> RaceBonuses(ResolvedDraft r)
+    /// <summary>Bônus da raça, da sub-raça e do arquétipo escolhido (spec F12 AC5), mais os de escolhas raciais.</summary>
+    private static List<BonusResult> CatalogBonuses(ResolvedDraft r)
         => [.. (r.Race?.Bonuses ?? []).Select(b => new BonusResult(b, Origin.Race, r.Race!.Name))
             .Concat((r.Subrace?.Bonuses ?? []).Select(b => new BonusResult(b, Origin.Subrace, r.Subrace!.Name)))
+            .Concat((r.Archetype?.Bonuses ?? []).Select(b => new BonusResult(b, Origin.Archetype, r.Archetype!.Name)))
             .Concat(r.ChoiceBonuses)];
+
+    /// <summary>Característica da ficha: do arquétipo (com o nome dele) ou da classe; o marco escolhido deixa de ser manual (F12 AC4).</summary>
+    private static FeatureResult Feature(ResolvedDraft r, ClassFeature feature, string? scaling)
+        => new(feature, scaling, r.Archetype?.Features.Contains(feature) == true ? r.Archetype.Name : null)
+        {
+            Manual = r.Archetype is null && feature.Grants.Any(g => g.Type == GrantType.SubclassChoice),
+        };
 
     /// <summary>
     /// Perícias escolhidas como bônus de origem "escolha"; o valor é o que a escolha soma na perícia:
@@ -155,6 +165,6 @@ public static class SheetCalculator
             return [];
         }
         var next = new Level(level.Value + 1);
-        return [.. r.Class.FeaturesAt(next.Value).Select(f => new FeatureResult(f, r.Class.ScalingValue(f, next)))];
+        return [.. r.FeaturesAt(next.Value).Select(f => Feature(r, f, r.Class.ScalingValue(f, next)))];
     }
 }

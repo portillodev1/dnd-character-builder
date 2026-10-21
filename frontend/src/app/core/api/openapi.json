@@ -123,6 +123,13 @@
               "type": "integer",
               "format": "int32"
             }
+          },
+          {
+            "name": "archetype",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -423,6 +430,40 @@
           }
         }
       },
+      "ArchetypeDto": {
+        "required": [
+          "id",
+          "name",
+          "summary",
+          "srd",
+          "features",
+          "source"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "srd": {
+            "type": "boolean"
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/FeatureDto"
+            }
+          },
+          "source": {
+            "$ref": "#/components/schemas/SourceDto"
+          }
+        }
+      },
       "BonusDto": {
         "required": [
           "target",
@@ -572,11 +613,18 @@
                 "type": "string"
               }
             }
+          },
+          "archetype": {
+            "type": [
+              "null",
+              "string"
+            ]
           }
         }
       },
       "CharacterSheetDto": {
         "required": [
+          "archetype",
           "abilities",
           "pointBuy",
           "proficiencyBonus",
@@ -593,6 +641,16 @@
         ],
         "type": "object",
         "properties": {
+          "archetype": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SheetArchetypeDto"
+              }
+            ]
+          },
           "abilities": {
             "type": "object",
             "additionalProperties": {
@@ -824,7 +882,9 @@
           "summary",
           "hitDie",
           "primaryAbilities",
-          "savingThrows"
+          "savingThrows",
+          "archetypeLevel",
+          "archetypes"
         ],
         "type": "object",
         "properties": {
@@ -851,6 +911,16 @@
             "type": "array",
             "items": {
               "type": "string"
+            }
+          },
+          "archetypeLevel": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "archetypes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ArchetypeDto"
             }
           }
         }
@@ -928,6 +998,7 @@
           "scalingValue",
           "manual",
           "abilityImprovement",
+          "archetype",
           "source"
         ],
         "type": "object",
@@ -959,6 +1030,12 @@
           },
           "abilityImprovement": {
             "type": "boolean"
+          },
+          "archetype": {
+            "type": [
+              "null",
+              "string"
+            ]
           },
           "source": {
             "$ref": "#/components/schemas/SourceDto"
@@ -1257,6 +1334,21 @@
             "items": {
               "$ref": "#/components/schemas/BonusPartDto"
             }
+          }
+        }
+      },
+      "SheetArchetypeDto": {
+        "required": [
+          "id",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
           }
         }
       },

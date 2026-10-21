@@ -23,5 +23,6 @@ public sealed record ChoiceDto(string Id, string Name, int Count, IReadOnlyList<
 /// <summary>
 /// <c>Manual</c>: o app ainda não aplica a característica; o jogador anota à mão (spec F9 AC3).
 /// <c>AbilityImprovement</c>: Incremento no Valor de Habilidade, escolhido em <c>draft.abilityImprovements</c> (F10 AC5).
+/// <c>Archetype</c>: nome do arquétipo dono da característica; null se é da classe base (spec F12).
 /// </summary>
-public sealed record FeatureDto(string Id, string Name, int Level, string Kind, string Description, string? ScalingValue, bool Manual, bool AbilityImprovement, SourceDto Source);
+public sealed record FeatureDto(string Id, string Name, int Level, string Kind, string Description, string? ScalingValue, bool Manual, bool AbilityImprovement, string? Archetype, SourceDto Source);

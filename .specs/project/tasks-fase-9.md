@@ -30,11 +30,12 @@ Regra: 1 comportamento por tarefa (≤ ~5 arquivos). Cada item de backlog começ
 ## C — Arquétipos/subclasses ([ADR-0011](../../docs/adr/ADR-0011-archetype-scope.md): todos os 41, em fatias)
 - [x] T11 — Decisão do escopo: ADR-0011 aceito (2026-10-21), todos os 41 do LdJ.
 - [x] T12 — Spec F12 `class-archetypes` escrita, com o contrato `draft.archetype` (ver "Contrato proposto").
-- [ ] T12b — **Aprovação humana** da spec F12 e do contrato (bloqueia T13).
-- [ ] T13 — Schema + modelo de `archetypes` na classe (`srd`, features com nível/página) + Domain/API:
-  validar arquétipo vs. classe/nível; features entram no breakdown e em "Meus bônus".
+- [x] T12b — Spec F12 e contrato `draft.archetype` aprovados pelo humano (2026-10-21).
+- [x] T13 — Schema `archetype`, grants `archetype-slot`, loader, Domain (escolha, features, PV, avisos) e API
+  (DTOs, `?archetype=`, `errors.archetype`, OpenAPI + `gen-api.sh`), com testes. Dados mínimos para provar
+  o pipeline: Campeão e Linhagem Dracônica (já contam na fatia SRD da T15).
 - [ ] T14 — Front: passo Classe com escolha de arquétipo; Vitest + E2E + axe.
-- [ ] T15 — Dados, fatia 1: os 12 arquétipos do SRD (1 por classe), `source` com página.
+- [ ] T15 — Dados, fatia 1: os 10 arquétipos do SRD que faltam (Campeão e Linhagem Dracônica já entraram na T13).
 - [ ] T16 — Dados, fatias 2–4: os 29 restantes por classe (Clérigo/Mago em fatia própria: 7 e 8).
   Cada fatia só entra com `verify.sh --strict` verde e conferência contra o LdJ.
 

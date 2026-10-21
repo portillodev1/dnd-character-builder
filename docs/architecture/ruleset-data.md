@@ -23,7 +23,8 @@ content/
 | `Race` | `id`, `name`, `summary`, `size`, `speed {meters, note?}`, `bonuses[]`, `choices[]`, `traits[]`, `languages[]`, `subraces[]` (embutidas), `source` |
 | `Subrace` | `id`, `name`, `summary`, `srd` (false = fora do SRD, ADR-0004), `bonuses[]`, `choices[]`, `traits[]`, `source`; somada à raça-mãe |
 | `Class` | `id`, `name`, `summary`, `hitDie`, `primaryAbilities[]`, `savingThrows[2]`, `skillChoices {count, from[]}`, `proficiencies {armor, weapons, tools}`, `subclassLevel`, `table[] {id, name, values[20]}`, `features[]`, `source` |
-| `ClassFeature` | `id`, `name`, `level`, `kind`, `description`, `scaling?` (coluna de `table`), `grants[]` (`expertise`, `half-proficiency`, `skill-proficiency`, `save-proficiency`, `ability-score-improvement`, `subclass-choice`), `source` |
+| `ClassFeature` | `id`, `name`, `level`, `kind`, `description`, `scaling?` (coluna de `table`), `grants[]` (`expertise`, `half-proficiency`, `skill-proficiency`, `save-proficiency`, `ability-score-improvement`, `subclass-choice`, `speed-bonus`, `archetype-slot`), `source` |
+| `Archetype` | `id`, `classId`, `name`, `summary`, `srd`, `features[]` (como `ClassFeature`), `bonuses[]?`, `choices[]?`, `source`; arquivo `content/archetypes/<id>.json` (ADR-0011, spec F12) |
 | `Bonus` | `target` (`ability:x`, `skill:x`, `save:x`, `speed`, `hp-per-level`, `ac`), `value`, `bonusType`, `label?`, `source` |
 | `Trait` | `id`, `name`, `kind` (`sense`, `resistance`, `advantage`, `proficiency`, `language`, `spell`, `other`), `description`, `source` |
 

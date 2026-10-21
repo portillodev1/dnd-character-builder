@@ -161,6 +161,14 @@ export interface components {
         AnonymousTypeOfstring: {
             status: null | string;
         };
+        ArchetypeDto: {
+            id: string;
+            name: string;
+            summary: string;
+            srd: boolean;
+            features: components["schemas"]["FeatureDto"][];
+            source: components["schemas"]["SourceDto"];
+        };
         BonusDto: {
             target: string;
             /** Format: int32 */
@@ -195,8 +203,10 @@ export interface components {
             abilityImprovements?: null | {
                 [key: string]: string[];
             };
+            archetype?: null | string;
         };
         CharacterSheetDto: {
+            archetype: null | components["schemas"]["SheetArchetypeDto"];
             abilities: {
                 [key: string]: components["schemas"]["AbilityDto"];
             };
@@ -255,6 +265,9 @@ export interface components {
             hitDie: number;
             primaryAbilities: string[];
             savingThrows: string[];
+            /** Format: int32 */
+            archetypeLevel: number;
+            archetypes: components["schemas"]["ArchetypeDto"][];
         };
         CreateSheetRequest: {
             name: null | string;
@@ -280,6 +293,7 @@ export interface components {
             scalingValue: null | string;
             manual: boolean;
             abilityImprovement: boolean;
+            archetype: null | string;
             source: components["schemas"]["SourceDto"];
         };
         HttpValidationProblemDetails: {
@@ -352,6 +366,10 @@ export interface components {
             /** Format: int32 */
             total: number;
             parts: components["schemas"]["BonusPartDto"][];
+        };
+        SheetArchetypeDto: {
+            id: string;
+            name: string;
         };
         SheetBonusDto: {
             target: string;
@@ -534,6 +552,7 @@ export interface operations {
         parameters: {
             query?: {
                 level?: number;
+                archetype?: string;
             };
             header?: never;
             path: {

@@ -301,6 +301,11 @@
       "level": 6,
       "kind": "other",
       "description": "Você ganha a característica de nível 6 da opção de Colégio de Bardo que escolheu.",
+      "grants": [
+        {
+          "type": "archetype-slot"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 54
@@ -383,6 +388,11 @@
       "level": 14,
       "kind": "other",
       "description": "Você ganha a característica de nível 14 da opção de Colégio de Bardo que escolheu.",
+      "grants": [
+        {
+          "type": "archetype-slot"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 54
