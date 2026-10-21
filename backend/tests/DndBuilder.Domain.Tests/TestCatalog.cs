@@ -147,7 +147,12 @@ internal static class TestCatalog
                 Name = "Campeão",
                 Summary = "s",
                 Srd = true,
-                Features = [F("critico-aprimorado", 3) with { Name = "Crítico Aprimorado" }, F("atletismo-extraordinario", 7) with { Name = "Atletismo Extraordinário" }],
+                Features =
+                [
+                    F("critico-aprimorado", 3) with { Name = "Crítico Aprimorado" },
+                    F("atletismo-extraordinario", 7) with { Name = "Atletismo Extraordinário" },
+                    F("mente-de-aco", 7, new Grant { Type = GrantType.SaveProficiency, Ability = "sabedoria" }) with { Name = "Mente de Aço" },
+                ],
                 Source = P(85),
             },
         ],

@@ -1,0 +1,59 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "mestre-de-batalha",
+  "classId": "guerreiro",
+  "name": "Mestre de Batalha",
+  "summary": "Guerreiro técnico: usa manobras movidas a dados de superioridade para derrubar, empurrar, amedrontar e se proteger.",
+  "srd": false,
+  "features": [
+    {
+      "id": "superioridade-em-combate",
+      "name": "Superioridade em Combate",
+      "level": 3,
+      "kind": "other",
+      "description": "Você aprende 3 manobras e ganha 4 dados de superioridade (d8), que voltam num descanso curto ou longo. Aprende 2 manobras novas nos níveis 7, 10 e 15 e ganha um dado extra nos níveis 7 e 15. CD = 8 + proficiência + Força ou Destreza.",
+      "source": { "book": "LdJ", "page": 87 }
+    },
+    {
+      "id": "estudioso-da-guerra",
+      "name": "Estudioso da Guerra",
+      "level": 3,
+      "kind": "proficiency",
+      "description": "Você ganha proficiência com um tipo de ferramenta de artesão, à sua escolha.",
+      "source": { "book": "LdJ", "page": 87 }
+    },
+    {
+      "id": "conheca-seu-inimigo",
+      "name": "Conheça Seu Inimigo",
+      "level": 7,
+      "kind": "other",
+      "description": "Depois de 1 minuto observando uma criatura fora de combate, você descobre se ela é igual, superior ou inferior a você em duas características à sua escolha (Força, Destreza, Constituição, CA, PV atuais ou níveis).",
+      "source": { "book": "LdJ", "page": 88 }
+    },
+    {
+      "id": "superioridade-em-combate-aprimorada",
+      "name": "Superioridade em Combate Aprimorada",
+      "level": 10,
+      "kind": "other",
+      "description": "Seus dados de superioridade viram d10.",
+      "source": { "book": "LdJ", "page": 88 }
+    },
+    {
+      "id": "implacavel",
+      "name": "Implacável",
+      "level": 15,
+      "kind": "other",
+      "description": "Ao rolar iniciativa sem nenhum dado de superioridade, você recupera um.",
+      "source": { "book": "LdJ", "page": 88 }
+    },
+    {
+      "id": "superioridade-em-combate-aprimorada-18",
+      "name": "Superioridade em Combate Aprimorada",
+      "level": 18,
+      "kind": "other",
+      "description": "Seus dados de superioridade passam de d10 para d12.",
+      "source": { "book": "LdJ", "page": 88 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 87 }
+}

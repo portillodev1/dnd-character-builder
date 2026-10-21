@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "trapaceiro-arcano",
+  "classId": "ladino",
+  "name": "Trapaceiro Arcano",
+  "summary": "Ladino com magia de mago (encantamento e ilusão): mão mágica invisível, emboscadas mágicas e roubo de magias.",
+  "srd": false,
+  "features": [
+    {
+      "id": "conjuracao",
+      "name": "Conjuração",
+      "level": 3,
+      "kind": "spell",
+      "description": "Você conjura magias de mago (Inteligência): 3 truques (mãos mágicas e outros dois) e 3 magias de 1º nível, a maioria de encantamento ou ilusão. No nível 10 aprende um truque a mais.",
+      "source": { "book": "LdJ", "page": 93 }
+    },
+    {
+      "id": "maos-magicas-malabaristas",
+      "name": "Mãos Mágicas Malabaristas",
+      "level": 3,
+      "kind": "other",
+      "description": "Sua mão mágica fica invisível e pode guardar ou pegar objetos de outras criaturas, abrir fechaduras e desarmar armadilhas à distância. Você a controla com a ação bônus da Ação Ardilosa.",
+      "source": { "book": "LdJ", "page": 93 }
+    },
+    {
+      "id": "emboscada-magica",
+      "name": "Emboscada Mágica",
+      "level": 9,
+      "kind": "other",
+      "description": "Se você está escondido de uma criatura ao lançar uma magia nela, ela tem desvantagem na salvaguarda contra a magia.",
+      "source": { "book": "LdJ", "page": 93 }
+    },
+    {
+      "id": "trapaceiro-versatil",
+      "name": "Trapaceiro Versátil",
+      "level": 13,
+      "kind": "other",
+      "description": "Com ação bônus, você designa uma criatura a até 1,5 m da sua mão mágica e tem vantagem nos ataques contra ela até o fim do turno.",
+      "source": { "book": "LdJ", "page": 93 }
+    },
+    {
+      "id": "ladrao-de-magia",
+      "name": "Ladrão de Magia",
+      "level": 17,
+      "kind": "other",
+      "description": "Com a reação, quando uma magia tem você como alvo, o conjurador faz uma salvaguarda; se falhar, você ignora o efeito e aprende a magia por 8 horas. Uma vez por descanso longo.",
+      "source": { "book": "LdJ", "page": 93 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 92 }
+}

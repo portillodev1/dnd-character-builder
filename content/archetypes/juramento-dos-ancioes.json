@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "juramento-dos-ancioes",
+  "classId": "paladino",
+  "name": "Juramento dos Anciões",
+  "summary": "Paladino da luz e da vida: prende e expulsa inimigos com forças da natureza e protege contra magias.",
+  "srd": false,
+  "features": [
+    {
+      "id": "magias-de-juramento-dos-ancioes",
+      "name": "Magias de Juramento dos Anciões",
+      "level": 3,
+      "kind": "spell",
+      "description": "Magias sempre preparadas: golpe constritor e falar com animais (3º); raio lunar e passo nebuloso (5º); ampliar plantas e proteção contra energia (9º); tempestade de gelo e pele de pedra (13º); comunhão com a natureza e caminhar em árvores (17º).",
+      "source": { "book": "LdJ", "page": 113 }
+    },
+    {
+      "id": "canalizar-divindade-ancioes",
+      "name": "Canalizar Divindade",
+      "level": 3,
+      "kind": "other",
+      "description": "Duas opções: Fúria da Natureza (vinhas prendem uma criatura a até 3 m que falhe em Força ou Destreza) e Expulsar os Infiéis (fadas e corruptores próximos fogem se falharem em Sabedoria).",
+      "source": { "book": "LdJ", "page": 113 }
+    },
+    {
+      "id": "aura-de-vigilancia",
+      "name": "Aura de Vigilância",
+      "level": 7,
+      "kind": "resistance",
+      "description": "Você e os aliados a até 3 m resistem a dano de magias. No nível 18, o alcance sobe para 9 m.",
+      "source": { "book": "LdJ", "page": 113 }
+    },
+    {
+      "id": "sentinela-imortal",
+      "name": "Sentinela Imortal",
+      "level": 15,
+      "kind": "other",
+      "description": "Ao cair a 0 PV sem morrer de vez, você fica com 1 PV; uma vez por descanso longo. Você também não sofre efeitos da idade.",
+      "source": { "book": "LdJ", "page": 113 }
+    },
+    {
+      "id": "campeao-dos-ancioes",
+      "name": "Campeão dos Anciões",
+      "level": 20,
+      "kind": "other",
+      "description": "Com uma ação, por 1 minuto: você recupera 10 PV por turno, lança magias de 1 ação com ação bônus, e inimigos a até 3 m têm desvantagem contra suas magias e Canalizar Divindade. Uma vez por descanso longo.",
+      "source": { "book": "LdJ", "page": 113 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 112 }
+}

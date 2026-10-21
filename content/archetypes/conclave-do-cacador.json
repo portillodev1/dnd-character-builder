@@ -15,6 +15,14 @@
       "source": { "book": "LdJ", "page": 120 }
     },
     {
+      "id": "ataque-extra-cacador",
+      "name": "Ataque Extra",
+      "level": 5,
+      "kind": "other",
+      "description": "Você ataca duas vezes, em vez de uma, ao usar a ação de Ataque.",
+      "source": { "book": "LdJ", "page": 120 }
+    },
+    {
       "id": "taticas-defensivas",
       "name": "Táticas Defensivas",
       "level": 7,

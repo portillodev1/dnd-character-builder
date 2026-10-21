@@ -1,0 +1,43 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "caminho-dos-quatro-elementos",
+  "classId": "monge",
+  "name": "Caminho dos Quatro Elementos",
+  "summary": "Monge dos elementos: gasta chi em disciplinas que lançam magias e moldam fogo, água, ar e terra.",
+  "srd": false,
+  "features": [
+    {
+      "id": "discipulo-dos-elementos",
+      "name": "Discípulo dos Elementos",
+      "level": 3,
+      "kind": "other",
+      "description": "Você conhece a disciplina Sintonia Elemental e mais uma à escolha; cada disciplina custa pontos de chi. A partir do nível 5, pode gastar chi extra para elevar o nível de uma magia de disciplina.",
+      "source": { "book": "LdJ", "page": 106 }
+    },
+    {
+      "id": "disciplinas-elementais-6",
+      "name": "Disciplinas Elementais",
+      "level": 6,
+      "kind": "other",
+      "description": "Você aprende uma disciplina elemental adicional e pode trocar uma que já conhece.",
+      "source": { "book": "LdJ", "page": 107 }
+    },
+    {
+      "id": "disciplinas-elementais-11",
+      "name": "Disciplinas Elementais",
+      "level": 11,
+      "kind": "other",
+      "description": "Você aprende uma disciplina elemental adicional e pode trocar uma que já conhece.",
+      "source": { "book": "LdJ", "page": 107 }
+    },
+    {
+      "id": "disciplinas-elementais-17",
+      "name": "Disciplinas Elementais",
+      "level": 17,
+      "kind": "other",
+      "description": "Você aprende uma disciplina elemental adicional e pode trocar uma que já conhece.",
+      "source": { "book": "LdJ", "page": 107 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 106 }
+}

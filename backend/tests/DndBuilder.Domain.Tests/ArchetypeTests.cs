@@ -22,7 +22,7 @@ public class ArchetypeTests
     [Fact] // AC2: Campeão nv. 7 — marco + características dele; rótulos genéricos somem; ordem por nível
     public void Features_WithArchetype_ListArchetypeFeaturesInsteadOfGenericLabels()
         => Assert.Equal(
-            ["arquetipo-marcial:", "critico-aprimorado:Campeão", "atletismo-extraordinario:Campeão"],
+            ["arquetipo-marcial:", "critico-aprimorado:Campeão", "atletismo-extraordinario:Campeão", "mente-de-aco:Campeão"],
             Sheet(Draft("guerreiro", 7, "campeao")).Features.Select(f => $"{f.Feature.Id}:{f.Archetype}"));
 
     [Fact] // AC2: sem arquétipo, o rótulo genérico do nível 7 continua
@@ -31,11 +31,20 @@ public class ArchetypeTests
             ["arquetipo-marcial", "caracteristica-de-arquetipo-marcial-7"],
             Sheet(Draft("guerreiro", 7, null)).Features.Select(f => f.Feature.Id));
 
+    [Fact] // característica de arquétipo com save-proficiency vale na ficha (Rastreador Subterrâneo, Mente de Aço)
+    public void SavingThrows_ArchetypeFeatureGrant_MakesTheSaveProficient()
+    {
+        var abilities = new Dictionary<string, int> { ["forca"] = 12, ["destreza"] = 12, ["constituicao"] = 12, ["inteligencia"] = 12, ["sabedoria"] = 12, ["carisma"] = 12 };
+        bool WisProficient(string? archetype) => Sheet(Draft("guerreiro", 7, archetype) with { AbilityMethod = "manual", BaseAbilities = abilities })
+            .SavingThrows.Single(t => t.Ability == Ability.Sabedoria).Proficient;
+        Assert.Equal((true, false), (WisProficient("campeao"), WisProficient(null)));
+    }
+
     [Fact] // AC3: "Próximo nível" traz a característica do arquétipo no nível N+1
     public void NextLevelFeatures_WithArchetype_IncludeArchetypeFeatureAndHideLabel()
     {
         var next = Sheet(Draft("guerreiro", 6, "campeao")).NextLevelFeatures;
-        Assert.Equal(["atletismo-extraordinario:Campeão"], next.Select(f => $"{f.Feature.Id}:{f.Archetype}"));
+        Assert.Equal(["atletismo-extraordinario:Campeão", "mente-de-aco:Campeão"], next.Select(f => $"{f.Feature.Id}:{f.Archetype}"));
     }
 
     [Fact] // AC4: escolhido → marco deixa de ser manual e não há aviso; não escolhido → manual + "Escolha seu …"

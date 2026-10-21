@@ -38,7 +38,7 @@ depois que o schema (`content/schemas/`) estiver fechado.
 
 ## Pós-MVP (backlog, cada item exige spec)
 - Antecedentes completos (Cap. 4) — hoje só proficiências manuais extras.
-- Arquétipos/subclasses detalhados — escopo decidido no [ADR-0011](docs/adr/ADR-0011-archetype-scope.md) (41 do LdJ); spec [F12](.specs/features/class-archetypes/spec.md) aprovada; 12 do SRD prontos, Clérigo e Mago completos; faltam 10 fora do SRD (T16, fatia 4).
+- Arquétipos/subclasses detalhados — escopo decidido no [ADR-0011](docs/adr/ADR-0011-archetype-scope.md) (41 do LdJ); spec [F12](.specs/features/class-archetypes/spec.md) aprovada; os 41 do LdJ no catálogo (12 SRD + 29 fora do SRD, revisão humana pendente).
 - ~~Aumento de atributo por nível (ASI)~~ → Fase 8 (F10). Talentos: regra opcional, quase toda fora do SRD 5.1 (ADR-0004).
 - Magias por classe/nível; equipamento e CA calculada.
 - Compartilhar ficha por link, multiusuário/login (exige banco — novo ADR); exportar PDF no layout oficial.

@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "assassino",
+  "classId": "ladino",
+  "name": "Assassino",
+  "summary": "Ladino assassino e espião: ataca com vantagem e crítico quem está desprevenido e vive de identidades falsas.",
+  "srd": false,
+  "features": [
+    {
+      "id": "proficiencia-adicional-assassino",
+      "name": "Proficiência Adicional",
+      "level": 3,
+      "kind": "proficiency",
+      "description": "Você ganha proficiência com kit de disfarce e kit de venenos.",
+      "source": { "book": "LdJ", "page": 92 }
+    },
+    {
+      "id": "assassinar",
+      "name": "Assassinar",
+      "level": 3,
+      "kind": "other",
+      "description": "Você tem vantagem nos ataques contra criaturas que ainda não agiram no combate, e todo acerto contra uma criatura surpresa é crítico.",
+      "source": { "book": "LdJ", "page": 92 }
+    },
+    {
+      "id": "especializacao-em-infiltracao",
+      "name": "Especialização em Infiltração",
+      "level": 9,
+      "kind": "other",
+      "description": "Com 7 dias e 25 po, você cria uma identidade falsa completa (histórico, profissão e filiações) em que os outros acreditam.",
+      "source": { "book": "LdJ", "page": 92 }
+    },
+    {
+      "id": "impostor",
+      "name": "Impostor",
+      "level": 13,
+      "kind": "other",
+      "description": "Depois de pelo menos 3 horas estudando alguém, você imita com perfeição a fala, a escrita e o comportamento dessa pessoa.",
+      "source": { "book": "LdJ", "page": 92 }
+    },
+    {
+      "id": "golpe-letal",
+      "name": "Golpe Letal",
+      "level": 17,
+      "kind": "other",
+      "description": "Ao acertar uma criatura surpresa, ela faz salvaguarda de Constituição (CD 8 + Destreza + proficiência); se falhar, o dano do ataque dobra.",
+      "source": { "book": "LdJ", "page": 92 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 92 }
+}

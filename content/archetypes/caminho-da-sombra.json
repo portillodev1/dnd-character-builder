@@ -1,0 +1,43 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "caminho-da-sombra",
+  "classId": "monge",
+  "name": "Caminho da Sombra",
+  "summary": "Monge furtivo, tipo ninja: simula magias de sombra com chi, teletransporta-se entre sombras e some no escuro.",
+  "srd": false,
+  "features": [
+    {
+      "id": "artes-sombrias",
+      "name": "Artes Sombrias",
+      "level": 3,
+      "kind": "spell",
+      "description": "Gastando 2 pontos de chi, você simula escuridão, visão no escuro, passos sem pegadas ou silêncio, sem componentes. Também ganha o truque ilusão menor.",
+      "source": { "book": "LdJ", "page": 106 }
+    },
+    {
+      "id": "passo-das-sombras",
+      "name": "Passo das Sombras",
+      "level": 6,
+      "kind": "other",
+      "description": "Em penumbra ou escuridão, com ação bônus você se teletransporta até 18 m para outro espaço escuro e tem vantagem no primeiro ataque corpo a corpo do turno.",
+      "source": { "book": "LdJ", "page": 106 }
+    },
+    {
+      "id": "manto-de-sombras",
+      "name": "Manto de Sombras",
+      "level": 11,
+      "kind": "other",
+      "description": "Em penumbra ou escuridão, com uma ação você fica invisível até atacar, lançar uma magia ou entrar em luz plena.",
+      "source": { "book": "LdJ", "page": 106 }
+    },
+    {
+      "id": "oportunista",
+      "name": "Oportunista",
+      "level": 17,
+      "kind": "other",
+      "description": "Quando uma criatura a até 1,5 m é atingida por um ataque de outra criatura, você usa a reação para atacá-la corpo a corpo.",
+      "source": { "book": "LdJ", "page": 106 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 106 }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "juramento-de-vinganca",
+  "classId": "paladino",
+  "name": "Juramento de Vingança",
+  "summary": "Paladino vingador: persegue inimigos jurados, impede fugas e termina como um anjo vingador.",
+  "srd": false,
+  "features": [
+    {
+      "id": "magias-de-juramento-de-vinganca",
+      "name": "Magias de Juramento de Vingança",
+      "level": 3,
+      "kind": "spell",
+      "description": "Magias sempre preparadas: perdição e marca do caçador (3º); imobilizar pessoa e passo nebuloso (5º); velocidade e proteção contra energia (9º); banimento e porta dimensional (13º); imobilizar monstro e vidência (17º).",
+      "source": { "book": "LdJ", "page": 114 }
+    },
+    {
+      "id": "canalizar-divindade-vinganca",
+      "name": "Canalizar Divindade",
+      "level": 3,
+      "kind": "other",
+      "description": "Duas opções: Abjurar Inimigo (amedronta e trava uma criatura a até 18 m que falhe em Sabedoria) e Voto de Inimizade (vantagem nos ataques contra uma criatura a até 3 m por 1 minuto).",
+      "source": { "book": "LdJ", "page": 114 }
+    },
+    {
+      "id": "vingador-implacavel",
+      "name": "Vingador Implacável",
+      "level": 7,
+      "kind": "other",
+      "description": "Ao acertar um ataque de oportunidade, você se move até metade do deslocamento, sem provocar ataques de oportunidade.",
+      "source": { "book": "LdJ", "page": 114 }
+    },
+    {
+      "id": "alma-de-vinganca",
+      "name": "Alma de Vingança",
+      "level": 15,
+      "kind": "other",
+      "description": "Quando uma criatura sob seu Voto de Inimizade ataca, você usa a reação para atacá-la corpo a corpo, se ela estiver ao alcance.",
+      "source": { "book": "LdJ", "page": 114 }
+    },
+    {
+      "id": "anjo-vingador",
+      "name": "Anjo Vingador",
+      "level": 20,
+      "kind": "other",
+      "description": "Com uma ação, por 1 hora: voo de 18 m e uma aura de 9 m que amedronta inimigos (salvaguarda de Sabedoria); ataques contra os amedrontados têm vantagem. Uma vez por descanso longo.",
+      "source": { "book": "LdJ", "page": 114 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 114 }
+}

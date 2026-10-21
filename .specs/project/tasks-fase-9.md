@@ -40,12 +40,12 @@ Regra: 1 comportamento por tarefa (≤ ~5 arquivos). Cada item de backlog começ
 - [x] T15 — Dados, fatia 1: os 12 arquétipos do SRD (10 novos + os 2 da T13), `srd: true`. Nomes e páginas
   conferidos no PDF por script (70 de 71 itens com o nome na página citada; o 71º, "Magias do Corruptor", é a
   tabela "Magias Expandidas do Corruptor" da p. 60). Toda classe passa a ter arquétipo escolhível.
-- [ ] T16 — Dados, fatias 2–4: os 29 restantes (`srd: false`), cada fatia só entra com `verify.sh --strict`
+- [x] T16 — Dados, fatias 2–4: os 29 restantes (`srd: false`), cada fatia só entra com `verify.sh --strict`
   verde e conferência contra o LdJ (nomes, níveis e páginas por script):
   - [x] fatia 2 — Clérigo (6 domínios) e Mago (7 escolas) = 13 → Clérigo e Mago completos (7 e 8).
   - [x] fatia 3 — Bárbaro (Guerreiro Totêmico), Bardo (Bravura), Bruxo (Arquifada, Grande Antigo), Druida
     (Círculo da Lua), Feiticeiro (Magia Selvagem) = 6.
-  - [ ] fatia 4 — Guerreiro (Cavaleiro Arcano, Mestre de Batalha), Ladino (Assassino, Trapaceiro Arcano),
+  - [x] fatia 4 — Guerreiro (Cavaleiro Arcano, Mestre de Batalha), Ladino (Assassino, Trapaceiro Arcano),
     Monge (Sombrio, Quatro Elementos), Paladino (Anciões, Vingança), Patrulheiro (Besta, Rastreador
     Subterrâneo) = 10.
 

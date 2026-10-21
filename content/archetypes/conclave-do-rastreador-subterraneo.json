@@ -1,0 +1,62 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "conclave-do-rastreador-subterraneo",
+  "classId": "patrulheiro",
+  "name": "Conclave do Rastreador Subterrâneo",
+  "summary": "Patrulheiro das profundezas: embosca no primeiro turno, enxerga no escuro e é difícil de acertar.",
+  "srd": false,
+  "features": [
+    {
+      "id": "batedor-do-subterraneo",
+      "name": "Batedor do Subterrâneo",
+      "level": 3,
+      "kind": "other",
+      "description": "No primeiro turno do combate você ganha +3 m de deslocamento e um ataque extra na ação de Ataque; criaturas com visão no escuro não têm vantagem para detectar você.",
+      "source": { "book": "LdJ", "page": 121 }
+    },
+    {
+      "id": "magia-do-rastreador-subterraneo",
+      "name": "Magia do Rastreador Subterrâneo",
+      "level": 3,
+      "kind": "spell",
+      "description": "Você ganha visão no escuro de 27 m e magias extras: disfarçar-se (3º); truque de corda (5º); glifo de vigilância (9º); invisibilidade maior (13º); similaridade (17º).",
+      "source": { "book": "LdJ", "page": 121 }
+    },
+    {
+      "id": "ataque-extra-rastreador",
+      "name": "Ataque Extra",
+      "level": 5,
+      "kind": "other",
+      "description": "Você ataca duas vezes, em vez de uma, ao usar a ação de Ataque.",
+      "source": { "book": "LdJ", "page": 121 }
+    },
+    {
+      "id": "mente-de-aco",
+      "name": "Mente de Aço",
+      "level": 7,
+      "kind": "proficiency",
+      "description": "Você ganha proficiência em salvaguardas de Sabedoria.",
+      "grants": [
+        { "type": "save-proficiency", "ability": "sabedoria" }
+      ],
+      "source": { "book": "LdJ", "page": 121 }
+    },
+    {
+      "id": "rajada-do-rastreador",
+      "name": "Rajada do Rastreador",
+      "level": 11,
+      "kind": "other",
+      "description": "Uma vez por turno, ao errar um ataque, você pode fazer outro ataque.",
+      "source": { "book": "LdJ", "page": 121 }
+    },
+    {
+      "id": "esquiva-do-rastreador",
+      "name": "Esquiva do Rastreador",
+      "level": 15,
+      "kind": "other",
+      "description": "Quando uma criatura sem vantagem ataca você, use a reação para impor desvantagem à jogada de ataque.",
+      "source": { "book": "LdJ", "page": 121 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 121 }
+}

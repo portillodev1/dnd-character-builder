@@ -1,0 +1,59 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "cavaleiro-arcano",
+  "classId": "guerreiro",
+  "name": "Cavaleiro Arcano",
+  "summary": "Guerreiro que mistura combate e magia de mago (abjuração e evocação) e chama a arma de volta para a mão.",
+  "srd": false,
+  "features": [
+    {
+      "id": "conjuracao",
+      "name": "Conjuração",
+      "level": 3,
+      "kind": "spell",
+      "description": "Você conjura magias de mago (Inteligência): 2 truques e 3 magias de 1º nível, a maioria de abjuração ou evocação, e ganha mais espaços e magias ao subir. No nível 10 aprende um truque a mais.",
+      "source": { "book": "LdJ", "page": 86 }
+    },
+    {
+      "id": "vinculo-com-arma",
+      "name": "Vínculo com Arma",
+      "level": 3,
+      "kind": "other",
+      "description": "Num ritual de 1 hora você vincula uma arma a você: não pode ser desarmado dela e a invoca para a mão com ação bônus. Até duas armas vinculadas.",
+      "source": { "book": "LdJ", "page": 86 }
+    },
+    {
+      "id": "magia-de-guerra",
+      "name": "Magia de Guerra",
+      "level": 7,
+      "kind": "other",
+      "description": "Ao usar a ação para lançar um truque, você pode fazer um ataque com arma como ação bônus.",
+      "source": { "book": "LdJ", "page": 86 }
+    },
+    {
+      "id": "golpe-mistico",
+      "name": "Golpe Místico",
+      "level": 10,
+      "kind": "other",
+      "description": "Quando você acerta um ataque com arma, a criatura tem desvantagem na próxima salvaguarda contra uma magia sua, até o fim do seu próximo turno.",
+      "source": { "book": "LdJ", "page": 87 }
+    },
+    {
+      "id": "investida-arcana",
+      "name": "Investida Arcana",
+      "level": 15,
+      "kind": "other",
+      "description": "Ao usar Surto de Ação, você pode se teletransportar até 9 m, antes ou depois da ação adicional.",
+      "source": { "book": "LdJ", "page": 87 }
+    },
+    {
+      "id": "magia-de-guerra-aprimorada",
+      "name": "Magia de Guerra Aprimorada",
+      "level": 18,
+      "kind": "other",
+      "description": "Ao usar a ação para lançar qualquer magia, você pode fazer um ataque com arma como ação bônus.",
+      "source": { "book": "LdJ", "page": 87 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 86 }
+}

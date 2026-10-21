@@ -144,4 +144,33 @@ test.describe('F12 Arquétipos de classe', () => {
     ).toHaveCount(0);
     await expectAccessible(page);
   });
+
+  test('Patrulheiro deve ter os 3 conclaves e o Rastreador Subterrâneo deve dar proficiência em Sabedoria (Mente de Aço)', async ({
+    page,
+    api,
+  }) => {
+    const id = await api.create('Sombra', {
+      raceId: 'humano',
+      classId: 'patrulheiro',
+      level: 7,
+      ...standardArray([10, 15, 14, 12, 13, 8]),
+    });
+    await page.goto(`/fichas/${id}/ficha`);
+    await expect(
+      page.getByRole('button', { name: /^Salvaguarda de Sabedoria: \+2\./ }),
+    ).toBeVisible();
+
+    await page.goto(`/fichas/${id}/classe`);
+    const group = page.getByRole('group', { name: 'Conclave de Patrulheiro' });
+    await expect(group.getByRole('radio')).toHaveCount(3);
+    await group.getByRole('radio', { name: /Rastreador Subterrâneo/ }).check();
+    await saved(page);
+
+    await page.goto(`/fichas/${id}/ficha`);
+    await expect(
+      page.getByRole('button', { name: /^Salvaguarda de Sabedoria: \+5\./ }),
+    ).toBeVisible();
+    await expect(page.getByRole('heading', { name: /^Mente de Aço · nível 7/ })).toBeVisible();
+    await expectAccessible(page);
+  });
 });

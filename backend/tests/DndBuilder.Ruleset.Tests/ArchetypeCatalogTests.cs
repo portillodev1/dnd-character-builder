@@ -47,6 +47,31 @@ public class ArchetypeCatalogTests
                 .OrderBy(c => c.Id, StringComparer.Ordinal)
                 .SelectMany(c => c.Archetypes.Where(a => !a.Srd).OrderBy(a => a.Id, StringComparer.Ordinal).Select(a => $"{c.Id}:{a.Id}"))));
 
+    [Fact] // ADR-0011 completo: os 41 do LdJ, 12 do SRD e 29 fora dele, por classe
+    public void Catalog_Complete_Has41ArchetypesOfTheBook()
+    {
+        var all = Loaded.Classes.SelectMany(c => c.Archetypes).ToList();
+        Assert.Equal(
+            (41, 12, 29, "barbaro:2 bardo:2 bruxo:3 clerigo:7 druida:2 feiticeiro:2 guerreiro:3 ladino:3 mago:8 monge:3 paladino:3 patrulheiro:3"),
+            (all.Count, all.Count(a => a.Srd), all.Count(a => !a.Srd),
+                string.Join(' ', Loaded.Classes.OrderBy(c => c.Id, StringComparer.Ordinal).Select(c => $"{c.Id}:{c.Archetypes.Count}"))));
+    }
+
+    [Fact] // o livro dá a cada arquétipo uma característica em todo nível que a classe reserva a ele (marco + rótulos genéricos)
+    public void Features_EveryArchetype_CoverEveryLevelTheClassReserves()
+    {
+        foreach (var @class in Loaded.Classes)
+        {
+            var reserved = @class.Features.Where(f => f.Grants.Any(g => g.Type == GrantType.ArchetypeSlot)).Select(f => f.Level)
+                .Append(@class.SubclassLevel).ToHashSet();
+            foreach (var archetype in @class.Archetypes)
+            {
+                var missing = reserved.Except(archetype.Features.Select(f => f.Level)).Order().ToList();
+                Assert.True(missing.Count == 0, $"{archetype.Id}: sem característica nos níveis {string.Join(", ", missing)}");
+            }
+        }
+    }
+
     [Fact] // toda característica de arquétipo cita página do capítulo de classes (LdJ p. 45–122)
     public void Features_EveryArchetype_CitePagesFromTheClassChapter()
         => Assert.All(

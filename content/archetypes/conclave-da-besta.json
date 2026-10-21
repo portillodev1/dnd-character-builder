@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "conclave-da-besta",
+  "classId": "patrulheiro",
+  "name": "Conclave da Besta",
+  "summary": "Patrulheiro com um companheiro animal: luta em dupla e o animal ganha defesas e ataques em área.",
+  "srd": false,
+  "features": [
+    {
+      "id": "companheiro-animal",
+      "name": "Companheiro Animal",
+      "level": 3,
+      "kind": "other",
+      "description": "Com 8 horas e 50 po em ervas e comida, você chama um animal selvagem (como lobo, javali, pantera ou urso negro) como companheiro leal. Só pode ter um por vez.",
+      "source": { "book": "LdJ", "page": 119 }
+    },
+    {
+      "id": "ataque-coordenado",
+      "name": "Ataque Coordenado",
+      "level": 5,
+      "kind": "other",
+      "description": "Quando você usa a ação de Ataque, o companheiro que vê você pode usar a reação para fazer um ataque corpo a corpo.",
+      "source": { "book": "LdJ", "page": 120 }
+    },
+    {
+      "id": "defesa-da-besta",
+      "name": "Defesa da Besta",
+      "level": 7,
+      "kind": "other",
+      "description": "Enquanto o companheiro vê você, ele tem vantagem em todas as salvaguardas.",
+      "source": { "book": "LdJ", "page": 120 }
+    },
+    {
+      "id": "tempestade-de-garras-e-presas",
+      "name": "Tempestade de Garras e Presas",
+      "level": 11,
+      "kind": "other",
+      "description": "O companheiro pode usar a ação para atacar corpo a corpo cada criatura a até 1,5 m dele, com um ataque por alvo.",
+      "source": { "book": "LdJ", "page": 120 }
+    },
+    {
+      "id": "defesa-da-besta-superior",
+      "name": "Defesa da Besta Superior",
+      "level": 15,
+      "kind": "other",
+      "description": "Quando um atacante que o companheiro vê o acerta, ele usa a reação para reduzir o dano à metade.",
+      "source": { "book": "LdJ", "page": 120 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 119 }
+}
