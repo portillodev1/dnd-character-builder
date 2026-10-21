@@ -23,6 +23,7 @@ Objetivo: iniciante monta a ficha de D&D 5e entendendo de onde vem cada número.
 | 6 — Qualidade | Playwright E2E, axe, polimento de textos | E2E dos 5 critérios verde | ✅ aguardando revisão |
 | 7 — Robustez e UX pós-QA | Specs F6–F9 a partir do [relatório de QA](docs/qa/2026-10-20-teste-e2e/README.md) | Critérios F6–F9 com teste; `verify.sh --strict` verde | ✅ aprovada (2026-10-21) |
 | 8 — Incremento de atributo | [F10 ability-score-improvement](.specs/features/ability-score-improvement/spec.md) | Critérios F10 com teste; `verify.sh --strict` verde | ✅ aprovada (2026-10-21) |
+| 9 — Fechamento do MVP e próximos incrementos | Revisão humana F1–F6; deslocamento de classe; arquétipos (tasks em [tasks-fase-9](.specs/project/tasks-fase-9.md)) | `verify.sh --strict` verde por entrega | 🔜 planejada |
 
 Dependências: 1 → 2 → (3 ∥ 4 parcialmente) → 5 → 6. Fases 2 e 3 podem correr em paralelo
 depois que o schema (`content/schemas/`) estiver fechado.

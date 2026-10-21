@@ -2,6 +2,7 @@
 
 Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia o
 `## Handoff
+- **Planejado**: Fase 9 — tasks em `.specs/project/tasks-fase-9.md` (A revisão humana → B deslocamento → C arquétipos, T10 pede decisão ao humano).
 - **Última unidade**: **Fase 8 aprovada** (2026-10-21) e limpa — spec F10 permanece;
   `tasks-fase-8.md` apagado. Commits: spec `ed4b2df`, implementação `30204f1`.
 - **Fase 7 (anterior)**: aprovada (2026-10-21); F6 `6fa259a`, F7 `027d66e`, F8 `e49f055`, F9 `2f088fe`.
