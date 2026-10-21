@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "magia-selvagem",
+  "classId": "feiticeiro",
+  "name": "Magia Selvagem",
+  "summary": "Feiticeiro de magia caótica: surtos aleatórios, vantagem sob demanda e o poder de mexer na sorte dos outros.",
+  "srd": false,
+  "features": [
+    {
+      "id": "surto-de-magia-selvagem",
+      "name": "Surto de Magia Selvagem",
+      "level": 1,
+      "kind": "other",
+      "description": "Depois de lançar uma magia de feiticeiro de 1º nível ou mais, o Mestre pode pedir um d20: com 1, você rola na tabela de Surto de Magia Selvagem (efeito aleatório). Só um surto por turno.",
+      "source": { "book": "LdJ", "page": 81 }
+    },
+    {
+      "id": "mares-de-caos",
+      "name": "Marés de Caos",
+      "level": 1,
+      "kind": "advantage",
+      "description": "Você ganha vantagem em um ataque, teste ou salvaguarda; só reutiliza depois de um descanso longo, e o Mestre pode provocar um surto antes disso para devolver o uso.",
+      "source": { "book": "LdJ", "page": 81 }
+    },
+    {
+      "id": "dobrar-a-sorte",
+      "name": "Dobrar a Sorte",
+      "level": 6,
+      "kind": "other",
+      "description": "Com a reação e 2 pontos de feitiçaria, role 1d4 e aplique como bônus ou penalidade na jogada de ataque, teste ou salvaguarda de outra criatura que você veja.",
+      "source": { "book": "LdJ", "page": 81 }
+    },
+    {
+      "id": "caos-controlado",
+      "name": "Caos Controlado",
+      "level": 14,
+      "kind": "other",
+      "description": "Ao rolar na tabela de Surto de Magia Selvagem, você rola duas vezes e escolhe o resultado.",
+      "source": { "book": "LdJ", "page": 81 }
+    },
+    {
+      "id": "bombardeio-de-magia",
+      "name": "Bombardeio de Magia",
+      "level": 18,
+      "kind": "other",
+      "description": "Ao rolar o dano de uma magia e tirar o máximo num dado, role esse dado de novo e some. Uma vez por rodada.",
+      "source": { "book": "LdJ", "page": 81 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 81 }
+}

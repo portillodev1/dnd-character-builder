@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "guerreiro-totemico",
+  "classId": "barbaro",
+  "name": "Caminho do Guerreiro Totêmico",
+  "summary": "Bárbaro guiado por um espírito animal: a fúria ganha os poderes da águia, do lobo ou do urso.",
+  "srd": false,
+  "features": [
+    {
+      "id": "conselheiro-espiritual",
+      "name": "Conselheiro Espiritual",
+      "level": 3,
+      "kind": "spell",
+      "description": "Você pode lançar sentido bestial e falar com animais, mas só como rituais.",
+      "source": { "book": "LdJ", "page": 50 }
+    },
+    {
+      "id": "totem-espiritual",
+      "name": "Totem Espiritual",
+      "level": 3,
+      "kind": "other",
+      "description": "Escolha um totem. Águia: em fúria e sem armadura pesada, ataques de oportunidade contra você têm desvantagem e você usa Disparada com ação bônus. Lobo: em fúria, aliados têm vantagem contra inimigos a 1,5 m de você. Urso: em fúria, você resiste a todo dano exceto psíquico.",
+      "source": { "book": "LdJ", "page": 50 }
+    },
+    {
+      "id": "aspecto-da-besta",
+      "name": "Aspecto da Besta",
+      "level": 6,
+      "kind": "other",
+      "description": "Benefício conforme o totem: Águia (visão aguçada a até 1,6 km), Lobo (rastrear em passo rápido e andar furtivo em passo normal) ou Urso (carga dobrada e vantagem em Força para erguer, empurrar ou quebrar).",
+      "source": { "book": "LdJ", "page": 50 }
+    },
+    {
+      "id": "andarilho-espiritual",
+      "name": "Andarilho Espiritual",
+      "level": 10,
+      "kind": "spell",
+      "description": "Você pode lançar comunhão com a natureza como ritual; um espírito animal do seu totem traz as respostas.",
+      "source": { "book": "LdJ", "page": 50 }
+    },
+    {
+      "id": "sintonia-totemica",
+      "name": "Sintonia Totêmica",
+      "level": 14,
+      "kind": "other",
+      "description": "Em fúria, benefício conforme o totem: Águia (voo curto igual ao deslocamento), Lobo (derruba criatura Grande ou menor com ação bônus ao acertar) ou Urso (inimigos próximos têm desvantagem contra outros alvos).",
+      "source": { "book": "LdJ", "page": 50 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 50 }
+}

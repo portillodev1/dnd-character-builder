@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "arquifada",
+  "classId": "bruxo",
+  "name": "A Arquifada",
+  "summary": "Pacto com um senhor das fadas: encanta, amedronta e desaparece numa lufada de névoa.",
+  "srd": false,
+  "features": [
+    {
+      "id": "magias-expandidas-da-arquifada",
+      "name": "Magias Expandidas da Arquifada",
+      "level": 1,
+      "kind": "spell",
+      "description": "Magias extras na sua lista de bruxo: fogo das fadas e sono (1º); acalmar emoções e força fantasmagórica (2º); piscar e ampliar plantas (3º); dominar besta e invisibilidade maior (4º); dominar pessoa e similaridade (5º).",
+      "source": { "book": "LdJ", "page": 59 }
+    },
+    {
+      "id": "presenca-feerica",
+      "name": "Presença Feérica",
+      "level": 1,
+      "kind": "other",
+      "description": "Com uma ação, criaturas num cubo de 3 m ao seu redor fazem salvaguarda de Sabedoria ou ficam enfeitiçadas ou amedrontadas (à sua escolha) até o início do seu próximo turno. Recarrega num descanso curto ou longo.",
+      "source": { "book": "LdJ", "page": 60 }
+    },
+    {
+      "id": "nevoa-de-fuga",
+      "name": "Névoa de Fuga",
+      "level": 6,
+      "kind": "other",
+      "description": "Ao sofrer dano, use a reação para ficar invisível e se teletransportar até 18 m, até atacar ou lançar uma magia. Recarrega num descanso curto ou longo.",
+      "source": { "book": "LdJ", "page": 60 }
+    },
+    {
+      "id": "defesa-sedutora",
+      "name": "Defesa Sedutora",
+      "level": 10,
+      "kind": "resistance",
+      "description": "Você não pode ser enfeitiçado, e pode reverter o encanto contra quem tentar enfeitiçá-lo (salvaguarda de Sabedoria).",
+      "source": { "book": "LdJ", "page": 60 }
+    },
+    {
+      "id": "delirio-sombrio",
+      "name": "Delírio Sombrio",
+      "level": 14,
+      "kind": "other",
+      "description": "Com uma ação, mergulha uma criatura a até 18 m num reino ilusório (salvaguarda de Sabedoria): ela fica enfeitiçada ou amedrontada por 1 minuto, enquanto você se concentra. Recarrega num descanso curto ou longo.",
+      "source": { "book": "LdJ", "page": 60 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 59 }
+}

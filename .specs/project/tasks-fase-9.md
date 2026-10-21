@@ -43,7 +43,7 @@ Regra: 1 comportamento por tarefa (≤ ~5 arquivos). Cada item de backlog começ
 - [ ] T16 — Dados, fatias 2–4: os 29 restantes (`srd: false`), cada fatia só entra com `verify.sh --strict`
   verde e conferência contra o LdJ (nomes, níveis e páginas por script):
   - [x] fatia 2 — Clérigo (6 domínios) e Mago (7 escolas) = 13 → Clérigo e Mago completos (7 e 8).
-  - [ ] fatia 3 — Bárbaro (Guerreiro Totêmico), Bardo (Bravura), Bruxo (Arquifada, Grande Antigo), Druida
+  - [x] fatia 3 — Bárbaro (Guerreiro Totêmico), Bardo (Bravura), Bruxo (Arquifada, Grande Antigo), Druida
     (Círculo da Lua), Feiticeiro (Magia Selvagem) = 6.
   - [ ] fatia 4 — Guerreiro (Cavaleiro Arcano, Mestre de Batalha), Ladino (Assassino, Trapaceiro Arcano),
     Monge (Sombrio, Quatro Elementos), Paladino (Anciões, Vingança), Patrulheiro (Besta, Rastreador

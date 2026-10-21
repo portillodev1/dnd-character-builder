@@ -12,8 +12,8 @@ public class ArchetypeCatalogTests
     [Fact] // AC9: cada arquétipo chega à classe dona, com srd e bônus tipado
     public void Load_Archetypes_AttachToTheirClasses()
     {
-        var campeao = Loaded.Classes.Single(c => c.Id == "guerreiro").Archetypes.Single();
-        var dracônica = Loaded.Classes.Single(c => c.Id == "feiticeiro").Archetypes.Single();
+        var campeao = Loaded.Classes.Single(c => c.Id == "guerreiro").Archetypes.Single(a => a.Id == "campeao");
+        var dracônica = Loaded.Classes.Single(c => c.Id == "feiticeiro").Archetypes.Single(a => a.Id == "linhagem-draconica");
         Assert.Equal(
             ("campeao", true, "3 7 10 15 18", "hp-per-level", BonusType.HitPoints, "linhagem-draconica-ancestral"),
             (campeao.Id, campeao.Srd, string.Join(' ', campeao.Features.Select(f => f.Level)),
@@ -38,6 +38,14 @@ public class ArchetypeCatalogTests
              "abjuracao adivinhacao conjuracao encantamento escola-de-evocacao* ilusao necromancia transmutacao"],
             [Of("clerigo"), Of("mago")]);
     }
+
+    [Fact] // ADR-0011, fatia 3: os não-SRD de Bárbaro, Bardo, Bruxo, Druida e Feiticeiro (srd:false)
+    public void Catalog_Slice3_HasNonSrdArchetypes()
+        => Assert.Equal(
+            "barbaro:guerreiro-totemico bardo:colegio-da-bravura bruxo:arquifada bruxo:grande-antigo druida:circulo-da-lua feiticeiro:magia-selvagem",
+            string.Join(' ', Loaded.Classes.Where(c => c.Id is "barbaro" or "bardo" or "bruxo" or "druida" or "feiticeiro")
+                .OrderBy(c => c.Id, StringComparer.Ordinal)
+                .SelectMany(c => c.Archetypes.Where(a => !a.Srd).OrderBy(a => a.Id, StringComparer.Ordinal).Select(a => $"{c.Id}:{a.Id}"))));
 
     [Fact] // toda característica de arquétipo cita página do capítulo de classes (LdJ p. 45–122)
     public void Features_EveryArchetype_CitePagesFromTheClassChapter()

@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "circulo-da-lua",
+  "classId": "druida",
+  "name": "Círculo da Lua",
+  "summary": "Druida das formas selvagens: transforma-se com ação bônus, em feras mais fortes e depois em elementais.",
+  "srd": false,
+  "features": [
+    {
+      "id": "forma-selvagem-de-combate",
+      "name": "Forma Selvagem de Combate",
+      "level": 2,
+      "kind": "other",
+      "description": "Você usa Forma Selvagem com ação bônus. Transformado, pode gastar um espaço de magia com ação bônus para ganhar 1d8 PV por nível do espaço.",
+      "source": { "book": "LdJ", "page": 76 }
+    },
+    {
+      "id": "formas-de-circulo",
+      "name": "Formas de Círculo",
+      "level": 2,
+      "kind": "other",
+      "description": "Você pode virar uma besta de ND até 1, ignorando a coluna ND máx. da tabela. A partir do nível 6, o ND vai até o nível de druida ÷ 3 (arredondado para baixo).",
+      "source": { "book": "LdJ", "page": 76 }
+    },
+    {
+      "id": "ataque-primordial",
+      "name": "Ataque Primordial",
+      "level": 6,
+      "kind": "other",
+      "description": "Seus ataques na forma de besta contam como mágicos para superar resistência e imunidade a danos não mágicos.",
+      "source": { "book": "LdJ", "page": 76 }
+    },
+    {
+      "id": "forma-selvagem-de-elemental",
+      "name": "Forma Selvagem de Elemental",
+      "level": 10,
+      "kind": "other",
+      "description": "Gastando dois usos de Forma Selvagem, você vira um elemental da água, do ar, do fogo ou da terra.",
+      "source": { "book": "LdJ", "page": 76 }
+    },
+    {
+      "id": "mil-formas",
+      "name": "Mil Formas",
+      "level": 14,
+      "kind": "spell",
+      "description": "Você pode lançar alterar-se à vontade.",
+      "source": { "book": "LdJ", "page": 76 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 76 }
+}

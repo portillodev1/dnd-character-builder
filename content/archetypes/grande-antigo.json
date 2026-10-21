@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "grande-antigo",
+  "classId": "bruxo",
+  "name": "O Grande Antigo",
+  "summary": "Pacto com uma entidade além da realidade: telepatia, defesa da mente e controle de mentes frágeis.",
+  "srd": false,
+  "features": [
+    {
+      "id": "magias-expandidas-do-grande-antigo",
+      "name": "Magias Expandidas do Grande Antigo",
+      "level": 1,
+      "kind": "spell",
+      "description": "Magias extras na sua lista de bruxo: sussurros dissonantes e riso histérico de Tasha (1º); detectar pensamentos e força fantasmagórica (2º); clarividência e enviar mensagem (3º); dominar besta e tentáculos negros de Evard (4º); dominar pessoa e telecinésia (5º).",
+      "source": { "book": "LdJ", "page": 61 }
+    },
+    {
+      "id": "despertar-a-mente",
+      "name": "Despertar a Mente",
+      "level": 1,
+      "kind": "other",
+      "description": "Você se comunica por telepatia com qualquer criatura que veja a até 18 m, mesmo sem idioma em comum (ela precisa entender ao menos um idioma).",
+      "source": { "book": "LdJ", "page": 61 }
+    },
+    {
+      "id": "protecao-entropica",
+      "name": "Proteção Entrópica",
+      "level": 6,
+      "kind": "other",
+      "description": "Com a reação, impõe desvantagem a um ataque contra você; se ele errar, seu próximo ataque contra o atacante tem vantagem. Recarrega num descanso curto ou longo.",
+      "source": { "book": "LdJ", "page": 61 }
+    },
+    {
+      "id": "escudo-de-pensamentos",
+      "name": "Escudo de Pensamentos",
+      "level": 10,
+      "kind": "resistance",
+      "description": "Seus pensamentos não podem ser lidos. Você resiste a dano psíquico, e quem o causar a você sofre o mesmo dano.",
+      "source": { "book": "LdJ", "page": 61 }
+    },
+    {
+      "id": "criar-lacaio",
+      "name": "Criar Lacaio",
+      "level": 14,
+      "kind": "other",
+      "description": "Com uma ação, toque um humanoide incapacitado: ele fica enfeitiçado por você até remover maldição ou até você repetir o poder, e vocês se falam por telepatia.",
+      "source": { "book": "LdJ", "page": 61 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 60 }
+}

@@ -118,4 +118,30 @@ test.describe('F12 Arquétipos de classe', () => {
       page.getByRole('heading', { name: /^Bênçãos do Conhecimento · nível 1/ }),
     ).toBeVisible();
   });
+
+  test('Bruxo deve ter os 3 patronos e a Arquifada deve trazer as características dela na ficha', async ({
+    page,
+    api,
+  }) => {
+    const id = await api.create('Fae', {
+      raceId: 'humano',
+      classId: 'bruxo',
+      level: 6,
+      ...standardArray([8, 13, 14, 12, 10, 15]),
+    });
+    await page.goto(`/fichas/${id}/classe`);
+
+    const group = page.getByRole('group', { name: 'Patrono Transcendental' });
+    await expect(group.getByRole('radio')).toHaveCount(3);
+    await group.getByRole('radio', { name: /A Arquifada/ }).check();
+    await saved(page);
+
+    await page.goto(`/fichas/${id}/ficha`);
+    await expect(page.getByRole('heading', { name: /^Presença Feérica · nível 1/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /^Névoa de Fuga · nível 6/ })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: /Característica de Patrono Transcendental/ }),
+    ).toHaveCount(0);
+    await expectAccessible(page);
+  });
 });
