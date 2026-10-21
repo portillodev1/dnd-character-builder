@@ -29,8 +29,8 @@ Regra: 1 comportamento por tarefa (≤ ~5 arquivos). Cada item de backlog começ
 
 ## C — Arquétipos/subclasses ([ADR-0011](../../docs/adr/ADR-0011-archetype-scope.md): todos os 41, em fatias)
 - [x] T11 — Decisão do escopo: ADR-0011 aceito (2026-10-21), todos os 41 do LdJ.
-- [ ] T12 — Spec `class-archetypes` (escolha no nível certo — 1/2/3 por classe —, características
-  por nível, fim do selo "anote à mão"); definir contrato `draft.archetype` e aprovar a mudança de API.
+- [x] T12 — Spec F12 `class-archetypes` escrita, com o contrato `draft.archetype` (ver "Contrato proposto").
+- [ ] T12b — **Aprovação humana** da spec F12 e do contrato (bloqueia T13).
 - [ ] T13 — Schema + modelo de `archetypes` na classe (`srd`, features com nível/página) + Domain/API:
   validar arquétipo vs. classe/nível; features entram no breakdown e em "Meus bônus".
 - [ ] T14 — Front: passo Classe com escolha de arquétipo; Vitest + E2E + axe.
