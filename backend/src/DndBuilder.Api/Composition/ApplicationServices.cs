@@ -10,5 +10,5 @@ public static class ApplicationServices
         => services
             .AddScoped<ListRaces>().AddScoped<GetRace>().AddScoped<ListClasses>().AddScoped<GetClassFeatures>()
             .AddScoped<ComputeSheet>()
-            .AddScoped<ListSheets>().AddScoped<GetSheet>().AddScoped<CreateSheet>().AddScoped<UpdateSheet>().AddScoped<DeleteSheet>();
+            .AddScoped<ListSheets>().AddScoped<GetSheet>().AddScoped<CreateSheet>().AddScoped<UpdateSheet>().AddScoped<DeleteSheet>().AddScoped<DuplicateSheet>();
 }

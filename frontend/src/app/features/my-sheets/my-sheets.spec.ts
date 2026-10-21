@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { provideRouter } from '@angular/router';
+import { Router, provideRouter } from '@angular/router';
 import { SheetSummary } from '../../core/api/models';
 import { RulesetService } from '../../core/api/ruleset.service';
 import { SheetService } from '../../core/api/sheet.service';
@@ -20,6 +20,7 @@ describe('MySheetsComponent', () => {
     list: vi.fn(),
     delete: vi.fn().mockResolvedValue(undefined),
     create: vi.fn(),
+    duplicate: vi.fn(),
   };
   const ruleset = {
     races: vi.fn().mockResolvedValue([{ id: 'anao', name: 'Anão' }]),
@@ -80,6 +81,20 @@ describe('MySheetsComponent', () => {
     expect(api.delete).toHaveBeenCalledWith('2');
     expect(Array.from(el.querySelectorAll('.list a'), (a) => a.textContent?.trim())).toEqual([
       'Antiga',
+    ]);
+  });
+
+  it('duplicar deve criar a cópia pela API e abrir a cópia no passo Raça (F7 AC5)', async () => {
+    const { fixture, el } = await render();
+    const navigate = vi.spyOn(TestBed.inject(Router), 'navigate').mockResolvedValue(true);
+    api.duplicate.mockResolvedValue({ id: '3' });
+
+    buttonByText(el, 'Duplicar').click();
+    await fixture.whenStable();
+
+    expect([api.duplicate.mock.calls[0], navigate.mock.calls[0]]).toEqual([
+      ['2'],
+      [['/fichas', '3', 'raca']],
     ]);
   });
 });

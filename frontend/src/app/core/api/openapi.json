@@ -351,6 +351,37 @@
           }
         }
       }
+    },
+    "/api/v1/character-sheets/{id}/duplicate": {
+      "post": {
+        "tags": [
+          "Fichas"
+        ],
+        "operationId": "DuplicateSheet",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SavedSheetDto"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {

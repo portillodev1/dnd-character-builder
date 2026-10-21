@@ -6,6 +6,9 @@ public enum ResultStatus
     NotFound,
     Invalid,
     Conflict,
+
+    /// <summary>O recurso existe mas não pôde ser lido (arquivo de ficha com problema — F7).</summary>
+    Unreadable,
 }
 
 /// <summary>Resultado explícito de caso de uso (rules/implementation.md): nunca null nem exceção genérica.</summary>
@@ -23,5 +26,6 @@ public static class Result
     public static Result<T> Ok<T>(T value) => new() { Status = ResultStatus.Ok, Value = value };
     public static Result<T> NotFound<T>(string message) => new() { Status = ResultStatus.NotFound, Message = message };
     public static Result<T> Conflict<T>(string message) => new() { Status = ResultStatus.Conflict, Message = message };
+    public static Result<T> Unreadable<T>(string message) => new() { Status = ResultStatus.Unreadable, Message = message };
     public static Result<T> Invalid<T>(IReadOnlyDictionary<string, string[]> errors) => new() { Status = ResultStatus.Invalid, Errors = errors };
 }

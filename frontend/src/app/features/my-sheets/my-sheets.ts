@@ -6,7 +6,7 @@ import { SheetSummary } from '../../core/api/models';
 import { RulesetService } from '../../core/api/ruleset.service';
 import { SheetService } from '../../core/api/sheet.service';
 
-/** "Minhas fichas": listar, criar, abrir, apagar (F5 AC1, AC2, AC7). */
+/** "Minhas fichas": listar, criar, abrir, duplicar, apagar (F5 AC1, AC2, AC7; F7 AC5). */
 @Component({
   selector: 'app-my-sheets',
   imports: [DatePipe, FormsModule, RouterLink],
@@ -37,6 +37,9 @@ import { SheetService } from '../../core/api/sheet.service';
             <span class="meta">
               {{ describe(s) }} · alterada em {{ s.updatedAt | date: "dd/MM/yyyy 'às' HH:mm" }}
             </span>
+          }
+          @if (!s.error) {
+            <button type="button" (click)="duplicate(s)">Duplicar</button>
           }
           <button type="button" (click)="confirming.set(s)">Apagar</button>
         </li>
@@ -88,7 +91,8 @@ import { SheetService } from '../../core/api/sheet.service';
       font-family: var(--font-display);
       font-size: 1.4rem;
     }
-    .list button {
+    /* Duplicar e Apagar juntos à direita da linha. */
+    .list button:first-of-type {
       margin-left: auto;
     }
     .meta {
@@ -136,6 +140,11 @@ export class MySheetsComponent implements OnInit {
   protected async create(): Promise<void> {
     const saved = await this.api.create(this.newName.trim());
     await this.router.navigate(['/fichas', saved.id, 'raca']);
+  }
+
+  protected async duplicate(sheet: SheetSummary): Promise<void> {
+    const copy = await this.api.duplicate(sheet.id);
+    await this.router.navigate(['/fichas', copy.id, 'raca']);
   }
 
   protected async remove(sheet: SheetSummary): Promise<void> {

@@ -12,6 +12,10 @@ internal static class Problems
     public static ProblemHttpResult Conflict<T>(Result<T> r)
         => TypedResults.Problem(r.Message, statusCode: StatusCodes.Status409Conflict, title: "Conflito de versão");
 
+    /// <summary>Arquivo de ficha existe mas não pôde ser lido (spec F7 AC1).</summary>
+    public static ProblemHttpResult Unreadable<T>(Result<T> r)
+        => TypedResults.Problem(r.Message, statusCode: StatusCodes.Status422UnprocessableEntity, title: "Arquivo da ficha com problema");
+
     public static ValidationProblem Invalid<T>(Result<T> r)
         => TypedResults.ValidationProblem(r.Errors, title: "Escolhas inválidas");
 }

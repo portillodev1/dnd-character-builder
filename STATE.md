@@ -2,10 +2,11 @@
 
 Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia o
 `## Handoff
-- **Última unidade**: Fase 7 — T0 (contrato aprovado; `api-contract.md` dividido), T1 (ADR-0010)
-  e **F6 input-validation completa** (T2–T8): binding inválido → 400 via `BadRequestExceptionHandler`,
-  `level` opcional validado, `choices` nulo = warning, faixa 3–18 sem método, `PUT` sem `version`
-  → 400, mensagens com nomes; tipos do front regenerados. **Push pendente**. Próximo: F7 (T9).
+- **Última unidade**: Fase 7 — **F7 sheet-file-integrity completa** (T9–T14): arquivo com problema
+  (JSON inválido, sem `name`/`draft`, `schemaVersion` desconhecido, id ≠ nome do arquivo) → `422`
+  no `GET`/`PUT`/duplicar sem gravar nada, `DELETE` limpa, motivo em pt-BR na lista e log `Warning`;
+  `POST /{id}/duplicate` + botão "Duplicar". **Push pendente**. Próximo: F8 (T15).
+- **F6 (anterior)**: entrada inválida → 400, nunca 500 (`6fa259a`, já no `origin/main`).
 - **Specs da Fase 7**: F6–F9 + `.specs/project/tasks-fase-7.md` (`c1af3a6`).
 - **QA do MVP (anterior)**: `docs/qa/2026-10-20-teste-e2e/`; FE-1 e BE-1 corrigidos (`34749c3`,
   já no `origin/main`).

@@ -28,6 +28,11 @@ export class SheetService {
     );
   }
 
+  /** Cópia com o mesmo rascunho e nome "<nome> (cópia)" (F7 AC5). */
+  duplicate(id: string): Promise<SavedSheet> {
+    return firstValueFrom(this.http.post<SavedSheet>(`${this.base}/${id}/duplicate`, null));
+  }
+
   delete(id: string): Promise<void> {
     return firstValueFrom(this.http.delete<void>(`${this.base}/${id}`));
   }

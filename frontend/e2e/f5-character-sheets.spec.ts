@@ -31,6 +31,26 @@ test.describe('F5 Minhas fichas', () => {
     await expect(page.getByRole('listitem').filter({ hasText: 'Gimli' })).toHaveCount(0);
   });
 
+  // Spec F7 AC5 (.specs/features/sheet-file-integrity).
+  test('duplicar deve abrir a cópia e manter as duas fichas na lista', async ({ page, api }) => {
+    await api.create('Legolas', { raceId: 'elfo', subraceId: 'elfo-da-floresta' });
+    await page.goto('/fichas');
+    await page
+      .getByRole('listitem')
+      .filter({ has: page.getByRole('link', { name: 'Legolas', exact: true }) })
+      .getByRole('button', { name: 'Duplicar' })
+      .click();
+
+    await expect(page).toHaveURL(/\/fichas\/[\w-]+\/raca$/);
+    await expect(page.getByLabel('Nome', { exact: true })).toHaveValue('Legolas (cópia)');
+    await expect(page.getByRole('radio', { name: /^Elfo da Floresta/ })).toBeChecked();
+
+    await page.getByRole('link', { name: 'Minhas fichas' }).click();
+    await expect(page.getByRole('link', { name: 'Legolas', exact: true })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Legolas (cópia)' })).toBeVisible();
+    await expectAccessible(page);
+  });
+
   test('salvamento recusado pela API deve mostrar o motivo no passo', async ({ page, api }) => {
     const id = await api.create('Pontos demais', {
       raceId: 'humano',

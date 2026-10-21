@@ -21,12 +21,12 @@ Regra: 1 comportamento por tarefa (≤ ~5 arquivos); teste de regressão que fal
 - [x] T8 — OpenAPI documenta 400 em todos os endpoints + `gen-api.sh` + snapshot — F6 AC7
 
 ## F7 — Arquivos de ficha (back → front)
-- [ ] T9 — `ResultStatus.Unreadable` + `GET` de arquivo com problema → 422 — F7 AC1
-- [ ] T10 — `PUT` → 422 sem alterar o arquivo; `DELETE` de arquivo quebrado → 204 — F7 AC2
-- [ ] T11 — Nome do arquivo é a identidade: id divergente = arquivo com problema — F7 AC3, AC4
-- [ ] T12 — Log `Warning` com caminho e motivo — F7 AC6
-- [ ] T13 — `POST /character-sheets/{id}/duplicate` — F7 AC5 (back)
-- [ ] T14 — Botão "Duplicar" em "Minhas fichas" + E2E — F7 AC5 (front)
+- [x] T9 — `ResultStatus.Unreadable` + `GET` de arquivo com problema → 422 — F7 AC1
+- [x] T10 — `PUT` → 422 sem alterar o arquivo; `DELETE` de arquivo quebrado → 204 — F7 AC2
+- [x] T11 — Nome do arquivo é a identidade: id divergente = arquivo com problema — F7 AC3, AC4
+- [x] T12 — Log `Warning` com caminho e motivo — F7 AC6
+- [x] T13 — `POST /character-sheets/{id}/duplicate` — F7 AC5 (back)
+- [x] T14 — Botão "Duplicar" em "Minhas fichas" + E2E — F7 AC5 (front)
 
 ## F8 — Feedback do wizard (front)
 - [ ] T15 — Mapa campo → passo + resumo de erros no topo com links — F8 AC1

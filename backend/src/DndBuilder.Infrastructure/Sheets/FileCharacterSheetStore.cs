@@ -6,7 +6,8 @@ namespace DndBuilder.Infrastructure.Sheets;
 
 /// <summary>
 /// Uma ficha = um arquivo <c>&lt;id&gt;.json</c> na pasta configurada (ADR-0006). Gravação atômica
-/// (temporário + rename) e concorrência otimista por <c>version</c>.
+/// (temporário + rename) e concorrência otimista por <c>version</c>. Arquivo com problema nunca lança:
+/// volta com o motivo (spec F7).
 /// </summary>
 public sealed class FileCharacterSheetStore : ICharacterSheetStore, IDisposable
 {
@@ -36,23 +37,23 @@ public sealed class FileCharacterSheetStore : ICharacterSheetStore, IDisposable
             {
                 continue;
             }
-            try
-            {
-                var s = await ReadAsync(path, ct).ConfigureAwait(false);
-                result.Add(new StoredSheetSummary(s.Id, s.Name, s.Draft.RaceId, s.Draft.ClassId, s.Draft.Level, s.UpdatedAt, null));
-            }
-            catch (Exception e) when (e is JsonException or InvalidDataException)
-            {
-                result.Add(new StoredSheetSummary(id, null, null, null, null, null, "Arquivo da ficha corrompido; abra-o num editor para corrigir."));
-            }
+            var (file, problem) = await TryReadAsync(path, id, ct).ConfigureAwait(false);
+            result.Add(file is not null
+                ? new StoredSheetSummary(id, file.Name, file.Draft.RaceId, file.Draft.ClassId, file.Draft.Level, file.UpdatedAt, null)
+                : new StoredSheetSummary(id, null, null, null, null, null, $"{problem} Abra-o num editor para corrigir ou apague a ficha."));
         }
         return result;
     }
 
-    public async Task<StoredSheet?> GetAsync(Guid id, CancellationToken ct)
+    public async Task<SheetRead?> GetAsync(Guid id, CancellationToken ct)
     {
         var path = PathOf(id);
-        return File.Exists(path) ? (await ReadAsync(path, ct).ConfigureAwait(false)).ToStored() : null;
+        if (!File.Exists(path))
+        {
+            return null;
+        }
+        var (file, problem) = await TryReadAsync(path, id, ct).ConfigureAwait(false);
+        return new SheetRead(file?.ToStored(), problem);
     }
 
     public async Task<StoredSheet> CreateAsync(string name, CharacterDraft draft, CancellationToken ct)
@@ -63,7 +64,7 @@ public sealed class FileCharacterSheetStore : ICharacterSheetStore, IDisposable
         return file.ToStored();
     }
 
-    public async Task<(UpdateOutcome Outcome, StoredSheet? Sheet)> UpdateAsync(Guid id, int expectedVersion, string name, CharacterDraft draft, CancellationToken ct)
+    public async Task<UpdateResult> UpdateAsync(Guid id, int expectedVersion, string name, CharacterDraft draft, CancellationToken ct)
     {
         await gate.WaitAsync(ct).ConfigureAwait(false);
         try
@@ -71,16 +72,20 @@ public sealed class FileCharacterSheetStore : ICharacterSheetStore, IDisposable
             var path = PathOf(id);
             if (!File.Exists(path))
             {
-                return (UpdateOutcome.NotFound, null);
+                return new UpdateResult(UpdateOutcome.NotFound);
             }
-            var current = await ReadAsync(path, ct).ConfigureAwait(false);
+            var (current, problem) = await TryReadAsync(path, id, ct).ConfigureAwait(false);
+            if (current is null)
+            {
+                return new UpdateResult(UpdateOutcome.Unreadable, Problem: problem); // não grava por cima (F7 AC2)
+            }
             if (current.Version != expectedVersion)
             {
-                return (UpdateOutcome.VersionConflict, null);
+                return new UpdateResult(UpdateOutcome.VersionConflict);
             }
             var updated = current with { Name = name, Draft = draft, Version = current.Version + 1, UpdatedAt = clock.GetUtcNow() };
             await WriteAsync(updated, ct).ConfigureAwait(false);
-            return (UpdateOutcome.Updated, updated.ToStored());
+            return new UpdateResult(UpdateOutcome.Updated, updated.ToStored());
         }
         finally
         {
@@ -112,17 +117,32 @@ public sealed class FileCharacterSheetStore : ICharacterSheetStore, IDisposable
     // O id é sempre um Guid formatado pelo servidor: nunca vira caminho fora da pasta.
     private string PathOf(Guid id) => Path.Combine(directory, $"{id:D}.json");
 
-    private static async Task<SheetFile> ReadAsync(string path, CancellationToken ct)
+    /// <summary>
+    /// Lê e confere o arquivo; o motivo do problema sai em pt-BR com o nome do arquivo (F7 AC1, AC3).
+    /// O nome do arquivo é a identidade: um <c>id</c> interno diferente (arquivo copiado) é problema.
+    /// </summary>
+    private static async Task<(SheetFile? File, string? Problem)> TryReadAsync(string path, Guid id, CancellationToken ct)
     {
-        await using var stream = File.OpenRead(path);
-        var file = await JsonSerializer.DeserializeAsync<SheetFile>(stream, Json, ct).ConfigureAwait(false)
-            ?? throw new InvalidDataException($"Ficha vazia: {path}");
-        if (file.SchemaVersion != SchemaVersion)
+        var name = Path.GetFileName(path);
+        SheetFile? file;
+        try
         {
-            throw new InvalidDataException($"schemaVersion {file.SchemaVersion} não suportado: {path}");
+            await using var stream = File.OpenRead(path);
+            file = await JsonSerializer.DeserializeAsync<SheetFile>(stream, Json, ct).ConfigureAwait(false);
         }
-        // JSON válido mas editado à mão sem "name"/"draft": é arquivo com problema, não exceção genérica.
-        return file is { Name: not null, Draft: not null } ? file : throw new InvalidDataException($"Ficha sem name ou draft: {path}");
+        catch (JsonException e)
+        {
+            return (null, $"{name}: o JSON é inválido{(e.LineNumber is { } line ? $" (linha {line + 1})" : "")}.");
+        }
+        return file switch
+        {
+            null => (null, $"{name}: o arquivo está vazio."),
+            { SchemaVersion: not SchemaVersion } => (null, $"{name}: schemaVersion {file.SchemaVersion} não é suportado (esperado {SchemaVersion})."),
+            { Name: null } => (null, $"{name}: falta o campo \"name\"."),
+            { Draft: null } => (null, $"{name}: falta o campo \"draft\"."),
+            _ when file.Id != id => (null, $"{name}: o id dentro do arquivo ({file.Id}) não bate com o nome do arquivo."),
+            _ => (file, null),
+        };
     }
 
     private async Task WriteAsync(SheetFile file, CancellationToken ct)

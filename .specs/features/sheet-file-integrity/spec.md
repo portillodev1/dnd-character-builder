@@ -26,8 +26,8 @@ corrigir. Duplicar uma ficha passa a ser um botão, não uma cópia de arquivo.
 5. **Quando** clico em "Duplicar" numa ficha de "Minhas fichas", **então**
    `POST /character-sheets/{id}/duplicate` cria `<novo-id>.json` com o mesmo `draft`,
    `name` = "<nome> (cópia)" (truncado a 80), `version` 1, e o wizard abre a cópia no passo Raça.
-6. Todo arquivo com problema encontrado gera um log `Warning` com o caminho e o motivo
-   (uma vez por requisição; sem o conteúdo do arquivo).
+6. Todo arquivo com problema encontrado gera um log `Warning` com o nome do arquivo e o motivo
+   (uma vez por requisição; sem o conteúdo do arquivo; a pasta é a `Storage:SheetsPath`).
 
 ## Decisões
 - O **nome do arquivo** é a identidade; o `id` interno é conferido, nunca usado para gravar.

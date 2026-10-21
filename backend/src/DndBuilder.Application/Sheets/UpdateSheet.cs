@@ -17,11 +17,12 @@ public sealed class UpdateSheet(ICharacterSheetStore store, IRulesetCatalog cata
         {
             return Result.Invalid<SavedSheetView>(errors);
         }
-        var (outcome, stored) = await store.UpdateAsync(id, expected, name!.Trim(), draft!, ct).ConfigureAwait(false);
-        return outcome switch
+        var updated = await store.UpdateAsync(id, expected, name!.Trim(), draft!, ct).ConfigureAwait(false);
+        return updated switch
         {
-            UpdateOutcome.Updated => Result.Ok<SavedSheetView>(new SavedSheetView(stored!, SheetCalculator.Compute(stored!.Draft, catalog.Races, catalog.Classes))),
-            UpdateOutcome.NotFound => Result.NotFound<SavedSheetView>($"Ficha '{id}' não existe."),
+            { Outcome: UpdateOutcome.Updated, Sheet: { } stored } => Result.Ok<SavedSheetView>(new SavedSheetView(stored, SheetCalculator.Compute(stored.Draft, catalog.Races, catalog.Classes))),
+            { Outcome: UpdateOutcome.NotFound } => Result.NotFound<SavedSheetView>($"Ficha '{id}' não existe."),
+            { Outcome: UpdateOutcome.Unreadable } => Result.Unreadable<SavedSheetView>(updated.Problem ?? $"Ficha '{id}' não pôde ser lida."),
             _ => Result.Conflict<SavedSheetView>("A ficha foi alterada em outra aba ou janela. Recarregue para ver a versão mais recente."),
         };
     }
