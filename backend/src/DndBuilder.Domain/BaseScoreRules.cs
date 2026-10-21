@@ -5,6 +5,10 @@ public static class BaseScoreRules
 {
     public const int PointBuyBudget = 27;
 
+    /// <summary>Faixa da rolagem 4d6 descartando o menor — a maior entre os três métodos. LdJ p. 13.</summary>
+    public const int RollMin = 3;
+    public const int RollMax = 18;
+
     private static readonly int[] StandardArray = [15, 14, 13, 12, 10, 8];
 
     /// <summary>Custo de um valor na compra de pontos (8 → 0 … 15 → 9). LdJ p. 13.</summary>
@@ -30,7 +34,7 @@ public static class BaseScoreRules
         {
             BaseScoreMethod.StandardArray => ValidateStandardArray(scores),
             BaseScoreMethod.PointBuy => ValidatePointBuy(scores),
-            BaseScoreMethod.Manual => ValidateRange(scores, 3, 18, "rolagem 4d6"),
+            BaseScoreMethod.Manual => ValidateRange(scores, RollMin, RollMax, "rolagem 4d6"),
             _ => throw new ArgumentOutOfRangeException(nameof(method), method, null),
         };
     }

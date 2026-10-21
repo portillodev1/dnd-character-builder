@@ -10,9 +10,9 @@ public sealed record ClassFeaturesView(CharacterClass Class, Level Level, IReadO
 /// <summary>Critério 2: características da classe até o nível N e as do nível N+1 (F2 AC2–8).</summary>
 public sealed class GetClassFeatures(IRulesetCatalog catalog)
 {
-    public Result<ClassFeaturesView> Execute(string id, int level)
+    public Result<ClassFeaturesView> Execute(string id, int? requested)
     {
-        if (level is < Level.Min or > Level.Max)
+        if (requested is not { } level || level is < Level.Min or > Level.Max)
         {
             return Result.Invalid<ClassFeaturesView>(new Dictionary<string, string[]> { ["level"] = ["O nível deve estar entre 1 e 20."] });
         }

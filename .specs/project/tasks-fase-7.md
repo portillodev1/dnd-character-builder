@@ -12,13 +12,13 @@ Regra: 1 comportamento por tarefa (≤ ~5 arquivos); teste de regressão que fal
 - [x] T1 — ADR-0010: origem da API por configuração (`proxy.conf.json` / mesma origem) — F8 RNF.
 
 ## F6 — Entrada inválida (back)
-- [ ] T2 — Erro de binding → 400 ProblemDetails (`StatusCodeSelector`) — F6 AC1
-- [ ] T3 — `level` da query `int?` validado no caso de uso — F6 AC2
-- [ ] T4 — `choices` nulo = não escolhido; itens nulos → 400 — F6 AC3
-- [ ] T5 — Faixa 3–18 sem `abilityMethod` (LdJ p. 13) — F6 AC4
-- [ ] T6 — `PUT` sem `version` → 400 — F6 AC5
-- [ ] T7 — Mensagens de escolha com nomes de perícia/atributo — F6 AC6
-- [ ] T8 — OpenAPI documenta 400 em todos os endpoints + `gen-api.sh` + snapshot — F6 AC7
+- [x] T2 — Erro de binding → 400 ProblemDetails (`IExceptionHandler`) — F6 AC1
+- [x] T3 — `level` da query `int?` validado no caso de uso — F6 AC2
+- [x] T4 — `choices` nulo = não escolhido; itens nulos → 400 — F6 AC3
+- [x] T5 — Faixa 3–18 sem `abilityMethod` (LdJ p. 13) — F6 AC4
+- [x] T6 — `PUT` sem `version` → 400 — F6 AC5
+- [x] T7 — Mensagens de escolha com nomes de perícia/atributo — F6 AC6
+- [x] T8 — OpenAPI documenta 400 em todos os endpoints + `gen-api.sh` + snapshot — F6 AC7
 
 ## F7 — Arquivos de ficha (back → front)
 - [ ] T9 — `ResultStatus.Unreadable` + `GET` de arquivo com problema → 422 — F7 AC1

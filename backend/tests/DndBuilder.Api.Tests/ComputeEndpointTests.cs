@@ -71,6 +71,26 @@ public class ComputeEndpointTests(ApiFactory factory) : IClassFixture<ApiFactory
         Assert.True(problems.Count == 0, string.Join(Environment.NewLine, problems));
     }
 
+    [Fact] // F6 AC3: escolha racial com null = não escolhida → warning, não 500
+    public async Task Compute_NullRaceChoice_Returns200WithWarning()
+    {
+        var response = await factory.CreateClient().SendRaw(HttpMethod.Post, Compute, """{"raceId":"meio-elfo","choices":{"versatilidade-em-pericia":null}}""");
+        Assert.Equal((HttpStatusCode.OK, true), (response.StatusCode,
+            (await response.Json())["warnings"]!.AsArray().Any(w => ((string)w!).StartsWith("Versatilidade em Perícia: escolha 2 (0 de 2)", StringComparison.Ordinal))));
+    }
+
+    [Theory] // F6 AC3: item null dentro de uma lista de escolhas → 400 no campo
+    [InlineData("""{"raceId":"meio-elfo","choices":{"versatilidade-em-pericia":[null]}}""", "choices.versatilidade-em-pericia", null)]
+    [InlineData("""{"classId":"ladino","level":1,"skillChoices":[null]}""", "skillChoices", "Perícia vazia na lista.")]
+    [InlineData("""{"extraProficiencies":[null]}""", "extraProficiencies", "Perícia vazia na lista.")]
+    [InlineData("""{"classId":"ladino","level":1,"expertise":[null]}""", "expertise", "Perícia vazia na lista.")]
+    public async Task Compute_NullItemInList_Returns400OnField(string body, string field, string? message)
+    {
+        var response = await factory.CreateClient().SendRaw(HttpMethod.Post, Compute, body);
+        var errors = (await response.Json())["errors"]?[field]?.AsArray().Select(e => (string)e!).ToList() ?? [];
+        Assert.Equal((HttpStatusCode.BadRequest, true), (response.StatusCode, errors.Count > 0 && (message is null || errors.Contains(message))));
+    }
+
     // Números permitidos: total (com parts ao lado), value de parcela ou de bônus tipado (bonusType ao lado),
     // página do LdJ e nível de característica.
     private static void Walk(JsonNode? node, string path, bool inParts, List<string> problems)

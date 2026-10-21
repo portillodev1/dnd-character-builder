@@ -66,7 +66,9 @@ internal static class Mapping
         SkillChoices = d.SkillChoices ?? [],
         Expertise = d.Expertise ?? [],
         ExtraProficiencies = d.ExtraProficiencies ?? [],
-        Choices = d.Choices ?? new Dictionary<string, IReadOnlyList<string>>(),
+        // "choices.<id>": null = escolha ainda não feita, como lista vazia (spec F6 AC3).
+        Choices = (d.Choices ?? new Dictionary<string, IReadOnlyList<string>>())
+            .Where(c => c.Value is not null).ToDictionary(c => c.Key, c => c.Value, StringComparer.Ordinal),
     };
 
     public static CharacterDraftDto Dto(this CharacterDraft d) => new()

@@ -147,6 +147,12 @@ internal sealed class ResolvedDraft
 
         if (d.AbilityMethod is null)
         {
+            // Sem método, vale a maior faixa entre os três (spec F6 AC4).
+            foreach (var (ability, value) in BaseAbilities.Where(a => a.Value is < BaseScoreRules.RollMin or > BaseScoreRules.RollMax))
+            {
+                Error($"baseAbilities.{CatalogIds.Id(ability)}",
+                    $"{ability.DisplayName()}: sem método escolhido, o valor base deve estar entre {BaseScoreRules.RollMin} e {BaseScoreRules.RollMax}.");
+            }
             return;
         }
         BaseScoreMethod? method = d.AbilityMethod switch
@@ -182,7 +188,7 @@ internal sealed class ResolvedDraft
             }
             else if (picks.Count > entry.Choice.Count || picks.Distinct().Count() != picks.Count || picks.Any(p => !entry.Choice.From.Contains(p)))
             {
-                Error($"choices.{id}", $"{entry.Choice.Name}: escolha {entry.Choice.Count} opção(ões) diferentes entre: {string.Join(", ", entry.Choice.From)}.");
+                Error($"choices.{id}", $"{entry.Choice.Name}: escolha {entry.Choice.Count} opção(ões) diferentes entre: {string.Join(", ", entry.Choice.From.Select(OptionName))}.");
             }
             else
             {
@@ -342,7 +348,11 @@ internal sealed class ResolvedDraft
         var result = new List<Skill>();
         foreach (var id in ids)
         {
-            if (!CatalogIds.TryParseSkill(id, out var skill))
+            if (string.IsNullOrEmpty(id))
+            {
+                Error(field, "Perícia vazia na lista.");
+            }
+            else if (!CatalogIds.TryParseSkill(id, out var skill))
             {
                 Error(field, $"Perícia '{id}' não existe.");
             }
@@ -357,6 +367,12 @@ internal sealed class ResolvedDraft
         }
         return result;
     }
+
+    /// <summary>"skill:acrobacia" → "Acrobacia", "ability:forca" → "Força"; idiomas e ferramentas já são nomes (spec F6 AC6).</summary>
+    private static string OptionName(string option)
+        => option.StartsWith("skill:", StringComparison.Ordinal) && CatalogIds.TryParseSkill(option["skill:".Length..], out var skill) ? skill.Value.DisplayName()
+            : option.StartsWith("ability:", StringComparison.Ordinal) && CatalogIds.TryParseAbility(option["ability:".Length..], out var ability) ? ability.Value.DisplayName()
+            : option;
 
     private void AddSource(Skill skill, string origin)
     {

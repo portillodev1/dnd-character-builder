@@ -119,7 +119,6 @@
           {
             "name": "level",
             "in": "query",
-            "required": true,
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -1541,7 +1540,10 @@
             ]
           },
           "version": {
-            "type": "integer",
+            "type": [
+              "null",
+              "integer"
+            ],
             "format": "int32"
           },
           "draft": {

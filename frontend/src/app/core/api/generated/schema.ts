@@ -408,7 +408,7 @@ export interface components {
         UpdateSheetRequest: {
             name: null | string;
             /** Format: int32 */
-            version: number;
+            version: null | number;
             draft: null | components["schemas"]["CharacterDraftDto"];
         };
     };
@@ -504,8 +504,8 @@ export interface operations {
     };
     GetClassFeatures: {
         parameters: {
-            query: {
-                level: number;
+            query?: {
+                level?: number;
             };
             header?: never;
             path: {

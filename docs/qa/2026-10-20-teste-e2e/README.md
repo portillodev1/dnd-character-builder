@@ -51,14 +51,15 @@ O que funcionou bem:
 | BE-1 | **Alta** | API | ✅ Corrigido — um arquivo sem `draft` derrubava "Minhas fichas" inteira (500) |
 | FE-2 | Média | Front | Passos Raça/Classe não mostram erros; baixar nível trava o salvamento em silêncio |
 | BE-2 | Média | API | Abrir/salvar ficha com arquivo corrompido → 500 |
-| BE-3 | Média | API | JSON malformado, tipo errado ou `level` ausente → 500 (deveria ser 400) |
-| BE-4 | Média | API | `choices: {"<id>": null}` → 500 |
+| BE-3 | Média | API | ✅ Corrigido (F6) — JSON malformado, tipo errado ou `level` ausente → 500 |
+| BE-4 | Média | API | ✅ Corrigido (F6) — `choices: {"<id>": null}` → 500 |
 | BE-5 | Média | API | Arquivo copiado (id interno ≠ nome) → ids duplicados e gravação no arquivo errado |
 | FE-3 | Média | Front | Valor decimal em atributo → "o servidor não respondeu" |
 | FE-4 | Média | Front | Criar/apagar ficha com API fora: erro não tratado, sem aviso |
 | FE-5 | Média | Front | Qualquer falha ao abrir ficha vira "Ficha não encontrada" |
 | FE-6 | Média | a11y | Diálogos sem foco inicial, sem Esc e sem prender o foco |
-| BE-6…8, FE-7…14 | Baixa | — | Ver arquivos de detalhe |
+| BE-6…8 | Baixa | API | ✅ Corrigidos (F6) |
+| FE-7…14 | Baixa | Front | Ver arquivos de detalhe |
 
 ## Ambiente
 macOS (Darwin 25.5), Node 24.22, .NET SDK 10.0.402, Chromium do Playwright.

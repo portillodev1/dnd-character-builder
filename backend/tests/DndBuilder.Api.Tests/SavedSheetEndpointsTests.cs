@@ -49,6 +49,15 @@ public class SavedSheetEndpointsTests(ApiFactory factory) : IClassFixture<ApiFac
             (first.StatusCode, (int)(await first.Json())["version"]!, stale.StatusCode));
     }
 
+    [Fact] // F6 AC5: sem version é pedido malformado (400), não conflito de outra aba (409)
+    public async Task Update_WithoutVersion_Returns400OnVersion()
+    {
+        var client = factory.CreateClient();
+        var (location, _) = await CreateAsync(client);
+        var response = await client.Put(location, new { name = "Sem versão", draft = Http.FullDraft() });
+        Assert.Equal((HttpStatusCode.BadRequest, true), (response.StatusCode, (await response.Json())["errors"]?["version"] is not null));
+    }
+
     [Fact] // F5 AC7: apagar remove o arquivo
     public async Task Delete_Existing_Returns204ThenGet404()
     {

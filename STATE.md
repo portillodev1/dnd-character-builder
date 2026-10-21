@@ -2,10 +2,11 @@
 
 Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia o
 `## Handoff
-- **Última unidade**: Fase 7 especificada — specs F6–F9 (`input-validation`,
-  `sheet-file-integrity`, `wizard-feedback`, `beginner-guidance`) e `.specs/project/tasks-fase-7.md`
-  (T0–T33) a partir do relatório de QA. **Revisão humana pendente**; T0 (aprovar mudanças de
-  contrato) e T1 (ADR-0010) bloqueiam a implementação.
+- **Última unidade**: Fase 7 — T0 (contrato aprovado; `api-contract.md` dividido), T1 (ADR-0010)
+  e **F6 input-validation completa** (T2–T8): binding inválido → 400 via `BadRequestExceptionHandler`,
+  `level` opcional validado, `choices` nulo = warning, faixa 3–18 sem método, `PUT` sem `version`
+  → 400, mensagens com nomes; tipos do front regenerados. **Push pendente**. Próximo: F7 (T9).
+- **Specs da Fase 7**: F6–F9 + `.specs/project/tasks-fase-7.md` (`c1af3a6`).
 - **QA do MVP (anterior)**: `docs/qa/2026-10-20-teste-e2e/`; FE-1 e BE-1 corrigidos (`34749c3`,
   já no `origin/main`).
 - **Fase 6 (anterior)**: E2E + a11y (ADR-0009).

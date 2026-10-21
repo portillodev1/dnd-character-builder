@@ -28,6 +28,18 @@ public class OpenApiSnapshotTests(ApiFactory factory)
         Assert.Equal(expected, await File.ReadAllTextAsync(SnapshotPath, TestContext.Current.CancellationToken));
     }
 
+    [Fact] // F6 AC7: toda operação com corpo ou query documenta o 400 que o front sabe exibir
+    public async Task OpenApiDocument_OperationsWithInput_Document400()
+    {
+        using var client = factory.CreateClient();
+        var paths = JsonNode.Parse(await client.GetStringAsync(new Uri("/openapi/v1.json", UriKind.Relative), TestContext.Current.CancellationToken))!["paths"]!.AsObject();
+        var missing = paths.SelectMany(p => p.Value!.AsObject().Select(op => (Name: $"{op.Key.ToUpperInvariant()} {p.Key}", Op: op.Value!)))
+            .Where(o => o.Op["requestBody"] is not null || (o.Op["parameters"]?.AsArray().Any(x => (string?)x!["in"] == "query") ?? false))
+            .Where(o => o.Op["responses"]!["400"] is null)
+            .Select(o => o.Name);
+        Assert.Empty(missing);
+    }
+
     private static string RepoRoot()
     {
         var dir = new DirectoryInfo(AppContext.BaseDirectory);

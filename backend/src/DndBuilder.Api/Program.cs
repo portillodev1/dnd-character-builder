@@ -11,6 +11,9 @@ builder.Services.AddOpenApi();
 // Números só como número JSON: o OpenAPI sai com "integer" (tipos gerados do front — ADR-0007).
 builder.Services.ConfigureHttpJsonOptions(o => o.SerializerOptions.NumberHandling = JsonNumberHandling.Strict);
 builder.Services.AddProblemDetails();
+// Binding inválido lança também fora de Development, para todo ambiente responder igual (spec F6).
+builder.Services.Configure<RouteHandlerOptions>(o => o.ThrowOnBadRequest = true);
+builder.Services.AddExceptionHandler<BadRequestExceptionHandler>();
 
 var frontendOrigin = builder.Configuration["Frontend:Origin"] ?? "http://localhost:4200";
 builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>

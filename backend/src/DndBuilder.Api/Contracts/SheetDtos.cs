@@ -43,7 +43,8 @@ public sealed record CharacterSheetDto(
 
 public sealed record CreateSheetRequest(string? Name, CharacterDraftDto? Draft);
 
-public sealed record UpdateSheetRequest(string? Name, int Version, CharacterDraftDto? Draft);
+/// <summary><c>Version</c> é obrigatório; fica anulável só para o 400 explicar a falta (spec F6 AC5).</summary>
+public sealed record UpdateSheetRequest(string? Name, int? Version, CharacterDraftDto? Draft);
 
 public sealed record SheetSummaryDto(Guid Id, string? Name, string? RaceId, string? ClassId, int? Level, DateTimeOffset? UpdatedAt, string? Error);
 

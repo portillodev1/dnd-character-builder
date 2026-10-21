@@ -19,6 +19,17 @@ public class CatalogEndpointsTests(ApiFactory factory) : IClassFixture<ApiFactor
         Assert.Contains(anao["traits"]!.AsArray(), t => (string)t!["id"]! == "visao-no-escuro");
     }
 
+    [Theory] // F6 AC2: level ausente, fora de 1–20 ou que não é número → 400 em errors.level (nunca 500)
+    [InlineData("")]
+    [InlineData("?level=0")]
+    [InlineData("?level=21")]
+    [InlineData("?level=abc")]
+    public async Task GetClassFeatures_InvalidLevel_Returns400OnLevel(string query)
+    {
+        var response = await factory.CreateClient().Get($"/api/v1/classes/ladino/features{query}");
+        Assert.Equal((HttpStatusCode.BadRequest, true), (response.StatusCode, (await response.Json())["errors"]?["level"] is not null));
+    }
+
     [Theory] // F1/F2: 404 ProblemDetails
     [InlineData("/api/v1/races/orc-xyz")]
     [InlineData("/api/v1/classes/orc-xyz/features?level=1")]

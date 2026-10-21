@@ -204,4 +204,24 @@ public class SheetCalculatorTests
     [Fact]
     public void Compute_WithErrors_ReturnsNoSheet()
         => Assert.Null(SheetCalculator.Compute(Draft() with { Level = 21 }, TestCatalog.Races, TestCatalog.Classes).Sheet);
+
+    [Theory] // F6 AC6: opções da escolha racial pelo nome da ficha, nunca pelo id interno
+    [InlineData("versatilidade-em-pericia", "skill:arcanismo", "Atletismo, História, Medicina")]
+    [InlineData("aumento-de-atributo", "ability:carisma", "Força, Destreza, Sabedoria")]
+    public void Compute_InvalidRaceChoice_ListsOptionsByName(string choice, string pick, string options)
+    {
+        var draft = new CharacterDraft { RaceId = "meio-elfo", Choices = new Dictionary<string, IReadOnlyList<string>> { [choice] = [pick] } };
+        Assert.EndsWith($"entre: {options}.", Errors(draft)[$"choices.{choice}"][0], StringComparison.Ordinal);
+    }
+
+    [Theory] // F6 AC4: sem método, vale a maior faixa entre os três — 3 a 18 (LdJ p. 13)
+    [InlineData(2, true)]
+    [InlineData(3, false)]
+    [InlineData(18, false)]
+    [InlineData(19, true)]
+    public void Compute_BaseScoreWithoutMethod_AcceptsOnly3To18(int forca, bool isError)
+    {
+        var draft = Draft() with { AbilityMethod = null, BaseAbilities = new Dictionary<string, int>(Standard) { ["forca"] = forca } };
+        Assert.Equal(isError, Errors(draft).ContainsKey("baseAbilities.forca"));
+    }
 }

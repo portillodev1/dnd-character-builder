@@ -16,8 +16,9 @@ pt-BR**, nunca 500. Mensagens usam os nomes da ficha ("Acrobacia", "Força"), n�
 1. **Dado** um corpo que não é JSON válido, vazio ou com tipo errado (`"level":"3"`,
    `"forca":12.5`, `"forca":null`, número acima de `int`), **quando** chamo qualquer `POST`/`PUT`,
    **então** recebo `400` `application/problem+json` com `title` em pt-BR (não `500`).
-2. **Dado** `GET /classes/{id}/features` sem `level` ou com `level=abc`, **então** `400` com
-   `errors.level = ["O nível deve estar entre 1 e 20."]` (mesma mensagem de `level=0`).
+2. **Dado** `GET /classes/{id}/features` sem `level`, **então** `400` com
+   `errors.level = ["O nível deve estar entre 1 e 20."]` (mesma mensagem de `level=0`); com
+   `level=abc`, `400` em `errors.level` ("Valor em formato inválido para este campo.").
 3. **Dado** `choices: { "<id-válido>": null }`, **então** a escolha conta como não feita
    (vira `warning`, como lista vazia); item nulo dentro da lista → `400` em `choices.<id>`.
    Item nulo em `skillChoices`/`expertise`/`extraProficiencies` → `400` "Perícia vazia na lista".
@@ -31,8 +32,9 @@ pt-BR**, nunca 500. Mensagens usam os nomes da ficha ("Acrobacia", "Força"), n�
    em todos os endpoints com corpo ou query.
 
 ## Decisões
-- Erro de binding (`BadHttpRequestException`) → status da exceção, via
-  `ExceptionHandlerOptions.StatusCodeSelector`; corpo `ValidationProblem` quando houver campo.
+- Erro de binding (`BadHttpRequestException`) → `BadRequestExceptionHandler` (`IExceptionHandler`)
+  escreve `ValidationProblem` com o campo do caminho do JSON ou do parâmetro; `ThrowOnBadRequest`
+  ligado em todo ambiente para produção responder igual a Development.
 - `level` da query passa a `int?` validado pelo caso de uso (mesmo `Result.Invalid` de hoje).
 - Nomes de perícia/atributo vêm de `Skill.DisplayName()`/`Ability.DisplayName()` (Domain).
 

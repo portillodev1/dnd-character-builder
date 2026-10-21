@@ -1,4 +1,5 @@
 using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json.Nodes;
 
 namespace DndBuilder.Api.Tests;
@@ -16,6 +17,10 @@ internal static class Http
     public static Task<HttpResponseMessage> Put(this HttpClient c, string path, object body) => c.PutAsJsonAsync(U(path), body, Ct);
 
     public static Task<HttpResponseMessage> Delete(this HttpClient c, string path) => c.DeleteAsync(U(path), Ct);
+
+    /// <summary>Corpo em JSON cru (malformado, com <c>null</c> onde o DTO não aceita…).</summary>
+    public static Task<HttpResponseMessage> SendRaw(this HttpClient c, HttpMethod method, string path, string json)
+        => c.SendAsync(new HttpRequestMessage(method, U(path)) { Content = new StringContent(json, Encoding.UTF8, "application/json") }, Ct);
 
     public static async Task<JsonNode> Json(this HttpResponseMessage r) => JsonNode.Parse(await r.Content.ReadAsStringAsync(Ct))!;
 
