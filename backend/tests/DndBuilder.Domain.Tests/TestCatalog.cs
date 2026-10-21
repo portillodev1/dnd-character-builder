@@ -100,6 +100,37 @@ internal static class TestCatalog
         Source = P(89),
     };
 
+    private static CharacterClass Marcial(string id, string name, int page, params ClassFeature[] features) => new()
+    {
+        Id = id,
+        Name = name,
+        Summary = "s",
+        HitDie = 12,
+        PrimaryAbilities = [Ability.Forca],
+        SavingThrows = [Ability.Forca, Ability.Constituicao],
+        SkillChoices = new SkillChoices { Count = 2, From = ["atletismo", "percepcao"] },
+        Proficiencies = new ClassProficiencies(),
+        SubclassLevel = 3,
+        Features = features,
+        Source = P(page),
+    };
+
+    /// <summary>Bárbaro: Movimento Rápido +3 m a partir do nível 5, sem armadura pesada (LdJ p. 49).</summary>
+    public static readonly CharacterClass Barbaro = Marcial("barbaro", "Bárbaro", 46,
+        F("movimento-rapido", 5, new Grant { Type = GrantType.SpeedBonus, Meters = 3m, Condition = SpeedCondition.NoHeavyArmor })
+            with
+        { Name = "Movimento Rápido", Source = P(49) });
+
+    /// <summary>Monge: Movimento sem Armadura por degraus, nível 2/6/10/14/18 (LdJ p. 104).</summary>
+    public static readonly CharacterClass Monge = Marcial("monge", "Monge", 102,
+        F("movimento-sem-armadura", 2, new Grant
+        {
+            Type = GrantType.SpeedBonus,
+            Condition = SpeedCondition.NoArmorNoShield,
+            Steps = [new(2, 3m), new(6, 4.5m), new(10, 6m), new(14, 7.5m), new(18, 9m)],
+        }) with
+        { Name = "Movimento sem Armadura", Source = P(104) });
+
     public static readonly Race[] Races = [Anao, Elfo, MeioElfo];
-    public static readonly CharacterClass[] Classes = [Ladino];
+    public static readonly CharacterClass[] Classes = [Ladino, Barbaro, Monge];
 }

@@ -37,7 +37,7 @@ public static class SheetCalculator
             Skills = skills,
             PassivePerception = perception is null ? null : PassivePerceptionRules.Compute(perception),
             HitPoints = HitPoints(r, scores, bonuses),
-            Speed = r.Race is null ? null : SpeedRules.Compute(r.Race, r.Subrace),
+            Speed = r.Race is null ? null : SpeedRules.Compute(r.Race, r.Subrace, r.Class, r.Level),
             Features = [.. features.Select(f => new FeatureResult(f, r.Class!.ScalingValue(f, r.Level!.Value)))],
             NextLevelFeatures = NextLevel(r),
             Traits = [.. (r.Race?.Traits ?? []).Select(t => new TraitResult(t, Origin.Race, r.Race!.Name))

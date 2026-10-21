@@ -56,7 +56,11 @@ extras: Anão da Colina +1 por nível (Tenacidade Anã)
 deslocamento = deslocamento da raça (ex.: Anão 7,5 m p. 20; Elfo 9 m p. 23)
              + (deslocamento da sub-raça − da raça), se a sub-raça o redefine
                (Elfo da Floresta, Pés Ligeiros: 10,5 m, p. 24 → parcela +1,5 m)
+             + bônus de classe até o nível (spec F11):
+               Bárbaro nv. 5+: +3 m (Movimento Rápido, p. 49; sem armadura pesada)
+               Monge nv. 2/6/10/14/18: +3 / +4,5 / +6 / +7,5 / +9 m (p. 104; sem armadura nem escudo)
 ```
+A condição do livro só aparece no rótulo da parcela (o app não modela armadura).
 Em metros, com decimais: sai como `DerivedMeasure` (mesma invariante `total = Σ parts`).
 
 ## Breakdown obrigatório

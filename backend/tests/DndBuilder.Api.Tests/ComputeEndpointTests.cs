@@ -32,6 +32,26 @@ public class ComputeEndpointTests(ApiFactory factory) : IClassFixture<ApiFactory
             $"{speed["total"]} = {string.Join(" + ", speed["parts"]!.AsArray().Select(p => $"{p!["value"]} {p["label"]} p.{p["source"]!["page"]}"))}");
     }
 
+    [Fact] // F11 AC2/AC4: Humano (9 m, p. 31) Monge nv. 6 → 13,5 m com Movimento sem Armadura +4,5 (p. 104)
+    public async Task Compute_Monk6_SpeedIncludesClassBonus()
+    {
+        var speed = (await (await factory.CreateClient().Post(Compute, new { raceId = "humano", classId = "monge", level = 6 })).Json())["speed"]!;
+        Assert.Equal("13.5 = 9 Humano p.31 + 4.5 Movimento sem Armadura (nível 6) — sem armadura nem escudo p.104",
+            $"{speed["total"]} = {string.Join(" + ", speed["parts"]!.AsArray().Select(p => $"{p!["value"]} {p["label"]} p.{p["source"]!["page"]}"))}");
+    }
+
+    [Fact] // F11 AC1: Bárbaro nv. 4 ainda 9 m; nv. 5 → 12 m (Movimento Rápido, p. 49)
+    public async Task Compute_BarbarianLevels4And5_SpeedGainsFastMovementAt5()
+    {
+        var client = factory.CreateClient();
+        var totals = new List<decimal>();
+        foreach (var level in new[] { 4, 5 })
+        {
+            totals.Add((decimal)(await (await client.Post(Compute, new { raceId = "humano", classId = "barbaro", level })).Json())["speed"]!["total"]!);
+        }
+        Assert.Equal([9m, 12m], totals);
+    }
+
     [Fact] // F4 AC4: escolhas do jogador saem com origin "choice" (Meio-Elfo +1, perícias, Especialização)
     public async Task Compute_FullDraft_ChoiceBonusesHaveChoiceOrigin()
     {

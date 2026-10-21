@@ -21,6 +21,17 @@ public enum GrantType
     SaveProficiency,
     AbilityScoreImprovement,
     SubclassChoice,
+    SpeedBonus,
+}
+
+/// <summary>Condição de um bônus de deslocamento de classe (spec F11; o app ainda não modela armadura).</summary>
+public enum SpeedCondition
+{
+    /// <summary>Bárbaro, Movimento Rápido (LdJ p. 49).</summary>
+    NoHeavyArmor,
+
+    /// <summary>Monge, Movimento sem Armadura (LdJ p. 104).</summary>
+    NoArmorNoShield,
 }
 
 /// <summary>Tamanho da criatura (LdJ Cap. 2).</summary>

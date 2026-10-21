@@ -19,13 +19,13 @@ Regra: 1 comportamento por tarefa (≤ ~5 arquivos). Cada item de backlog começ
 
 ## B — Deslocamento de classe ([F11 class-speed-bonus](../features/class-speed-bonus/spec.md))
 - [x] T6 — Spec F11 escrita (Bárbaro p. 49, Monge p. 104; condição assumida cumprida).
-- [ ] T6b — Aprovação humana da spec F11 (decisão: condição de armadura só no rótulo).
-- [ ] T7 — Catálogo: grant `speed-bonus` (`meters`, `condition`, `steps`) no schema + dados do
+- [x] T6b — Spec F11 aprovada pelo humano (2026-10-21; condição de armadura só no rótulo).
+- [x] T7 — Catálogo: grant `speed-bonus` (`meters`, `condition`, `steps`) no schema + dados do
   Bárbaro e do Monge + `Ruleset.Tests` (degraus = coluna da tabela) — F11 AC4
-- [ ] T8 — Domain: `SpeedRules.Compute(race, subrace, class, level)` com parcelas e rótulos;
+- [x] T8 — Domain: `SpeedRules.Compute(race, subrace, class, level)` com parcelas e rótulos;
   `SheetCalculator` passa classe e nível; `calculations.md` §8 — F11 AC1–AC3, AC5
-- [ ] T9 — API: `/compute` Monge nv. 6 → 13,5 m (sem mudar DTO) — F11 AC4
-- [ ] T10 — Front: breakdown e "Meus bônus" com a parcela; Vitest + E2E (Monge nv. 6) + axe — F11 AC6–AC7
+- [x] T9 — API: `/compute` Monge nv. 6 → 13,5 m (sem mudar DTO) — F11 AC4
+- [x] T10 — Front: breakdown e "Meus bônus" com a parcela; Vitest + E2E (Monge nv. 6) + axe — F11 AC6–AC7
 
 ## C — Arquétipos/subclasses (maior; depende de decisão)
 - [ ] T11 — Decisão: ADR sobre o escopo de arquétipos dentro do SRD 5.1 (um por classe?

@@ -157,6 +157,19 @@
       "kind": "other",
       "description": "Sem armadura e sem escudo, seu deslocamento aumenta (veja a tabela).",
       "scaling": "movimento-sem-armadura",
+      "grants": [
+        {
+          "type": "speed-bonus",
+          "condition": "no-armor-no-shield",
+          "steps": [
+            { "level": 2, "meters": 3 },
+            { "level": 6, "meters": 4.5 },
+            { "level": 10, "meters": 6 },
+            { "level": 14, "meters": 7.5 },
+            { "level": 18, "meters": 9 }
+          ]
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 104

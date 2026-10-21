@@ -210,6 +210,13 @@
       "level": 5,
       "kind": "other",
       "description": "Seu deslocamento aumenta 3 m enquanto você não usar armadura pesada.",
+      "grants": [
+        {
+          "type": "speed-bonus",
+          "meters": 3,
+          "condition": "no-heavy-armor"
+        }
+      ],
       "source": {
         "book": "LdJ",
         "page": 49

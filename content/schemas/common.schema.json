@@ -57,11 +57,27 @@
       "properties": {
         "type": {
           "enum": ["expertise", "half-proficiency", "skill-proficiency", "save-proficiency",
-                   "ability-score-improvement", "subclass-choice"]
+                   "ability-score-improvement", "subclass-choice", "speed-bonus"]
         },
         "count": { "type": "integer", "minimum": 1 },
         "skill": { "$ref": "#/$defs/skill" },
-        "ability": { "$ref": "#/$defs/ability" }
+        "ability": { "$ref": "#/$defs/ability" },
+        "meters": { "type": "number", "exclusiveMinimum": 0, "description": "speed-bonus fixo, em metros." },
+        "condition": {
+          "enum": ["no-heavy-armor", "no-armor-no-shield"],
+          "description": "speed-bonus: condição do livro (o app não modela armadura; vai só no rótulo)."
+        },
+        "steps": {
+          "type": "array", "minItems": 1,
+          "description": "speed-bonus que sobe por nível: vale de `level` em diante.",
+          "items": {
+            "type": "object", "required": ["level", "meters"], "additionalProperties": false,
+            "properties": {
+              "level": { "type": "integer", "minimum": 1, "maximum": 20 },
+              "meters": { "type": "number", "exclusiveMinimum": 0 }
+            }
+          }
+        }
       }
     },
     "choice": {

@@ -62,6 +62,36 @@ describe('BonusBreakdownComponent', () => {
     expect([button.textContent?.trim(), ...values]).toEqual(['10,5 m', '+9', '+1,5']);
   });
 
+  it('breakdown do deslocamento com bônus de classe deve listar a condição no rótulo e a página (F11 AC4)', async () => {
+    const fixture = TestBed.createComponent(BonusBreakdownComponent);
+    fixture.componentRef.setInput('label', 'Deslocamento');
+    fixture.componentRef.setInput('total', 13.5);
+    fixture.componentRef.setInput('unit', 'm');
+    fixture.componentRef.setInput('parts', [
+      { value: 9, label: 'Humano', bonusType: 'speed', source: { book: 'LdJ', page: 31 } },
+      {
+        value: 4.5,
+        label: 'Movimento sem Armadura (nível 6) — sem armadura nem escudo',
+        bonusType: 'speed',
+        source: { book: 'LdJ', page: 104 },
+      },
+    ]);
+    await fixture.whenStable();
+    const el = fixture.nativeElement as HTMLElement;
+
+    el.querySelector('button')!.click();
+    await fixture.whenStable();
+
+    expect(
+      Array.from(el.querySelectorAll('li'), (li) =>
+        Array.from(li.querySelectorAll('span'), (s) => s.textContent?.trim()).join(' | '),
+      ),
+    ).toEqual([
+      '+9 | Humano | » Deslocamento | LdJ p. 31',
+      '+4,5 | Movimento sem Armadura (nível 6) — sem armadura nem escudo | » Deslocamento | LdJ p. 104',
+    ]);
+  });
+
   it('breakdown aberto quando recebe Esc deve fechar e devolver o foco ao número (F4 AC1)', async () => {
     const { fixture, el, button } = await render();
     button.click();

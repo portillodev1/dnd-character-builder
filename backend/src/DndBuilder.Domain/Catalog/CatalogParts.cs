@@ -14,12 +14,23 @@ public sealed record CatalogBonus
         && CatalogIds.TryParseAbility(Target["ability:".Length..], out var ability) ? ability : null;
 }
 
+/// <summary>Degrau de um bônus que sobe por nível: vale de <c>Level</c> em diante (até o próximo degrau).</summary>
+public sealed record SpeedStep(int Level, decimal Meters);
+
 public sealed record Grant
 {
     public required GrantType Type { get; init; }
     public int? Count { get; init; }
     public string? Skill { get; init; }
     public string? Ability { get; init; }
+
+    /// <summary><c>speed-bonus</c> fixo, em metros (Bárbaro +3 m).</summary>
+    public decimal? Meters { get; init; }
+
+    /// <summary><c>speed-bonus</c> que sobe por nível (Monge); tem precedência sobre <c>Meters</c>.</summary>
+    public IReadOnlyList<SpeedStep>? Steps { get; init; }
+
+    public SpeedCondition? Condition { get; init; }
 }
 
 /// <summary>
