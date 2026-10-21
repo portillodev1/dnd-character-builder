@@ -23,7 +23,7 @@ Objetivo: iniciante monta a ficha de D&D 5e entendendo de onde vem cada número.
 | 6 — Qualidade | Playwright E2E, axe, polimento de textos | E2E dos 5 critérios verde | ✅ aprovada (2026-10-21) |
 | 7 — Robustez e UX pós-QA | Specs F6–F9 a partir do [relatório de QA](docs/qa/2026-10-20-teste-e2e/README.md) | Critérios F6–F9 com teste; `verify.sh --strict` verde | ✅ aprovada (2026-10-21) |
 | 8 — Incremento de atributo | [F10 ability-score-improvement](.specs/features/ability-score-improvement/spec.md) | Critérios F10 com teste; `verify.sh --strict` verde | ✅ aprovada (2026-10-21) |
-| 9 — Fechamento do MVP e próximos incrementos | Revisão humana F1–F6; deslocamento de classe ([F11](.specs/features/class-speed-bonus/spec.md)); arquétipos (tasks em [tasks-fase-9](.specs/project/tasks-fase-9.md)) | `verify.sh --strict` verde por entrega | 🔜 planejada |
+| 9 — Fechamento do MVP e próximos incrementos | Revisão do catálogo e do app; correções de UX; deslocamento de classe ([F11](.specs/features/class-speed-bonus/spec.md)); 41 arquétipos ([F12](.specs/features/class-archetypes/spec.md), ADR-0011) | `verify.sh --strict` verde por entrega | ✅ aprovada (2026-10-21) |
 
 Dependências: 1 → 2 → (3 ∥ 4 parcialmente) → 5 → 6. Fases 2 e 3 podem correr em paralelo
 depois que o schema (`content/schemas/`) estiver fechado.
@@ -38,7 +38,8 @@ depois que o schema (`content/schemas/`) estiver fechado.
 
 ## Pós-MVP (backlog, cada item exige spec)
 - Antecedentes completos (Cap. 4) — hoje só proficiências manuais extras.
-- Arquétipos/subclasses detalhados — escopo decidido no [ADR-0011](docs/adr/ADR-0011-archetype-scope.md) (41 do LdJ); spec [F12](.specs/features/class-archetypes/spec.md) aprovada; os 41 do LdJ no catálogo (12 SRD + 29 fora do SRD, revisão humana pendente).
+- ~~Arquétipos/subclasses detalhados~~ → Fase 9 (F12, ADR-0011): os 41 do LdJ. Pendente: revisão humana do conteúdo não-SRD (29) antes de publicar o repositório.
 - ~~Aumento de atributo por nível (ASI)~~ → Fase 8 (F10). Talentos: regra opcional, quase toda fora do SRD 5.1 (ADR-0004).
 - Magias por classe/nível; equipamento e CA calculada.
-- Compartilhar ficha por link, multiusuário/login (exige banco — novo ADR); exportar PDF no layout oficial.
+- Exportar PDF no layout oficial.
+- **Fora de escopo por ora (decisão de 2026-10-21): login/multiusuário e compartilhar por link** — o projeto segue sem login e sem banco (ADR-0002/0006).

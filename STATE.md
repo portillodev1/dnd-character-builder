@@ -2,13 +2,10 @@
 
 Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia o
 `## Handoff
-- **Fase 9 (em andamento)**: tasks em `.specs/project/tasks-fase-9.md`. A: T1–T5 feitas (QA em `docs/qa/2026-10-21-*`; T3 = `6bfaf75`; T4 aprovada e tasks 1–5 apagados;
-  push feito). B: F11 `class-speed-bonus` implementada (T6–T10; Bárbaro p. 49, Monge p. 104),
-  aguardando revisão humana. C: escopo decidido (T11, ADR-0011: todos os 41 arquétipos do LdJ, em fatias por classe);
-  F12 `class-archetypes`: contrato `draft.archetype` aprovado e back-end pronto (T13; Campeão e
-  Linhagem Dracônica como dados-piloto). Front pronto (T14): escolha no passo Classe e "Meus bônus". Dados: T15 feita (12 arquétipos do SRD, 1 por classe, todas as classes escolhíveis);
-  T16 feita: os 41 arquétipos do LdJ (12 SRD + 29 fora) no catálogo, nomes/níveis/páginas conferidos
-  por script nas colunas do PDF. Resta o humano revisar o conteúdo não-SRD antes de publicar o repositório.
+- **Fase 9 aprovada** (2026-10-21), exceto login/compartilhar por link, que ficam **fora de escopo por ora**
+  (sem login e sem banco). Entregas: QA do catálogo e do app + 2 correções de UX (`6bfaf75`); F11
+  `class-speed-bonus`; F12 `class-archetypes` com os 41 arquétipos do LdJ (ADR-0011). `tasks-fase-9.md` apagado.
+  Pendente do humano: revisar o conteúdo não-SRD (29 arquétipos) antes de publicar o repositório.
 - **Última unidade**: **Fase 8 aprovada** (2026-10-21) e limpa — spec F10 permanece;
   `tasks-fase-8.md` apagado. Commits: spec `ed4b2df`, implementação `30204f1`.
 - **Fase 7 (anterior)**: aprovada (2026-10-21); F6 `6fa259a`, F7 `027d66e`, F8 `e49f055`, F9 `2f088fe`.
@@ -38,7 +35,7 @@ Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia 
   `PATH="/opt/homebrew/opt/node@24/bin:$PATH"` antes dos scripts. PDF do LdJ fica fora do repo
   (ADR-0004); para conferir páginas use `pdftotext` (poppler) num diretório temporário.
 - **Bloqueios**: nenhum.
-- **Próxima unidade**: revisão humana das Fases 1–6; depois o backlog do `ROADMAP.md`
-  (arquétipos tirariam o último selo "anote à mão" — exige spec e decisão de ADR-0004).
-- **Limpeza**: `tasks-fase-1…5` apagados na aprovação de 2026-10-21; resta `tasks-fase-9.md` (apagar quando a Fase 9 for aprovada).
+- **Próxima unidade**: backlog do `ROADMAP.md` (cada item exige spec): antecedentes completos; magias por
+  classe/nível; equipamento e CA calculada; exportar PDF. Login/compartilhar: não planejado.
+- **Limpeza**: `tasks-fase-1…5` e `tasks-fase-9` apagados (aprovadas); nada efêmero pendente.
 - **Gates**: `verify.sh --strict` verde.
