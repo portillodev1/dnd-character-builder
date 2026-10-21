@@ -4,7 +4,8 @@ Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia 
 `## Handoff
 - **Fase 9 (em andamento)**: tasks em `.specs/project/tasks-fase-9.md`. A: T1–T3 feitas (QA em `docs/qa/2026-10-21-*`; T3 = `6bfaf75`);
   T4–T5 (aprovação humana + push) pendentes. B: F11 `class-speed-bonus` implementada (T6–T10; Bárbaro p. 49, Monge p. 104),
-  aguardando revisão humana. C: T11 pede decisão do humano (escopo de arquétipos, ADR-0004).
+  aguardando revisão humana. C: escopo decidido (T11, ADR-0011: todos os 41 arquétipos do LdJ, em fatias por classe);
+  próxima: T12, spec `class-archetypes`.
 - **Última unidade**: **Fase 8 aprovada** (2026-10-21) e limpa — spec F10 permanece;
   `tasks-fase-8.md` apagado. Commits: spec `ed4b2df`, implementação `30204f1`.
 - **Fase 7 (anterior)**: aprovada (2026-10-21); F6 `6fa259a`, F7 `027d66e`, F8 `e49f055`, F9 `2f088fe`.

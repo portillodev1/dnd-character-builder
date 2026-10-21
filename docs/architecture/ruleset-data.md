@@ -36,7 +36,8 @@ a escolha só é registrada. A API devolve `warnings` enquanto a escolha não fo
 
 ## Escopo de subclasses
 MVP: só características **da classe base** e o marco "escolha seu arquétipo no nível N".
-Detalhar arquétipos é fase 2 (ver `ROADMAP.md`), conforme licença (ADR-0004).
+Arquétipos: todos os 41 do LdJ, em fatias por classe (SRD `srd: true`, demais `srd: false`) —
+[ADR-0011](../adr/ADR-0011-archetype-scope.md); licença no ADR-0004.
 
 ## Integridade (testada em `Ruleset.Tests`)
 - Todo JSON valida no schema; `id` único por pasta; referências (`subraces`, `skill:x`) existem.

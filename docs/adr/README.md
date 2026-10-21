@@ -18,3 +18,4 @@ Modelo: [ADR.template.md](ADR.template.md).
 | [0008](ADR-0008-fontsource-fonts.md) | Fontes de época empacotadas (@fontsource, OFL) | aceito |
 | [0009](ADR-0009-playwright-axe-e2e.md) | E2E com Playwright + axe-core (API e front isolados) | aceito |
 | [0010](ADR-0010-api-origin-config.md) | Front chama a API por caminho relativo; proxy do `ng serve` no dev/E2E | aceito |
+| [0011](ADR-0011-archetype-scope.md) | Arquétipos: todos os 41 do LdJ, em fatias por classe (12 do SRD primeiro) | aceito |

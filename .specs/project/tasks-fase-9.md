@@ -27,21 +27,23 @@ Regra: 1 comportamento por tarefa (≤ ~5 arquivos). Cada item de backlog começ
 - [x] T9 — API: `/compute` Monge nv. 6 → 13,5 m (sem mudar DTO) — F11 AC4
 - [x] T10 — Front: breakdown e "Meus bônus" com a parcela; Vitest + E2E (Monge nv. 6) + axe — F11 AC6–AC7
 
-## C — Arquétipos/subclasses (maior; depende de decisão)
-- [ ] T11 — Decisão: ADR sobre o escopo de arquétipos dentro do SRD 5.1 (um por classe?
-  quais?). **Pergunte ao humano** antes de seguir (AGENTS.md → PERGUNTE QUANDO).
-- [ ] T12 — Spec `class-archetypes` (escolha no nível certo, características por nível,
-  fim do selo "anote à mão"); definir contrato `draft.archetype` e aprovar mudança de API.
-- [ ] T13 — Schema + dados dos arquétipos aprovados em T11 (`content/`, `source` com página).
-- [ ] T14 — Domain/API: validar arquétipo vs. classe/nível; features entram no breakdown.
-- [ ] T15 — Front: passo Classe com escolha de arquétipo; E2E + axe.
+## C — Arquétipos/subclasses ([ADR-0011](../../docs/adr/ADR-0011-archetype-scope.md): todos os 41, em fatias)
+- [x] T11 — Decisão do escopo: ADR-0011 aceito (2026-10-21), todos os 41 do LdJ.
+- [ ] T12 — Spec `class-archetypes` (escolha no nível certo — 1/2/3 por classe —, características
+  por nível, fim do selo "anote à mão"); definir contrato `draft.archetype` e aprovar a mudança de API.
+- [ ] T13 — Schema + modelo de `archetypes` na classe (`srd`, features com nível/página) + Domain/API:
+  validar arquétipo vs. classe/nível; features entram no breakdown e em "Meus bônus".
+- [ ] T14 — Front: passo Classe com escolha de arquétipo; Vitest + E2E + axe.
+- [ ] T15 — Dados, fatia 1: os 12 arquétipos do SRD (1 por classe), `source` com página.
+- [ ] T16 — Dados, fatias 2–4: os 29 restantes por classe (Clérigo/Mago em fatia própria: 7 e 8).
+  Cada fatia só entra com `verify.sh --strict` verde e conferência contra o LdJ.
 
 ## D — Backlog seguinte (cada item exige spec; ordem sugerida)
-- [ ] T16 — Spec Antecedentes completos (Cap. 4): proficiências, idiomas, característica.
-- [ ] T17 — Spec Magias por classe/nível (SRD 5.1, ADR-0004).
-- [ ] T18 — Spec Equipamento e CA calculada.
-- [ ] T19 — Spec Exportar PDF no layout oficial.
-- [ ] T20 — Spec Compartilhar por link / login (exige banco → novo ADR; só se o humano quiser).
+- [ ] T17 — Spec Antecedentes completos (Cap. 4): proficiências, idiomas, característica.
+- [ ] T18 — Spec Magias por classe/nível (SRD 5.1, ADR-0004).
+- [ ] T19 — Spec Equipamento e CA calculada.
+- [ ] T20 — Spec Exportar PDF no layout oficial.
+- [ ] T21 — Spec Compartilhar por link / login (exige banco → novo ADR; só se o humano quiser).
 
 ## Ordem e paralelismo
 A (T1→T5) vem primeiro. B e C são independentes entre si, mas ambos tocam `class-step.ts` e o
