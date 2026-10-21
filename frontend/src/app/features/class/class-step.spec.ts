@@ -155,4 +155,186 @@ describe('ClassStepComponent', () => {
 
     expect(store.draft().abilityImprovements).toEqual({});
   });
+
+  describe('arquétipo (spec F12)', () => {
+    const src = { book: 'LdJ', page: 80 };
+    const dragon = {
+      id: 'linhagem-draconica-ancestral',
+      name: 'Ancestral Dracônico',
+      count: 1,
+      from: ['Azul', 'Vermelho'],
+      kind: 'other',
+      bonusType: null,
+      source: src,
+    };
+    const classes = [
+      {
+        id: 'guerreiro',
+        name: 'Guerreiro',
+        summary: 's',
+        hitDie: 10,
+        primaryAbilities: [],
+        savingThrows: [],
+        archetypeLevel: 3,
+        archetypes: [
+          {
+            id: 'campeao',
+            name: 'Campeão',
+            summary: 'Golpes críticos mais frequentes.',
+            srd: true,
+            features: [feature({ id: 'critico-aprimorado', name: 'Crítico Aprimorado', level: 3 })],
+            choices: [],
+            source: src,
+          },
+        ],
+      },
+      {
+        id: 'feiticeiro',
+        name: 'Feiticeiro',
+        summary: 's',
+        hitDie: 6,
+        primaryAbilities: [],
+        savingThrows: [],
+        archetypeLevel: 1,
+        archetypes: [
+          {
+            id: 'linhagem-draconica',
+            name: 'Linhagem Dracônica',
+            summary: 'Sangue de dragão.',
+            srd: true,
+            features: [],
+            choices: [dragon],
+            source: src,
+          },
+        ],
+      },
+    ];
+    const marker = (name: string, level: number) =>
+      feature({ id: 'marco', name, level, manual: true, abilityImprovement: false });
+
+    beforeEach(() => {
+      ruleset.classes.mockResolvedValueOnce(classes);
+      ruleset.classFeatures.mockImplementation((id: string, level: number) =>
+        Promise.resolve({
+          ...rogue(level, 0),
+          name: id,
+          features: [
+            marker(
+              id === 'guerreiro' ? 'Arquétipo Marcial' : 'Origem de Feitiçaria',
+              id === 'guerreiro' ? 3 : 1,
+            ),
+          ],
+        }),
+      );
+    });
+
+    const options = (el: HTMLElement) =>
+      Array.from(
+        el.querySelectorAll('input[name=archetype]'),
+        (i) => (i as HTMLInputElement).value,
+      );
+
+    it('abaixo do nível do marco deve explicar quando se escolhe, sem opções (AC1)', async () => {
+      const { fixture, el } = await render({ classId: 'guerreiro', level: 2 });
+      await fixture.whenStable();
+
+      expect([options(el), el.querySelector('[role=note]')?.textContent?.trim()]).toEqual([
+        [],
+        'Você escolhe seu Arquétipo Marcial no nível 3.',
+      ]);
+    });
+
+    it('no nível do marco deve listar as opções e gravar draft.archetype ao escolher (AC1)', async () => {
+      const { fixture, store, el } = await render({ classId: 'guerreiro', level: 3 });
+      await fixture.whenStable();
+      const radio = el.querySelector('input[name=archetype][value=campeao]') as HTMLInputElement;
+
+      radio.dispatchEvent(new Event('change'));
+      await fixture.whenStable();
+
+      expect([
+        options(el),
+        el.querySelector('fieldset.archetypes legend')?.textContent?.trim(),
+        el.querySelector('fieldset.archetypes .meta')?.textContent?.trim(),
+        store.draft().archetype,
+        ruleset.classFeatures.mock.lastCall,
+      ]).toEqual([
+        ['campeao'],
+        'Arquétipo Marcial',
+        'Ganha: Crítico Aprimorado (nível 3)',
+        'campeao',
+        ['guerreiro', 3, 'campeao'],
+      ]);
+    });
+
+    it('escolha do arquétipo deve aparecer como seletor e gravar em draft.choices', async () => {
+      const { fixture, store, el } = await render({
+        classId: 'feiticeiro',
+        level: 1,
+        archetype: 'linhagem-draconica',
+      });
+      await fixture.whenStable();
+
+      (
+        el.querySelector('app-choice-picker input[type=checkbox]') as HTMLInputElement
+      ).dispatchEvent(new Event('change'));
+      await fixture.whenStable();
+
+      expect(store.draft().choices).toEqual({ 'linhagem-draconica-ancestral': ['Azul'] });
+    });
+
+    it('trocar de classe deve limpar o arquétipo e as escolhas dele (AC8)', async () => {
+      const { fixture, store, el } = await render({
+        classId: 'feiticeiro',
+        level: 3,
+        archetype: 'linhagem-draconica',
+        choices: { 'linhagem-draconica-ancestral': ['Azul'], 'idioma-adicional': ['Anão'] },
+      });
+      await fixture.whenStable();
+
+      (el.querySelector('input[value=guerreiro]') as HTMLInputElement).dispatchEvent(
+        new Event('change'),
+      );
+      await fixture.whenStable();
+
+      expect([store.draft().archetype, store.draft().choices]).toEqual([
+        null,
+        { 'idioma-adicional': ['Anão'] },
+      ]);
+    });
+
+    it('baixar o nível abaixo do marco deve limpar o arquétipo e avisar (AC8)', async () => {
+      const { fixture, store, el } = await render({
+        classId: 'guerreiro',
+        level: 3,
+        archetype: 'campeao',
+      });
+      await fixture.whenStable();
+
+      await pickLevel(el, 2);
+      await fixture.whenStable();
+
+      expect([store.draft().level, store.draft().archetype]).toEqual([2, null]);
+      expect(el.querySelector('[role=status]')?.textContent?.trim()).toBe(
+        'No nível 2 o Arquétipo Marcial ainda não existe (é escolhido no nível 3): tiramos Campeão.',
+      );
+    });
+
+    it('baixar o nível sem passar do marco deve manter o arquétipo', async () => {
+      const { fixture, store, el } = await render({
+        classId: 'guerreiro',
+        level: 7,
+        archetype: 'campeao',
+      });
+      await fixture.whenStable();
+
+      await pickLevel(el, 4);
+      await fixture.whenStable();
+
+      expect([store.draft().archetype, el.querySelector('[role=status]')]).toEqual([
+        'campeao',
+        null,
+      ]);
+    });
+  });
 });

@@ -46,7 +46,7 @@ internal static class Mapping
     public static ClassSummaryDto Summary(this CharacterClass c)
         => new(c.Id, c.Name, c.Summary, c.HitDie, [.. c.PrimaryAbilities.Select(CatalogIds.Id)], [.. c.SavingThrows.Select(CatalogIds.Id)],
             c.SubclassLevel, [.. c.Archetypes.Select(a => new ArchetypeDto(a.Id, a.Name, a.Summary, a.Srd,
-                [.. a.Features.Select(f => new FeatureResult(f, null, a.Name).Dto())], a.Source.Dto()))]);
+                [.. a.Features.Select(f => new FeatureResult(f, null, a.Name).Dto())], [.. a.Choices.Select(Dto)], a.Source.Dto()))]);
 
     public static ClassFeaturesDto Dto(this ClassFeaturesView v)
     {

@@ -22,10 +22,11 @@ export class RulesetService {
     return firstValueFrom(this.http.get<ClassSummary[]>(`${this.base}/classes`));
   }
 
-  classFeatures(id: string, level: number): Promise<ClassFeatures> {
+  /** Com `archetype`, a prévia traz as características dele no lugar dos rótulos genéricos (F12). */
+  classFeatures(id: string, level: number, archetype?: string | null): Promise<ClassFeatures> {
     return firstValueFrom(
       this.http.get<ClassFeatures>(`${this.base}/classes/${encodeURIComponent(id)}/features`, {
-        params: { level },
+        params: { level, ...(archetype ? { archetype } : {}) },
       }),
     );
   }

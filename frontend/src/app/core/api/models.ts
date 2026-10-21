@@ -15,6 +15,7 @@ export type Choice = Schemas['ChoiceDto'];
 export type Trait = Schemas['TraitDto'];
 export type RaceBonus = Schemas['BonusDto'];
 export type ClassSummary = Schemas['ClassSummaryDto'];
+export type Archetype = Schemas['ArchetypeDto'];
 export type ClassFeatures = Schemas['ClassFeaturesDto'];
 export type Feature = Schemas['FeatureDto'];
 export type SheetSummary = Schemas['SheetSummaryDto'];

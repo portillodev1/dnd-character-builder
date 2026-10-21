@@ -167,6 +167,7 @@ export interface components {
             summary: string;
             srd: boolean;
             features: components["schemas"]["FeatureDto"][];
+            choices: components["schemas"]["ChoiceDto"][];
             source: components["schemas"]["SourceDto"];
         };
         BonusDto: {

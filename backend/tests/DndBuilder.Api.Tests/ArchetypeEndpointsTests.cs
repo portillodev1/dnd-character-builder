@@ -30,6 +30,14 @@ public class ArchetypeEndpointsTests(ApiFactory factory) : IClassFixture<ApiFact
         Assert.Equal(["3:campeao/true/5", "1:linhagem-draconica/true/5", "3:"], [Summary("guerreiro"), Summary("feiticeiro"), Summary("ladino")]);
     }
 
+    [Fact] // a UI precisa das escolhas do arquétipo (ex.: dragão ancestral) para montar o seletor
+    public async Task ListClasses_DraconicBloodline_ExposesItsChoices()
+    {
+        var classes = (await (await factory.CreateClient().Get("/api/v1/classes")).Json()).AsArray();
+        var choice = classes.Single(c => (string)c!["id"]! == "feiticeiro")!["archetypes"]![0]!["choices"]![0]!;
+        Assert.Equal(("linhagem-draconica-ancestral", 1, 10), ((string)choice["id"]!, (int)choice["count"]!, choice["from"]!.AsArray().Count));
+    }
+
     [Fact] // AC2: com arquétipo, features traz as dele e o rótulo genérico some; a ficha diz qual foi escolhido
     public async Task Compute_FighterChampion7_ListsArchetypeFeaturesAndHidesGenericLabels()
     {

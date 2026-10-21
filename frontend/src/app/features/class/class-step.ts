@@ -6,12 +6,19 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { ClassFeatures, ClassSummary } from '../../core/api/models';
+import {
+  Archetype,
+  CharacterDraft,
+  Choice,
+  ClassFeatures,
+  ClassSummary,
+} from '../../core/api/models';
 import { latestOnly } from '../../core/api/latest-only';
 import { RulesetService } from '../../core/api/ruleset.service';
 import { ABILITY_NAMES, SKILL_NAMES } from '../../shared/labels';
 import { TraitCardComponent } from '../../shared/ui/trait-card';
 import { CharacterDraftStore } from '../../state/character-draft.store';
+import { ChoicePickerComponent } from '../wizard/choice-picker';
 import { StepNavComponent } from '../wizard/step-nav';
 
 const LEVELS = Array.from({ length: 20 }, (_, i) => i + 1);
@@ -19,7 +26,7 @@ const LEVELS = Array.from({ length: 20 }, (_, i) => i + 1);
 /** Passo 2 — classe e nível com as características até o nível (spec F2). */
 @Component({
   selector: 'app-class-step',
-  imports: [TraitCardComponent, StepNavComponent],
+  imports: [TraitCardComponent, ChoicePickerComponent, StepNavComponent],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h2>Classe e nível</h2>
@@ -60,6 +67,39 @@ const LEVELS = Array.from({ length: 20 }, (_, i) => i + 1);
       <p role="status" class="notice">{{ n }}</p>
     }
 
+    @if (archetypes().length > 0) {
+      @if (canChoose()) {
+        <fieldset class="classes archetypes">
+          <legend>{{ choiceName() }}</legend>
+          @for (a of archetypes(); track a.id) {
+            <label class="class">
+              <input
+                type="radio"
+                name="archetype"
+                [value]="a.id"
+                [checked]="a.id === archetypeId()"
+                (change)="pickArchetype(a.id)"
+              />
+              <strong>{{ a.name }}</strong>
+              <span>{{ a.summary }}</span>
+              <span class="meta">Ganha: {{ gains(a) }}</span>
+            </label>
+          }
+        </fieldset>
+        @for (c of archetypeChoices(); track c.id) {
+          <app-choice-picker
+            [choice]="c"
+            [picked]="picked(c.id)"
+            (toggled)="toggleChoice(c, $event)"
+          />
+        }
+      } @else {
+        <p class="help" role="note">
+          Você escolhe seu {{ choiceName() }} no nível {{ archetypeLevel() }}.
+        </p>
+      }
+    }
+
     @if (details(); as d) {
       <section aria-labelledby="profs">
         <h3 id="profs">Proficiências de {{ d.name }}</h3>
@@ -86,6 +126,7 @@ const LEVELS = Array.from({ length: 20 }, (_, i) => i + 1);
             [level]="f.level"
             [scaling]="f.scalingValue"
             [manual]="f.manual"
+            [origin]="f.archetype"
           />
         }
       </section>
@@ -102,6 +143,7 @@ const LEVELS = Array.from({ length: 20 }, (_, i) => i + 1);
               [level]="f.level"
               [scaling]="f.scalingValue"
               [manual]="f.manual"
+              [origin]="f.archetype"
             />
           }
         </section>
@@ -192,12 +234,48 @@ export class ClassStepComponent {
   protected readonly classId = computed(() => this.store.draft().classId ?? null);
   protected readonly level = computed(() => this.store.draft().level ?? 1);
 
+  // Arquétipo (spec F12): opções vêm da classe escolhida; o nome da escolha ("Arquétipo Marcial") vem da
+  // característica-marco no catálogo, não do front.
+  protected readonly archetypes = computed<Archetype[]>(
+    () => this.classes().find((c) => c.id === this.classId())?.archetypes ?? [],
+  );
+  protected readonly archetypeLevel = computed(
+    () => this.classes().find((c) => c.id === this.classId())?.archetypeLevel ?? 1,
+  );
+  protected readonly canChoose = computed(() => this.level() >= this.archetypeLevel());
+  protected readonly archetypeId = computed(() => this.store.draft().archetype ?? null);
+  protected readonly chosenArchetype = computed(
+    () => this.archetypes().find((a) => a.id === this.archetypeId()) ?? null,
+  );
+  protected readonly archetypeChoices = computed<Choice[]>(
+    () => this.chosenArchetype()?.choices ?? [],
+  );
+  protected readonly choiceName = signal('Arquétipo');
+  private readonly showChoiceName = latestOnly<string | null>((n) =>
+    this.choiceName.set(n ?? 'Arquétipo'),
+  );
+
   constructor() {
     void this.ruleset.classes().then((list) => this.classes.set(list));
     effect(() => {
       const id = this.classId();
       const level = this.level();
-      this.showDetails(id === null ? Promise.resolve(null) : this.ruleset.classFeatures(id, level));
+      const archetype = this.canChoose() ? this.archetypeId() : null;
+      this.showDetails(
+        id === null ? Promise.resolve(null) : this.ruleset.classFeatures(id, level, archetype),
+      );
+    });
+    effect(() => {
+      const id = this.classId();
+      const marker = this.archetypeLevel();
+      this.showChoiceName(
+        id === null || this.archetypes().length === 0
+          ? Promise.resolve(null)
+          : this.ruleset
+              .classFeatures(id, marker)
+              .then((d) => d.features.find((f) => f.manual)?.name ?? null)
+              .catch(() => null),
+      );
     });
   }
 
@@ -205,14 +283,59 @@ export class ClassStepComponent {
     if (id === this.classId()) {
       return;
     }
-    // Perícias, Especializações e Incrementos dependem da classe: trocar de classe os limpa (F10 AC7).
-    this.store.update({
+    // Perícias, Especializações, Incrementos e arquétipo dependem da classe: trocar de classe os limpa
+    // (F10 AC7, F12 AC8).
+    this.store.update((d) => ({
+      ...d,
       classId: id,
       level: this.level(),
       skillChoices: [],
       expertise: [],
       abilityImprovements: {},
+      archetype: null,
+      choices: this.withoutArchetypeChoices(d.choices, this.archetypes()),
+    }));
+  }
+
+  /** Escolher outro arquétipo limpa só as escolhas do anterior (F12 AC8). */
+  protected pickArchetype(id: string): void {
+    if (id === this.archetypeId()) {
+      return;
+    }
+    this.store.update((d) => ({
+      ...d,
+      archetype: id,
+      choices: this.withoutArchetypeChoices(d.choices, this.archetypes()),
+    }));
+  }
+
+  protected picked(choiceId: string): readonly string[] {
+    return this.store.draft().choices?.[choiceId] ?? [];
+  }
+
+  protected toggleChoice(choice: Choice, option: string): void {
+    this.store.update((d) => {
+      const current = d.choices?.[choice.id] ?? [];
+      const picks = current.includes(option)
+        ? current.filter((o) => o !== option)
+        : current.length < choice.count
+          ? [...current, option]
+          : current;
+      return { ...d, choices: { ...(d.choices ?? {}), [choice.id]: picks } };
     });
+  }
+
+  protected gains(a: Archetype): string {
+    return a.features.map((f) => `${f.name} (nível ${f.level})`).join(', ');
+  }
+
+  /** Remove de `choices` as escolhas de qualquer arquétipo dos dados (os ids são únicos no catálogo). */
+  private withoutArchetypeChoices(
+    choices: CharacterDraft['choices'],
+    options: readonly Archetype[],
+  ): NonNullable<CharacterDraft['choices']> {
+    const own = new Set(options.flatMap((a) => a.choices.map((c) => c.id)));
+    return Object.fromEntries(Object.entries(choices ?? {}).filter(([k]) => !own.has(k)));
   }
 
   /**
@@ -226,13 +349,22 @@ export class ClassStepComponent {
     const draft = this.store.draft();
     const expertise = draft.expertise ?? [];
     const improvements = draft.abilityImprovements ?? {};
+    // Abaixo do nível do marco o arquétipo não existe: sai junto com as escolhas dele (F12 AC8).
+    const archetype = this.chosenArchetype();
+    const dropArchetype = archetype !== null && level < this.archetypeLevel();
+    const archetypePatch: Partial<CharacterDraft> = dropArchetype
+      ? { archetype: null, choices: this.withoutArchetypeChoices(draft.choices, this.archetypes()) }
+      : {};
+    const archetypeNotice = dropArchetype
+      ? `No nível ${level} o ${this.choiceName()} ainda não existe (é escolhido no nível ${this.archetypeLevel()}): tiramos ${archetype.name}.`
+      : null;
     const allowed =
       id === null || (expertise.length === 0 && Object.keys(improvements).length === 0)
         ? null
         : await this.ruleset.classFeatures(id, level).catch(() => null);
     if (!allowed) {
-      this.store.update({ level });
-      this.notice.set(null);
+      this.store.update({ level, ...archetypePatch });
+      this.notice.set(archetypeNotice);
       return;
     }
     const keep = new Set(allowed.features.filter((f) => f.abilityImprovement).map((f) => f.id));
@@ -240,6 +372,7 @@ export class ClassStepComponent {
     const removedImprovements = Object.keys(improvements).filter((k) => !keep.has(k));
     this.store.update({
       level,
+      ...archetypePatch,
       ...(removedExpertise.length > 0 && { expertise: expertise.slice(0, allowed.expertiseCount) }),
       ...(removedImprovements.length > 0 && {
         abilityImprovements: Object.fromEntries(
@@ -253,6 +386,7 @@ export class ClassStepComponent {
           `desmarcamos ${this.list(removedExpertise.map((s) => SKILL_NAMES[s] ?? s))}.`,
       removedImprovements.length > 0 &&
         `No nível ${level} saem as escolhas de ${this.list(removedImprovements.map((k) => this.featureName(k)))}.`,
+      archetypeNotice,
     ].filter(Boolean);
     this.notice.set(notices.length > 0 ? notices.join(' ') : null);
   }

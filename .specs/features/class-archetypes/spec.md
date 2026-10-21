@@ -46,7 +46,8 @@ nível", as características reais dele por nível (com tipo e página), sem ano
   antigas carregam sem ele; `schemaVersion` segue 1 (como F10). Escolhas dele usam `draft.choices`
   com ids prefixados pelo arquétipo (`ladrao-…`).
 - **`GET /classes`**: cada classe ganha `archetypeLevel` e `archetypes[]`:
-  `{ id, name, summary, srd, features: [{ id, name, level, kind, description, source }] }`.
+  `{ id, name, summary, srd, features: [{ id, name, level, kind, description, source }], choices: [...] }`
+  (`choices` = escolhas dele, mesmo formato das raças, para a UI montar o seletor — acrescentado na T14).
 - **`GET /classes/{id}/features?level=N&archetype=<id>`**: `archetype` opcional (prévia no passo
   Classe); inválido → `400` ProblemDetails.
 - **Saída da ficha** (`/compute`, `GET /character-sheets/{id}`): `archetype: { id, name } | null`;

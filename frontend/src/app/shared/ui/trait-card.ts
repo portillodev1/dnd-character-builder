@@ -20,6 +20,9 @@ import { kind } from '../labels';
             >· agora: <strong>{{ s }}</strong></span
           >
         }
+        @if (origin(); as o) {
+          <span class="origin">· {{ o }}</span>
+        }
         <span class="page">· LdJ p. {{ page() }}</span>
       </p>
       <p>{{ description() }}</p>
@@ -71,6 +74,8 @@ export class TraitCardComponent {
   readonly scaling = input<string | null>(null);
   /** O app ainda não aplica a característica (ASI, arquétipo) — vem da API (F9 AC3). */
   readonly manual = input(false);
+  /** Dono da característica quando não é a classe base (nome do arquétipo — spec F12). */
+  readonly origin = input<string | null>(null);
 
   protected readonly type = computed(() => kind(this.kind()));
 }

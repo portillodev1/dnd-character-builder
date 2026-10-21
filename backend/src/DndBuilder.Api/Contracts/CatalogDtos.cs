@@ -14,8 +14,9 @@ public sealed record RaceDto(string Id, string Name, string Summary, string Size
     IReadOnlyList<ChoiceDto> Choices, IReadOnlyList<TraitDto> Traits, IReadOnlyList<string> Languages,
     IReadOnlyList<SubraceDto> Subraces, SourceDto Source);
 
-/// <summary>Opção de arquétipo da classe (spec F12): resumo e características por nível.</summary>
-public sealed record ArchetypeDto(string Id, string Name, string Summary, bool Srd, IReadOnlyList<FeatureDto> Features, SourceDto Source);
+/// <summary>Opção de arquétipo da classe (spec F12): resumo, características por nível e escolhas dele (ex.: dragão ancestral).</summary>
+public sealed record ArchetypeDto(string Id, string Name, string Summary, bool Srd, IReadOnlyList<FeatureDto> Features,
+    IReadOnlyList<ChoiceDto> Choices, SourceDto Source);
 
 /// <summary><c>ArchetypeLevel</c>: nível em que o arquétipo é escolhido (1, 2 ou 3 conforme a classe).</summary>
 public sealed record ClassSummaryDto(string Id, string Name, string Summary, int HitDie, IReadOnlyList<string> PrimaryAbilities,

@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { SheetService } from '../../core/api/sheet.service';
 import { CharacterDraftStore } from '../../state/character-draft.store';
-import { sheet } from '../../testing/fixtures';
+import { feature, sheet } from '../../testing/fixtures';
 import { SheetStepComponent } from './sheet-step';
 
 const src = (page: number) => ({ book: 'LdJ', page });
@@ -91,5 +91,66 @@ describe('SheetStepComponent', () => {
 
     const button = el.querySelector<HTMLButtonElement>('button[aria-label^="Deslocamento"]');
     expect(button?.textContent?.trim()).toBe('9 m');
+  });
+
+  it('"Meus bônus" deve ter o grupo "Arquétipo — nome" com as características e bônus dele (F12 AC6)', async () => {
+    TestBed.configureTestingModule({
+      imports: [SheetStepComponent],
+      providers: [provideRouter([]), { provide: SheetService, useValue: {} }],
+    });
+    const store = TestBed.inject(CharacterDraftStore);
+    store.draft.set({ classId: 'feiticeiro', level: 3, archetype: 'linhagem-draconica' });
+    store.sheet.set(
+      sheet({
+        archetype: { id: 'linhagem-draconica', name: 'Linhagem Dracônica' },
+        features: [
+          feature({
+            id: 'origem',
+            name: 'Origem de Feitiçaria',
+            level: 1,
+            abilityImprovement: false,
+          }),
+          feature({
+            id: 'resiliencia-draconica',
+            name: 'Resiliência Dracônica',
+            level: 1,
+            abilityImprovement: false,
+            archetype: 'Linhagem Dracônica',
+          }),
+        ],
+        bonuses: [
+          {
+            target: 'hp-per-level',
+            value: 1,
+            bonusType: 'hit-points',
+            label: 'Resiliência Dracônica',
+            origin: 'archetype',
+            originName: 'Linhagem Dracônica',
+            source: src(80),
+          },
+        ],
+      }),
+    );
+    const fixture = TestBed.createComponent(SheetStepComponent);
+    await fixture.whenStable();
+    const el = fixture.nativeElement as HTMLElement;
+
+    const group = (title: string) =>
+      Array.from(el.querySelectorAll('#my-bonuses ~ h4, section h4'))
+        .find((h) => h.textContent?.trim() === title)
+        ?.nextElementSibling?.querySelectorAll('li');
+    const items = (title: string) => Array.from(group(title) ?? [], (li) => li.textContent?.trim());
+    expect([
+      items('Arquétipo — Linhagem Dracônica'),
+      items('Classe (nível 3)'),
+      el.querySelector('app-trait-card .origin')?.textContent?.trim(),
+    ]).toEqual([
+      [
+        'Resiliência Dracônica · Outro · nível 1',
+        '+1 PV por nível · Pontos de vida extra · Resiliência Dracônica',
+      ],
+      ['Origem de Feitiçaria · Outro · nível 1'],
+      '· Linhagem Dracônica',
+    ]);
   });
 });

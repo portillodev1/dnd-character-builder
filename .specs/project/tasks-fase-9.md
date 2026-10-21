@@ -34,7 +34,9 @@ Regra: 1 comportamento por tarefa (≤ ~5 arquivos). Cada item de backlog começ
 - [x] T13 — Schema `archetype`, grants `archetype-slot`, loader, Domain (escolha, features, PV, avisos) e API
   (DTOs, `?archetype=`, `errors.archetype`, OpenAPI + `gen-api.sh`), com testes. Dados mínimos para provar
   o pipeline: Campeão e Linhagem Dracônica (já contam na fatia SRD da T15).
-- [ ] T14 — Front: passo Classe com escolha de arquétipo; Vitest + E2E + axe.
+- [x] T14 — Front: passo Classe com a seção do arquétipo (opções, prévia, escolhas dele, limpeza ao trocar
+  classe/nível), ficha com origem do arquétipo e grupo "Arquétipo — <nome>" em "Meus bônus"; Vitest + E2E + axe.
+  (`ArchetypeDto` ganhou `choices[]`, aditivo, para a UI montar o seletor do dragão ancestral.)
 - [ ] T15 — Dados, fatia 1: os 10 arquétipos do SRD que faltam (Campeão e Linhagem Dracônica já entraram na T13).
 - [ ] T16 — Dados, fatias 2–4: os 29 restantes por classe (Clérigo/Mago em fatia própria: 7 e 8).
   Cada fatia só entra com `verify.sh --strict` verde e conferência contra o LdJ.

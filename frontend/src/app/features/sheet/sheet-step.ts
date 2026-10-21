@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { SheetBonus, SheetTrait } from '../../core/api/models';
+import { Feature, SheetBonus, SheetTrait } from '../../core/api/models';
 import { ABILITY_NAMES, bonusType, kind, optionLabel, signed } from '../../shared/labels';
 import { BonusBreakdownComponent } from '../../shared/ui/bonus-breakdown';
 import { BonusLegendComponent } from '../../shared/ui/bonus-legend';
@@ -164,6 +164,7 @@ interface BonusGroup {
             [level]="f.level"
             [scaling]="f.scalingValue"
             [manual]="f.manual"
+            [origin]="f.archetype"
           />
         }
       </section>
@@ -310,15 +311,23 @@ export class SheetStepComponent {
       { title: `Sub-raça${subrace ? ` — ${subrace}` : ''}`, items: byOrigin('subrace') },
       {
         title: `Classe (nível ${draft.level ?? 1})`,
-        items: sheet.features.map(
-          (f) =>
-            `${f.name}${f.scalingValue ? ` (${f.scalingValue})` : ''} · ${kind(f.kind).label} · nível ${f.level}`,
-        ),
+        items: sheet.features.filter((f) => !f.archetype).map(featureLine),
+      },
+      {
+        title: `Arquétipo${sheet.archetype ? ` — ${sheet.archetype.name}` : ''}`,
+        items: [
+          ...sheet.features.filter((f) => f.archetype).map(featureLine),
+          ...byOrigin('archetype'),
+        ],
       },
       { title: 'Escolhas', items: byOrigin('choice') },
     ];
     return groups.filter((g) => g.items.length > 0);
   });
+}
+
+function featureLine(f: Feature): string {
+  return `${f.name}${f.scalingValue ? ` (${f.scalingValue})` : ''} · ${kind(f.kind).label} · nível ${f.level}`;
 }
 
 function bonusLine(b: SheetBonus): string {

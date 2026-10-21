@@ -437,6 +437,7 @@
           "summary",
           "srd",
           "features",
+          "choices",
           "source"
         ],
         "type": "object",
@@ -457,6 +458,12 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/FeatureDto"
+            }
+          },
+          "choices": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ChoiceDto"
             }
           },
           "source": {
