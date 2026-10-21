@@ -566,6 +566,7 @@
       "CharacterSheetDto": {
         "required": [
           "abilities",
+          "pointBuy",
           "proficiencyBonus",
           "savingThrows",
           "skills",
@@ -585,6 +586,16 @@
             "additionalProperties": {
               "$ref": "#/components/schemas/AbilityDto"
             }
+          },
+          "pointBuy": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/PointBuyDto"
+              }
+            ]
           },
           "proficiencyBonus": {
             "oneOf": [
@@ -903,6 +914,7 @@
           "kind",
           "description",
           "scalingValue",
+          "manual",
           "source"
         ],
         "type": "object",
@@ -928,6 +940,9 @@
               "null",
               "string"
             ]
+          },
+          "manual": {
+            "type": "boolean"
           },
           "source": {
             "$ref": "#/components/schemas/SourceDto"
@@ -1000,6 +1015,23 @@
           },
           "source": {
             "$ref": "#/components/schemas/SourceDto"
+          }
+        }
+      },
+      "PointBuyDto": {
+        "required": [
+          "spent",
+          "budget"
+        ],
+        "type": "object",
+        "properties": {
+          "spent": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "budget": {
+            "type": "integer",
+            "format": "int32"
           }
         }
       },

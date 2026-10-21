@@ -44,12 +44,12 @@ Regra: 1 comportamento por tarefa (≤ ~5 arquivos); teste de regressão que fal
 - [x] T27 — E2E: baixar nível com Especializações; API fora; axe nos estados novos — F8
 
 ## F9 — Guias para o iniciante (back → front)
-- [ ] T28 — Domain: `pointBuy { spent, budget }` na ficha (LdJ p. 13) — F9 AC1 (back)
-- [ ] T29 — Contador de pontos / mensagem acima do orçamento no passo Atributos — F9 AC1, AC2
-- [ ] T30 — Domain/API: `manual: true` por grant + `warnings` — F9 AC3, AC4 (back)
-- [ ] T31 — Selo "Ainda não aplicado" nos passos Classe e Ficha — F9 AC3 (front)
-- [ ] T32 — Rótulo de "Meus bônus › Escolhas" sem origem duplicada — F9 AC5
-- [ ] T33 — E2E: contador "restam" e selo no Ladino nv. 4; axe — F9
+- [x] T28 — Domain: `pointBuy { spent, budget }` na ficha (LdJ p. 13) — F9 AC1 (back)
+- [x] T29 — Contador de pontos / mensagem acima do orçamento no passo Atributos — F9 AC1, AC2
+- [x] T30 — Domain/API: `manual: true` por grant + `warnings` — F9 AC3, AC4 (back)
+- [x] T31 — Selo "Ainda não aplicado" nos passos Classe e Ficha — F9 AC3 (front)
+- [x] T32 — Rótulo de "Meus bônus › Escolhas" sem origem duplicada — F9 AC5
+- [x] T33 — E2E: contador "restam" e selo no Ladino nv. 4; axe — F9
 
 ## Ordem e paralelismo
 1. T0, T1 (decisões) → 2. F6 (T2–T8) e F7 back (T9–T13) em paralelo, arquivos distintos,

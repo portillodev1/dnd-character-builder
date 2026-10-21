@@ -2,12 +2,11 @@
 
 Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia o
 `## Handoff
-- **Última unidade**: Fase 7 — **F8 wizard-feedback completa** (T15–T27): resumo de erros com link
-  ao passo, nível menor corta Especializações, só inteiros nos atributos, status por cor com
-  "Tentar de novo", nome vazio restaurado, "Próximo" bloqueado, 404×422×rede ao abrir, erros em
-  "Minhas fichas", respostas antigas descartadas, `beforeunload`, `<dialog>` modal, API por proxy
-  (ADR-0010: `proxy.conf.json`; reinicie o `ng serve` de dev). **Push pendente**. Próximo: F9 (T28).
-- **F7 (anterior)**: arquivo com problema → 422, duplicar ficha (`027d66e`, já no `origin/main`).
+- **Última unidade**: **Fase 7 concluída** — F9 beginner-guidance (T28–T33): `pointBuy {spent,
+  budget}` na ficha e contador no passo Atributos; `features[].manual` (ASI, arquétipo) com selo
+  "anote à mão" e aviso na ficha; rótulo de escolha sem origem duplicada. Todos os itens do
+  relatório de QA resolvidos. **Push pendente**.
+- **F8 (anterior)**: feedback do wizard + API por proxy (`e49f055`, já no `origin/main`).
 - **Specs da Fase 7**: F6–F9 + `.specs/project/tasks-fase-7.md` (`c1af3a6`).
 - **QA do MVP (anterior)**: `docs/qa/2026-10-20-teste-e2e/`; FE-1 e BE-1 corrigidos (`34749c3`,
   já no `origin/main`).
@@ -33,7 +32,7 @@ Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia 
   `PATH="/opt/homebrew/opt/node@24/bin:$PATH"` antes dos scripts. PDF do LdJ fica fora do repo
   (ADR-0004); para conferir páginas use `pdftotext` (poppler) num diretório temporário.
 - **Bloqueios**: nenhum.
-- **Próxima unidade**: revisão das specs F6–F9 → T0/T1 → Fase 7 na ordem do `tasks-fase-7.md`;
-  depois o backlog pós-MVP do `ROADMAP.md` (cada item com spec).
+- **Próxima unidade**: revisão humana da Fase 7; depois o backlog pós-MVP do `ROADMAP.md`
+  (ASI e arquétipos tirariam os selos "anote à mão" — cada item com spec).
 - **Limpeza**: apagar `tasks-fase-1.md` … `tasks-fase-5.md` e `tasks-fase-7.md` quando aprovadas.
 - **Gates**: `verify.sh --strict` verde.

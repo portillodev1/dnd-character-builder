@@ -16,6 +16,7 @@ export const value = (total: number): DerivedValue => ({
 export function sheet(overrides: Partial<CharacterSheet> = {}): CharacterSheet {
   return {
     abilities: {},
+    pointBuy: null,
     proficiencyBonus: value(2),
     savingThrows: {},
     skills: {},

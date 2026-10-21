@@ -91,6 +91,20 @@ public class ComputeEndpointTests(ApiFactory factory) : IClassFixture<ApiFactory
         Assert.Equal((HttpStatusCode.BadRequest, true), (response.StatusCode, errors.Count > 0 && (message is null || errors.Contains(message))));
     }
 
+    [Fact] // F9 AC1: pointBuy no contrato só com compra de pontos
+    public async Task Compute_PointBuy_ReturnsPointBuy()
+    {
+        var client = factory.CreateClient();
+        var pointBuy = await (await client.Post(Compute, new
+        {
+            abilityMethod = "point-buy",
+            baseAbilities = new { forca = 13, destreza = 13, constituicao = 13, inteligencia = 12, sabedoria = 12, carisma = 12 },
+        })).Json();
+        var standard = await (await client.Post(Compute, Http.FullDraft())).Json();
+        Assert.Equal(("""{"spent":27,"budget":27}""", (string?)null),
+            (pointBuy["pointBuy"]?.ToJsonString(), standard["pointBuy"]?.ToJsonString()));
+    }
+
     // Números permitidos: total (com parts ao lado), value de parcela ou de bônus tipado (bonusType ao lado),
     // página do LdJ e nível de característica.
     private static void Walk(JsonNode? node, string path, bool inParts, List<string> problems)

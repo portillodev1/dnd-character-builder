@@ -27,8 +27,12 @@ public sealed record SheetTraitDto(string Id, string Name, string Kind, string D
 
 public sealed record SheetBonusDto(string Target, int Value, string BonusType, string? Label, string Origin, string OriginName, SourceDto Source);
 
+/// <summary>Compra de pontos: gasto e orçamento (spec F9 AC1).</summary>
+public sealed record PointBuyDto(int Spent, int Budget);
+
 public sealed record CharacterSheetDto(
     IReadOnlyDictionary<string, AbilityDto> Abilities,
+    PointBuyDto? PointBuy,
     DerivedValueDto? ProficiencyBonus,
     IReadOnlyDictionary<string, SavingThrowDto> SavingThrows,
     IReadOnlyDictionary<string, SkillDto> Skills,

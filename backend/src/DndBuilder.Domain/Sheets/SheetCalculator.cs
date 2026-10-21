@@ -27,6 +27,9 @@ public static class SheetCalculator
         var sheet = new CharacterSheet
         {
             Abilities = abilities,
+            PointBuy = r.AbilityMethod == BaseScoreMethod.PointBuy && r.BaseAbilities.Count == Enum.GetValues<Ability>().Length
+                ? new PointBuyResult(BaseScoreRules.PointBuySpent(r.BaseAbilities), BaseScoreRules.PointBuyBudget)
+                : null,
             ProficiencyBonus = r.Level is { } level ? ProficiencyBonus.Derive(level) : null,
             SavingThrows = SavingThrows(r, scores, features),
             Skills = skills,
@@ -39,10 +42,19 @@ public static class SheetCalculator
                 .Concat((r.Subrace?.Traits ?? []).Select(t => new TraitResult(t, Origin.Subrace, r.Subrace!.Name)))
                 .Concat(r.ChoiceTraits)],
             Bonuses = [.. bonuses, .. SkillChoiceBonuses(r)],
-            Warnings = r.Warnings,
+            Warnings = [.. r.Warnings, .. ManualWarnings(features)],
         };
         return new SheetComputation(sheet, new Dictionary<string, string[]>());
     }
+
+    /// <summary>Um aviso por característica que o app ainda não aplica (F9 AC4).</summary>
+    private static IEnumerable<string> ManualWarnings(IReadOnlyList<ClassFeature> features)
+        => features.SelectMany(f => f.Grants.Select(g => g.Type switch
+        {
+            GrantType.AbilityScoreImprovement => $"{f.Name} (nível {f.Level}) não está somado aos atributos: anote à mão.",
+            GrantType.SubclassChoice => $"{f.Name} (nível {f.Level}): escolha à mão; o app ainda não aplica o arquétipo.",
+            _ => null,
+        })).OfType<string>();
 
     private static List<BonusResult> RaceBonuses(ResolvedDraft r)
         => [.. (r.Race?.Bonuses ?? []).Select(b => new BonusResult(b, Origin.Race, r.Race!.Name))

@@ -224,4 +224,31 @@ public class SheetCalculatorTests
         var draft = Draft() with { AbilityMethod = null, BaseAbilities = new Dictionary<string, int>(Standard) { ["forca"] = forca } };
         Assert.Equal(isError, Errors(draft).ContainsKey("baseAbilities.forca"));
     }
+
+    [Fact] // F9 AC1: ficha em compra de pontos traz gasto e orçamento (LdJ p. 13); outros métodos, null
+    public void Compute_PointBuy_ReportsSpentAndBudget()
+    {
+        var pointBuy = Draft() with
+        {
+            AbilityMethod = "point-buy",
+            BaseAbilities = new Dictionary<string, int> { ["forca"] = 8, ["destreza"] = 15, ["constituicao"] = 14, ["inteligencia"] = 10, ["sabedoria"] = 12, ["carisma"] = 8 },
+        };
+        Assert.Equal((new PointBuyResult(9 + 7 + 2 + 4, 27), (PointBuyResult?)null), (Sheet(pointBuy).PointBuy, Sheet(Draft()).PointBuy));
+    }
+
+    [Theory] // F9 AC3: o que o app ainda não aplica (ASI, arquétipo) sai marcado como manual
+    [InlineData(1, new string[0])]
+    [InlineData(3, new[] { "arquetipo-de-ladino" })]
+    [InlineData(4, new[] { "arquetipo-de-ladino", "incremento-no-valor-de-habilidade-4" })]
+    public void Compute_FeaturesNotApplied_AreManual(int level, string[] ids)
+        => Assert.Equal(ids, Sheet(Draft(level)).Features.Where(f => f.Manual).Select(f => f.Feature.Id));
+
+    [Fact] // F9 AC4: cada característica manual vira um aviso para anotar à mão
+    public void Compute_ManualFeatures_AddWarnings()
+    {
+        var warnings = Sheet(Draft(4)).Warnings;
+        Assert.Equal((true, true),
+            (warnings.Contains("incremento-no-valor-de-habilidade-4 (nível 4) não está somado aos atributos: anote à mão."),
+             warnings.Contains("arquetipo-de-ladino (nível 3): escolha à mão; o app ainda não aplica o arquétipo.")));
+    }
 }

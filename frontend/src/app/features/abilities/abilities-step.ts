@@ -70,6 +70,11 @@ const ABILITIES = Object.keys(ABILITY_NAMES);
         </label>
       }
       <p>{{ method().help }}</p>
+      @if (pointBuy(); as p) {
+        <p class="budget" aria-live="polite">
+          Pontos gastos: {{ p.spent }} de {{ p.budget }} (restam {{ p.budget - p.spent }}).
+        </p>
+      }
     </fieldset>
 
     @for (e of formErrors(); track $index) {
@@ -173,6 +178,10 @@ const ABILITIES = Object.keys(ABILITY_NAMES);
       margin: 0.25rem 0 0;
       color: var(--muted);
     }
+    fieldset .budget {
+      color: var(--ink);
+      font-weight: 600;
+    }
     table {
       margin-top: 1rem;
     }
@@ -203,6 +212,15 @@ export class AbilitiesStepComponent {
   /** Erros de formato do campo, antes de enviar (F8 AC3). */
   protected readonly localErrors = signal<Readonly<Record<string, string>>>({});
   protected readonly complete = computed(() => ABILITIES.every((a) => this.base(a) !== null));
+  /**
+   * Gasto da compra de pontos calculado pela API (F9 AC1); com erro de valores, quem explica é a
+   * mensagem da API (F9 AC2) e o contador some, para não mostrar um número desatualizado.
+   */
+  protected readonly pointBuy = computed(() =>
+    this.method().id === 'point-buy' && this.formErrors().length === 0
+      ? (this.store.sheet()?.pointBuy ?? null)
+      : null,
+  );
   protected readonly formErrors = computed(() =>
     Object.entries(this.store.errors())
       .filter(([k]) => k.startsWith('baseAbilities') || k === 'abilityMethod')

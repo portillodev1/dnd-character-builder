@@ -35,4 +35,11 @@ public class BaseScoreRulesTests
     [Fact]
     public void Validate_MissingAbility_ReturnsError()
         => Assert.NotEmpty(BaseScoreRules.Validate(BaseScoreMethod.Manual, Scores(10, 10, 10, 10, 10)));
+
+    [Theory] // F9 AC1: pontos gastos na compra de pontos — LdJ p. 13
+    [InlineData(new[] { 8, 8, 8, 8, 8, 8 }, 0)]
+    [InlineData(new[] { 15, 15, 15, 8, 8, 8 }, 27)]
+    [InlineData(new[] { 14, 8, 8, 8, 8, 8 }, 7)]
+    public void PointBuySpent_ForScores_SumsTableCosts(int[] values, int expected)
+        => Assert.Equal(expected, BaseScoreRules.PointBuySpent(Scores(values)));
 }

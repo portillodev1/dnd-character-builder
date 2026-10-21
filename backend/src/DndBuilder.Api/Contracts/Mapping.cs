@@ -30,7 +30,7 @@ internal static class Mapping
         => new(c.Id, c.Name, c.Count, c.From, c.Kind is { } k ? Id(k) : null, c.BonusType is { } b ? Id(b) : null, c.Source.Dto());
 
     public static FeatureDto Dto(this FeatureResult f)
-        => new(f.Feature.Id, f.Feature.Name, f.Feature.Level, Id(f.Feature.Kind), f.Feature.Description, f.ScalingValue, f.Feature.Source.Dto());
+        => new(f.Feature.Id, f.Feature.Name, f.Feature.Level, Id(f.Feature.Kind), f.Feature.Description, f.ScalingValue, f.Manual, f.Feature.Source.Dto());
 
     public static RaceSummaryDto Summary(this Race r)
         => new(r.Id, r.Name, r.Summary, [.. r.Bonuses.Where(b => b.TargetAbility is not null).Select(Dto)],
@@ -88,6 +88,7 @@ internal static class Mapping
     public static CharacterSheetDto Dto(this CharacterSheet s) => new(
         s.Abilities.ToDictionary(a => CatalogIds.Id(a.Ability),
             a => new AbilityDto(a.Ability.DisplayName(), a.Ability.Abbreviation(), a.Score.Dto(), a.Modifier.Dto())),
+        s.PointBuy is { } pointBuy ? new PointBuyDto(pointBuy.Spent, pointBuy.Budget) : null,
         s.ProficiencyBonus?.Dto(),
         s.SavingThrows.ToDictionary(t => CatalogIds.Id(t.Ability), t =>
         {

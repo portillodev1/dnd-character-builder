@@ -42,6 +42,15 @@ describe('SheetStepComponent', () => {
             source: src(39),
           },
           {
+            target: 'ability:destreza',
+            value: 1,
+            bonusType: 'ability-score-increase',
+            label: 'Aumento de Atributo (Meio-Elfo)', // nome da escolha no catálogo já cita a raça
+            origin: 'choice',
+            originName: 'Meio-Elfo',
+            source: src(39),
+          },
+          {
             target: 'skill:furtividade',
             value: 2,
             bonusType: 'expertise',
@@ -65,11 +74,13 @@ describe('SheetStepComponent', () => {
     );
   };
 
+  // F9 AC5: quando o nome da escolha já cita a origem, ela não se repete ("(Meio-Elfo) (Meio-Elfo)").
   it('"Meus bônus" › Escolhas deve listar os bônus que a API marcou como escolha (F4 AC4)', async () => {
     const el = await render();
 
     expect(group(el, 'Escolhas')).toEqual([
       '+1 Força · Aumento de atributo · Aumento no Valor de Habilidade (Meio-Elfo)',
+      '+1 Destreza · Aumento de atributo · Aumento de Atributo (Meio-Elfo)',
       '+2 Furtividade · Especialização · Especialização (Ladino)',
     ]);
     expect(group(el, 'Raça')).toEqual(['+2 Carisma · Aumento de atributo · Meio-Elfo']);

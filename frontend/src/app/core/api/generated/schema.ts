@@ -197,6 +197,7 @@ export interface components {
             abilities: {
                 [key: string]: components["schemas"]["AbilityDto"];
             };
+            pointBuy: null | components["schemas"]["PointBuyDto"];
             proficiencyBonus: null | components["schemas"]["DerivedValueDto"];
             savingThrows: {
                 [key: string]: components["schemas"]["SavingThrowDto"];
@@ -274,6 +275,7 @@ export interface components {
             kind: string;
             description: string;
             scalingValue: null | string;
+            manual: boolean;
             source: components["schemas"]["SourceDto"];
         };
         HttpValidationProblemDetails: {
@@ -293,6 +295,12 @@ export interface components {
             label: string;
             bonusType: string;
             source: components["schemas"]["SourceDto"];
+        };
+        PointBuyDto: {
+            /** Format: int32 */
+            spent: number;
+            /** Format: int32 */
+            budget: number;
         };
         ProficienciesDto: {
             armor: string[];

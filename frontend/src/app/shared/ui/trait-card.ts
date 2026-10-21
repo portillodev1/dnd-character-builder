@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { kind } from '../labels';
 
-/** Traço de raça ou característica de classe: nome, tipo, resumo e página (F1 AC4, F2 AC4). */
+/** Traço de raça ou característica de classe: nome, tipo, resumo e página (F1 AC4, F2 AC4, F9 AC3). */
 @Component({
   selector: 'app-trait-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,6 +23,9 @@ import { kind } from '../labels';
         <span class="page">· LdJ p. {{ page() }}</span>
       </p>
       <p>{{ description() }}</p>
+      @if (manual()) {
+        <p class="manual">Ainda não aplicado nesta ficha — anote à mão.</p>
+      }
     </article>
   `,
   styles: `
@@ -48,6 +51,15 @@ import { kind } from '../labels';
     p {
       margin: 0.25rem 0 0;
     }
+    .manual {
+      display: inline-block;
+      margin-top: 0.4rem;
+      padding: 0.1rem 0.5rem;
+      border-left: 3px double var(--warning);
+      background: var(--warning-soft);
+      font-size: 0.9em;
+      font-style: italic;
+    }
   `,
 })
 export class TraitCardComponent {
@@ -57,6 +69,8 @@ export class TraitCardComponent {
   readonly page = input.required<number>();
   readonly level = input<number | null>(null);
   readonly scaling = input<string | null>(null);
+  /** O app ainda não aplica a característica (ASI, arquétipo) — vem da API (F9 AC3). */
+  readonly manual = input(false);
 
   protected readonly type = computed(() => kind(this.kind()));
 }

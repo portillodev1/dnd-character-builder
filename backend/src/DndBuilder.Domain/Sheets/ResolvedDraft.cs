@@ -23,6 +23,7 @@ internal sealed class ResolvedDraft
     public CharacterClass? Class { get; private set; }
     public Level? Level { get; private set; }
     public Dictionary<Ability, int> BaseAbilities { get; } = [];
+    public BaseScoreMethod? AbilityMethod { get; private set; }
 
     /// <summary>Perícia proficiente → origens ("Ladino", "Antecedente", "Elfo").</summary>
     public Dictionary<Skill, List<string>> SkillSources { get; } = [];
@@ -162,6 +163,7 @@ internal sealed class ResolvedDraft
             "manual" => BaseScoreMethod.Manual,
             _ => null,
         };
+        AbilityMethod = method;
         if (method is null)
         {
             Error("abilityMethod", "Método deve ser standard-array, point-buy ou manual.");

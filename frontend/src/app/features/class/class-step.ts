@@ -85,6 +85,7 @@ const LEVELS = Array.from({ length: 20 }, (_, i) => i + 1);
             [page]="f.source.page"
             [level]="f.level"
             [scaling]="f.scalingValue"
+            [manual]="f.manual"
           />
         }
       </section>
@@ -100,6 +101,7 @@ const LEVELS = Array.from({ length: 20 }, (_, i) => i + 1);
               [page]="f.source.page"
               [level]="f.level"
               [scaling]="f.scalingValue"
+              [manual]="f.manual"
             />
           }
         </section>

@@ -163,6 +163,7 @@ interface BonusGroup {
             [page]="f.source.page"
             [level]="f.level"
             [scaling]="f.scalingValue"
+            [manual]="f.manual"
           />
         }
       </section>
@@ -322,9 +323,15 @@ export class SheetStepComponent {
 
 function bonusLine(b: SheetBonus): string {
   const target = b.target === 'hp-per-level' ? 'PV por nível' : optionLabel(b.target);
-  // Escolhas dizem de quem é a escolha (Meio-Elfo, Ladino, Antecedente).
+  // Escolhas dizem de quem é a escolha (Meio-Elfo, Ladino, Antecedente), sem repetir quando o
+  // nome da escolha já cita a origem (F9 AC5).
+  const origin = `(${b.originName})`;
   const from =
-    b.origin === 'choice' ? `${b.label ?? ''} (${b.originName})` : (b.label ?? b.originName);
+    b.origin !== 'choice'
+      ? (b.label ?? b.originName)
+      : b.label?.endsWith(origin)
+        ? b.label
+        : `${b.label ?? ''} ${origin}`;
   return `${signed(b.value)} ${target} · ${bonusType(b.bonusType).label} · ${from}`;
 }
 

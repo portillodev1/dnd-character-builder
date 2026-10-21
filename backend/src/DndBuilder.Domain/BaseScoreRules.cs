@@ -20,6 +20,13 @@ public static class BaseScoreRules
         _ => throw new ArgumentOutOfRangeException(nameof(score), score, "Compra de pontos aceita valores de 8 a 15."),
     };
 
+    /// <summary>Pontos gastos na compra de pontos: soma dos custos de cada valor (F9 AC1). LdJ p. 13.</summary>
+    public static int PointBuySpent(IReadOnlyDictionary<Ability, int> scores)
+    {
+        ArgumentNullException.ThrowIfNull(scores);
+        return scores.Values.Sum(PointBuyCost);
+    }
+
     /// <summary>Lista de erros em pt-BR; vazia significa válido.</summary>
     public static IReadOnlyList<string> Validate(BaseScoreMethod method, IReadOnlyDictionary<Ability, int> scores)
     {
@@ -51,7 +58,7 @@ public static class BaseScoreRules
         {
             return errors;
         }
-        var spent = scores.Values.Sum(PointBuyCost);
+        var spent = PointBuySpent(scores);
         return spent <= PointBuyBudget
             ? []
             : [$"Compra de pontos: {spent} pontos gastos, o máximo é {PointBuyBudget}."];

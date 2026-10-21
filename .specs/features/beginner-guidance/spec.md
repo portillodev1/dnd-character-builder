@@ -22,8 +22,9 @@ do nível escolhido o app **ainda não aplica** — para não achar que os núme
 3. **Dado** uma característica de classe com grant `ability-score-improvement` ou
    `subclass-choice` até o nível escolhido, **então** a API a marca com `manual: true` e o
    front exibe o selo "Ainda não aplicado nesta ficha — anote à mão" nos passos Classe e Ficha.
-4. **Dado** ao menos uma característica `manual`, **então** a ficha traz um `warning`
-   "Incremento no Valor de Habilidade (nível 4) não está somado aos atributos." (um por item).
+4. **Dado** ao menos uma característica `manual`, **então** a ficha traz um `warning` por item:
+   "Incremento no Valor de Habilidade (nível 4) não está somado aos atributos: anote à mão." ou
+   "Arquétipo de Ladino (nível 3): escolha à mão; o app ainda não aplica o arquétipo."
 5. Em "Meus bônus › Escolhas" a origem aparece uma vez: "+1 Destreza · Aumento de atributo ·
    Aumento de Atributo (Meio-Elfo)" (sem "(Meio-Elfo) (Meio-Elfo)").
 
