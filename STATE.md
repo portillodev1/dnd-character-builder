@@ -2,10 +2,8 @@
 
 Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia o
 `## Handoff
-- **Última unidade**: **Fase 8 implementada** — F10 Incremento no Valor de Habilidade (T0–T9):
-  `draft.abilityImprovements` (+1 por escolha, depois da raça, em ordem de nível, teto 20 com aviso),
-  `features[].abilityImprovement`, seção no passo Atributos, classe/nível limpam escolhas; o
-  Incremento deixou de ser `manual`. **Revisão humana pendente**; apagar `tasks-fase-8.md` após aprovar.
+- **Última unidade**: **Fase 8 aprovada** (2026-10-21) e limpa — spec F10 permanece;
+  `tasks-fase-8.md` apagado. Commits: spec `ed4b2df`, implementação `30204f1`.
 - **Fase 7 (anterior)**: aprovada (2026-10-21); F6 `6fa259a`, F7 `027d66e`, F8 `e49f055`, F9 `2f088fe`.
   Dev: reinicie o `ng serve` para usar o `proxy.conf.json` (ADR-0010).
 - **QA do MVP (anterior)**: `docs/qa/2026-10-20-teste-e2e/`; FE-1 e BE-1 corrigidos (`34749c3`,
@@ -32,7 +30,7 @@ Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia 
   `PATH="/opt/homebrew/opt/node@24/bin:$PATH"` antes dos scripts. PDF do LdJ fica fora do repo
   (ADR-0004); para conferir páginas use `pdftotext` (poppler) num diretório temporário.
 - **Bloqueios**: nenhum.
-- **Próxima unidade**: revisão humana da Fase 8 (e das Fases 1–6); depois o backlog
-  (arquétipos tirariam o último selo "anote à mão" — exige spec e ADR-0004).
-- **Limpeza**: apagar `tasks-fase-1.md` … `tasks-fase-5.md` e `tasks-fase-8.md` quando aprovadas.
+- **Próxima unidade**: revisão humana das Fases 1–6; depois o backlog do `ROADMAP.md`
+  (arquétipos tirariam o último selo "anote à mão" — exige spec e decisão de ADR-0004).
+- **Limpeza**: apagar `tasks-fase-1.md` … `tasks-fase-5.md` quando aprovadas.
 - **Gates**: `verify.sh --strict` verde.
