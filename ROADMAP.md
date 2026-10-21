@@ -22,6 +22,7 @@ Objetivo: iniciante monta a ficha de D&D 5e entendendo de onde vem cada número.
 | 5 — Wizard | "Minhas fichas" + passos Raça → Classe → Atributos → Perícias/Salvaguardas → Ficha, com salvamento automático | Vitest verde; critérios F1–F5 demonstráveis | ✅ aguardando revisão |
 | 6 — Qualidade | Playwright E2E, axe, polimento de textos | E2E dos 5 critérios verde | ✅ aguardando revisão |
 | 7 — Robustez e UX pós-QA | Specs F6–F9 a partir do [relatório de QA](docs/qa/2026-10-20-teste-e2e/README.md) | Critérios F6–F9 com teste; `verify.sh --strict` verde | ✅ aprovada (2026-10-21) |
+| 8 — Incremento de atributo | [F10 ability-score-improvement](.specs/features/ability-score-improvement/spec.md); tarefas em `.specs/project/tasks-fase-8.md` | Critérios F10 com teste; `verify.sh --strict` verde | 📝 spec aguardando revisão |
 
 Dependências: 1 → 2 → (3 ∥ 4 parcialmente) → 5 → 6. Fases 2 e 3 podem correr em paralelo
 depois que o schema (`content/schemas/`) estiver fechado.
@@ -37,6 +38,6 @@ depois que o schema (`content/schemas/`) estiver fechado.
 ## Pós-MVP (backlog, cada item exige spec)
 - Antecedentes completos (Cap. 4) — hoje só proficiências manuais extras.
 - Arquétipos/subclasses detalhados (depende de ADR-0004).
-- Aumento de atributo por nível (ASI) e talentos.
+- ~~Aumento de atributo por nível (ASI)~~ → Fase 8 (F10). Talentos: regra opcional, quase toda fora do SRD 5.1 (ADR-0004).
 - Magias por classe/nível; equipamento e CA calculada.
 - Compartilhar ficha por link, multiusuário/login (exige banco — novo ADR); exportar PDF no layout oficial.
