@@ -2,7 +2,9 @@
 
 Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia o
 `## Handoff
-- **Planejado**: Fase 9 — tasks em `.specs/project/tasks-fase-9.md` (A revisão humana → B deslocamento → C arquétipos, T10 pede decisão ao humano).
+- **Fase 9 (em andamento)**: tasks em `.specs/project/tasks-fase-9.md`. A: T1–T3 feitas (QA em `docs/qa/2026-10-21-*`; T3 = `6bfaf75`);
+  T4–T5 (aprovação humana + push) pendentes. B: spec F11 `class-speed-bonus` escrita, aguardando aprovação (T6b)
+  antes de codar. C: T11 pede decisão do humano (escopo de arquétipos, ADR-0004).
 - **Última unidade**: **Fase 8 aprovada** (2026-10-21) e limpa — spec F10 permanece;
   `tasks-fase-8.md` apagado. Commits: spec `ed4b2df`, implementação `30204f1`.
 - **Fase 7 (anterior)**: aprovada (2026-10-21); F6 `6fa259a`, F7 `027d66e`, F8 `e49f055`, F9 `2f088fe`.
@@ -25,7 +27,7 @@ Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia 
   front gerados do OpenAPI (ADR-0007); salvamento automático; `bonus-breakdown` em todo número.
   Testes: 20 front, 248 back.
 - **Rodar**: `.claude/launch.json` (local, não versionado) tem `api` (5080) e `web` (4200).
-- **Lacunas conhecidas**: aumentos de deslocamento de classe (Monge, Bárbaro) fora do MVP.
+- **Lacunas conhecidas**: aumentos de deslocamento de classe (Monge, Bárbaro) — spec F11 pronta, ainda não implementada.
 - **Revisão humana pendente**: Fases 1–6 (MVP completo).
 - **Toolchain local (macOS)**: Node 24 via `brew install node@24` (keg-only) → exporte
   `PATH="/opt/homebrew/opt/node@24/bin:$PATH"` antes dos scripts. PDF do LdJ fica fora do repo

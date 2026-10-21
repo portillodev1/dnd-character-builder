@@ -17,28 +17,31 @@ Regra: 1 comportamento por tarefa (≤ ~5 arquivos). Cada item de backlog começ
 - [ ] T4 — Aprovar Fases 1–6 e apagar `tasks-fase-1.md` … `tasks-fase-5.md`; ROADMAP ✅.
 - [ ] T5 — Perguntar ao humano e então `git push` (antes, `git pull` se o remoto mudou).
 
-## B — Deslocamento de classe (lacuna conhecida; pequena)
-- [ ] T6 — Spec `class-speed-bonus`: Bárbaro (Movimento Rápido, nv. 5) e Monge (Movimento sem
-  Armadura, nv. 2+), com página do LdJ e regra de "sem armadura" em `calculations.md`.
-- [ ] T7 — Domain: parcela de deslocamento por nível com breakdown e tipo de bônus.
-- [ ] T8 — Catálogo: dados `speedBonus` nas classes + schema + `Ruleset.Tests`.
-- [ ] T9 — Front: deslocamento da ficha mostra a nova parcela; E2E + axe.
+## B — Deslocamento de classe ([F11 class-speed-bonus](../features/class-speed-bonus/spec.md))
+- [x] T6 — Spec F11 escrita (Bárbaro p. 49, Monge p. 104; condição assumida cumprida).
+- [ ] T6b — Aprovação humana da spec F11 (decisão: condição de armadura só no rótulo).
+- [ ] T7 — Catálogo: grant `speed-bonus` (`meters`, `condition`, `steps`) no schema + dados do
+  Bárbaro e do Monge + `Ruleset.Tests` (degraus = coluna da tabela) — F11 AC4
+- [ ] T8 — Domain: `SpeedRules.Compute(race, subrace, class, level)` com parcelas e rótulos;
+  `SheetCalculator` passa classe e nível; `calculations.md` §8 — F11 AC1–AC3, AC5
+- [ ] T9 — API: `/compute` Monge nv. 6 → 13,5 m (sem mudar DTO) — F11 AC4
+- [ ] T10 — Front: breakdown e "Meus bônus" com a parcela; Vitest + E2E (Monge nv. 6) + axe — F11 AC6–AC7
 
 ## C — Arquétipos/subclasses (maior; depende de decisão)
-- [ ] T10 — Decisão: ADR sobre o escopo de arquétipos dentro do SRD 5.1 (um por classe?
+- [ ] T11 — Decisão: ADR sobre o escopo de arquétipos dentro do SRD 5.1 (um por classe?
   quais?). **Pergunte ao humano** antes de seguir (AGENTS.md → PERGUNTE QUANDO).
-- [ ] T11 — Spec `class-archetypes` (escolha no nível certo, características por nível,
+- [ ] T12 — Spec `class-archetypes` (escolha no nível certo, características por nível,
   fim do selo "anote à mão"); definir contrato `draft.archetype` e aprovar mudança de API.
-- [ ] T12 — Schema + dados dos arquétipos aprovados em T10 (`content/`, `source` com página).
-- [ ] T13 — Domain/API: validar arquétipo vs. classe/nível; features entram no breakdown.
-- [ ] T14 — Front: passo Classe com escolha de arquétipo; E2E + axe.
+- [ ] T13 — Schema + dados dos arquétipos aprovados em T11 (`content/`, `source` com página).
+- [ ] T14 — Domain/API: validar arquétipo vs. classe/nível; features entram no breakdown.
+- [ ] T15 — Front: passo Classe com escolha de arquétipo; E2E + axe.
 
 ## D — Backlog seguinte (cada item exige spec; ordem sugerida)
-- [ ] T15 — Spec Antecedentes completos (Cap. 4): proficiências, idiomas, característica.
-- [ ] T16 — Spec Magias por classe/nível (SRD 5.1, ADR-0004).
-- [ ] T17 — Spec Equipamento e CA calculada.
-- [ ] T18 — Spec Exportar PDF no layout oficial.
-- [ ] T19 — Spec Compartilhar por link / login (exige banco → novo ADR; só se o humano quiser).
+- [ ] T16 — Spec Antecedentes completos (Cap. 4): proficiências, idiomas, característica.
+- [ ] T17 — Spec Magias por classe/nível (SRD 5.1, ADR-0004).
+- [ ] T18 — Spec Equipamento e CA calculada.
+- [ ] T19 — Spec Exportar PDF no layout oficial.
+- [ ] T20 — Spec Compartilhar por link / login (exige banco → novo ADR; só se o humano quiser).
 
 ## Ordem e paralelismo
 A (T1→T5) vem primeiro. B e C são independentes entre si, mas ambos tocam `class-step.ts` e o
