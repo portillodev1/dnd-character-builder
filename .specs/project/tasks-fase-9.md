@@ -9,8 +9,11 @@ Regra: 1 comportamento por tarefa (≤ ~5 arquivos). Cada item de backlog começ
 - [x] T1 — Revisão do catálogo `content/` (9 raças, 12 classes) vs. Livro do Jogador — feita,
   sem divergências (`docs/qa/2026-10-21-revisao-catalogo/`); resta o humano amostrar páginas:
   amostrar páginas citadas em `source`; registrar divergências em `docs/qa/`.
-- [ ] T2 — Revisão humana dos critérios F1–F5 no app (`.claude/launch.json`: `api` 5080, `web` 4200).
-- [ ] T3 — Corrigir divergências de T2 (T1 não achou nenhuma) (1 correção = 1 commit, com teste).
+- [x] T2 — Verificação dos critérios F1–F5 no app — feita, todos atendidos
+  (`docs/qa/2026-10-21-t2-criterios-app/`); resta o humano conferir à mão.
+- [ ] T3 — Corrigir os 2 achados de UX da T2 (1 correção = 1 commit, com teste), a confirmar:
+  (a) painéis "Ver a conta" fecham com Esc/clique fora e não empilham (`bonus-breakdown.ts`);
+  (b) renomear a ficha salva com debounce, não só no blur.
 - [ ] T4 — Aprovar Fases 1–6 e apagar `tasks-fase-1.md` … `tasks-fase-5.md`; ROADMAP ✅.
 - [ ] T5 — Perguntar ao humano e então `git push` (antes, `git pull` se o remoto mudou).
 
