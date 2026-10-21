@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "corruptor",
+  "classId": "bruxo",
+  "name": "O Corruptor",
+  "summary": "Pacto com um ser infernal: magias de fogo, pontos de vida temporários ao derrubar inimigos e resistências sombrias.",
+  "srd": true,
+  "features": [
+    {
+      "id": "magias-do-corruptor",
+      "name": "Magias do Corruptor",
+      "level": 1,
+      "kind": "spell",
+      "description": "Magias sempre disponíveis, que contam como de bruxo: mãos flamejantes e comando (1º); cegueira/surdez e raio ardente (2º); bola de fogo e névoa fétida (3º); escudo de fogo e muralha de fogo (4º); coluna de chamas e consagrar (5º).",
+      "source": { "book": "LdJ", "page": 60 }
+    },
+    {
+      "id": "bencao-do-obscuro",
+      "name": "Bênção do Obscuro",
+      "level": 1,
+      "kind": "other",
+      "description": "Ao reduzir uma criatura hostil a 0 PV, você ganha PV temporários iguais ao modificador de Carisma + nível de bruxo (mínimo 1).",
+      "source": { "book": "LdJ", "page": 60 }
+    },
+    {
+      "id": "sorte-do-proprio-obscuro",
+      "name": "Sorte do Próprio Obscuro",
+      "level": 6,
+      "kind": "other",
+      "description": "Num teste de habilidade ou salvaguarda, some 1d10 depois de ver a rolagem. Recarrega num descanso curto ou longo.",
+      "source": { "book": "LdJ", "page": 60 }
+    },
+    {
+      "id": "resistencia-demoniaca",
+      "name": "Resistência Demoníaca",
+      "level": 10,
+      "kind": "resistance",
+      "description": "Ao terminar um descanso, escolha um tipo de dano e ganhe resistência a ele. Armas mágicas ou de prata ignoram essa resistência.",
+      "source": { "book": "LdJ", "page": 60 }
+    },
+    {
+      "id": "lancar-no-inferno",
+      "name": "Lançar no Inferno",
+      "level": 14,
+      "kind": "other",
+      "description": "Ao acertar um ataque, você manda o alvo para os planos inferiores até o fim do seu turno; se não for um corruptor, sofre 10d10 de dano psíquico. Recarrega num descanso curto ou longo.",
+      "source": { "book": "LdJ", "page": 60 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 60 }
+}

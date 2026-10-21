@@ -1,0 +1,67 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "vida",
+  "classId": "clerigo",
+  "name": "Domínio da Vida",
+  "summary": "Clérigo da cura: suas magias curam mais, usa armadura pesada e luta com energia radiante.",
+  "srd": true,
+  "features": [
+    {
+      "id": "magias-do-dominio-da-vida",
+      "name": "Magias do Domínio da Vida",
+      "level": 1,
+      "kind": "spell",
+      "description": "Magias sempre preparadas: bênção e curar ferimentos (1º); restauração menor e arma espiritual (3º); sinal de esperança e revivificar (5º); proteção contra a morte e guardião da fé (7º); curar ferimentos em massa e reviver os mortos (9º).",
+      "source": { "book": "LdJ", "page": 70 }
+    },
+    {
+      "id": "proficiencia-adicional",
+      "name": "Proficiência Adicional",
+      "level": 1,
+      "kind": "proficiency",
+      "description": "Você ganha proficiência com armaduras pesadas.",
+      "source": { "book": "LdJ", "page": 70 }
+    },
+    {
+      "id": "discipulo-da-vida",
+      "name": "Discípulo da Vida",
+      "level": 1,
+      "kind": "other",
+      "description": "Suas magias de cura devolvem ao alvo 2 + nível da magia em PV adicionais.",
+      "source": { "book": "LdJ", "page": 70 }
+    },
+    {
+      "id": "canalizar-divindade-preservar-a-vida",
+      "name": "Canalizar Divindade: Preservar a Vida",
+      "level": 2,
+      "kind": "other",
+      "description": "Com uma ação, cure PV iguais a 5 × seu nível de clérigo, divididos entre criaturas a até 9 m. Cada uma pode recuperar até metade do seu máximo de PV.",
+      "source": { "book": "LdJ", "page": 70 }
+    },
+    {
+      "id": "curandeiro-abencoado",
+      "name": "Curandeiro Abençoado",
+      "level": 6,
+      "kind": "other",
+      "description": "Quando você cura outra criatura com uma magia, você também recupera 2 + nível da magia em PV.",
+      "source": { "book": "LdJ", "page": 70 }
+    },
+    {
+      "id": "golpe-divino",
+      "name": "Golpe Divino",
+      "level": 8,
+      "kind": "other",
+      "description": "Uma vez por turno, um ataque com arma que acerta causa 1d8 de dano radiante extra (2d8 a partir do nível 14).",
+      "source": { "book": "LdJ", "page": 70 }
+    },
+    {
+      "id": "cura-suprema",
+      "name": "Cura Suprema",
+      "level": 17,
+      "kind": "other",
+      "description": "Ao curar com os dados de uma magia, você usa o valor máximo de cada dado, em vez de rolar.",
+      "source": { "book": "LdJ", "page": 70 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 70 }
+}

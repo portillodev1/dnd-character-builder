@@ -1,0 +1,43 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "mao-aberta",
+  "classId": "monge",
+  "name": "Caminho da Mão Aberta",
+  "summary": "Monge que domina o combate desarmado: derruba e empurra inimigos, cura o próprio corpo e termina com a Palma Vibrante.",
+  "srd": true,
+  "features": [
+    {
+      "id": "tecnica-da-mao-aberta",
+      "name": "Técnica da Mão Aberta",
+      "level": 3,
+      "kind": "other",
+      "description": "Ao acertar com um ataque da Rajada de Golpes, escolha um efeito: o alvo cai (salvaguarda de Destreza), é empurrado 4,5 m (Força) ou não pode usar reações até o fim do seu próximo turno.",
+      "source": { "book": "LdJ", "page": 105 }
+    },
+    {
+      "id": "integridade-corporal",
+      "name": "Integridade Corporal",
+      "level": 6,
+      "kind": "other",
+      "description": "Com uma ação, você recupera PV iguais a 3 × seu nível de monge. Só pode usar de novo depois de um descanso longo.",
+      "source": { "book": "LdJ", "page": 105 }
+    },
+    {
+      "id": "tranquilidade",
+      "name": "Tranquilidade",
+      "level": 11,
+      "kind": "other",
+      "description": "Ao fim de um descanso longo, você ganha o efeito da magia santuário até o próximo descanso longo (CD 8 + Sabedoria + proficiência).",
+      "source": { "book": "LdJ", "page": 106 }
+    },
+    {
+      "id": "palma-vibrante",
+      "name": "Palma Vibrante",
+      "level": 17,
+      "kind": "other",
+      "description": "Ao acertar um ataque desarmado e gastar 3 pontos de ki, você planta vibrações no alvo. Depois, com uma ação, pode fazê-lo cair a 0 PV; se ele passar na salvaguarda de Constituição, sofre 10d10 de dano necrótico.",
+      "source": { "book": "LdJ", "page": 106 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 105 }
+}

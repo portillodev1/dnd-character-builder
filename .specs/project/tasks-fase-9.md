@@ -37,7 +37,9 @@ Regra: 1 comportamento por tarefa (≤ ~5 arquivos). Cada item de backlog começ
 - [x] T14 — Front: passo Classe com a seção do arquétipo (opções, prévia, escolhas dele, limpeza ao trocar
   classe/nível), ficha com origem do arquétipo e grupo "Arquétipo — <nome>" em "Meus bônus"; Vitest + E2E + axe.
   (`ArchetypeDto` ganhou `choices[]`, aditivo, para a UI montar o seletor do dragão ancestral.)
-- [ ] T15 — Dados, fatia 1: os 10 arquétipos do SRD que faltam (Campeão e Linhagem Dracônica já entraram na T13).
+- [x] T15 — Dados, fatia 1: os 12 arquétipos do SRD (10 novos + os 2 da T13), `srd: true`. Nomes e páginas
+  conferidos no PDF por script (70 de 71 itens com o nome na página citada; o 71º, "Magias do Corruptor", é a
+  tabela "Magias Expandidas do Corruptor" da p. 60). Toda classe passa a ter arquétipo escolhível.
 - [ ] T16 — Dados, fatias 2–4: os 29 restantes por classe (Clérigo/Mago em fatia própria: 7 e 8).
   Cada fatia só entra com `verify.sh --strict` verde e conferência contra o LdJ.
 

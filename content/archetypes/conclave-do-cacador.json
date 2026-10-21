@@ -1,0 +1,43 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "conclave-do-cacador",
+  "classId": "patrulheiro",
+  "name": "Conclave do Caçador",
+  "summary": "Patrulheiro que caça ameaças específicas: escolhe táticas contra monstros fortes ou hordas e fica mais difícil de acertar.",
+  "srd": true,
+  "features": [
+    {
+      "id": "presa-do-cacador",
+      "name": "Presa do Caçador",
+      "level": 3,
+      "kind": "other",
+      "description": "Escolha uma opção: Assassino de Colossos (+1d8 de dano em alvo ferido), Matador de Gigantes (reação contra criatura Grande ou maior que o atacar) ou Destruidor de Hordas (ataque extra em outra criatura próxima).",
+      "source": { "book": "LdJ", "page": 120 }
+    },
+    {
+      "id": "taticas-defensivas",
+      "name": "Táticas Defensivas",
+      "level": 7,
+      "kind": "other",
+      "description": "Escolha uma opção: Escapar da Horda (ataques de oportunidade contra você têm desvantagem), Defesa Contra Múltiplos Ataques (+4 na CA contra o mesmo atacante no turno) ou Vontade de Aço (vantagem contra medo).",
+      "source": { "book": "LdJ", "page": 120 }
+    },
+    {
+      "id": "ataque-multiplo",
+      "name": "Ataque Múltiplo",
+      "level": 11,
+      "kind": "other",
+      "description": "Escolha uma opção: Saraivada (um ataque à distância contra cada alvo em área pequena) ou Ataque Giratório (um ataque corpo a corpo contra cada criatura a seu alcance).",
+      "source": { "book": "LdJ", "page": 121 }
+    },
+    {
+      "id": "defesa-de-cacador-superior",
+      "name": "Defesa de Caçador Superior",
+      "level": 15,
+      "kind": "other",
+      "description": "Escolha uma opção: Evasão (salvaguarda de Destreza: nenhum dano se passar, metade se falhar), Manter-se Contra a Maré (força o inimigo que errou você a repetir o ataque noutra criatura) ou Esquiva Sobrenatural (reduz à metade o dano de um ataque).",
+      "source": { "book": "LdJ", "page": 121 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 120 }
+}

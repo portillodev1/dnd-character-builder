@@ -1,0 +1,59 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "circulo-da-terra",
+  "classId": "druida",
+  "name": "Círculo da Terra",
+  "summary": "Druida ligado a um terreno: recupera espaços de magia nos descansos e ganha defesas contra criaturas e venenos da natureza.",
+  "srd": true,
+  "features": [
+    {
+      "id": "truque-adicional",
+      "name": "Truque Adicional",
+      "level": 2,
+      "kind": "spell",
+      "description": "Você aprende um truque de druida adicional, à sua escolha.",
+      "source": { "book": "LdJ", "page": 75 }
+    },
+    {
+      "id": "recuperacao-natural",
+      "name": "Recuperação Natural",
+      "level": 2,
+      "kind": "other",
+      "description": "Num descanso curto, recupera espaços de magia gastos com nível combinado até metade do seu nível de druida (arredondado para cima), nenhum de 6º nível ou mais. Só uma vez entre descansos longos.",
+      "source": { "book": "LdJ", "page": 75 }
+    },
+    {
+      "id": "magias-de-circulo",
+      "name": "Magias de Círculo",
+      "level": 2,
+      "kind": "spell",
+      "description": "Escolha um terreno (ártico, costa, deserto, floresta, montanha, pântano, planície ou subterrâneo). Nos níveis 3, 5, 7 e 9 você ganha magias dele sempre preparadas.",
+      "source": { "book": "LdJ", "page": 75 }
+    },
+    {
+      "id": "caminho-da-floresta",
+      "name": "Caminho da Floresta",
+      "level": 6,
+      "kind": "other",
+      "description": "Terreno difícil não mágico não custa movimento extra a você, e você atravessa plantas não mágicas sem se atrasar nem sofrer dano delas.",
+      "source": { "book": "LdJ", "page": 76 }
+    },
+    {
+      "id": "protecao-natural",
+      "name": "Proteção Natural",
+      "level": 10,
+      "kind": "resistance",
+      "description": "Elementais e fadas não podem enfeitiçar nem amedrontar você, e você fica imune a veneno e doenças.",
+      "source": { "book": "LdJ", "page": 76 }
+    },
+    {
+      "id": "santuario-natural",
+      "name": "Santuário Natural",
+      "level": 14,
+      "kind": "other",
+      "description": "Bestas e plantas que atacarem você fazem salvaguarda de Sabedoria (CD das suas magias de druida); se falharem, precisam escolher outro alvo ou perdem o ataque.",
+      "source": { "book": "LdJ", "page": 76 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 75 }
+}

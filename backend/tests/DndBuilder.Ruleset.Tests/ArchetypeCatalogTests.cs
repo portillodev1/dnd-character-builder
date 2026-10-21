@@ -20,6 +20,20 @@ public class ArchetypeCatalogTests
                 dracônica.Bonuses.Single().Target, dracônica.Bonuses.Single().BonusType, dracônica.Choices.Single().Id));
     }
 
+    [Fact] // ADR-0011, fatia SRD: 1 arquétipo do SRD por classe (12), e o do SRD 5.1 de cada uma
+    public void Catalog_SrdSlice_HasTheTwelveSrdArchetypes()
+        => Assert.Equal(
+            "barbaro:furioso bardo:colegio-do-conhecimento bruxo:corruptor clerigo:vida druida:circulo-da-terra feiticeiro:linhagem-draconica "
+            + "guerreiro:campeao ladino:ladrao mago:escola-de-evocacao monge:mao-aberta paladino:juramento-de-devocao patrulheiro:conclave-do-cacador",
+            string.Join(' ', Loaded.Classes.OrderBy(c => c.Id, StringComparer.Ordinal)
+                .SelectMany(c => c.Archetypes.Where(a => a.Srd).Select(a => $"{c.Id}:{a.Id}"))));
+
+    [Fact] // toda característica de arquétipo cita página do capítulo de classes (LdJ p. 45–122)
+    public void Features_EveryArchetype_CitePagesFromTheClassChapter()
+        => Assert.All(
+            Loaded.Classes.SelectMany(c => c.Archetypes).SelectMany(a => a.Features.Select(f => (a.Id, f.Id, f.Source.Page))),
+            f => Assert.InRange(f.Page, 45, 122));
+
     [Fact] // AC2: os rótulos genéricos da classe levam o grant archetype-slot (e só eles)
     public void ArchetypeSlot_Classes_MarkEveryGenericLabel()
     {

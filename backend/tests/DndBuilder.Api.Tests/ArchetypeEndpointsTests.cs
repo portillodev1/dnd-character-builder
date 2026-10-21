@@ -27,7 +27,7 @@ public class ArchetypeEndpointsTests(ApiFactory factory) : IClassFixture<ApiFact
             var c = classes.Single(x => (string)x!["id"]! == id)!;
             return $"{c["archetypeLevel"]}:{string.Join(",", c["archetypes"]!.AsArray().Select(a => $"{a!["id"]}/{a["srd"]}/{a["features"]!.AsArray().Count}"))}";
         }
-        Assert.Equal(["3:campeao/true/5", "1:linhagem-draconica/true/5", "3:"], [Summary("guerreiro"), Summary("feiticeiro"), Summary("ladino")]);
+        Assert.Equal(["3:campeao/true/5", "1:linhagem-draconica/true/5", "3:ladrao/true/5"], [Summary("guerreiro"), Summary("feiticeiro"), Summary("ladino")]);
     }
 
     [Fact] // a UI precisa das escolhas do arquétipo (ex.: dragão ancestral) para montar o seletor

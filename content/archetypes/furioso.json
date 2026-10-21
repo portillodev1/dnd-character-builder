@@ -1,0 +1,43 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "furioso",
+  "classId": "barbaro",
+  "name": "Furioso",
+  "summary": "Bárbaro que vive a fúria como pura violência: ataca mais vezes, mas paga o preço no corpo.",
+  "srd": true,
+  "features": [
+    {
+      "id": "frenesi",
+      "name": "Frenesi",
+      "level": 3,
+      "kind": "other",
+      "description": "Durante a fúria, você pode fazer um ataque corpo a corpo extra com ação bônus em cada turno. Ao fim da fúria, sofre 1 nível de exaustão.",
+      "source": { "book": "LdJ", "page": 49 }
+    },
+    {
+      "id": "furia-inconsciente",
+      "name": "Fúria Inconsciente",
+      "level": 6,
+      "kind": "other",
+      "description": "Enquanto estiver em fúria, você não pode ser enfeitiçado nem amedrontado, e esses efeitos ficam suspensos até a fúria acabar.",
+      "source": { "book": "LdJ", "page": 49 }
+    },
+    {
+      "id": "presenca-intimidante",
+      "name": "Presença Intimidante",
+      "level": 10,
+      "kind": "other",
+      "description": "Com uma ação, amedronta uma criatura a até 9 m que falhe numa salvaguarda de Sabedoria (CD 8 + proficiência + Carisma). Nos turnos seguintes, você pode gastar a ação para prolongar o medo.",
+      "source": { "book": "LdJ", "page": 49 }
+    },
+    {
+      "id": "retaliacao",
+      "name": "Retaliação",
+      "level": 14,
+      "kind": "other",
+      "description": "Quando uma criatura a até 1,5 m causar dano a você, use a reação para fazer um ataque corpo a corpo com arma contra ela.",
+      "source": { "book": "LdJ", "page": 50 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 49 }
+}

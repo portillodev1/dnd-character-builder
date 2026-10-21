@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "escola-de-evocacao",
+  "classId": "mago",
+  "name": "Escola de Evocação",
+  "summary": "Mago de magias de dano: lança bolas de fogo sem ferir aliados e causa dano mesmo quando o alvo resiste.",
+  "srd": true,
+  "features": [
+    {
+      "id": "evocacao-instruida",
+      "name": "Evocação Instruída",
+      "level": 2,
+      "kind": "other",
+      "description": "Copiar magias de evocação para o seu grimório custa metade do tempo e do ouro.",
+      "source": { "book": "LdJ", "page": 99 }
+    },
+    {
+      "id": "esculpir-magias",
+      "name": "Esculpir Magias",
+      "level": 2,
+      "kind": "other",
+      "description": "Ao lançar uma magia de evocação em criaturas que você vê, escolha 1 + nível da magia delas: elas passam automaticamente na salvaguarda e não sofrem dano.",
+      "source": { "book": "LdJ", "page": 99 }
+    },
+    {
+      "id": "truque-potente",
+      "name": "Truque Potente",
+      "level": 6,
+      "kind": "other",
+      "description": "Quando um truque de dano seu é resistido numa salvaguarda, o alvo ainda sofre metade do dano.",
+      "source": { "book": "LdJ", "page": 99 }
+    },
+    {
+      "id": "evocacao-potencializada",
+      "name": "Evocação Potencializada",
+      "level": 10,
+      "kind": "other",
+      "description": "Você soma seu modificador de Inteligência a uma jogada de dano de qualquer magia de evocação de mago.",
+      "source": { "book": "LdJ", "page": 100 }
+    },
+    {
+      "id": "sobrecarga",
+      "name": "Sobrecarga",
+      "level": 14,
+      "kind": "other",
+      "description": "Ao lançar uma magia de evocação de 1º a 5º nível, ela causa dano máximo. Nos usos seguintes antes de um descanso longo, você sofre dano necrótico crescente.",
+      "source": { "book": "LdJ", "page": 100 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 99 }
+}

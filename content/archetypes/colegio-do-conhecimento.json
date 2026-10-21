@@ -1,0 +1,53 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "colegio-do-conhecimento",
+  "classId": "bardo",
+  "name": "Colégio do Conhecimento",
+  "summary": "Bardo estudioso que sabe um pouco de tudo: ganha mais perícias, atrapalha inimigos com palavras e aprende magias de qualquer classe.",
+  "srd": true,
+  "choices": [
+    {
+      "id": "colegio-do-conhecimento-pericias",
+      "name": "Proficiência Adicional",
+      "count": 3,
+      "from": ["skill:acrobacia", "skill:arcanismo", "skill:atletismo", "skill:atuacao", "skill:enganacao", "skill:furtividade", "skill:historia", "skill:intimidacao", "skill:intuicao", "skill:investigacao", "skill:lidar-com-animais", "skill:medicina", "skill:natureza", "skill:percepcao", "skill:persuasao", "skill:prestidigitacao", "skill:religiao", "skill:sobrevivencia"],
+      "bonusType": "proficiency",
+      "source": { "book": "LdJ", "page": 54 }
+    }
+  ],
+  "features": [
+    {
+      "id": "proficiencia-adicional",
+      "name": "Proficiência Adicional",
+      "level": 3,
+      "kind": "proficiency",
+      "description": "Você ganha proficiência em três perícias, à sua escolha.",
+      "source": { "book": "LdJ", "page": 54 }
+    },
+    {
+      "id": "palavras-de-interrupcao",
+      "name": "Palavras de Interrupção",
+      "level": 3,
+      "kind": "other",
+      "description": "Com a reação e um uso de Inspiração de Bardo, subtraia o dado da jogada de ataque, de habilidade ou de dano de uma criatura a até 18 m que você veja.",
+      "source": { "book": "LdJ", "page": 54 }
+    },
+    {
+      "id": "segredos-magicos-adicionais",
+      "name": "Segredos Mágicos Adicionais",
+      "level": 6,
+      "kind": "spell",
+      "description": "Você aprende duas magias de qualquer classe (de um nível que você conjure) ou truques. Elas contam como magias de bardo, sem gastar suas magias conhecidas.",
+      "source": { "book": "LdJ", "page": 55 }
+    },
+    {
+      "id": "pericia-inigualavel",
+      "name": "Perícia Inigualável",
+      "level": 14,
+      "kind": "other",
+      "description": "Em um teste de habilidade, você pode gastar um uso de Inspiração de Bardo e somar o dado ao resultado, mesmo depois de rolar.",
+      "source": { "book": "LdJ", "page": 55 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 54 }
+}

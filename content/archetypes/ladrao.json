@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "ladrao",
+  "classId": "ladino",
+  "name": "Ladrão",
+  "summary": "Ladino de mãos ágeis e escalador de telhados: age depressa, usa itens mágicos improvisados e age duas vezes no primeiro turno.",
+  "srd": true,
+  "features": [
+    {
+      "id": "maos-rapidas",
+      "name": "Mãos Rápidas",
+      "level": 3,
+      "kind": "other",
+      "description": "Com a ação bônus da Ação Ardilosa, você também pode usar Prestidigitação, desarmar armadilhas, abrir fechaduras ou usar um objeto.",
+      "source": { "book": "LdJ", "page": 92 }
+    },
+    {
+      "id": "andarilho-de-telhados",
+      "name": "Andarilho de Telhados",
+      "level": 3,
+      "kind": "other",
+      "description": "Escalar não custa movimento extra, e seus saltos com corrida ganham 0,3 m × seu modificador de Destreza de alcance.",
+      "source": { "book": "LdJ", "page": 92 }
+    },
+    {
+      "id": "furtividade-suprema",
+      "name": "Furtividade Suprema",
+      "level": 9,
+      "kind": "advantage",
+      "description": "Você tem vantagem em Furtividade se não se mover mais que metade do seu deslocamento no turno.",
+      "source": { "book": "LdJ", "page": 92 }
+    },
+    {
+      "id": "usar-instrumento-magico",
+      "name": "Usar Instrumento Mágico",
+      "level": 13,
+      "kind": "other",
+      "description": "Você ignora requisitos de classe, raça e nível para usar itens mágicos.",
+      "source": { "book": "LdJ", "page": 92 }
+    },
+    {
+      "id": "reflexos-de-ladrao",
+      "name": "Reflexos de Ladrão",
+      "level": 17,
+      "kind": "other",
+      "description": "No primeiro turno de cada combate você age duas vezes: na sua iniciativa e na iniciativa − 10. Não vale se estiver surpreso.",
+      "source": { "book": "LdJ", "page": 92 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 92 }
+}

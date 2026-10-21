@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "juramento-de-devocao",
+  "classId": "paladino",
+  "name": "Juramento de Devoção",
+  "summary": "Paladino de honra e luz: protege aliados do enfeitiçamento, afasta o mal e termina com um halo sagrado.",
+  "srd": true,
+  "features": [
+    {
+      "id": "canalizar-divindade-devocao",
+      "name": "Canalizar Divindade",
+      "level": 3,
+      "kind": "other",
+      "description": "Duas opções: Arma Sagrada (soma seu modificador de Carisma nos ataques de uma arma por 1 minuto) e Rechaçar o Profano (ínferos e mortos-vivos próximos fogem se falharem numa salvaguarda de Sabedoria).",
+      "source": { "book": "LdJ", "page": 112 }
+    },
+    {
+      "id": "magias-de-juramento-de-devocao",
+      "name": "Magias de Juramento de Devoção",
+      "level": 3,
+      "kind": "spell",
+      "description": "Magias sempre preparadas: proteção contra o bem e mal e santuário (3º); restauração menor e zona da verdade (5º); sinal de esperança e dissipar magia (9º); movimentação livre e guardião da fé (13º); comunhão e coluna de chamas (17º).",
+      "source": { "book": "LdJ", "page": 112 }
+    },
+    {
+      "id": "aura-de-devocao",
+      "name": "Aura de Devoção",
+      "level": 7,
+      "kind": "resistance",
+      "description": "Você e os aliados a até 3 m não podem ser enfeitiçados enquanto você estiver consciente. No nível 18, o alcance sobe para 9 m.",
+      "source": { "book": "LdJ", "page": 112 }
+    },
+    {
+      "id": "pureza-de-espirito",
+      "name": "Pureza de Espírito",
+      "level": 15,
+      "kind": "other",
+      "description": "Você está sempre sob o efeito da magia proteção contra o bem e mal.",
+      "source": { "book": "LdJ", "page": 112 }
+    },
+    {
+      "id": "halo-sagrado",
+      "name": "Halo Sagrado",
+      "level": 20,
+      "kind": "other",
+      "description": "Com uma ação, emana luz solar por 1 minuto: inimigos que começam o turno na luz plena sofrem 10 de dano radiante, e você tem vantagem em salvaguardas contra magias de ínferos e mortos-vivos. Uma vez por descanso longo.",
+      "source": { "book": "LdJ", "page": 112 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 112 }
+}

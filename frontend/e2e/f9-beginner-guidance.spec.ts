@@ -29,7 +29,8 @@ test.describe('F9 guias para o iniciante', () => {
     await expectAccessible(page);
   });
 
-  // F9 AC3/AC4 com F10 AC4: o Incremento passou a ser aplicado; o Arquétipo segue manual.
+  // F9 AC3/AC4 com F10 AC4 e F12 AC4: o Incremento é aplicado; o Arquétipo não escolhido segue manual e vira
+  // um aviso de escolha pendente.
   test('Ladino nível 4 deve marcar o Arquétipo como "anote à mão" e avisar na ficha', async ({
     page,
     api,
@@ -47,6 +48,6 @@ test.describe('F9 guias para o iniciante', () => {
     await expectAccessible(page);
 
     await page.goto(`/fichas/${id}/ficha`);
-    await expect(page.getByText('Arquétipo de Ladino (nível 3): escolha à mão')).toBeVisible();
+    await expect(page.getByText('Escolha seu Arquétipo de Ladino (nível 3).')).toBeVisible();
   });
 });
