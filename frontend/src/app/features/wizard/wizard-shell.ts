@@ -39,6 +39,7 @@ import { stepOfField, wizardSteps } from './wizard-steps';
         <input
           id="sheet-name"
           [value]="store.name()"
+          (input)="typing($event)"
           (change)="rename($event)"
           maxlength="80"
           [attr.aria-invalid]="nameError() ? 'true' : null"
@@ -250,10 +251,21 @@ export class WizardShellComponent {
     const name = input.value.trim();
     if (name) {
       this.nameError.set(null);
-      this.store.rename(name);
+      if (name !== this.store.name()) this.store.rename(name);
     } else {
       input.value = this.store.name();
       this.nameError.set('O nome da ficha não pode ficar vazio.');
+    }
+  }
+
+  /** Enquanto digita: nome válido entra no salvamento automático (debounce do store); vazio só avisa. */
+  protected typing(event: Event): void {
+    const name = (event.target as HTMLInputElement).value.trim();
+    if (!name) {
+      this.nameError.set('O nome da ficha não pode ficar vazio.');
+    } else {
+      this.nameError.set(null);
+      if (name !== this.store.name()) this.store.rename(name);
     }
   }
 

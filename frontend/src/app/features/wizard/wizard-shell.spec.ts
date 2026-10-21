@@ -112,6 +112,25 @@ describe('WizardShellComponent', () => {
     ]).toEqual(['Thorin', 0, 'O nome da ficha não pode ficar vazio.']);
   });
 
+  it('renomear enquanto digita deve entrar no salvamento automático sem esperar sair do campo; vazio só avisa', async () => {
+    const { fixture, el, store } = await render();
+    const rename = vi.spyOn(store, 'rename');
+    const input = el.querySelector('#sheet-name') as HTMLInputElement;
+
+    input.value = 'Thorin Escudo de Carvalho ';
+    input.dispatchEvent(new Event('input'));
+    await fixture.whenStable();
+    input.value = '';
+    input.dispatchEvent(new Event('input'));
+    await fixture.whenStable();
+
+    expect([
+      rename.mock.calls,
+      el.querySelector(`#${input.getAttribute('aria-describedby')}`)?.textContent?.trim(),
+      input.value,
+    ]).toEqual([[['Thorin Escudo de Carvalho']], 'O nome da ficha não pode ficar vazio.', '']);
+  });
+
   it('abrir quando falha deve distinguir ficha inexistente, arquivo com problema e servidor fora (F8 AC8)', async () => {
     const texts = [];
     for (const error of [

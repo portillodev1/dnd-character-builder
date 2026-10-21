@@ -18,7 +18,7 @@ Console do navegador e log da API sem erros.
 | F5 AC1–4, 7–8 | Lista ordenada com raça/classe/nível/data; nova ficha abre em Raça; reabrir restaura tudo; duplicar cria "(cópia)"; apagar pede confirmação com o nome e remove o arquivo; renomear mantém `id` | ✅ |
 | F5 AC5–6 | Coberto pelos E2E (22 Playwright) e Api.Tests; não repeti 409 com duas abas | — |
 
-## Achados
+## Achados (corrigidos na T3)
 1. **Painéis "Ver a conta" empilham e cobrem outros números (média).** Só fecham clicando
    de novo no mesmo botão: Esc e clique fora não fecham. O painel de Pontos de Vida cobre a
    coluna de Perícias e bloqueia o clique em Furtividade até fechá-lo.

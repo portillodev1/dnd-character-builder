@@ -11,9 +11,9 @@ Regra: 1 comportamento por tarefa (≤ ~5 arquivos). Cada item de backlog começ
   amostrar páginas citadas em `source`; registrar divergências em `docs/qa/`.
 - [x] T2 — Verificação dos critérios F1–F5 no app — feita, todos atendidos
   (`docs/qa/2026-10-21-t2-criterios-app/`); resta o humano conferir à mão.
-- [ ] T3 — Corrigir os 2 achados de UX da T2 (1 correção = 1 commit, com teste), a confirmar:
-  (a) painéis "Ver a conta" fecham com Esc/clique fora e não empilham (`bonus-breakdown.ts`);
-  (b) renomear a ficha salva com debounce, não só no blur.
+- [x] T3 — Os 2 achados de UX da T2 corrigidos: painéis "Ver a conta" (um por vez; Esc e
+  clique fora fecham, `bonus-breakdown.ts`) e renomear salva enquanto digita (`wizard-shell.ts`);
+  4 testes Vitest novos.
 - [ ] T4 — Aprovar Fases 1–6 e apagar `tasks-fase-1.md` … `tasks-fase-5.md`; ROADMAP ✅.
 - [ ] T5 — Perguntar ao humano e então `git push` (antes, `git pull` se o remoto mudou).
 

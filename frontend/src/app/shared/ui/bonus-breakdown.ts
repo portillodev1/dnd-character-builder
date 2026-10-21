@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  ElementRef,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { BonusPart } from '../../core/api/models';
 import { bonusType, signed } from '../labels';
 
@@ -18,6 +26,8 @@ const rank = (t: string) => {
 };
 
 let nextId = 0;
+/** Id do painel aberto: só um por vez, senão os painéis se empilham sobre outros números. */
+const openPanel = signal<string | null>(null);
 
 /**
  * Número da ficha que abre a conta (F4 AC1–AC2): botão focável; Enter/Espaço/clique alternam
@@ -26,6 +36,10 @@ let nextId = 0;
 @Component({
   selector: 'app-bonus-breakdown',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    '(document:keydown.escape)': 'escape()',
+    '(document:click)': 'outside($event)',
+  },
   template: `
     <button
       type="button"
@@ -137,8 +151,9 @@ export class BonusBreakdownComponent {
   /** Unidade após o total (ex.: "m" no deslocamento). */
   readonly unit = input('');
 
-  protected readonly open = signal(false);
+  private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   protected readonly panelId = `bonus-breakdown-${nextId++}`;
+  protected readonly open = computed(() => openPanel() === this.panelId);
   protected readonly shown = computed(() => {
     const n = this.withSign() ? signed(this.total()) : this.total().toLocaleString('pt-BR');
     return this.unit() ? `${n} ${this.unit()}` : n;
@@ -150,7 +165,21 @@ export class BonusBreakdownComponent {
   protected readonly type = bonusType;
 
   protected toggle(): void {
-    this.open.update((o) => !o);
+    openPanel.set(this.open() ? null : this.panelId);
+  }
+
+  /** Esc fecha e devolve o foco ao número, para o teclado não se perder. */
+  protected escape(): void {
+    if (!this.open()) return;
+    openPanel.set(null);
+    this.host.nativeElement.querySelector('button')?.focus();
+  }
+
+  /** Clique fora do número e do painel fecha (o painel cobre outros números da ficha). */
+  protected outside(event: Event): void {
+    if (this.open() && !this.host.nativeElement.contains(event.target as Node)) {
+      openPanel.set(null);
+    }
   }
 
   protected key(event: Event): void {

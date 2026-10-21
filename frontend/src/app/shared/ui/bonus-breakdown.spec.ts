@@ -62,6 +62,50 @@ describe('BonusBreakdownComponent', () => {
     expect([button.textContent?.trim(), ...values]).toEqual(['10,5 m', '+9', '+1,5']);
   });
 
+  it('breakdown aberto quando recebe Esc deve fechar e devolver o foco ao número (F4 AC1)', async () => {
+    const { fixture, el, button } = await render();
+    button.click();
+    await fixture.whenStable();
+
+    document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    await fixture.whenStable();
+
+    expect([el.querySelector('[role=region]'), button.getAttribute('aria-expanded')]).toEqual([
+      null,
+      'false',
+    ]);
+  });
+
+  it('breakdown aberto quando o clique é fora deve fechar; dentro do painel, não', async () => {
+    const { fixture, el, button } = await render();
+    button.click();
+    await fixture.whenStable();
+
+    (el.querySelector('[role=region]') as HTMLElement).click();
+    await fixture.whenStable();
+    const aposClicarDentro = el.querySelector('[role=region]') !== null;
+    document.body.click();
+    await fixture.whenStable();
+
+    expect([aposClicarDentro, el.querySelector('[role=region]')]).toEqual([true, null]);
+  });
+
+  it('breakdown quando outro número abre deve fechar o anterior (um painel por vez)', async () => {
+    const primeiro = await render();
+    const segundo = await render();
+    primeiro.button.click();
+    await primeiro.fixture.whenStable();
+
+    segundo.button.click();
+    await segundo.fixture.whenStable();
+    await primeiro.fixture.whenStable();
+
+    expect([
+      primeiro.button.getAttribute('aria-expanded'),
+      segundo.button.getAttribute('aria-expanded'),
+    ]).toEqual(['false', 'true']);
+  });
+
   it.each(['Enter', ' '])(
     'breakdown quando recebe a tecla "%s" deve alternar o painel (F4 AC1)',
     async (key) => {
