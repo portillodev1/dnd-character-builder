@@ -1,7 +1,7 @@
 # Spec F5: Salvar, listar e editar fichas (arquivos JSON)
 
 Critério de pronto **5**. Decisão: ADR-0006 (substitui a persistência do ADR-0002).
-Contrato: `docs/architecture/api-contract.md` § Fichas salvas.
+Contrato: `docs/architecture/api-contract-sheets.md`.
 
 ## Objective
 O jogador guarda as fichas que montou, volta a elas depois e continua de onde parou.

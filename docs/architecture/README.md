@@ -40,5 +40,5 @@ ele **explica** cada valor (origem + tipo de bônus), seguindo o Livro do Jogado
 - **Simplicidade**: sem auth, sem DB, sem filas; fichas em arquivo (ADR-0006). Adicionar só via ADR.
 
 ## Detalhe
-[backend.md](backend.md) · [frontend.md](frontend.md) · [api-contract.md](api-contract.md) ·
+[backend.md](backend.md) · [frontend.md](frontend.md) · [api-contract.md](api-contract.md) · [api-contract-sheets.md](api-contract-sheets.md) ·
 [ruleset-data.md](ruleset-data.md)

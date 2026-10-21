@@ -16,6 +16,7 @@ público → PERGUNTE (AGENTS.md). Erros sempre em **ProblemDetails** (RFC 9457)
 | GET | `/api/v1/character-sheets/{id}` | 5 | Ficha salva + ficha derivada recalculada |
 | PUT | `/api/v1/character-sheets/{id}` | 5 | Atualiza `name`/`draft` (exige `version`) |
 | DELETE | `/api/v1/character-sheets/{id}` | 5 | Apaga o arquivo → `204` |
+| POST | `/api/v1/character-sheets/{id}/duplicate` | F7 | Cópia da ficha → `201` + `Location` |
 | GET | `/health` | — | 200 OK |
 
 ## `POST /character-sheets/compute` — entrada
@@ -63,29 +64,16 @@ Meio-Elfo, perícias de raça/classe/antecedente e Especialização com `value` 
 e escolhas sem número como idioma/ferramenta em `traits[]`). `speed` é decimal (metros).
 `GET /classes/{id}/features?level=N` traz `expertiseCount`: Especializações concedidas até N.
 
-## Validação (400 com `errors` por campo)
-- `level` 1–20; `baseAbilities` 1–20 antes de bônus raciais (método escolhido valida faixa).
+## Validação (400 com `errors` por campo) — spec F6
+- Corpo malformado, tipo errado ou parâmetro ausente → `400` `problem+json`, **nunca `500`**.
+- `level` 1–20 (também na query de `/features`); sem `abilityMethod`, `baseAbilities` 3–18
+  (LdJ p. 13); com método, a faixa do método.
 - `raceId`/`classId`/`subraceId` existentes e coerentes (sub-raça pertence à raça).
 - `skillChoices` ⊆ lista da classe (+ antecedente/raça); quantidade = permitida pela classe.
 - `expertise` só se a classe/nível concede, e só em perícias já proficientes.
+- `choices.<id>: null` = não escolhido (warning); item `null` em listas → `400`.
+- Mensagens citam perícias/atributos pelo nome ("Acrobacia"), nunca pelo id.
 - Escolhas incompletas **não** são erro: viram `warnings` (o wizard é progressivo).
 
-## Fichas salvas (ADR-0006, spec F5)
-Cada ficha é um arquivo `<SheetsPath>/<id>.json` com **só as escolhas**; a ficha derivada é
-recalculada a cada `GET`. `{id}` é GUID (`{id:guid}` na rota — não colide com `/compute`).
-```json
-// POST /api/v1/character-sheets  (corpo; draft pode estar incompleto)
-{ "name": "Thorin", "draft": { "raceId": "anao", "classId": "ladino", "level": 1 } }
-// GET /api/v1/character-sheets
-[ { "id": "0199f6c2-…", "name": "Thorin", "raceId": "anao", "classId": "ladino",
-    "level": 1, "updatedAt": "2026-10-20T18:42:10Z" } ]
-// GET /api/v1/character-sheets/{id}
-{ "id": "0199f6c2-…", "name": "Thorin", "version": 3, "createdAt": "…", "updatedAt": "…",
-  "draft": { "…": "mesmo formato da entrada do /compute" },
-  "sheet": { "…": "mesmo formato da saída do /compute (com warnings)" } }
-// PUT /api/v1/character-sheets/{id}
-{ "name": "Thorin", "version": 3, "draft": { "…": "…" } }   // → 200 com version 4
-```
-- `version` divergente → `409` ProblemDetails (a outra aba salvou antes).
-- `draft` com valor inválido → `400` (mesmas regras de Validação acima); incompleto → `warnings`.
-- `id` inexistente → `404`. Arquivo corrompido aparece na lista com `"error"`, sem derrubar o `GET`.
+Fichas salvas (CRUD em arquivo, duplicar, `409`/`422`): [api-contract-sheets.md](api-contract-sheets.md).
+

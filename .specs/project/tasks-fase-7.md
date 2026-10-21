@@ -6,10 +6,10 @@ Gate de saída: critérios F6–F9 com teste + `verify.sh --strict` → 0. Apaga
 Regra: 1 comportamento por tarefa (≤ ~5 arquivos); teste de regressão que falha sem o fix.
 
 ## Bloqueios (antes de codar)
-- [ ] T0 — Aprovação humana das mudanças de contrato: F6 AC3/AC5, F7 AC1/AC2/AC5, F9 AC1/AC3.
+- [x] T0 — Aprovação humana (2026-10-20) das mudanças de contrato: F6 AC3/AC5, F7 AC1/AC2/AC5, F9 AC1/AC3.
   Depois: atualizar `docs/architecture/api-contract.md` (91 linhas → quebrar em
   `api-contract.md` + `api-contract-sheets.md` para ficar ≤ 100).
-- [ ] T1 — ADR-0010: origem da API por configuração (`proxy.conf.json` / mesma origem) — F8 RNF.
+- [x] T1 — ADR-0010: origem da API por configuração (`proxy.conf.json` / mesma origem) — F8 RNF.
 
 ## F6 — Entrada inválida (back)
 - [ ] T2 — Erro de binding → 400 ProblemDetails (`StatusCodeSelector`) — F6 AC1
