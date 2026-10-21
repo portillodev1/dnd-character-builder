@@ -14,8 +14,8 @@ Regra: 1 comportamento por tarefa (≤ ~5 arquivos). Cada item de backlog começ
 - [x] T3 — Os 2 achados de UX da T2 corrigidos: painéis "Ver a conta" (um por vez; Esc e
   clique fora fecham, `bonus-breakdown.ts`) e renomear salva enquanto digita (`wizard-shell.ts`);
   4 testes Vitest novos.
-- [ ] T4 — Aprovar Fases 1–6 e apagar `tasks-fase-1.md` … `tasks-fase-5.md`; ROADMAP ✅.
-- [ ] T5 — Perguntar ao humano e então `git push` (antes, `git pull` se o remoto mudou).
+- [x] T4 — Fases 1–6 aprovadas pelo humano (2026-10-21); `tasks-fase-1…5` apagados; ROADMAP ✅.
+- [x] T5 — Perguntar ao humano e então `git push` (antes, `git pull` se o remoto mudou).
 
 ## B — Deslocamento de classe ([F11 class-speed-bonus](../features/class-speed-bonus/spec.md))
 - [x] T6 — Spec F11 escrita (Bárbaro p. 49, Monge p. 104; condição assumida cumprida).

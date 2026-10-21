@@ -15,12 +15,12 @@ Objetivo: iniciante monta a ficha de D&D 5e entendendo de onde vem cada número.
 | Fase | Entrega | Gate de saída | Status |
 |---|---|---|---|
 | 0 — Fundação | AGENTS.md, rules, scripts, harness, arquitetura, specs | `verify.sh` verde (SKIP permitido) | ✅ |
-| 1 — Scaffold | .NET 10 SDK; `DndBuilder.slnx` + 4 projetos + 3 de teste; `ng new` Angular 22; ESLint/Prettier; CI | `verify.sh --strict` verde com 1 teste trivial por projeto | ✅ aguardando revisão |
-| 2 — Motor de regras | `Domain`: atributos, modificador, proficiência, perícias, salvaguardas, `DerivedValue` | `Domain.Tests` cobre `docs/domain/calculations.md` §1–6 | ✅ aguardando revisão |
-| 3 — Catálogo | schemas + 9 raças (+ sub-raças) + 12 classes (níveis 1–20, classe base) | `Ruleset.Tests` verde; revisão humana vs. LdJ | ✅ aguardando revisão |
-| 4 — API | endpoints de `docs/architecture/api-contract.md` (incl. CRUD de fichas em arquivo, F5) + OpenAPI | `Api.Tests` verde | ✅ aguardando revisão |
-| 5 — Wizard | "Minhas fichas" + passos Raça → Classe → Atributos → Perícias/Salvaguardas → Ficha, com salvamento automático | Vitest verde; critérios F1–F5 demonstráveis | ✅ aguardando revisão |
-| 6 — Qualidade | Playwright E2E, axe, polimento de textos | E2E dos 5 critérios verde | ✅ aguardando revisão |
+| 1 — Scaffold | .NET 10 SDK; `DndBuilder.slnx` + 4 projetos + 3 de teste; `ng new` Angular 22; ESLint/Prettier; CI | `verify.sh --strict` verde com 1 teste trivial por projeto | ✅ aprovada (2026-10-21) |
+| 2 — Motor de regras | `Domain`: atributos, modificador, proficiência, perícias, salvaguardas, `DerivedValue` | `Domain.Tests` cobre `docs/domain/calculations.md` §1–6 | ✅ aprovada (2026-10-21) |
+| 3 — Catálogo | schemas + 9 raças (+ sub-raças) + 12 classes (níveis 1–20, classe base) | `Ruleset.Tests` verde; revisão humana vs. LdJ | ✅ aprovada (2026-10-21) |
+| 4 — API | endpoints de `docs/architecture/api-contract.md` (incl. CRUD de fichas em arquivo, F5) + OpenAPI | `Api.Tests` verde | ✅ aprovada (2026-10-21) |
+| 5 — Wizard | "Minhas fichas" + passos Raça → Classe → Atributos → Perícias/Salvaguardas → Ficha, com salvamento automático | Vitest verde; critérios F1–F5 demonstráveis | ✅ aprovada (2026-10-21) |
+| 6 — Qualidade | Playwright E2E, axe, polimento de textos | E2E dos 5 critérios verde | ✅ aprovada (2026-10-21) |
 | 7 — Robustez e UX pós-QA | Specs F6–F9 a partir do [relatório de QA](docs/qa/2026-10-20-teste-e2e/README.md) | Critérios F6–F9 com teste; `verify.sh --strict` verde | ✅ aprovada (2026-10-21) |
 | 8 — Incremento de atributo | [F10 ability-score-improvement](.specs/features/ability-score-improvement/spec.md) | Critérios F10 com teste; `verify.sh --strict` verde | ✅ aprovada (2026-10-21) |
 | 9 — Fechamento do MVP e próximos incrementos | Revisão humana F1–F6; deslocamento de classe ([F11](.specs/features/class-speed-bonus/spec.md)); arquétipos (tasks em [tasks-fase-9](.specs/project/tasks-fase-9.md)) | `verify.sh --strict` verde por entrega | 🔜 planejada |

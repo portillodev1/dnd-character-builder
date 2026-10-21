@@ -2,8 +2,8 @@
 
 Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia o
 `## Handoff
-- **Fase 9 (em andamento)**: tasks em `.specs/project/tasks-fase-9.md`. A: T1–T3 feitas (QA em `docs/qa/2026-10-21-*`; T3 = `6bfaf75`);
-  T4–T5 (aprovação humana + push) pendentes. B: F11 `class-speed-bonus` implementada (T6–T10; Bárbaro p. 49, Monge p. 104),
+- **Fase 9 (em andamento)**: tasks em `.specs/project/tasks-fase-9.md`. A: T1–T5 feitas (QA em `docs/qa/2026-10-21-*`; T3 = `6bfaf75`; T4 aprovada e tasks 1–5 apagados;
+  push feito). B: F11 `class-speed-bonus` implementada (T6–T10; Bárbaro p. 49, Monge p. 104),
   aguardando revisão humana. C: escopo decidido (T11, ADR-0011: todos os 41 arquétipos do LdJ, em fatias por classe);
   F12 `class-archetypes`: contrato `draft.archetype` aprovado e back-end pronto (T13; Campeão e
   Linhagem Dracônica como dados-piloto). Front pronto (T14): escolha no passo Classe e "Meus bônus". Dados: T15 feita (12 arquétipos do SRD, 1 por classe, todas as classes escolhíveis);
@@ -27,17 +27,18 @@ Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia 
   rubricas em vermelho, azul-lápis, filetes duplos, capitular, passos em numerais romanos; tema
   escuro "à luz de vela". Fontes EB Garamond + IM Fell English via @fontsource (ADR-0008). Ícones
   de tipo de bônus agora são sinais tipográficos (sem emoji). Já no `origin/main`.
-- **Fase 5 (anterior)**: wizard Angular + "Minhas fichas" (`.specs/project/tasks-fase-5.md`); tipos do
+- **Fase 5 (anterior)**: wizard Angular + "Minhas fichas" (tasks apagados na limpeza); tipos do
   front gerados do OpenAPI (ADR-0007); salvamento automático; `bonus-breakdown` em todo número.
   Testes: 20 front, 248 back.
 - **Rodar**: `.claude/launch.json` (local, não versionado) tem `api` (5080) e `web` (4200).
 - **Lacunas conhecidas**: aumentos de deslocamento de classe (Monge, Bárbaro) — resolvido na F11.
-- **Revisão humana pendente**: Fases 1–6 (MVP completo).
+- **Revisão humana**: Fases 1–6 (MVP completo) aprovadas em 2026-10-21; pendente só a revisão do conteúdo
+  não-SRD (29 arquétipos) antes de publicar o repositório.
 - **Toolchain local (macOS)**: Node 24 via `brew install node@24` (keg-only) → exporte
   `PATH="/opt/homebrew/opt/node@24/bin:$PATH"` antes dos scripts. PDF do LdJ fica fora do repo
   (ADR-0004); para conferir páginas use `pdftotext` (poppler) num diretório temporário.
 - **Bloqueios**: nenhum.
 - **Próxima unidade**: revisão humana das Fases 1–6; depois o backlog do `ROADMAP.md`
   (arquétipos tirariam o último selo "anote à mão" — exige spec e decisão de ADR-0004).
-- **Limpeza**: apagar `tasks-fase-1.md` … `tasks-fase-5.md` quando aprovadas.
+- **Limpeza**: `tasks-fase-1…5` apagados na aprovação de 2026-10-21; resta `tasks-fase-9.md` (apagar quando a Fase 9 for aprovada).
 - **Gates**: `verify.sh --strict` verde.
