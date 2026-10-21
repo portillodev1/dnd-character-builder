@@ -62,7 +62,8 @@ O que funcionou bem:
 | FE-7…13 | Baixa | Front | ✅ Corrigidos (F8) |
 | FE-14 | Baixa | Front | ✅ Corrigido (F9) — rótulo duplicado em "Meus bônus" |
 
-Todos os itens foram resolvidos na Fase 7 (specs F6–F9, `.specs/project/tasks-fase-7.md`).
+Todos os itens foram resolvidos na Fase 7 (specs F6–F9; commits `6fa259a`, `027d66e`, `e49f055`,
+`2f088fe`), aprovada em 2026-10-21.
 
 ## Ambiente
 macOS (Darwin 25.5), Node 24.22, .NET SDK 10.0.402, Chromium do Playwright.

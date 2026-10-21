@@ -2,7 +2,7 @@
 
 Parte de [api-contract.md](api-contract.md) (validação e formato de `draft`/`sheet` lá).
 Decisões: ADR-0006; specs F5 (`character-sheets`) e F7 (`sheet-file-integrity`).
-Mudanças de F6/F7/F9 aprovadas em 2026-10-20 (T0 de `.specs/project/tasks-fase-7.md`).
+Mudanças de F6/F7/F9 aprovadas em 2026-10-20 (Fase 7).
 
 ## Arquivos e rotas
 Cada ficha é um arquivo `<SheetsPath>/<id>.json` com **só as escolhas**; a ficha derivada é
