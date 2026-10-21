@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "conjuracao",
+  "classId": "mago",
+  "name": "Escola de Conjuração",
+  "summary": "Mago que produz objetos e criaturas do nada, se teletransporta e protege suas invocações.",
+  "srd": false,
+  "features": [
+    {
+      "id": "conjuracao-instruida",
+      "name": "Conjuração Instruída",
+      "level": 2,
+      "kind": "other",
+      "description": "Copiar magias de conjuração para o seu grimório custa metade do tempo e do ouro.",
+      "source": { "book": "LdJ", "page": 98 }
+    },
+    {
+      "id": "conjuracao-menor",
+      "name": "Conjuração Menor",
+      "level": 2,
+      "kind": "other",
+      "description": "Com uma ação, cria um objeto inanimado e não mágico (até 90 cm e 5 kg) que você já tenha visto, a até 3 m. Ele some após 1 hora, se você repetir o poder ou se sofrer dano.",
+      "source": { "book": "LdJ", "page": 98 }
+    },
+    {
+      "id": "transposicao-benigna",
+      "name": "Transposição Benigna",
+      "level": 6,
+      "kind": "other",
+      "description": "Com uma ação, teletransporta-se até 9 m ou troca de lugar com uma criatura voluntária Pequena ou Média. Recarrega num descanso longo ou ao lançar uma conjuração de 1º nível ou mais.",
+      "source": { "book": "LdJ", "page": 99 }
+    },
+    {
+      "id": "conjuracao-focada",
+      "name": "Conjuração Focada",
+      "level": 10,
+      "kind": "other",
+      "description": "Sofrer dano não interrompe a sua concentração numa magia de conjuração.",
+      "source": { "book": "LdJ", "page": 99 }
+    },
+    {
+      "id": "invocacoes-resistentes",
+      "name": "Invocações Resistentes",
+      "level": 14,
+      "kind": "other",
+      "description": "Toda criatura que você invocar ou criar com uma magia de conjuração ganha 30 PV temporários.",
+      "source": { "book": "LdJ", "page": 99 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 98 }
+}

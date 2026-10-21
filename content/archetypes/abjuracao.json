@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "abjuracao",
+  "classId": "mago",
+  "name": "Escola de Abjuração",
+  "summary": "Mago protetor: cria uma proteção que absorve dano, defende aliados e acaba resistindo a magias.",
+  "srd": false,
+  "features": [
+    {
+      "id": "abjuracao-instruida",
+      "name": "Abjuração Instruída",
+      "level": 2,
+      "kind": "other",
+      "description": "Copiar magias de abjuração para o seu grimório custa metade do tempo e do ouro.",
+      "source": { "book": "LdJ", "page": 97 }
+    },
+    {
+      "id": "protecao-arcana",
+      "name": "Proteção Arcana",
+      "level": 2,
+      "kind": "other",
+      "description": "Ao lançar uma magia de abjuração de 1º nível ou mais, você cria uma proteção com PV iguais a 2 × nível de mago + modificador de Inteligência, que absorve dano no seu lugar e se recupera com abjurações. Dura até um descanso longo.",
+      "source": { "book": "LdJ", "page": 97 }
+    },
+    {
+      "id": "protecao-projetada",
+      "name": "Proteção Projetada",
+      "level": 6,
+      "kind": "other",
+      "description": "Com a reação, faz sua Proteção Arcana absorver o dano sofrido por uma criatura a até 9 m.",
+      "source": { "book": "LdJ", "page": 97 }
+    },
+    {
+      "id": "abjuracao-aprimorada",
+      "name": "Abjuração Aprimorada",
+      "level": 10,
+      "kind": "other",
+      "description": "Em magias de abjuração que exigem um teste de habilidade seu (como contramágica e dissipar magia), você soma seu bônus de proficiência.",
+      "source": { "book": "LdJ", "page": 97 }
+    },
+    {
+      "id": "resistencia-a-magia",
+      "name": "Resistência à Magia",
+      "level": 14,
+      "kind": "resistance",
+      "description": "Você tem vantagem em salvaguardas contra magias e resistência ao dano de magias.",
+      "source": { "book": "LdJ", "page": 98 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 97 }
+}

@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "necromancia",
+  "classId": "mago",
+  "name": "Escola de Necromancia",
+  "summary": "Mago da morte: recupera vida ao matar com magias, cria mortos-vivos mais fortes e controla os de outros.",
+  "srd": false,
+  "features": [
+    {
+      "id": "necromancia-instruida",
+      "name": "Necromancia Instruída",
+      "level": 2,
+      "kind": "other",
+      "description": "Copiar magias de necromancia para o seu grimório custa metade do tempo e do ouro.",
+      "source": { "book": "LdJ", "page": 100 }
+    },
+    {
+      "id": "colheita-sinistra",
+      "name": "Colheita Sinistra",
+      "level": 2,
+      "kind": "other",
+      "description": "Uma vez por turno, ao matar criaturas com magia de 1º nível ou mais, você recupera PV iguais a 2 × nível da magia (3 × se for de necromancia). Não vale contra constructos e mortos-vivos.",
+      "source": { "book": "LdJ", "page": 100 }
+    },
+    {
+      "id": "escravos-mortos-vivos",
+      "name": "Escravos Mortos-Vivos",
+      "level": 6,
+      "kind": "other",
+      "description": "Você ganha animar mortos no grimório e cria um morto-vivo adicional ao lançá-la. Seus mortos-vivos ganham PV máximos extras iguais ao seu nível de mago e somam sua proficiência ao dano.",
+      "source": { "book": "LdJ", "page": 101 }
+    },
+    {
+      "id": "acostumado-a-morte-vida",
+      "name": "Acostumado à Morte-Vida",
+      "level": 10,
+      "kind": "resistance",
+      "description": "Você tem resistência a dano necrótico e seus PV máximos não podem ser reduzidos.",
+      "source": { "book": "LdJ", "page": 101 }
+    },
+    {
+      "id": "comandar-mortos-vivos",
+      "name": "Comandar Mortos-Vivos",
+      "level": 14,
+      "kind": "other",
+      "description": "Com uma ação, tenta controlar um morto-vivo a até 18 m (salvaguarda de Carisma; vantagem se Int 8+). Se falhar, ele obedece você até você usar o poder de novo.",
+      "source": { "book": "LdJ", "page": 101 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 100 }
+}

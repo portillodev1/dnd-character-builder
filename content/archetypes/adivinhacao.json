@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "adivinhacao",
+  "classId": "mago",
+  "name": "Escola de Adivinhação",
+  "summary": "Mago vidente: rola dados de premonição no começo do dia e usa-os para trocar resultados.",
+  "srd": false,
+  "features": [
+    {
+      "id": "adivinhacao-instruida",
+      "name": "Adivinhação Instruída",
+      "level": 2,
+      "kind": "other",
+      "description": "Copiar magias de adivinhação para o seu grimório custa metade do tempo e do ouro.",
+      "source": { "book": "LdJ", "page": 98 }
+    },
+    {
+      "id": "prodigio",
+      "name": "Prodígio",
+      "level": 2,
+      "kind": "other",
+      "description": "Após um descanso longo, role dois d20 e guarde os resultados. Uma vez por rodada, você pode trocar uma jogada de ataque, salvaguarda ou teste (sua ou de outra criatura que você veja) por um desses resultados.",
+      "source": { "book": "LdJ", "page": 98 }
+    },
+    {
+      "id": "especialista-em-adivinhacao",
+      "name": "Especialista em Adivinhação",
+      "level": 6,
+      "kind": "other",
+      "description": "Ao lançar uma magia de adivinhação de 2º nível ou mais com um espaço, você recupera um espaço gasto de nível menor (até o 5º).",
+      "source": { "book": "LdJ", "page": 98 }
+    },
+    {
+      "id": "o-terceiro-olho",
+      "name": "O Terceiro Olho",
+      "level": 10,
+      "kind": "sense",
+      "description": "Com uma ação, escolha um benefício até descansar: visão no escuro 18 m, ver no Plano Etéreo 18 m, ler qualquer idioma ou ver invisíveis a até 3 m. Uma vez por descanso longo.",
+      "source": { "book": "LdJ", "page": 98 }
+    },
+    {
+      "id": "prodigio-maior",
+      "name": "Prodígio Maior",
+      "level": 14,
+      "kind": "other",
+      "description": "Seu Prodígio passa a rolar três d20 em vez de dois.",
+      "source": { "book": "LdJ", "page": 98 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 98 }
+}

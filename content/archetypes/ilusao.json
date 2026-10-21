@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "ilusao",
+  "classId": "mago",
+  "name": "Escola de Ilusão",
+  "summary": "Mago de ilusões: engana os sentidos, molda as ilusões depois de criadas e torna objetos ilusórios reais.",
+  "srd": false,
+  "features": [
+    {
+      "id": "ilusao-instruida",
+      "name": "Ilusão Instruída",
+      "level": 2,
+      "kind": "other",
+      "description": "Copiar magias de ilusão para o seu grimório custa metade do tempo e do ouro.",
+      "source": { "book": "LdJ", "page": 100 }
+    },
+    {
+      "id": "ilusao-menor-aprimorada",
+      "name": "Ilusão Menor Aprimorada",
+      "level": 2,
+      "kind": "spell",
+      "description": "Você aprende o truque ilusão menor (ou outro truque de mago, se já o conhece), e pode criar som e imagem na mesma conjuração.",
+      "source": { "book": "LdJ", "page": 100 }
+    },
+    {
+      "id": "ilusoes-moldaveis",
+      "name": "Ilusões Moldáveis",
+      "level": 6,
+      "kind": "other",
+      "description": "Com uma ação, você muda a natureza de uma ilusão sua de duração de 1 minuto ou mais, dentro das regras da magia.",
+      "source": { "book": "LdJ", "page": 100 }
+    },
+    {
+      "id": "eu-ilusorio",
+      "name": "Eu Ilusório",
+      "level": 10,
+      "kind": "other",
+      "description": "Com a reação, interpõe uma cópia ilusória: um ataque contra você erra automaticamente e a cópia some. Uma vez por descanso longo.",
+      "source": { "book": "LdJ", "page": 100 }
+    },
+    {
+      "id": "realidade-ilusoria",
+      "name": "Realidade Ilusória",
+      "level": 14,
+      "kind": "other",
+      "description": "Com uma ação bônus, torna real por 1 minuto um objeto inanimado e não mágico de uma ilusão sua (de 1º nível ou mais), sem poder causar dano.",
+      "source": { "book": "LdJ", "page": 100 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 100 }
+}

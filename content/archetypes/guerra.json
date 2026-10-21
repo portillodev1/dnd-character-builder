@@ -1,0 +1,67 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "guerra",
+  "classId": "clerigo",
+  "name": "Domínio da Guerra",
+  "summary": "Clérigo de combate: ataca com ação bônus, dá +10 a ataques e termina quase imune a golpes não mágicos.",
+  "srd": false,
+  "features": [
+    {
+      "id": "magias-do-dominio-da-guerra",
+      "name": "Magias do Domínio da Guerra",
+      "level": 1,
+      "kind": "spell",
+      "description": "Magias sempre preparadas: auxílio divino e escudo da fé (1º); arma mágica e arma espiritual (3º); manto do cruzado e espíritos guardiões (5º); movimentação livre e pele de pedra (7º); coluna de chamas e imobilizar monstro (9º).",
+      "source": { "book": "LdJ", "page": 68 }
+    },
+    {
+      "id": "proficiencia-adicional-guerra",
+      "name": "Proficiência Adicional",
+      "level": 1,
+      "kind": "proficiency",
+      "description": "Você ganha proficiência em armas marciais e armaduras pesadas.",
+      "source": { "book": "LdJ", "page": 68 }
+    },
+    {
+      "id": "sacerdote-da-guerra",
+      "name": "Sacerdote da Guerra",
+      "level": 1,
+      "kind": "other",
+      "description": "Ao usar a ação de Ataque, você pode fazer um ataque com arma como ação bônus. Usos por descanso longo: seu modificador de Sabedoria (mínimo 1).",
+      "source": { "book": "LdJ", "page": 68 }
+    },
+    {
+      "id": "canalizar-divindade-ataque-dirigido",
+      "name": "Canalizar Divindade: Ataque Dirigido",
+      "level": 2,
+      "kind": "other",
+      "description": "Ao fazer uma jogada de ataque, você pode ganhar +10 nela, escolhendo depois de ver a rolagem e antes de saber se acertou.",
+      "source": { "book": "LdJ", "page": 68 }
+    },
+    {
+      "id": "canalizar-divindade-bencao-do-deus-da-guerra",
+      "name": "Canalizar Divindade: Bênção do Deus da Guerra",
+      "level": 6,
+      "kind": "other",
+      "description": "Com a reação, dá +10 na jogada de ataque de uma criatura a até 9 m, escolhendo depois de ver a rolagem.",
+      "source": { "book": "LdJ", "page": 68 }
+    },
+    {
+      "id": "golpe-divino",
+      "name": "Golpe Divino",
+      "level": 8,
+      "kind": "other",
+      "description": "Uma vez por turno, um ataque com arma que acerta causa 1d8 extra do mesmo tipo de dano da arma (2d8 a partir do nível 14).",
+      "source": { "book": "LdJ", "page": 68 }
+    },
+    {
+      "id": "avatar-da-batalha",
+      "name": "Avatar da Batalha",
+      "level": 17,
+      "kind": "resistance",
+      "description": "Você ganha resistência a dano de concussão, cortante e perfurante de ataques não mágicos.",
+      "source": { "book": "LdJ", "page": 68 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 68 }
+}

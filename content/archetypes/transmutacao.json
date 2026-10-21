@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "transmutacao",
+  "classId": "mago",
+  "name": "Escola de Transmutação",
+  "summary": "Mago que muda a matéria: troca materiais, cria uma pedra de benefícios e se transforma em fera.",
+  "srd": false,
+  "features": [
+    {
+      "id": "transmutacao-instruida",
+      "name": "Transmutação Instruída",
+      "level": 2,
+      "kind": "other",
+      "description": "Copiar magias de transmutação para o seu grimório custa metade do tempo e do ouro.",
+      "source": { "book": "LdJ", "page": 101 }
+    },
+    {
+      "id": "alquimia-menor",
+      "name": "Alquimia Menor",
+      "level": 2,
+      "kind": "other",
+      "description": "Altera temporariamente um objeto de madeira, pedra, ferro, cobre ou prata para outro desses materiais (30 cm cúbicos por 10 minutos de trabalho); volta ao normal em 1 hora ou se você perder a concentração.",
+      "source": { "book": "LdJ", "page": 101 }
+    },
+    {
+      "id": "pedra-de-transmutador",
+      "name": "Pedra de Transmutador",
+      "level": 6,
+      "kind": "other",
+      "description": "Em 8 horas, cria uma pedra que dá a quem a carrega um benefício à sua escolha: visão no escuro, +3 m de deslocamento, proficiência em Constituição ou resistência a um tipo de dano. Você troca o benefício ao lançar conjuração.",
+      "source": { "book": "LdJ", "page": 101 }
+    },
+    {
+      "id": "metamorfo",
+      "name": "Metamorfo",
+      "level": 10,
+      "kind": "other",
+      "description": "Você ganha metamorfose no grimório e pode lançá-la em si mesmo, sem espaço, para virar uma besta de ND 1 ou menor. Recarrega num descanso curto ou longo.",
+      "source": { "book": "LdJ", "page": 101 }
+    },
+    {
+      "id": "mestre-transmutador",
+      "name": "Mestre Transmutador",
+      "level": 14,
+      "kind": "other",
+      "description": "Com uma ação, consome a pedra para um efeito: transformar objeto, panaceia, restaurar vida (reviver mortos) ou restaurar juventude. A pedra só pode ser refeita após um descanso longo.",
+      "source": { "book": "LdJ", "page": 101 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 101 }
+}

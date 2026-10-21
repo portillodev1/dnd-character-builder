@@ -1,0 +1,67 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "luz",
+  "classId": "clerigo",
+  "name": "Domínio da Luz",
+  "summary": "Clérigo da luz: queima inimigos com fogo e radiação e atrapalha ataques contra ele com clarões.",
+  "srd": false,
+  "features": [
+    {
+      "id": "magias-do-dominio-da-luz",
+      "name": "Magias do Domínio da Luz",
+      "level": 1,
+      "kind": "spell",
+      "description": "Magias sempre preparadas: mãos flamejantes e fogo das fadas (1º); esfera flamejante e raio ardente (3º); luz do dia e bola de fogo (5º); guardião da fé e muralha de fogo (7º); coluna de chamas e vidência (9º).",
+      "source": { "book": "LdJ", "page": 68 }
+    },
+    {
+      "id": "truque-adicional-luz",
+      "name": "Truque Adicional",
+      "level": 1,
+      "kind": "spell",
+      "description": "Você ganha o truque luz, se ainda não o conhece.",
+      "source": { "book": "LdJ", "page": 69 }
+    },
+    {
+      "id": "labareda-protetora",
+      "name": "Labareda Protetora",
+      "level": 1,
+      "kind": "other",
+      "description": "Quando uma criatura a até 9 m ataca você, use a reação para impor desvantagem ao ataque com um clarão (imune quem não pode ser cegado). Usos por descanso longo: seu modificador de Sabedoria (mínimo 1).",
+      "source": { "book": "LdJ", "page": 69 }
+    },
+    {
+      "id": "canalizar-divindade-radiacao-do-amanhecer",
+      "name": "Canalizar Divindade: Radiação do Amanhecer",
+      "level": 2,
+      "kind": "other",
+      "description": "Com uma ação, dissipa escuridão mágica a até 9 m e causa 2d10 + nível de clérigo de dano radiante a inimigos próximos (Constituição reduz à metade).",
+      "source": { "book": "LdJ", "page": 69 }
+    },
+    {
+      "id": "labareda-aprimorada",
+      "name": "Labareda Aprimorada",
+      "level": 6,
+      "kind": "other",
+      "description": "Você também pode usar Labareda Protetora quando uma criatura a até 9 m ataca outra criatura que não seja você.",
+      "source": { "book": "LdJ", "page": 69 }
+    },
+    {
+      "id": "conjuracao-poderosa-luz",
+      "name": "Conjuração Poderosa",
+      "level": 8,
+      "kind": "other",
+      "description": "Você soma seu modificador de Sabedoria ao dano de qualquer truque de clérigo.",
+      "source": { "book": "LdJ", "page": 69 }
+    },
+    {
+      "id": "coroa-de-luz",
+      "name": "Coroa de Luz",
+      "level": 17,
+      "kind": "other",
+      "description": "Com uma ação, ativa uma aura de luz solar por 1 minuto (luz plena de 18 m): seus inimigos nela têm desvantagem em salvaguardas contra suas magias de fogo ou radiante.",
+      "source": { "book": "LdJ", "page": 69 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 68 }
+}

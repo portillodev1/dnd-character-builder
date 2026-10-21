@@ -1,0 +1,77 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "natureza",
+  "classId": "clerigo",
+  "name": "Domínio da Natureza",
+  "summary": "Clérigo da natureza: usa armadura pesada, aprende magia de druida e enfeitiça e comanda bestas e plantas.",
+  "srd": false,
+  "choices": [
+    {
+      "id": "natureza-pericia",
+      "name": "Acólito da Natureza: perícia",
+      "count": 1,
+      "from": ["skill:lidar-com-animais", "skill:natureza", "skill:sobrevivencia"],
+      "bonusType": "proficiency",
+      "source": { "book": "LdJ", "page": 69 }
+    }
+  ],
+  "features": [
+    {
+      "id": "magias-do-dominio-da-natureza",
+      "name": "Magias do Domínio da Natureza",
+      "level": 1,
+      "kind": "spell",
+      "description": "Magias sempre preparadas: amizade animal e falar com animais (1º); pele de árvore e crescer espinhos (3º); ampliar plantas e muralha de vento (5º); dominar besta e vinha esmagadora (7º); praga de insetos e caminhar em árvores (9º).",
+      "source": { "book": "LdJ", "page": 69 }
+    },
+    {
+      "id": "acolito-da-natureza",
+      "name": "Acólito da Natureza",
+      "level": 1,
+      "kind": "proficiency",
+      "description": "Você aprende um truque de druida e ganha proficiência em uma perícia entre Adestrar Animais, Natureza e Sobrevivência.",
+      "source": { "book": "LdJ", "page": 69 }
+    },
+    {
+      "id": "proficiencia-adicional-natureza",
+      "name": "Proficiência Adicional",
+      "level": 1,
+      "kind": "proficiency",
+      "description": "Você ganha proficiência com armaduras pesadas.",
+      "source": { "book": "LdJ", "page": 69 }
+    },
+    {
+      "id": "canalizar-divindade-enfeiticar-animais-e-plantas",
+      "name": "Canalizar Divindade: Enfeitiçar Animais e Plantas",
+      "level": 2,
+      "kind": "other",
+      "description": "Com uma ação, bestas e criaturas-planta a até 9 m que falhem numa salvaguarda de Sabedoria ficam enfeitiçadas e amistosas por 1 minuto, ou até sofrerem dano.",
+      "source": { "book": "LdJ", "page": 69 }
+    },
+    {
+      "id": "amortecer-elementos",
+      "name": "Amortecer Elementos",
+      "level": 6,
+      "kind": "other",
+      "description": "Com a reação, você ou uma criatura a até 9 m ganha resistência ao dano de ácido, frio, fogo, elétrico ou trovejante que acabou de sofrer.",
+      "source": { "book": "LdJ", "page": 69 }
+    },
+    {
+      "id": "golpe-divino",
+      "name": "Golpe Divino",
+      "level": 8,
+      "kind": "other",
+      "description": "Uma vez por turno, um ataque com arma que acerta causa 1d8 extra de dano de frio, fogo ou elétrico, à sua escolha (2d8 a partir do nível 14).",
+      "source": { "book": "LdJ", "page": 69 }
+    },
+    {
+      "id": "senhor-da-natureza",
+      "name": "Senhor da Natureza",
+      "level": 17,
+      "kind": "other",
+      "description": "Com uma ação bônus, você manda no próximo turno de cada criatura que Enfeitiçar Animais e Plantas deixou enfeitiçada.",
+      "source": { "book": "LdJ", "page": 69 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 69 }
+}

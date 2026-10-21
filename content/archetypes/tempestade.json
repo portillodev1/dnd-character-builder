@@ -1,0 +1,67 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "tempestade",
+  "classId": "clerigo",
+  "name": "Domínio da Tempestade",
+  "summary": "Clérigo da tormenta: devolve ataques com raios e trovões, maximiza o dano elétrico e acaba voando.",
+  "srd": false,
+  "features": [
+    {
+      "id": "magias-do-dominio-da-tempestade",
+      "name": "Magias do Domínio da Tempestade",
+      "level": 1,
+      "kind": "spell",
+      "description": "Magias sempre preparadas: névoa obscurecente e onda trovejante (1º); lufada de vento e despedaçar (3º); convocar relâmpagos e nevasca (5º); controlar a água e tempestade de gelo (7º); onda destrutiva e praga de insetos (9º).",
+      "source": { "book": "LdJ", "page": 70 }
+    },
+    {
+      "id": "proficiencia-adicional-tempestade",
+      "name": "Proficiência Adicional",
+      "level": 1,
+      "kind": "proficiency",
+      "description": "Você ganha proficiência em armas marciais e armaduras pesadas.",
+      "source": { "book": "LdJ", "page": 70 }
+    },
+    {
+      "id": "ira-da-tormenta",
+      "name": "Ira da Tormenta",
+      "level": 1,
+      "kind": "other",
+      "description": "Quando uma criatura a 1,5 m acerta você, use a reação para ela fazer salvaguarda de Destreza: falhando, sofre 2d8 de dano elétrico ou trovejante (metade se passar). Usos por descanso longo: seu modificador de Sabedoria (mínimo 1).",
+      "source": { "book": "LdJ", "page": 70 }
+    },
+    {
+      "id": "canalizar-divindade-ira-destruidora",
+      "name": "Canalizar Divindade: Ira Destruidora",
+      "level": 2,
+      "kind": "other",
+      "description": "Ao rolar dano elétrico ou trovejante, você pode usar Canalizar Divindade para causar o dano máximo, sem rolar.",
+      "source": { "book": "LdJ", "page": 70 }
+    },
+    {
+      "id": "golpe-de-relampago",
+      "name": "Golpe de Relâmpago",
+      "level": 6,
+      "kind": "other",
+      "description": "Ao causar dano elétrico a uma criatura Grande ou menor, você também pode empurrá-la até 3 m para longe de você.",
+      "source": { "book": "LdJ", "page": 70 }
+    },
+    {
+      "id": "golpe-divino",
+      "name": "Golpe Divino",
+      "level": 8,
+      "kind": "other",
+      "description": "Uma vez por turno, um ataque com arma que acerta causa 1d8 de dano trovejante extra (2d8 a partir do nível 14).",
+      "source": { "book": "LdJ", "page": 70 }
+    },
+    {
+      "id": "filho-da-tormenta",
+      "name": "Filho da Tormenta",
+      "level": 17,
+      "kind": "other",
+      "description": "Você ganha deslocamento de voo igual ao deslocamento de caminhada, desde que não esteja no subterrâneo nem em local fechado.",
+      "source": { "book": "LdJ", "page": 70 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 69 }
+}

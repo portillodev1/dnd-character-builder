@@ -1,0 +1,51 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "encantamento",
+  "classId": "mago",
+  "name": "Escola de Encantamento",
+  "summary": "Mago sedutor: enfeitiça com o olhar, desvia ataques para outros alvos e apaga memórias.",
+  "srd": false,
+  "features": [
+    {
+      "id": "encantamento-instruido",
+      "name": "Encantamento Instruído",
+      "level": 2,
+      "kind": "other",
+      "description": "Copiar magias de encantamento para o seu grimório custa metade do tempo e do ouro.",
+      "source": { "book": "LdJ", "page": 99 }
+    },
+    {
+      "id": "olhar-hipnotizante",
+      "name": "Olhar Hipnotizante",
+      "level": 2,
+      "kind": "other",
+      "description": "Com uma ação, uma criatura a 1,5 m que falhe numa salvaguarda de Sabedoria fica enfeitiçada, incapacitada e com deslocamento 0 até o fim do seu próximo turno. Você mantém o efeito com a ação nos turnos seguintes.",
+      "source": { "book": "LdJ", "page": 99 }
+    },
+    {
+      "id": "encanto-instintivo",
+      "name": "Encanto Instintivo",
+      "level": 6,
+      "kind": "other",
+      "description": "Com a reação, desvia o ataque de uma criatura a até 9 m para outra criatura ao alcance dela, se ela falhar numa salvaguarda de Sabedoria.",
+      "source": { "book": "LdJ", "page": 99 }
+    },
+    {
+      "id": "dividir-encantamento",
+      "name": "Dividir Encantamento",
+      "level": 10,
+      "kind": "other",
+      "description": "Uma magia de encantamento de 1º nível ou mais com um único alvo pode afetar uma segunda criatura.",
+      "source": { "book": "LdJ", "page": 99 }
+    },
+    {
+      "id": "alterar-memorias",
+      "name": "Alterar Memórias",
+      "level": 14,
+      "kind": "other",
+      "description": "Quem você enfeitiça não percebe, e depois você pode fazê-lo esquecer parte do tempo enfeitiçado (salvaguarda de Inteligência).",
+      "source": { "book": "LdJ", "page": 99 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 99 }
+}

@@ -7,7 +7,8 @@ Fonte única de estado e handoff entre áreas (Harness → Spec → Loop). Leia 
   aguardando revisão humana. C: escopo decidido (T11, ADR-0011: todos os 41 arquétipos do LdJ, em fatias por classe);
   F12 `class-archetypes`: contrato `draft.archetype` aprovado e back-end pronto (T13; Campeão e
   Linhagem Dracônica como dados-piloto). Front pronto (T14): escolha no passo Classe e "Meus bônus". Dados: T15 feita (12 arquétipos do SRD, 1 por classe, todas as classes escolhíveis);
-  falta a T16 (os 29 fora do SRD, em fatias por classe).
+  T16 (29 fora do SRD, por fatias): fatia 2 feita (Clérigo e Mago completos, 13 arquétipos); faltam as
+  fatias 3 (6) e 4 (10).
 - **Última unidade**: **Fase 8 aprovada** (2026-10-21) e limpa — spec F10 permanece;
   `tasks-fase-8.md` apagado. Commits: spec `ed4b2df`, implementação `30204f1`.
 - **Fase 7 (anterior)**: aprovada (2026-10-21); F6 `6fa259a`, F7 `027d66e`, F8 `e49f055`, F9 `2f088fe`.

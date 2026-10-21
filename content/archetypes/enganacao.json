@@ -1,0 +1,59 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "enganacao",
+  "classId": "clerigo",
+  "name": "Domínio da Enganação",
+  "summary": "Clérigo trapaceiro: cria cópias ilusórias, fica invisível e ajuda aliados a se esgueirar.",
+  "srd": false,
+  "features": [
+    {
+      "id": "magias-do-dominio-da-enganacao",
+      "name": "Magias do Domínio da Enganação",
+      "level": 1,
+      "kind": "spell",
+      "description": "Magias sempre preparadas: enfeitiçar pessoa e disfarçar-se (1º); reflexos e passos sem pegadas (3º); piscar e dissipar magia (5º); porta dimensional e metamorfose (7º); dominar pessoa e modificar memória (9º).",
+      "source": { "book": "LdJ", "page": 67 }
+    },
+    {
+      "id": "bencao-do-trapaceiro",
+      "name": "Bênção do Trapaceiro",
+      "level": 1,
+      "kind": "advantage",
+      "description": "Com uma ação, toque uma criatura voluntária (que não seja você) para dar a ela vantagem em Furtividade por 1 hora ou até usar a bênção de novo.",
+      "source": { "book": "LdJ", "page": 67 }
+    },
+    {
+      "id": "canalizar-divindade-invocar-duplicidade",
+      "name": "Canalizar Divindade: Invocar Duplicidade",
+      "level": 2,
+      "kind": "other",
+      "description": "Cria uma cópia ilusória sua por 1 minuto (concentração), que você move 9 m com ação bônus e de onde pode lançar magias. Quando você e a cópia estão a 1,5 m de uma criatura, você tem vantagem nos ataques contra ela.",
+      "source": { "book": "LdJ", "page": 68 }
+    },
+    {
+      "id": "canalizar-divindade-manto-de-sombras",
+      "name": "Canalizar Divindade: Manto de Sombras",
+      "level": 6,
+      "kind": "other",
+      "description": "Com uma ação, você fica invisível até o fim do seu próximo turno, ou até atacar ou lançar uma magia.",
+      "source": { "book": "LdJ", "page": 68 }
+    },
+    {
+      "id": "golpe-divino",
+      "name": "Golpe Divino",
+      "level": 8,
+      "kind": "other",
+      "description": "Uma vez por turno, um ataque com arma que acerta causa 1d8 de dano de veneno extra (2d8 a partir do nível 14).",
+      "source": { "book": "LdJ", "page": 68 }
+    },
+    {
+      "id": "duplicidade-aprimorada",
+      "name": "Duplicidade Aprimorada",
+      "level": 17,
+      "kind": "other",
+      "description": "Ao usar Invocar Duplicidade, você cria até quatro cópias em vez de uma, e move quantas quiser com a ação bônus.",
+      "source": { "book": "LdJ", "page": 68 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 67 }
+}

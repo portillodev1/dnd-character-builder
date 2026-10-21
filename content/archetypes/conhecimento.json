@@ -1,0 +1,77 @@
+{
+  "$schema": "../schemas/archetype.schema.json",
+  "id": "conhecimento",
+  "classId": "clerigo",
+  "name": "Domínio do Conhecimento",
+  "summary": "Clérigo erudito: aprende idiomas e perícias de saber, lê pensamentos e enxerga o passado de objetos e lugares.",
+  "srd": false,
+  "choices": [
+    {
+      "id": "conhecimento-idiomas",
+      "name": "Bênçãos do Conhecimento: idiomas",
+      "count": 2,
+      "from": ["Anão", "Élfico", "Gigante", "Gnômico", "Goblin", "Halfling", "Orc", "Abissal", "Celestial", "Dracônico", "Dialeto Subterrâneo", "Infernal", "Primordial", "Silvestre", "Subcomum"],
+      "kind": "language",
+      "source": { "book": "LdJ", "page": 66 }
+    },
+    {
+      "id": "conhecimento-pericias",
+      "name": "Bênçãos do Conhecimento: perícias",
+      "count": 2,
+      "from": ["skill:arcanismo", "skill:historia", "skill:natureza", "skill:religiao"],
+      "bonusType": "proficiency",
+      "source": { "book": "LdJ", "page": 66 }
+    }
+  ],
+  "features": [
+    {
+      "id": "magias-do-dominio-do-conhecimento",
+      "name": "Magias do Domínio do Conhecimento",
+      "level": 1,
+      "kind": "spell",
+      "description": "Magias sempre preparadas: comando e identificação (1º); augúrio e sugestão (3º); dificultar detecção e falar com os mortos (5º); olho arcano e confusão (7º); conhecimento lendário e vidência (9º).",
+      "source": { "book": "LdJ", "page": 66 }
+    },
+    {
+      "id": "bencaos-do-conhecimento",
+      "name": "Bênçãos do Conhecimento",
+      "level": 1,
+      "kind": "proficiency",
+      "description": "Você aprende dois idiomas e ganha proficiência em duas perícias entre Arcanismo, História, Natureza e Religião. O seu bônus de proficiência é dobrado nessas duas perícias.",
+      "source": { "book": "LdJ", "page": 66 }
+    },
+    {
+      "id": "canalizar-divindade-conhecimento-das-eras",
+      "name": "Canalizar Divindade: Conhecimento das Eras",
+      "level": 2,
+      "kind": "other",
+      "description": "Com uma ação, escolha uma perícia ou ferramenta: por 10 minutos você tem proficiência nela.",
+      "source": { "book": "LdJ", "page": 66 }
+    },
+    {
+      "id": "canalizar-divindade-ler-pensamentos",
+      "name": "Canalizar Divindade: Ler Pensamentos",
+      "level": 6,
+      "kind": "other",
+      "description": "Uma criatura a até 18 m que falhe numa salvaguarda de Sabedoria tem os pensamentos lidos por 1 minuto. Nesse tempo, você pode gastar a ação para lançar sugestão nela sem gastar espaço de magia, e ela falha automaticamente.",
+      "source": { "book": "LdJ", "page": 67 }
+    },
+    {
+      "id": "conjuracao-poderosa",
+      "name": "Conjuração Poderosa",
+      "level": 8,
+      "kind": "other",
+      "description": "Você soma seu modificador de Sabedoria ao dano de qualquer truque de clérigo.",
+      "source": { "book": "LdJ", "page": 67 }
+    },
+    {
+      "id": "visoes-do-passado",
+      "name": "Visões do Passado",
+      "level": 17,
+      "kind": "other",
+      "description": "Meditando por 1 minuto ou mais, você recebe visões dos eventos recentes de um objeto que segura (Leitura de Objeto) ou do local ao redor (Leitura Local), voltando um número de dias igual ao seu valor de Sabedoria. Recarrega num descanso curto ou longo.",
+      "source": { "book": "LdJ", "page": 67 }
+    }
+  ],
+  "source": { "book": "LdJ", "page": 66 }
+}

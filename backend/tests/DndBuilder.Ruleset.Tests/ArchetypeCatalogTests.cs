@@ -28,6 +28,17 @@ public class ArchetypeCatalogTests
             string.Join(' ', Loaded.Classes.OrderBy(c => c.Id, StringComparer.Ordinal)
                 .SelectMany(c => c.Archetypes.Where(a => a.Srd).Select(a => $"{c.Id}:{a.Id}"))));
 
+    [Fact] // ADR-0011, fatia 2: Clérigo (7 domínios) e Mago (8 escolas) completos, com os não-SRD marcados srd:false
+    public void Catalog_ClericAndWizard_AreComplete()
+    {
+        string Of(string classId) => string.Join(' ', Loaded.Classes.Single(c => c.Id == classId).Archetypes
+            .OrderBy(a => a.Id, StringComparer.Ordinal).Select(a => $"{a.Id}{(a.Srd ? "*" : string.Empty)}"));
+        Assert.Equal(
+            ["conhecimento enganacao guerra luz natureza tempestade vida*",
+             "abjuracao adivinhacao conjuracao encantamento escola-de-evocacao* ilusao necromancia transmutacao"],
+            [Of("clerigo"), Of("mago")]);
+    }
+
     [Fact] // toda característica de arquétipo cita página do capítulo de classes (LdJ p. 45–122)
     public void Features_EveryArchetype_CitePagesFromTheClassChapter()
         => Assert.All(
